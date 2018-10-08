@@ -1,0 +1,19 @@
+# Maven build target folders
+target/
+# Java classpaths (automatically generated)
+.classpath
+# Visiual studio code local changes
+.vscode/
+# Eclipse data
+.project
+.settings/
+.metadata/
+# IdeaJ
+**/*.iml
+.recommenders/
+.idea/**
+**/.idea/**
+.settings
+**/.settings/**
+**/.project
+**/.classpath
