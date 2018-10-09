@@ -5,7 +5,6 @@ package com.servlets;
 
 import com.cloud.APIClient;
 import com.google.gson.JsonObject;
-import com.models.representation.ApiResponse;
 import com.models.representation.BookOnParameters;
 import org.restlet.engine.util.StringUtils;
 import org.slf4j.Logger;
@@ -20,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.constants.InterfaceConstants.ACCESS_TOKEN;
 import static com.constants.InterfaceConstants.BOOK_ON_REQUEST_TYPE;
 import static com.constants.InterfaceConstants.REQUEST_TYPE;
 
@@ -27,22 +27,26 @@ import static com.constants.InterfaceConstants.REQUEST_TYPE;
 public class BookOnServlet extends HttpServlet {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BookOnServlet.class);
+	private final APIClient client = new APIClient();
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String token = request.getHeader("accessToken");
-
+		String token = request.getHeader(ACCESS_TOKEN);
 		if (!StringUtils.isNullOrEmpty(token)) {
 			JsonObject json = CadCloudUtils.extractPayloadFromHttpRequest(request);
 			if (json.get(REQUEST_TYPE) != null && BOOK_ON_REQUEST_TYPE.equals(json.get(REQUEST_TYPE).getAsString())) {
-				APIClient client = new APIClient();
 				client.getConfig().getSecurityConfig().configureAuthApi_key(token);
-
 				BookOnParameters bookOnParameters = CadCloudTranslator.translateBookOn(json);
-				//TODO: write response to the on-premise adapter
-				//ApiResponse apiResponse = client.userSession().bookOn(bookOnParameters);
-				//response.getOutputStream().write(apiResponse.toString().getBytes());
-				response.getOutputStream().write("OK".getBytes());
+				if (bookOnParameters != null) {
+					//TODO: write response to the on-premise adapter
+					//ApiResponse apiResponse = client.userSession().bookOn(bookOnParameters);
+					//response.getOutputStream().write(apiResponse.toString().getBytes());
+					response.getOutputStream().write("OK".getBytes());
+				}
+				else {
+					LOGGER.error("Failed to translate payload to the BookOnParameters model.");
+					response.getOutputStream().write("Failed to translate payload to the BookOnParameters model.".getBytes());
+				}
 			}
 			else {
 				LOGGER.error("Wrong request type.");

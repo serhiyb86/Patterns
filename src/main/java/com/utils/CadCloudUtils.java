@@ -20,6 +20,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public class CadCloudUtils {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CadCloudUtils.class);
+	private static final JsonParser jsonParser = new JsonParser();
 
 	public static final JsonObject extractPayloadFromHttpRequest(HttpServletRequest request) {
 		StringWriter responseWriter = new StringWriter();
@@ -29,6 +30,6 @@ public class CadCloudUtils {
 		catch (IOException e) {
 			LOGGER.error("Error has happen during receiving the payload: {}", e);
 		}
-		return new JsonParser().parse(responseWriter.toString()).getAsJsonObject();
+		return jsonParser.parse(responseWriter.toString()).getAsJsonObject();
 	}
 }

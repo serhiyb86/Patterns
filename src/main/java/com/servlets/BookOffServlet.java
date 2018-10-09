@@ -27,18 +27,15 @@ import static com.constants.InterfaceConstants.SESSION_ID;
 public class BookOffServlet extends HttpServlet {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BookOffServlet.class);
+	private final APIClient client = new APIClient();
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String token = request.getParameter(ACCESS_TOKEN);
-
 		if (!StringUtils.isNullOrEmpty(token)) {
 			JsonObject json = CadCloudUtils.extractPayloadFromHttpRequest(request);
 			if (json.get(REQUEST_TYPE) != null && BOOK_OFF_REQUEST_TYPE.equals(json.get(REQUEST_TYPE).getAsString())) {
-				APIClient client = new APIClient();
 				client.getConfig().getSecurityConfig().getClientFactory().builder().withOAuth2(token);
-
-
 				//TODO: write response to the on-premise adapter
 				//ApiResponse apiResponse = client.userSessionSessionId(json.get(SESSION_ID).getAsString()).bookOff();
 				//response.getOutputStream().write(apiResponse.toString().getBytes());
@@ -54,6 +51,5 @@ public class BookOffServlet extends HttpServlet {
 			response.getOutputStream().write("Token is required.".getBytes());
 			return;
 		}
-
 	}
 }

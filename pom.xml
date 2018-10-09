@@ -28,6 +28,8 @@
         <version.org.fasterxml>2.9.7</version.org.fasterxml>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.restlet>2.3.5</version.restlet>
+        <version.com.google.code.gson>2.8.5</version.com.google.code.gson>
+        <version.commons.io>2.6</version.commons.io>
     </properties>
 
     <repositories>
@@ -79,12 +81,12 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.6</version>
+            <version>${version.commons.io}</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.8.5</version>
+            <version>${version.com.google.code.gson}</version>
         </dependency>
     </dependencies>
 </project>

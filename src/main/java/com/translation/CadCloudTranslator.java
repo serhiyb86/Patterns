@@ -14,7 +14,14 @@ import com.models.representation.Lookup;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.constants.InterfaceConstants.ADDITIONAL_INFO;
+import static com.constants.InterfaceConstants.DEVICE_ID;
+import static com.constants.InterfaceConstants.IS_REMOVE_PREV_SESSION;
+import static com.constants.InterfaceConstants.IS_USE_UNIT_PREASSIGNMENTS;
 import static com.constants.InterfaceConstants.REQUEST_PARAMETERS;
+import static com.constants.InterfaceConstants.ROLE_KEY;
+import static com.constants.InterfaceConstants.STATION;
+import static com.constants.InterfaceConstants.USER_ID;
 
 /**
  * Translator from the on-premise format to the cloud api models
@@ -26,19 +33,19 @@ public class CadCloudTranslator {
 			//TODO translation logic must be here, this is preliminary code
 			BookOnParameters bookOn = new BookOnParameters();
 			JsonObject requestParameters = payload.get(REQUEST_PARAMETERS).getAsJsonObject();
-			bookOn.setDeviceId(requestParameters.get("deviceId").getAsString());
-			bookOn.setIsRemovePrevSession(requestParameters.get("isRemovePrevSession").getAsBoolean());
-			bookOn.setIsUseUnitPreassignments(requestParameters.get("isUseUnitPreassignments").getAsBoolean());
-			bookOn.setRoleKey(requestParameters.get("roleKey").getAsString());
-			bookOn.setUserId(requestParameters.get("userId").getAsString());
+			bookOn.setDeviceId(requestParameters.get(DEVICE_ID).getAsString());
+			bookOn.setIsRemovePrevSession(requestParameters.get(IS_REMOVE_PREV_SESSION).getAsBoolean());
+			bookOn.setIsUseUnitPreassignments(requestParameters.get(IS_USE_UNIT_PREASSIGNMENTS).getAsBoolean());
+			bookOn.setRoleKey(requestParameters.get(ROLE_KEY).getAsString());
+			bookOn.setUserId(requestParameters.get(USER_ID).getAsString());
 
-			if(requestParameters.get("additionalInfo") != null) {
-				JsonArray additionalInfo = requestParameters.get("additionalInfo").getAsJsonArray();
+			if(requestParameters.get(ADDITIONAL_INFO) != null) {
+				JsonArray additionalInfo = requestParameters.get(ADDITIONAL_INFO).getAsJsonArray();
 				List<AdditionalInfo> additionalInfoList = new ArrayList<>();
 				for (JsonElement element : additionalInfo) {
 					AdditionalInfo info = new AdditionalInfo();
 					Lookup station = new Lookup();
-					station.setUid(element.getAsJsonObject().get("station").getAsString());
+					station.setUid(element.getAsJsonObject().get(STATION).getAsString());
 					info.setStation(station);
 					//info.setUnit();
 					//info.setVehicleId();
