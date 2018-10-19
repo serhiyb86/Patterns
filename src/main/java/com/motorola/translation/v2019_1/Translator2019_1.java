@@ -14,7 +14,6 @@ import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.UnitHandle;
 import com.motorola.models.representation.UserSession;
 import com.motorola.translation.BaseTranslator;
-import netscape.javascript.JSObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +33,6 @@ public class Translator2019_1 implements BaseTranslator {
 	@Override
 	public UserSession translateBookOn(JsonObject payload) {
 		UserSession userSession = new UserSession();
-
 		// transform customer_id
 		if (payload.get(InterfaceConstants.CUSTOMER_ID) != null) {
 			userSession.setCustomerId(payload.get(InterfaceConstants.CUSTOMER_ID).getAsString());
@@ -44,7 +42,6 @@ public class Translator2019_1 implements BaseTranslator {
 		if (payload.get(InterfaceConstants.SESSION_ID) != null) {
 			userSession.setSessionId(payload.get(InterfaceConstants.SESSION_ID).getAsString());
 		}
-
 		// transform creation date
 		if (payload.get(InterfaceConstants.WHEN_SUBMITTED) != null) {
 			try {
@@ -119,6 +116,41 @@ public class Translator2019_1 implements BaseTranslator {
 						jurisdictions.add(jurisdiction);
 					}
 					additionalInfo.setJurisdictions(jurisdictions);
+				}
+				// gets the District from addition object, translate to UserSession->AdditionalInfo->district field
+				if (additionInfoJSONObject.get(InterfaceConstants.DISTRICT_JSON_KEY) != null) {
+					Lookup districtLookup = new Lookup();
+					JsonObject districtJSON = additionInfoJSONObject.get(InterfaceConstants.DISTRICT_JSON_KEY).getAsJsonObject();
+					districtLookup.setUid(districtJSON.get(InterfaceConstants.UID_JSON_KEY).getAsString());
+					additionalInfo.setDistrict(districtLookup);
+				}
+
+				// gets the Station from addition object, translate to UserSession->AdditionalInfo->station field
+				if (additionInfoJSONObject.get(InterfaceConstants.STATION_JSON_KEY) != null) {
+					Lookup stationLookup = new Lookup();
+					JsonObject stationJSON = additionInfoJSONObject.get(InterfaceConstants.STATION_JSON_KEY).getAsJsonObject();
+					stationLookup.setUid(stationJSON.get(InterfaceConstants.UID_JSON_KEY).getAsString());
+					additionalInfo.setStation(stationLookup);
+				}
+
+				// gets the VehicleId from addition object, translate to UserSession->AdditionalInfo->vehicle field
+				if (additionInfoJSONObject.get(InterfaceConstants.VEHICLE_ID_JSON_KEY) != null) {
+					additionalInfo.setVehicleId(additionInfoJSONObject.get(InterfaceConstants.VEHICLE_ID_JSON_KEY).getAsString());
+				}
+
+				// gets trustedAgencies from addition object, translate to UserSession->AdditionalInfo->trustedAgencies field
+				if (additionInfoJSONObject.get(InterfaceConstants.TRUSTED_AGENCIES_JSON_KEY) != null) {
+					JsonArray trustedAgienciesJson = additionInfoJSONObject.get(InterfaceConstants.TRUSTED_AGENCIES_JSON_KEY).getAsJsonArray();
+					List<Lookup> trustedAgencies = new ArrayList<>();
+					for (JsonElement element : trustedAgienciesJson) {
+						JsonObject elementJSON = element.getAsJsonObject();
+						if (elementJSON.get(InterfaceConstants.UID_JSON_KEY) != null){
+							Lookup trustedAgency = new Lookup();
+							trustedAgency.setUid(elementJSON.get(InterfaceConstants.UID_JSON_KEY).getAsString());
+							trustedAgencies.add(trustedAgency);
+						}
+					}
+					additionalInfo.setTrustedAgencies(trustedAgencies);
 				}
 				userSession.setAdditionalInfo(additionalInfo);
 			}
