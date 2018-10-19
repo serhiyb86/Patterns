@@ -52,14 +52,6 @@ public class BookOnServlet extends HttpServlet {
 						LOGGER.error("Failed to translate payload to the UserSession model.");
 						response.getOutputStream().write("Failed to translate payload to the UserSession model.".getBytes());
 					}
-					if (sessionBean != null) {
-						ApiResponse apiResponse = client.responseUserSessionCorrelationId(sessionBean.getSessionId()).bookOnResponse(sessionBean);
-						response.getOutputStream().write(apiResponse.toString().getBytes());
-						response.getOutputStream().write("OK".getBytes());
-					} else {
-						LOGGER.error("Failed to translate payload to the SessionBean model.");
-						response.getOutputStream().write("Failed to translate payload to the SessionBean model.".getBytes());
-					}
 				} else {
 					response.getOutputStream().write(String.format("Spillman version: %s is missing or unknown.", spillmanVersion).getBytes());
 				}
