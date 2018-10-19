@@ -6,11 +6,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
+/**
+ * Response notification SB message
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
-public class MonitorAreaList extends ArrayList<MonitorArea> implements Serializable {
+public class ResponseNotification implements Serializable {
     /** Default serial version ID. */
     private static final long serialVersionUID = 1L;
 

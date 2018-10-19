@@ -4,14 +4,10 @@
 package com.motorola.cloud;
 
 import com.motorola.models.Config;
-import com.motorola.models.resource.client.IncidentIncidentKeyCommentClientResource;
-import com.motorola.models.resource.client.IncidentIncidentKeyDispatchesDispatchKeyUnitClientResource;
-import com.motorola.models.resource.client.IncidentKeysFindByCoverageAreasClientResource;
-import com.motorola.models.resource.client.UnitStatusClientResource;
-import com.motorola.models.resource.client.UnitUnitKeyClientResource;
-import com.motorola.models.resource.client.UserSessionClientResource;
-import com.motorola.models.resource.client.UserSessionSessionIdClientResource;
-import com.motorola.models.resource.client.UserSessionSessionIdMonitorAreasClientResource;
+import com.motorola.models.resource.client.PushIncidentClientResource;
+import com.motorola.models.resource.client.PushUnitClientResource;
+import com.motorola.models.resource.client.ResponseNotificationClientResource;
+import com.motorola.models.resource.client.ResponseUserSessionCorrelationIdClientResource;
 
 /**
  * Entry-point for API calls.
@@ -27,36 +23,20 @@ public class APIClient {
 		return config;
 	}
 
-	public IncidentIncidentKeyCommentClientResource incidentIncidentKeyComment(String incidentKey) {
-		return new IncidentIncidentKeyCommentClientResource(config, incidentKey);
+	public ResponseUserSessionCorrelationIdClientResource responseUserSessionCorrelationId(String correlationId) {
+		return new ResponseUserSessionCorrelationIdClientResource(config, correlationId);
 	}
 
-	public IncidentIncidentKeyDispatchesDispatchKeyUnitClientResource incidentIncidentKeyDispatchesDispatchKeyUnit(String incidentKey, String dispatchKey) {
-		return new IncidentIncidentKeyDispatchesDispatchKeyUnitClientResource(config, incidentKey, dispatchKey);
+	public ResponseNotificationClientResource responseNotification() {
+		return new ResponseNotificationClientResource(config);
 	}
 
-	public IncidentKeysFindByCoverageAreasClientResource incidentKeysFindByCoverageAreas() {
-		return new IncidentKeysFindByCoverageAreasClientResource(config);
+	public PushIncidentClientResource pushIncident() {
+		return new PushIncidentClientResource(config);
 	}
 
-	public UnitStatusClientResource unitStatus() {
-		return new UnitStatusClientResource(config);
-	}
-
-	public UnitUnitKeyClientResource unitUnitKey(String unitKey) {
-		return new UnitUnitKeyClientResource(config, unitKey);
-	}
-
-	public UserSessionClientResource userSession() {
-		return new UserSessionClientResource(config);
-	}
-
-	public UserSessionSessionIdClientResource userSessionSessionId(String sessionId) {
-		return new UserSessionSessionIdClientResource(config, sessionId);
-	}
-
-	public UserSessionSessionIdMonitorAreasClientResource userSessionSessionIdMonitorAreas(String sessionId) {
-		return new UserSessionSessionIdMonitorAreasClientResource(config, sessionId);
+	public PushUnitClientResource pushUnit() {
+		return new PushUnitClientResource(config);
 	}
 
 }

@@ -21,13 +21,15 @@ public class UserSession implements java.io.Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private java.lang.String sessionId;
+	private String customerId;
 
-	private java.lang.String userId;
+	private String sessionId;
 
-	private java.lang.String deviceId;
+	private String userId;
 
-	private java.lang.String roleKey;
+	private String deviceId;
+
+	private String roleKey;
 
 	private List<String> apiAccessList = new ArrayList<String>();
 
@@ -41,6 +43,20 @@ public class UserSession implements java.io.Serializable {
 
 	private Date whenSessionUpdated;
 
+	/**
+	 * Returns the value of property "customerId".
+	 *
+	 */
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	/**
+	 * Updates the value of property "customerId".
+	 */
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
 	/**
 	 * Returns the value of property "sessionId".
 	 *

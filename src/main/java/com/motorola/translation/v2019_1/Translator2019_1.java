@@ -9,11 +9,19 @@ import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.AdditionalInfo;
 import com.motorola.models.representation.BookOffParameters;
-import com.motorola.models.representation.BookOnParameters;
+import com.motorola.models.representation.Jurisdiction;
 import com.motorola.models.representation.Lookup;
+import com.motorola.models.representation.UnitHandle;
+import com.motorola.models.representation.UserSession;
 import com.motorola.translation.BaseTranslator;
+import netscape.javascript.JSObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,38 +29,102 @@ import java.util.List;
  */
 public class Translator2019_1 implements BaseTranslator {
 
-	@Override
-	public BookOnParameters translateBookOnParameters(JsonObject payload) {
-		if (payload.get(InterfaceConstants.REQUEST_PARAMETERS) != null) {
-			//TODO translation logic must be here, this is preliminary code
-			BookOnParameters bookOn = new BookOnParameters();
-			JsonObject requestParameters = payload.get(InterfaceConstants.REQUEST_PARAMETERS).getAsJsonObject();
-			bookOn.setDeviceId(requestParameters.get(InterfaceConstants.DEVICE_ID).getAsString());
-			bookOn.setIsRemovePrevSession(requestParameters.get(InterfaceConstants.IS_REMOVE_PREV_SESSION).getAsBoolean());
-			bookOn.setIsUseUnitPreassignments(requestParameters.get(InterfaceConstants.IS_USE_UNIT_PREASSIGNMENTS).getAsBoolean());
-			bookOn.setRoleKey(requestParameters.get(InterfaceConstants.ROLE_KEY).getAsString());
-			bookOn.setUserId(requestParameters.get(InterfaceConstants.USER_ID).getAsString());
+	private static final Logger LOGGER = LoggerFactory.getLogger(Translator2019_1.class);
 
-			if (requestParameters.get(InterfaceConstants.ADDITIONAL_INFO) != null) {
-				JsonArray additionalInfo = requestParameters.get(InterfaceConstants.ADDITIONAL_INFO).getAsJsonArray();
-				List<AdditionalInfo> additionalInfoList = new ArrayList<>();
-				for (JsonElement element : additionalInfo) {
-					AdditionalInfo info = new AdditionalInfo();
-					Lookup station = new Lookup();
-					station.setUid(element.getAsJsonObject().get(InterfaceConstants.STATION).getAsString());
-					info.setStation(station);
-					//info.setUnit();
-					//info.setVehicleId();
-					//info.setDistrict();
-					//info.setTrustedAgencies();
-					additionalInfoList.add(info);
-				}
-				bookOn.setAdditionalInfo(additionalInfoList);
+	@Override
+	public UserSession translateBookOn(JsonObject payload) {
+		UserSession userSession = new UserSession();
+
+		// transform customer_id
+		if (payload.get(InterfaceConstants.CUSTOMER_ID) != null) {
+			userSession.setCustomerId(payload.get(InterfaceConstants.CUSTOMER_ID).getAsString());
+		}
+
+		// transform session_id
+		if (payload.get(InterfaceConstants.SESSION_ID) != null) {
+			userSession.setSessionId(payload.get(InterfaceConstants.SESSION_ID).getAsString());
+		}
+
+		// transform creation date
+		if (payload.get(InterfaceConstants.WHEN_SUBMITTED) != null) {
+			try {
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+				String submitDateStr = payload.get(InterfaceConstants.WHEN_SUBMITTED).getAsString();
+				Date submitDate = formatter.parse(submitDateStr);
+				userSession.setWhenSessionCreated(submitDate);
+			}
+			catch (ParseException e) {
+				LOGGER.error("Failed to parse submitted date.");
+			}
+		}
+
+		// transform request parameters
+		if (payload.get(InterfaceConstants.REQUEST_PARAMETERS) != null) {
+			JsonObject requestParameters = payload.get(InterfaceConstants.REQUEST_PARAMETERS).getAsJsonObject();
+			// parse and transform userID, using user JSON object
+			if (requestParameters.get(InterfaceConstants.USER_JSON_KEY) != null) {
+				JsonObject userJSONObject = requestParameters.get(InterfaceConstants.USER_JSON_KEY).getAsJsonObject();
+				userSession.setUserId(userJSONObject.get(InterfaceConstants.JSON_KEY).getAsString());
 			}
 
-			return bookOn;
+			// parse and transform devicesID
+			if (requestParameters.get(InterfaceConstants.DEVICE_JSON_KEY) != null) {
+				JsonObject deviceJSONObject = requestParameters.get(InterfaceConstants.DEVICE_JSON_KEY).getAsJsonObject();
+				userSession.setDeviceId(deviceJSONObject.get(InterfaceConstants.JSON_KEY).getAsString());
+			}
+
+			// parse and translate addition information
+			if (requestParameters.get(InterfaceConstants.ADDITIONAL_INFO_JSON_KEY) != null) {
+				AdditionalInfo additionalInfo = new AdditionalInfo();
+				JsonObject additionInfoJSONObject = requestParameters.get(InterfaceConstants.ADDITIONAL_INFO_JSON_KEY).getAsJsonObject();
+				// gets the Unit info from addition object, translate to UserSession->AdditionalInfo->UnitHandle object fields
+				if (additionInfoJSONObject.get(InterfaceConstants.UNIT_JSON_KEY) != null) {
+					UnitHandle unitHandler = new UnitHandle();
+					JsonObject unitJSONObject = additionInfoJSONObject.get(InterfaceConstants.UNIT_JSON_KEY).getAsJsonObject();
+					unitHandler.setKey(unitJSONObject.get(InterfaceConstants.JSON_KEY).getAsString());
+					unitHandler.setAgency(unitJSONObject.get(InterfaceConstants.AGENCY_JSON_KEY).getAsString());
+					unitHandler.setCallSign(unitJSONObject.get(InterfaceConstants.CALL_SIGN_JSON_KEY).getAsString());
+					unitHandler.setShiftId(unitJSONObject.get(InterfaceConstants.SHIFT_ID_JSON_KEY).getAsString());
+					additionalInfo.setUnit(unitHandler);
+				}
+				// gets the Jurisdictions from addition object, translate to UserSession->AdditionalInfo-> List<Jurisdiction>
+				if (additionInfoJSONObject.get(InterfaceConstants.JURISDICTIONS_JSON_KEY) != null) {
+					//gets the array of Jurisdictions json array
+					JsonArray jurisdictionsJSONArray = additionInfoJSONObject.get(InterfaceConstants.JURISDICTIONS_JSON_KEY).getAsJsonArray();
+					List<Jurisdiction> jurisdictions = new ArrayList<>();
+					for (JsonElement element : jurisdictionsJSONArray) {
+						JsonObject elementJSON = element.getAsJsonObject();
+						Jurisdiction jurisdiction = new Jurisdiction();
+						//area
+						if (elementJSON.get(InterfaceConstants.AREA_JSON_KEY) != null) {
+							JsonObject areaJSON = elementJSON.get(InterfaceConstants.AREA_JSON_KEY).getAsJsonObject();
+							Lookup areaLookup = new Lookup();
+							areaLookup.setUid(areaJSON.get(InterfaceConstants.UID_JSON_KEY).getAsString());
+							jurisdiction.setArea(areaLookup);
+						}
+						//sector
+						if (elementJSON.get(InterfaceConstants.SECTOR_JSON_KEY) != null) {
+							JsonObject sectorJSON = elementJSON.get(InterfaceConstants.SECTOR_JSON_KEY).getAsJsonObject();
+							Lookup sectorLookup = new Lookup();
+							sectorLookup.setUid(sectorJSON.get(InterfaceConstants.UID_JSON_KEY).getAsString());
+							jurisdiction.setSector(sectorLookup);
+						}
+						//zone
+						if (elementJSON.get(InterfaceConstants.ZONE_JSON_KEY) != null) {
+							JsonObject zoneJSON = elementJSON.get(InterfaceConstants.ZONE_JSON_KEY).getAsJsonObject();
+							Lookup zoneLookup = new Lookup();
+							zoneLookup.setUid(zoneJSON.get(InterfaceConstants.UID_JSON_KEY).getAsString());
+							jurisdiction.setZone(zoneLookup);
+						}
+						jurisdictions.add(jurisdiction);
+					}
+					additionalInfo.setJurisdictions(jurisdictions);
+				}
+				userSession.setAdditionalInfo(additionalInfo);
+			}
 		}
-		return null;
+
+		return userSession;
 	}
 
 	@Override public BookOffParameters translateBookOffParameters(JsonObject payload) {
