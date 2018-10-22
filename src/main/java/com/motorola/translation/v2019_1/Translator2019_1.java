@@ -11,6 +11,7 @@ import com.motorola.models.representation.AdditionalInfo;
 import com.motorola.models.representation.BookOffParameters;
 import com.motorola.models.representation.Jurisdiction;
 import com.motorola.models.representation.Lookup;
+import com.motorola.models.representation.ResponseNotification;
 import com.motorola.models.representation.UnitHandle;
 import com.motorola.models.representation.UserSession;
 import com.motorola.models.representation.UserSessionWrapper;
@@ -167,8 +168,8 @@ public class Translator2019_1 implements BaseTranslator {
 		return result;
 	}
 
-	@Override public BookOffParameters translateBookOffParameters(JsonObject payload) {
+	@Override public ResponseNotification translateBookOff(JsonObject payload) {
 		//TODO translation logic must be here
-		return new BookOffParameters();
+		return new ResponseNotification();
 	}
 }

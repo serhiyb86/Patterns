@@ -54,8 +54,8 @@ public class BookOnServlet extends HttpServlet {
 						response.getOutputStream().write(outgoingModel.getBytes());
 					}
 					else {
-						LOGGER.error("Failed to translate payload to the UserSession model.");
-						response.getOutputStream().write("Failed to translate payload to the UserSession model.".getBytes());
+						LOGGER.error("Failed to translate payload to the UserSession model, failed to perform the BookOn request, failed get correlationId");
+						response.getOutputStream().write("Failed to translate payload to the UserSession model, failed to perform the BookOn request, failed get correlationId".getBytes());
 					}
 				} else {
 					response.getOutputStream().write(String.format("Spillman version: %s is missing or unknown.", spillmanVersion).getBytes());
