@@ -3,6 +3,7 @@
  */
 package com.motorola.servlets;
 
+import com.google.gson.Gson;
 import com.motorola.cloud.APIClient;
 import com.google.gson.JsonObject;
 import com.motorola.models.representation.ApiResponse;
@@ -44,9 +45,12 @@ public class BookOnServlet extends HttpServlet {
 				if (translator != null) {
 					UserSession sessionBean = translator.translateBookOn(json);
 					if (sessionBean != null) {
-						ApiResponse apiResponse = client.responseUserSessionCorrelationId(sessionBean.getUserId()).bookOnResponse(sessionBean);
-						response.getOutputStream().write(apiResponse.toString().getBytes());
-						response.getOutputStream().write("OK".getBytes());
+						//ApiResponse apiResponse = client.responseUserSessionCorrelationId(sessionBean.getUserId()).bookOnResponse(sessionBean);
+						//response.getOutputStream().write(apiResponse.toString().getBytes());
+						// send also the model for reviewing on the interface side
+						Gson gson = new Gson();
+						String outgoingModel = gson.toJson(sessionBean);
+						response.getOutputStream().write(outgoingModel.getBytes());
 					}
 					else {
 						LOGGER.error("Failed to translate payload to the UserSession model.");
