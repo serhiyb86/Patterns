@@ -13,6 +13,7 @@ import com.motorola.models.representation.Jurisdiction;
 import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.UnitHandle;
 import com.motorola.models.representation.UserSession;
+import com.motorola.models.representation.UserSessionWrapper;
 import com.motorola.translation.BaseTranslator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,13 @@ public class Translator2019_1 implements BaseTranslator {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Translator2019_1.class);
 
 	@Override
-	public UserSession translateBookOn(JsonObject payload) {
+	public UserSessionWrapper translateBookOn(JsonObject payload) {
+		UserSessionWrapper result = new UserSessionWrapper();
+		// read the correlationId from incoming json
+		if (payload.get(InterfaceConstants.CORERELATION_ID) != null) {
+			result.setCorrelationId(payload.get(InterfaceConstants.CORERELATION_ID).getAsString());
+		}
+
 		UserSession userSession = new UserSession();
 		// transform customer_id
 		if (payload.get(InterfaceConstants.CUSTOMER_ID) != null) {
@@ -155,8 +162,9 @@ public class Translator2019_1 implements BaseTranslator {
 				userSession.setAdditionalInfo(additionalInfo);
 			}
 		}
+		result.setModel(userSession);
 
-		return userSession;
+		return result;
 	}
 
 	@Override public BookOffParameters translateBookOffParameters(JsonObject payload) {

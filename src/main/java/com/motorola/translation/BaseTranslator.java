@@ -5,14 +5,14 @@ package com.motorola.translation;
 
 import com.google.gson.JsonObject;
 import com.motorola.models.representation.BookOffParameters;
-import com.motorola.models.representation.UserSession;
+import com.motorola.models.representation.UserSessionWrapper;
 
 /**
  * Interface with common translation functions
  */
 public interface BaseTranslator {
 
-	UserSession translateBookOn(JsonObject payload);
+	UserSessionWrapper translateBookOn(JsonObject payload);
 
 	BookOffParameters translateBookOffParameters(JsonObject payload);
 }

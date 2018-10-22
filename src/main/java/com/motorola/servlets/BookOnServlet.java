@@ -8,6 +8,7 @@ import com.motorola.cloud.APIClient;
 import com.google.gson.JsonObject;
 import com.motorola.models.representation.ApiResponse;
 import com.motorola.models.representation.UserSession;
+import com.motorola.models.representation.UserSessionWrapper;
 import com.motorola.translation.BaseTranslator;
 import com.motorola.translation.TranslatorsFactory;
 import com.motorola.utils.CadCloudUtils;
@@ -43,13 +44,13 @@ public class BookOnServlet extends HttpServlet {
 				client.getConfig().getSecurityConfig().configureAuthApi_key(token);
 				BaseTranslator translator = TranslatorsFactory.getTranslator(spillmanVersion);
 				if (translator != null) {
-					UserSession sessionBean = translator.translateBookOn(json);
-					if (sessionBean != null) {
-						//ApiResponse apiResponse = client.responseUserSessionCorrelationId(sessionBean.getUserId()).bookOnResponse(sessionBean);
+					UserSessionWrapper wrapper = translator.translateBookOn(json);
+					if (wrapper.getCorrelationId() != null) {
+						//ApiResponse apiResponse = client.responseUserSessionCorrelationId(wrapper.getCorrelationId()).bookOnResponse(wrapper.getModel());
 						//response.getOutputStream().write(apiResponse.toString().getBytes());
-						// send also the model for reviewing on the interface side
+						//send also the model for reviewing on the interface side
 						Gson gson = new Gson();
-						String outgoingModel = gson.toJson(sessionBean);
+						String outgoingModel = gson.toJson(wrapper);
 						response.getOutputStream().write(outgoingModel.getBytes());
 					}
 					else {
