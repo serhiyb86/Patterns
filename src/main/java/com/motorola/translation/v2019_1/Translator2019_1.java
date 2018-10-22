@@ -8,7 +8,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.AdditionalInfo;
-import com.motorola.models.representation.BookOffParameters;
 import com.motorola.models.representation.Jurisdiction;
 import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.ResponseNotification;
