@@ -31,7 +31,7 @@ public class BookOffServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String token = request.getParameter(ACCESS_TOKEN);
+		String token = request.getHeader(ACCESS_TOKEN);
 		String spillmanVersion = request.getHeader(SPILLMAN_VERSION);
 		if (!StringUtils.isNullOrEmpty(token)) {
 			JsonObject json = CadCloudUtils.extractPayloadFromHttpRequest(request);

@@ -31,137 +31,178 @@ public class Translator2019_1 implements BaseTranslator {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Translator2019_1.class);
 
-	@Override
-	public UserSessionWrapper translateBookOn(JsonObject payload) {
-		UserSessionWrapper result = new UserSessionWrapper();
-		// read the correlationId from incoming json
-		if (payload.get(InterfaceConstants.CORERELATION_ID) != null) {
-			result.setCorrelationId(payload.get(InterfaceConstants.CORERELATION_ID).getAsString());
+	private List<Lookup> getTrustedAgencies(JsonObject infoJSON) {
+		List<Lookup> result = new ArrayList<>();
+		JsonArray agenciesJson = getJsonArrayByKey(infoJSON, InterfaceConstants.TRUSTED_AGENCIES_JSON_KEY);
+		for (JsonElement element : agenciesJson) {
+			JsonObject elementJSON = element.getAsJsonObject();
+			Lookup trustedAgency = new Lookup();
+			trustedAgency.setUid(getStringByKey(elementJSON, InterfaceConstants.UID_JSON_KEY));
+			result.add(trustedAgency);
 		}
+		return result;
+	}
 
-		UserSession userSession = new UserSession();
-		// transform customer_id
-		if (payload.get(InterfaceConstants.CUSTOMER_ID) != null) {
-			userSession.setCustomerId(payload.get(InterfaceConstants.CUSTOMER_ID).getAsString());
-		}
-
-		// transform session_id
-		if (payload.get(InterfaceConstants.SESSION_ID) != null) {
-			userSession.setSessionId(payload.get(InterfaceConstants.SESSION_ID).getAsString());
-		}
-		// transform creation date
-		if (payload.get(InterfaceConstants.WHEN_SUBMITTED) != null) {
+	/**
+	 * Gets the creation date from json object
+	 * @param payload - json object
+	 * @return
+	 */
+	private Date getCreationDate(JsonObject payload) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+		Date result = null;
+		String strDate = getStringByKey(payload, InterfaceConstants.WHEN_SUBMITTED);
+		if (strDate != null) {
 			try {
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-				String submitDateStr = payload.get(InterfaceConstants.WHEN_SUBMITTED).getAsString();
-				Date submitDate = formatter.parse(submitDateStr);
-				userSession.setWhenSessionCreated(submitDate);
+				result = formatter.parse(strDate);
 			}
 			catch (ParseException e) {
 				LOGGER.error("Failed to parse submitted date.");
 			}
+
+		}
+		return result;
+	}
+
+	/**
+	 * Gets the list og jurisdictions from incoming json
+	 * @param jurisdictionsJSONArray - list of incoming jurisdictions
+	 * @return the list of jurisdictions
+	 */
+	private List<Jurisdiction> getJurisdictions(JsonArray jurisdictionsJSONArray) {
+		List<Jurisdiction> result = new ArrayList<>();
+		for (JsonElement element : jurisdictionsJSONArray) {
+			Lookup areaLookup = new Lookup();
+			Lookup sectorLookup = new Lookup();
+			Lookup zoneLookup = new Lookup();
+			Jurisdiction jurisdiction = new Jurisdiction();
+			JsonObject elementJSON = element.getAsJsonObject();
+			JsonObject areaJSON = getJsonByKey(elementJSON, InterfaceConstants.AREA_JSON_KEY);
+			JsonObject sectorJSON = getJsonByKey(elementJSON, InterfaceConstants.SECTOR_JSON_KEY);
+			JsonObject zoneJSON = getJsonByKey(elementJSON, InterfaceConstants.ZONE_JSON_KEY);
+			areaLookup.setUid(getStringByKey(areaJSON, InterfaceConstants.UID_JSON_KEY));
+			sectorLookup.setUid(getStringByKey(sectorJSON, InterfaceConstants.UID_JSON_KEY));
+			zoneLookup.setUid(getStringByKey(zoneJSON, InterfaceConstants.UID_JSON_KEY));
+			jurisdiction.setArea(areaLookup);
+			jurisdiction.setSector(sectorLookup);
+			jurisdiction.setZone(zoneLookup);
+			result.add(jurisdiction);
 		}
 
+		return result;
+	}
+
+	/**
+	 * Get the value of field inside nested json by key
+	 * @param rootJson root json object
+	 * @param nestedJsonKey - nested json key
+	 * @param fieldK0ey - field key
+	 * @return field string value if exist, otherwise - null
+	 */
+	private String getStringFromNestedJsoByKey(JsonObject rootJson, String nestedJsonKey, String fieldK0ey) {
+		String result = null;
+		if (rootJson != null && rootJson.get(nestedJsonKey) != null) {
+			JsonObject nestedObject = rootJson.get(nestedJsonKey).getAsJsonObject();
+			if (nestedObject.get(fieldK0ey) != null) {
+				result = nestedObject.get(fieldK0ey).getAsString();
+			}
+			else {
+				LOGGER.debug("the nested json %s does not contain key  %s", nestedJsonKey, fieldK0ey);
+			}
+
+		}
+		else {
+			LOGGER.debug("the root json does not contain key  %s", nestedJsonKey);
+
+		}
+		return result;
+	}
+
+	/**
+	 * Gets the String value from incoming json
+	 * @param json - json payload object
+	 * @param key - the property key
+	 * @return - the value if exist, otherwise - null
+	 */
+	private String getStringByKey(JsonObject json, String key) {
+		String result = null;
+		if (json != null && json.get(key) != null) {
+			result = json.get(key).getAsString();
+		}
+		else {
+			LOGGER.debug("the json does not contain key  %s for string value", key);
+		}
+		return result;
+	}
+
+	/**
+	 * Gets JSON value from incoming json
+	 * @param json - json payload object
+	 * @param key - the property key
+	 * @return - the value if exist, otherwise - null
+	 */
+	private JsonObject getJsonByKey(JsonObject json, String key) {
+		JsonObject result = null;
+		if (json != null && json.get(key) != null) {
+			result = json.get(key).getAsJsonObject();
+		}
+		else {
+			LOGGER.debug("the json does not contain key  %s for json value", key);
+		}
+		return result;
+	}
+
+	private JsonArray getJsonArrayByKey(JsonObject json, String key) {
+		JsonArray result = null;
+		if (json != null && json.get(key) != null) {
+			result = json.get(key).getAsJsonArray();
+		}
+		else {
+			LOGGER.debug("the json does not contain key  %s for json array value", key);
+		}
+		return result;
+	}
+
+	@Override
+	public UserSessionWrapper translateBookOn(JsonObject payload) {
+		UserSessionWrapper result = new UserSessionWrapper();
+		UserSession userSession = new UserSession();
+		result.setCorrelationId(getStringByKey(payload, InterfaceConstants.CORERELATION_ID));
+		userSession.setCustomerId(getStringByKey(payload, InterfaceConstants.CUSTOMER_ID));
+		userSession.setSessionId(getStringByKey(payload, InterfaceConstants.SESSION_ID));
+		userSession.setUserId(getStringFromNestedJsoByKey(getJsonByKey(payload, InterfaceConstants.REQUEST_PARAMETERS), InterfaceConstants.USER_JSON_KEY, InterfaceConstants.JSON_KEY));
+		userSession.setDeviceId(getStringFromNestedJsoByKey(getJsonByKey(payload, InterfaceConstants.REQUEST_PARAMETERS), InterfaceConstants.DEVICE_JSON_KEY, InterfaceConstants.JSON_KEY));
+
+		JsonObject requestParametersJSON = getJsonByKey(payload, InterfaceConstants.REQUEST_PARAMETERS);
+		JsonObject additionInfoJSON = getJsonByKey(requestParametersJSON, InterfaceConstants.ADDITIONAL_INFO_JSON_KEY);
+		JsonObject unitJSONObject = getJsonByKey(additionInfoJSON, InterfaceConstants.UNIT_JSON_KEY);
+		AdditionalInfo additionalInfo = new AdditionalInfo();
+		// gets the Unit info from addition object, translate to UserSession->AdditionalInfo->UnitHandle object fields
+		UnitHandle unitHandler = new UnitHandle();
+		unitHandler.setKey(getStringByKey(unitJSONObject, InterfaceConstants.JSON_KEY));
+		unitHandler.setAgency(getStringByKey(unitJSONObject, InterfaceConstants.AGENCY_JSON_KEY));
+		unitHandler.setCallSign(getStringByKey(unitJSONObject, InterfaceConstants.CALL_SIGN_JSON_KEY));
+		unitHandler.setShiftId(unitJSONObject.get(InterfaceConstants.SHIFT_ID_JSON_KEY).getAsString());
+		additionalInfo.setUnit(unitHandler);
+		// gets the Jurisdictions from addition object, translate to UserSession->AdditionalInfo-> List<Jurisdiction>
+		additionalInfo.setJurisdictions(getJurisdictions(getJsonArrayByKey(additionInfoJSON, InterfaceConstants.JURISDICTIONS_JSON_KEY)));
+		// get the district
+		Lookup districtLookup = new Lookup();
+		districtLookup.setUid(getStringByKey(getJsonByKey(additionInfoJSON, InterfaceConstants.DISTRICT_JSON_KEY), InterfaceConstants.UID_JSON_KEY));
+		additionalInfo.setDistrict(districtLookup);
+		// gets station
+		Lookup stationLookup = new Lookup();
+		stationLookup.setUid(getStringByKey(getJsonByKey(additionInfoJSON, InterfaceConstants.STATION_JSON_KEY), InterfaceConstants.UID_JSON_KEY));
+		additionalInfo.setStation(stationLookup);
+		// transform vehicle
+		additionalInfo.setVehicleId(getStringByKey(additionInfoJSON, InterfaceConstants.VEHICLE_ID_JSON_KEY));
+		// get trusted agencies
+		List<Lookup> trustedAgencies = getTrustedAgencies(additionInfoJSON);
+		additionalInfo.setTrustedAgencies(trustedAgencies);
+		// transform creation date
+		userSession.setWhenSessionCreated(getCreationDate(payload));
 		// transform request parameters
-		if (payload.get(InterfaceConstants.REQUEST_PARAMETERS) != null) {
-			JsonObject requestParameters = payload.get(InterfaceConstants.REQUEST_PARAMETERS).getAsJsonObject();
-			// parse and transform userID, using user JSON object
-			if (requestParameters.get(InterfaceConstants.USER_JSON_KEY) != null) {
-				JsonObject userJSONObject = requestParameters.get(InterfaceConstants.USER_JSON_KEY).getAsJsonObject();
-				userSession.setUserId(userJSONObject.get(InterfaceConstants.JSON_KEY).getAsString());
-			}
-
-			// parse and transform devicesID
-			if (requestParameters.get(InterfaceConstants.DEVICE_JSON_KEY) != null) {
-				JsonObject deviceJSONObject = requestParameters.get(InterfaceConstants.DEVICE_JSON_KEY).getAsJsonObject();
-				userSession.setDeviceId(deviceJSONObject.get(InterfaceConstants.JSON_KEY).getAsString());
-			}
-
-			// parse and translate addition information
-			if (requestParameters.get(InterfaceConstants.ADDITIONAL_INFO_JSON_KEY) != null) {
-				AdditionalInfo additionalInfo = new AdditionalInfo();
-				JsonObject additionInfoJSONObject = requestParameters.get(InterfaceConstants.ADDITIONAL_INFO_JSON_KEY).getAsJsonObject();
-				// gets the Unit info from addition object, translate to UserSession->AdditionalInfo->UnitHandle object fields
-				if (additionInfoJSONObject.get(InterfaceConstants.UNIT_JSON_KEY) != null) {
-					UnitHandle unitHandler = new UnitHandle();
-					JsonObject unitJSONObject = additionInfoJSONObject.get(InterfaceConstants.UNIT_JSON_KEY).getAsJsonObject();
-					unitHandler.setKey(unitJSONObject.get(InterfaceConstants.JSON_KEY).getAsString());
-					unitHandler.setAgency(unitJSONObject.get(InterfaceConstants.AGENCY_JSON_KEY).getAsString());
-					unitHandler.setCallSign(unitJSONObject.get(InterfaceConstants.CALL_SIGN_JSON_KEY).getAsString());
-					unitHandler.setShiftId(unitJSONObject.get(InterfaceConstants.SHIFT_ID_JSON_KEY).getAsString());
-					additionalInfo.setUnit(unitHandler);
-				}
-				// gets the Jurisdictions from addition object, translate to UserSession->AdditionalInfo-> List<Jurisdiction>
-				if (additionInfoJSONObject.get(InterfaceConstants.JURISDICTIONS_JSON_KEY) != null) {
-					//gets the array of Jurisdictions json array
-					JsonArray jurisdictionsJSONArray = additionInfoJSONObject.get(InterfaceConstants.JURISDICTIONS_JSON_KEY).getAsJsonArray();
-					List<Jurisdiction> jurisdictions = new ArrayList<>();
-					for (JsonElement element : jurisdictionsJSONArray) {
-						JsonObject elementJSON = element.getAsJsonObject();
-						Jurisdiction jurisdiction = new Jurisdiction();
-						//area
-						if (elementJSON.get(InterfaceConstants.AREA_JSON_KEY) != null) {
-							JsonObject areaJSON = elementJSON.get(InterfaceConstants.AREA_JSON_KEY).getAsJsonObject();
-							Lookup areaLookup = new Lookup();
-							areaLookup.setUid(areaJSON.get(InterfaceConstants.UID_JSON_KEY).getAsString());
-							jurisdiction.setArea(areaLookup);
-						}
-						//sector
-						if (elementJSON.get(InterfaceConstants.SECTOR_JSON_KEY) != null) {
-							JsonObject sectorJSON = elementJSON.get(InterfaceConstants.SECTOR_JSON_KEY).getAsJsonObject();
-							Lookup sectorLookup = new Lookup();
-							sectorLookup.setUid(sectorJSON.get(InterfaceConstants.UID_JSON_KEY).getAsString());
-							jurisdiction.setSector(sectorLookup);
-						}
-						//zone
-						if (elementJSON.get(InterfaceConstants.ZONE_JSON_KEY) != null) {
-							JsonObject zoneJSON = elementJSON.get(InterfaceConstants.ZONE_JSON_KEY).getAsJsonObject();
-							Lookup zoneLookup = new Lookup();
-							zoneLookup.setUid(zoneJSON.get(InterfaceConstants.UID_JSON_KEY).getAsString());
-							jurisdiction.setZone(zoneLookup);
-						}
-						jurisdictions.add(jurisdiction);
-					}
-					additionalInfo.setJurisdictions(jurisdictions);
-				}
-				// gets the District from addition object, translate to UserSession->AdditionalInfo->district field
-				if (additionInfoJSONObject.get(InterfaceConstants.DISTRICT_JSON_KEY) != null) {
-					Lookup districtLookup = new Lookup();
-					JsonObject districtJSON = additionInfoJSONObject.get(InterfaceConstants.DISTRICT_JSON_KEY).getAsJsonObject();
-					districtLookup.setUid(districtJSON.get(InterfaceConstants.UID_JSON_KEY).getAsString());
-					additionalInfo.setDistrict(districtLookup);
-				}
-
-				// gets the Station from addition object, translate to UserSession->AdditionalInfo->station field
-				if (additionInfoJSONObject.get(InterfaceConstants.STATION_JSON_KEY) != null) {
-					Lookup stationLookup = new Lookup();
-					JsonObject stationJSON = additionInfoJSONObject.get(InterfaceConstants.STATION_JSON_KEY).getAsJsonObject();
-					stationLookup.setUid(stationJSON.get(InterfaceConstants.UID_JSON_KEY).getAsString());
-					additionalInfo.setStation(stationLookup);
-				}
-
-				// gets the VehicleId from addition object, translate to UserSession->AdditionalInfo->vehicle field
-				if (additionInfoJSONObject.get(InterfaceConstants.VEHICLE_ID_JSON_KEY) != null) {
-					additionalInfo.setVehicleId(additionInfoJSONObject.get(InterfaceConstants.VEHICLE_ID_JSON_KEY).getAsString());
-				}
-
-				// gets trustedAgencies from addition object, translate to UserSession->AdditionalInfo->trustedAgencies field
-				if (additionInfoJSONObject.get(InterfaceConstants.TRUSTED_AGENCIES_JSON_KEY) != null) {
-					JsonArray trustedAgienciesJson = additionInfoJSONObject.get(InterfaceConstants.TRUSTED_AGENCIES_JSON_KEY).getAsJsonArray();
-					List<Lookup> trustedAgencies = new ArrayList<>();
-					for (JsonElement element : trustedAgienciesJson) {
-						JsonObject elementJSON = element.getAsJsonObject();
-						if (elementJSON.get(InterfaceConstants.UID_JSON_KEY) != null){
-							Lookup trustedAgency = new Lookup();
-							trustedAgency.setUid(elementJSON.get(InterfaceConstants.UID_JSON_KEY).getAsString());
-							trustedAgencies.add(trustedAgency);
-						}
-					}
-					additionalInfo.setTrustedAgencies(trustedAgencies);
-				}
-				userSession.setAdditionalInfo(additionalInfo);
-			}
-		}
+		userSession.setAdditionalInfo(additionalInfo);
 		result.setModel(userSession);
 
 		return result;
