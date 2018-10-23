@@ -3,72 +3,41 @@
  */
 package com.motorola.servlets;
 
-import com.google.gson.Gson;
-import com.motorola.cloud.APIClient;
-import com.google.gson.JsonObject;
 import com.motorola.models.representation.ApiResponse;
-import com.motorola.models.representation.UserSession;
 import com.motorola.models.representation.UserSessionWrapper;
-import com.motorola.translation.BaseTranslator;
-import com.motorola.translation.TranslatorsFactory;
 import com.motorola.utils.CadCloudUtils;
-import org.restlet.engine.util.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.motorola.validation.ValidationResult;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-import static com.motorola.constants.InterfaceConstants.ACCESS_TOKEN;
 import static com.motorola.constants.InterfaceConstants.BOOK_ON_REQUEST_TYPE;
-import static com.motorola.constants.InterfaceConstants.REQUEST_TYPE;
-import static com.motorola.constants.InterfaceConstants.SPILLMAN_VERSION;
 
 @WebServlet(urlPatterns = "/bookOn")
-public class BookOnServlet extends HttpServlet {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(BookOnServlet.class);
-	private final APIClient client = new APIClient();
+public class BookOnServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String token = request.getHeader(ACCESS_TOKEN);
-		String spillmanVersion = request.getHeader(SPILLMAN_VERSION);
-		if (!StringUtils.isNullOrEmpty(token)) {
-			JsonObject json = CadCloudUtils.extractPayloadFromHttpRequest(request);
-			if (json.get(REQUEST_TYPE) != null && BOOK_ON_REQUEST_TYPE.equals(json.get(REQUEST_TYPE).getAsString())) {
-				client.getConfig().getSecurityConfig().configureAuthApi_key(token);
-				BaseTranslator translator = TranslatorsFactory.getTranslator(spillmanVersion);
-				if (translator != null) {
-					UserSessionWrapper wrapper = translator.translateBookOn(json);
-					if (wrapper.getCorrelationId() != null) {
-						//ApiResponse apiResponse = client.responseUserSessionCorrelationId(wrapper.getCorrelationId()).bookOnResponse(wrapper.getModel());
-						//response.getOutputStream().write(apiResponse.toString().getBytes());
-						//send also the model for reviewing on the interface side
-						Gson gson = new Gson();
-						String outgoingModel = gson.toJson(wrapper);
-						response.getOutputStream().write(outgoingModel.getBytes());
-					}
-					else {
-						LOGGER.error("Failed to translate payload to the UserSession model, failed to perform the BookOn request, failed get correlationId");
-						response.getOutputStream().write("Failed to translate payload to the UserSession model, failed to perform the BookOn request, failed get correlationId".getBytes());
-					}
-				} else {
-					response.getOutputStream().write(String.format("Spillman version: %s is missing or unknown.", spillmanVersion).getBytes());
-				}
+		List<ValidationResult> validationResult = validateRequest(request, BOOK_ON_REQUEST_TYPE);
+		if (validationResult.size() == 0) {
+			UserSessionWrapper wrapper = translator.translateBookOn(payload);
+			if (wrapper.getCorrelationId() != null) {
+				//ApiResponse apiResponse = client.responseUserSessionCorrelationId(wrapper.getCorrelationId()).bookOnResponse(wrapper.getModel());
+				//response.getOutputStream().write(apiResponse.toString().getBytes());
+				//send also the model for reviewing on the interface side
+				String outgoingModel = CadCloudUtils.convertObjectToJsonString(wrapper);
+				respondSuccess(response, outgoingModel);
 			}
 			else {
-				LOGGER.error("Wrong request type.");
-				response.getOutputStream().write("Wrong request type.".getBytes());
+				respondFailure(response, translator.getValidationResults());
 			}
 		}
 		else {
-			LOGGER.error("Token is required.");
-			response.getOutputStream().write("Token is required.".getBytes());
+			respondFailure(response, validationResult);
 		}
 	}
 }

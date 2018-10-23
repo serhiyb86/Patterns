@@ -3,6 +3,7 @@
  */
 package com.motorola.utils;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.commons.io.IOUtils;
@@ -22,6 +23,7 @@ public class CadCloudUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CadCloudUtils.class);
 	private static final JsonParser jsonParser = new JsonParser();
+	private static final Gson gson = new Gson();
 
 	/**
 	 * Method that extracts json payload from the http request
@@ -37,5 +39,13 @@ public class CadCloudUtils {
 			LOGGER.error("Error has happen during receiving the payload: {}", e);
 		}
 		return jsonParser.parse(responseWriter.toString()).getAsJsonObject();
+	}
+
+
+	public static String convertObjectToJsonString(Object object) {
+		if(object != null) {
+			return gson.toJson(object).toString();
+		}
+		return null;
 	}
 }
