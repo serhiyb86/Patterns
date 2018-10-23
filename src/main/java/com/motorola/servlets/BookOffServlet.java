@@ -3,8 +3,13 @@
  */
 package com.motorola.servlets;
 
+import com.google.gson.Gson;
 import com.motorola.cloud.APIClient;
 import com.google.gson.JsonObject;
+import com.motorola.models.representation.ApiResponse;
+import com.motorola.models.representation.ResponseNotification;
+import com.motorola.translation.BaseTranslator;
+import com.motorola.translation.TranslatorsFactory;
 import org.restlet.engine.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.motorola.constants.InterfaceConstants.ACCESS_TOKEN;
-import static com.motorola.constants.InterfaceConstants.BOOK_OFF_REQUEST_TYPE;
-import static com.motorola.constants.InterfaceConstants.REQUEST_TYPE;
+import static com.motorola.constants.InterfaceConstants.*;
 
 @WebServlet(urlPatterns = "/bookOff")
 public class BookOffServlet extends HttpServlet {
@@ -29,15 +32,31 @@ public class BookOffServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String token = request.getParameter(ACCESS_TOKEN);
+		String token = request.getHeader(ACCESS_TOKEN);
+		String spillmanVersion = request.getHeader(SPILLMAN_VERSION);
 		if (!StringUtils.isNullOrEmpty(token)) {
 			JsonObject json = CadCloudUtils.extractPayloadFromHttpRequest(request);
 			if (json.get(REQUEST_TYPE) != null && BOOK_OFF_REQUEST_TYPE.equals(json.get(REQUEST_TYPE).getAsString())) {
 				client.getConfig().getSecurityConfig().configureAuthApi_key(token);
-				//TODO: write response to the on-premise adapter
-				//ApiResponse apiResponse = client.userSessionSessionId(json.get(SESSION_ID).getAsString()).bookOff();
-				//response.getOutputStream().write(apiResponse.toString().getBytes());
-				response.getOutputStream().write("OK".getBytes());
+				BaseTranslator translator = TranslatorsFactory.getTranslator(spillmanVersion);
+				if (translator != null){
+					ResponseNotification responseNotification = translator.translateBookOff(json);
+					if (responseNotification.getCorrelationId() != null ){
+						//TODO: write response to the on-premise adapter
+						//ApiResponse apiResponse = client.responseNotification().responseNotification(responseNotification);
+						//response.getOutputStream().write(apiResponse.toString().getBytes());
+						Gson gson = new Gson();
+						String outgoingModel = gson.toJson(responseNotification);
+						response.getOutputStream().write(outgoingModel.getBytes());
+					}
+					else {
+						response.getOutputStream().write(String.format("Spillman version: %s is missing or unknown.", spillmanVersion).getBytes());
+					}
+				}
+				else {
+					LOGGER.error("Failed to translate payload to the ResponseNotification model.");
+					response.getOutputStream().write("Failed to translate payload to the ResponseNotification model.".getBytes());
+				}
 			}
 			else {
 				LOGGER.error("Wrong request type.");

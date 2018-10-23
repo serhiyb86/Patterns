@@ -3,9 +3,12 @@
  */
 package com.motorola.servlets;
 
+import com.google.gson.Gson;
 import com.motorola.cloud.APIClient;
 import com.google.gson.JsonObject;
-import com.motorola.models.representation.BookOnParameters;
+import com.motorola.models.representation.ApiResponse;
+import com.motorola.models.representation.UserSession;
+import com.motorola.models.representation.UserSessionWrapper;
 import com.motorola.translation.BaseTranslator;
 import com.motorola.translation.TranslatorsFactory;
 import com.motorola.utils.CadCloudUtils;
@@ -40,17 +43,19 @@ public class BookOnServlet extends HttpServlet {
 			if (json.get(REQUEST_TYPE) != null && BOOK_ON_REQUEST_TYPE.equals(json.get(REQUEST_TYPE).getAsString())) {
 				client.getConfig().getSecurityConfig().configureAuthApi_key(token);
 				BaseTranslator translator = TranslatorsFactory.getTranslator(spillmanVersion);
-				if(translator != null) {
-					BookOnParameters bookOnParameters = translator.translateBookOnParameters(json);
-					if (bookOnParameters != null) {
-						//TODO: write response to the on-premise adapter
-						//ApiResponse apiResponse = client.userSession().bookOn(bookOnParameters);
+				if (translator != null) {
+					UserSessionWrapper wrapper = translator.translateBookOn(json);
+					if (wrapper.getCorrelationId() != null) {
+						//ApiResponse apiResponse = client.responseUserSessionCorrelationId(wrapper.getCorrelationId()).bookOnResponse(wrapper.getModel());
 						//response.getOutputStream().write(apiResponse.toString().getBytes());
-						response.getOutputStream().write("OK".getBytes());
+						//send also the model for reviewing on the interface side
+						Gson gson = new Gson();
+						String outgoingModel = gson.toJson(wrapper);
+						response.getOutputStream().write(outgoingModel.getBytes());
 					}
 					else {
-						LOGGER.error("Failed to translate payload to the BookOnParameters model.");
-						response.getOutputStream().write("Failed to translate payload to the BookOnParameters model.".getBytes());
+						LOGGER.error("Failed to translate payload to the UserSession model, failed to perform the BookOn request, failed get correlationId");
+						response.getOutputStream().write("Failed to translate payload to the UserSession model, failed to perform the BookOn request, failed get correlationId".getBytes());
 					}
 				} else {
 					response.getOutputStream().write(String.format("Spillman version: %s is missing or unknown.", spillmanVersion).getBytes());

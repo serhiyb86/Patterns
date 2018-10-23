@@ -1,11 +1,6 @@
 package com.motorola.models.security;
 
-import com.motorola.models.security.authenticators.Authenticator;
-import com.motorola.models.security.authenticators.CustomGlobalAuthenticator;
-import com.motorola.models.security.authenticators.NoAuthAuthenticator;
-import com.motorola.models.security.authenticators.OAuth2ImplicitFlowAuthenticator;
-import com.motorola.models.security.authenticators.defined.Api_keyAuthenticator;
-import com.motorola.models.security.authenticators.defined.ClientApi_authAuthenticator;
+import static java.util.Objects.requireNonNull;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -14,7 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.Objects.requireNonNull;
+import com.motorola.models.security.authenticators.Authenticator;
+import com.motorola.models.security.authenticators.CustomGlobalAuthenticator;
+import com.motorola.models.security.authenticators.NoAuthAuthenticator;
+import com.motorola.models.security.authenticators.defined.Api_keyAuthenticator;
 
 public class SecurityConfig {
 
@@ -51,7 +49,7 @@ public class SecurityConfig {
         // API Global requirements
     }
 
-    public ClientFactory getClientFactory() {
+    ClientFactory getClientFactory() {
         // lazy initialization of ClientFactory to get all settings
         if (clientFactory == null) {
             ClientFactory.ClientFactoryBuilder clientFactoryBuilder = ClientFactory.builder();
@@ -89,28 +87,6 @@ public class SecurityConfig {
     }
 
     // API Security Schemes
-
-    /**
-     * Adds configuration for the authentication scheme: Oauth 2.0 Implicit flow.
-     *
-     * @param clientId
-     *            the client identifier.
-     * @return the {@link OAuth2ImplicitFlowAuthenticator} for chaining method calls.
-     */
-    public OAuth2ImplicitFlowAuthenticator configureAuthClientApi_authAuthenticator(String clientId) {
-        OAuth2ImplicitFlowAuthenticator authenticator = new ClientApi_authAuthenticator(clientId);
-        configureAuth(authenticator);
-        return authenticator;
-    }
-
-    /**
-     * Returns the configuration of the authentication scheme: Oauth 2.0 Implicit flow.
-     *
-     * @return The configuration of the authentication scheme: Oauth 2.0 Implicit flow.
-     */
-    public OAuth2ImplicitFlowAuthenticator getAuthClientApi_auth() {
-        return (OAuth2ImplicitFlowAuthenticator) configuredAuthenticators.get(ClientApi_authAuthenticator.class);
-    }
 
     /**
      * Adds configuration for the authentication scheme: api_key.
