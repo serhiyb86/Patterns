@@ -209,7 +209,17 @@ public class Translator2019_1 implements BaseTranslator {
 	}
 
 	@Override public ResponseNotification translateBookOff(JsonObject payload) {
-		//TODO translation logic must be here
-		return new ResponseNotification();
+
+		ResponseNotification result = new ResponseNotification();
+		// translate correlation id
+		result.setCorrelationId(getStringByKey(payload, InterfaceConstants.CORERELATION_ID));
+		// translate customer id
+		result.setCustomerId(getStringByKey(payload, InterfaceConstants.CUSTOMER_ID));
+		// translate session ID
+		result.setSessionId(getStringByKey(payload, InterfaceConstants.SESSION_ID));
+		// translate request type
+		result.setResponseType(getStringByKey(payload, InterfaceConstants.REQUEST_TYPE));
+
+		return result;
 	}
 }

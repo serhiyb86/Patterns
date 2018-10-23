@@ -3,6 +3,7 @@
  */
 package com.motorola.servlets;
 
+import com.google.gson.Gson;
 import com.motorola.cloud.APIClient;
 import com.google.gson.JsonObject;
 import com.motorola.models.representation.ApiResponse;
@@ -44,7 +45,9 @@ public class BookOffServlet extends HttpServlet {
 						//TODO: write response to the on-premise adapter
 						//ApiResponse apiResponse = client.responseNotification().responseNotification(responseNotification);
 						//response.getOutputStream().write(apiResponse.toString().getBytes());
-						response.getOutputStream().write("OK".getBytes());
+						Gson gson = new Gson();
+						String outgoingModel = gson.toJson(responseNotification);
+						response.getOutputStream().write(outgoingModel.getBytes());
 					}
 					else {
 						response.getOutputStream().write(String.format("Spillman version: %s is missing or unknown.", spillmanVersion).getBytes());
