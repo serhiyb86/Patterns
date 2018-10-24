@@ -3,7 +3,7 @@
  */
 package com.motorola.servlets;
 
-import com.motorola.models.representation.UserSessionWrapper;
+import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
 
@@ -14,21 +14,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.motorola.constants.InterfaceConstants.BOOK_ON_REQUEST_TYPE;
+import static com.motorola.constants.InterfaceConstants.CREATE_INCIDENT_REQUEST_TYPE;
 
-@WebServlet(urlPatterns = "/bookOn")
-public class BookOnServlet extends BaseHttpServlet {
+@WebServlet(urlPatterns = "/incidentCreate")
+public class IncidentCreateServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<ValidationResult> validationResult = validateRequest(request, BOOK_ON_REQUEST_TYPE);
+		List<ValidationResult> validationResult = validateRequest(request, CREATE_INCIDENT_REQUEST_TYPE);
 		if (validationResult.size() == 0) {
-			UserSessionWrapper wrapper = translator.translateBookOn(payload);
+			EmergencyIncident bean = translator.translateCreateIncident(payload);
 			if (translator.getValidationResults().size() == 0) {
-				//ApiResponse apiResponse = client.responseUserSessionCorrelationId(wrapper.getCorrelationId()).bookOnResponse(wrapper.getModel());
-				//response.getOutputStream().write(apiResponse.toString().getBytes());
-				//send also the model for reviewing on the interface side
-				String outgoingModel = CadCloudUtils.convertObjectToJsonString(wrapper);
+				//client.pushIncident().createIncident(bean);
+				String outgoingModel = CadCloudUtils.convertObjectToJsonString(bean);
 				respondSuccess(response, outgoingModel);
 			}
 			else {

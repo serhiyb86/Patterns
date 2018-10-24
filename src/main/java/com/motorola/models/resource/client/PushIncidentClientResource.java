@@ -32,14 +32,10 @@ public class PushIncidentClientResource {
      * 
      * @param bean
      *            Parameter "bean"
-     * @param incidentUpdateMsgType
-     *            Incident update Message type
-     *            Required parameter.
      * @throws ResourceException if the call to the API fails
      */
-    public void updateIncident(UpdateEmergencyIncident bean, String incidentUpdateMsgType) {
+    public void updateIncident(UpdateEmergencyIncident bean) {
         ClientResource client = new ClientResource(absolutePath);
-        QueryParameterHelper.addQueryParameter(client, "incidentUpdateMsgType", incidentUpdateMsgType);
         securityRuntimeConfigurator.accept(Api_keyAuthenticator.class).configure(client);
 
         client.wrap(PushIncidentResource.class).updateIncident(bean);

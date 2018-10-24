@@ -10,6 +10,8 @@ public class InterfaceConstants {
 
 	public static final String BOOK_ON_REQUEST_TYPE = "BookOnRequest";
 	public static final String BOOK_OFF_REQUEST_TYPE = "BookOffRequest";
+	public static final String UPDATE_INCIDENT_REQUEST_TYPE = "UpdateIncidentRequest";
+	public static final String CREATE_INCIDENT_REQUEST_TYPE = "CreateIncidentRequest";
 	public static final String ACCESS_TOKEN = "accessToken";
 	public static final String REQUEST_TYPE = "requestType";
 
@@ -24,8 +26,8 @@ public class InterfaceConstants {
 	public static final String SPILLMAN_VERSION = "spillmanVersion";
 	public static final String VERSION_2019_1 = "2019.1";
 
-//-----------------------------------------
-	public static final String CUSTOMER_ID ="customerId";
+	//-----------------------------------------
+	public static final String CUSTOMER_ID = "customerId";
 	public static final String SESSION_ID = "sessionId";
 	public static final String CORERELATION_ID = "correlationId";
 	public static final String WHEN_SUBMITTED = "whenSubmitted";
@@ -45,6 +47,11 @@ public class InterfaceConstants {
 	public static final String STATION_JSON_KEY = "station";
 	public static final String VEHICLE_ID_JSON_KEY = "vehicleId";
 	public static final String TRUSTED_AGENCIES_JSON_KEY = "trustedAgencies";
-	public static final String JSON_KEY ="key";
+	public static final String KEY_JSON_KEY = "key";
+	public static final String DATA_JSON_KEY = "data";
+	public static final String DISPATCHES_JSON_KEY = "dispatches";
+	public static final String ID_JSON_KEY = "id";
+	public static final String OLD_JSON_KEY = "old";
+	public static final String NEW_JSON_KEY = "new";
 
 }
