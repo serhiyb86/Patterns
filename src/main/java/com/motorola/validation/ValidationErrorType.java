@@ -3,6 +3,9 @@
  */
 package com.motorola.validation;
 
+/**
+ * Enum with validation error types
+ */
 public enum ValidationErrorType {
 	MISSING_DATA,
 	UNEXPECTED_DATA

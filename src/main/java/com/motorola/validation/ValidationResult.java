@@ -3,6 +3,9 @@
  */
 package com.motorola.validation;
 
+/**
+ * Class that describes validation result
+ */
 public class ValidationResult {
 
 	private String message;
