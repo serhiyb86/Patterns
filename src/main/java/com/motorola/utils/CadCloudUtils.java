@@ -22,8 +22,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class CadCloudUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CadCloudUtils.class);
-	private static final JsonParser jsonParser = new JsonParser();
-	private static final Gson gson = new Gson();
+	private static final JsonParser JSON_PARSER = new JsonParser();
+	private static final Gson GSON = new Gson();
 
 	/**
 	 * Method that extracts json payload from the http request
@@ -38,13 +38,17 @@ public class CadCloudUtils {
 		catch (IOException e) {
 			LOGGER.error("Error has happen during receiving the payload: {}", e);
 		}
-		return jsonParser.parse(responseWriter.toString()).getAsJsonObject();
+		return JSON_PARSER.parse(responseWriter.toString()).getAsJsonObject();
 	}
 
-
+	/**
+	 * Converts any object to json string
+	 * @param object to convert
+	 * @return json string
+	 */
 	public static String convertObjectToJsonString(Object object) {
-		if(object != null) {
-			return gson.toJson(object).toString();
+		if (object != null) {
+			return GSON.toJson(object).toString();
 		}
 		return null;
 	}

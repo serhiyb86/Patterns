@@ -24,7 +24,7 @@ public class BookOffServlet extends BaseHttpServlet {
 		List<ValidationResult> validationResult = validateRequest(request, BOOK_OFF_REQUEST_TYPE);
 		if (validationResult.size() == 0) {
 			ResponseNotification responseNotification = translator.translateBookOff(payload);
-			if (responseNotification.getCorrelationId() != null) {
+			if (translator.getValidationResults().size() == 0) {
 				//ApiResponse apiResponse = client.responseNotification().responseNotification(responseNotification);
 				//response.getOutputStream().write(apiResponse.toString().getBytes());
 				String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);

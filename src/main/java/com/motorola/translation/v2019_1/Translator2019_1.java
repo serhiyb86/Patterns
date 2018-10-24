@@ -18,7 +18,7 @@ import com.motorola.models.representation.UserSession;
 import com.motorola.models.representation.UserSessionWrapper;
 import com.motorola.translation.BaseTranslator;
 import com.motorola.validation.ValidationResult;
-import com.motorola.validation.ValidationType;
+import com.motorola.validation.ValidationErrorType;
 import org.restlet.engine.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +29,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.motorola.constants.InterfaceConstants.CORERELATION_ID;
+import static com.motorola.constants.InterfaceConstants.CUSTOMER_ID;
 import static com.motorola.constants.InterfaceConstants.DATA_JSON_KEY;
 import static com.motorola.constants.InterfaceConstants.ID_JSON_KEY;
 import static com.motorola.constants.InterfaceConstants.NEW_JSON_KEY;
 import static com.motorola.constants.InterfaceConstants.OLD_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.REQUEST_TYPE;
+import static com.motorola.constants.InterfaceConstants.SESSION_ID;
 
 /**
  * Translator class for Spillman version 2019.1
@@ -47,11 +51,13 @@ public class Translator2019_1 implements BaseTranslator {
 		clearValidationResults();
 		UserSessionWrapper result = new UserSessionWrapper();
 		UserSession userSession = new UserSession();
-		result.setCorrelationId(getStringByKey(payload, InterfaceConstants.CORERELATION_ID));
-		userSession.setCustomerId(getStringByKey(payload, InterfaceConstants.CUSTOMER_ID));
-		userSession.setSessionId(getStringByKey(payload, InterfaceConstants.SESSION_ID));
-		userSession.setUserId(getStringFromNestedJsonByKey(getJsonByKey(payload, InterfaceConstants.REQUEST_PARAMETERS), InterfaceConstants.USER_JSON_KEY, InterfaceConstants.JSON_KEY));
-		userSession.setDeviceId(getStringFromNestedJsonByKey(getJsonByKey(payload, InterfaceConstants.REQUEST_PARAMETERS), InterfaceConstants.DEVICE_JSON_KEY, InterfaceConstants.JSON_KEY));
+		String correlationId = getStringByKey(payload, CORERELATION_ID);
+		validateRequiredField(correlationId, CORERELATION_ID);
+		result.setCorrelationId(correlationId);
+		userSession.setCustomerId(getStringByKey(payload, CUSTOMER_ID));
+		userSession.setSessionId(getStringByKey(payload, SESSION_ID));
+		userSession.setUserId(getStringFromNestedJsonByKey(getJsonByKey(payload, InterfaceConstants.REQUEST_PARAMETERS), InterfaceConstants.USER_JSON_KEY, InterfaceConstants.KEY_JSON_KEY));
+		userSession.setDeviceId(getStringFromNestedJsonByKey(getJsonByKey(payload, InterfaceConstants.REQUEST_PARAMETERS), InterfaceConstants.DEVICE_JSON_KEY, InterfaceConstants.KEY_JSON_KEY));
 
 		JsonObject requestParametersJSON = getJsonByKey(payload, InterfaceConstants.REQUEST_PARAMETERS);
 		JsonObject additionInfoJSON = getJsonByKey(requestParametersJSON, InterfaceConstants.ADDITIONAL_INFO_JSON_KEY);
@@ -59,7 +65,7 @@ public class Translator2019_1 implements BaseTranslator {
 		AdditionalInfo additionalInfo = new AdditionalInfo();
 		// gets the Unit info from addition object, translate to UserSession->AdditionalInfo->UnitHandle object fields
 		UnitHandle unitHandler = new UnitHandle();
-		unitHandler.setKey(getStringByKey(unitJSONObject, InterfaceConstants.JSON_KEY));
+		unitHandler.setKey(getStringByKey(unitJSONObject, InterfaceConstants.KEY_JSON_KEY));
 		unitHandler.setAgency(getStringByKey(unitJSONObject, InterfaceConstants.AGENCY_JSON_KEY));
 		unitHandler.setCallSign(getStringByKey(unitJSONObject, InterfaceConstants.CALL_SIGN_JSON_KEY));
 		unitHandler.setShiftId(unitJSONObject.get(InterfaceConstants.SHIFT_ID_JSON_KEY).getAsString());
@@ -92,14 +98,12 @@ public class Translator2019_1 implements BaseTranslator {
 	public ResponseNotification translateBookOff(JsonObject payload) {
 		clearValidationResults();
 		ResponseNotification result = new ResponseNotification();
-		// translate correlation id
-		result.setCorrelationId(getStringByKey(payload, InterfaceConstants.CORERELATION_ID));
-		// translate customer id
-		result.setCustomerId(getStringByKey(payload, InterfaceConstants.CUSTOMER_ID));
-		// translate session ID
-		result.setSessionId(getStringByKey(payload, InterfaceConstants.SESSION_ID));
-		// translate request type
-		result.setResponseType(getStringByKey(payload, InterfaceConstants.REQUEST_TYPE));
+		String correlationId = getStringByKey(payload, CORERELATION_ID);
+		validateRequiredField(correlationId, CORERELATION_ID);
+		result.setCorrelationId(correlationId);
+		result.setCustomerId(getStringByKey(payload, CUSTOMER_ID));
+		result.setSessionId(getStringByKey(payload, SESSION_ID));
+		result.setResponseType(getStringByKey(payload, REQUEST_TYPE));
 
 		return result;
 	}
@@ -113,7 +117,7 @@ public class Translator2019_1 implements BaseTranslator {
 			JsonObject incident = data.get(0).getAsJsonObject();
 			String id = getStringByKey(incident, ID_JSON_KEY);
 			if (StringUtils.isNullOrEmpty(id)) {
-				validationResults.add(new ValidationResult("Incident id is missing.", ValidationType.MISSING_DATA));
+				validationResults.add(new ValidationResult("Incident id is missing.", ValidationErrorType.MISSING_DATA));
 			}
 			else {
 				emergencyIncident.setId(id);
@@ -121,7 +125,7 @@ public class Translator2019_1 implements BaseTranslator {
 			}
 		}
 		else {
-			validationResults.add(new ValidationResult("Payload data is missing or empty.", ValidationType.MISSING_DATA));
+			validationResults.add(new ValidationResult("Payload data is missing or empty.", ValidationErrorType.MISSING_DATA));
 		}
 
 		return emergencyIncident;
@@ -155,22 +159,27 @@ public class Translator2019_1 implements BaseTranslator {
 				updateIncident.setOld(oldModel);
 			}
 			else {
-				if (old == null) {
-					validationResults.add(new ValidationResult("Old model is missing or empty.", ValidationType.MISSING_DATA));
+				if (old == null || StringUtils.isNullOrEmpty(getStringByKey(old, ID_JSON_KEY))) {
+					validationResults.add(new ValidationResult("Old model is missing or empty.", ValidationErrorType.MISSING_DATA));
 				}
 
-				if (__new == null) {
-					validationResults.add(new ValidationResult("New model is missing or empty.", ValidationType.MISSING_DATA));
+				if (__new == null || StringUtils.isNullOrEmpty(getStringByKey(__new, ID_JSON_KEY))) {
+					validationResults.add(new ValidationResult("New model is missing or empty.", ValidationErrorType.MISSING_DATA));
 				}
 			}
 		}
 		else {
-			validationResults.add(new ValidationResult("Payload data is missing or empty.", ValidationType.MISSING_DATA));
+			validationResults.add(new ValidationResult("Payload data is missing or empty.", ValidationErrorType.MISSING_DATA));
 		}
 
 		return updateIncident;
 	}
 
+	/**
+	 * Gets the list of trusted agencies from json object
+	 * @param infoJSON json to get the list of trusted agencies
+	 * @return list with trusted agencies
+	 */
 	private List<Lookup> getTrustedAgencies(JsonObject infoJSON) {
 		List<Lookup> result = new ArrayList<>();
 		JsonArray agenciesJson = getJsonArrayByKey(infoJSON, InterfaceConstants.TRUSTED_AGENCIES_JSON_KEY);
@@ -290,6 +299,12 @@ public class Translator2019_1 implements BaseTranslator {
 		return result;
 	}
 
+	/**
+	 * Gets Json array from json object by key
+	 * @param json object to get array
+	 * @param key of the array object
+	 * @return json array
+	 */
 	private JsonArray getJsonArrayByKey(JsonObject json, String key) {
 		JsonArray result = null;
 		if (json != null && json.get(key) != null) {
@@ -301,11 +316,29 @@ public class Translator2019_1 implements BaseTranslator {
 		return result;
 	}
 
+	/**
+	 * Gets the list with validation result
+	 * @return list with validation result
+	 */
 	public List<ValidationResult> getValidationResults() {
 		return validationResults;
 	}
 
+	/**
+	 * Clears the list with validation result
+	 */
 	private void clearValidationResults() {
 		this.validationResults = new ArrayList<>();
+	}
+
+	/**
+	 * Populates validationResults list with missing data info
+	 * @param field to validate
+	 * @param fieldName
+	 */
+	private void validateRequiredField(String field, String fieldName) {
+		if (StringUtils.isNullOrEmpty(field)) {
+			validationResults.add(new ValidationResult(String.format("%s is required field.", fieldName), ValidationErrorType.MISSING_DATA));
+		}
 	}
 }

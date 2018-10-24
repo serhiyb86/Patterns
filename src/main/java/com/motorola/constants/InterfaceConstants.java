@@ -47,7 +47,7 @@ public class InterfaceConstants {
 	public static final String STATION_JSON_KEY = "station";
 	public static final String VEHICLE_ID_JSON_KEY = "vehicleId";
 	public static final String TRUSTED_AGENCIES_JSON_KEY = "trustedAgencies";
-	public static final String JSON_KEY = "key";
+	public static final String KEY_JSON_KEY = "key";
 	public static final String DATA_JSON_KEY = "data";
 	public static final String DISPATCHES_JSON_KEY = "dispatches";
 	public static final String ID_JSON_KEY = "id";

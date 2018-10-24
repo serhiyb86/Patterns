@@ -1,11 +1,14 @@
+/*
+ * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
+ */
 package com.motorola.validation;
 
 public class ValidationResult {
 
 	private String message;
-	private ValidationType type;
+	private ValidationErrorType type;
 
-	public ValidationResult(String message, ValidationType type) {
+	public ValidationResult(String message, ValidationErrorType type) {
 		this.message = message;
 		this.type = type;
 	}
@@ -14,7 +17,7 @@ public class ValidationResult {
 		return message;
 	}
 
-	public ValidationType getType() {
+	public ValidationErrorType getType() {
 		return type;
 	}
 }

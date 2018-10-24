@@ -3,7 +3,6 @@
  */
 package com.motorola.servlets;
 
-import com.motorola.models.representation.ApiResponse;
 import com.motorola.models.representation.UserSessionWrapper;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
@@ -25,7 +24,7 @@ public class BookOnServlet extends BaseHttpServlet {
 		List<ValidationResult> validationResult = validateRequest(request, BOOK_ON_REQUEST_TYPE);
 		if (validationResult.size() == 0) {
 			UserSessionWrapper wrapper = translator.translateBookOn(payload);
-			if (wrapper.getCorrelationId() != null) {
+			if (translator.getValidationResults().size() == 0) {
 				//ApiResponse apiResponse = client.responseUserSessionCorrelationId(wrapper.getCorrelationId()).bookOnResponse(wrapper.getModel());
 				//response.getOutputStream().write(apiResponse.toString().getBytes());
 				//send also the model for reviewing on the interface side
