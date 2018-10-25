@@ -6,7 +6,6 @@ package com.motorola.translation.v2019_1;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.AdditionalInfo;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.Jurisdiction;
@@ -17,6 +16,7 @@ import com.motorola.models.representation.UpdateEmergencyIncident;
 import com.motorola.models.representation.UserSession;
 import com.motorola.models.representation.UserSessionWrapper;
 import com.motorola.translation.BaseTranslator;
+import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
 import com.motorola.validation.ValidationErrorType;
 import org.restlet.engine.util.StringUtils;
@@ -29,14 +29,33 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.motorola.constants.InterfaceConstants.ADDITIONAL_INFO_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.AGENCY_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.AREA_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.CALL_SIGN_JSON_KEY;
 import static com.motorola.constants.InterfaceConstants.CORERELATION_ID;
 import static com.motorola.constants.InterfaceConstants.CUSTOMER_ID;
 import static com.motorola.constants.InterfaceConstants.DATA_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.DEVICE_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.DISTRICT_JSON_KEY;
 import static com.motorola.constants.InterfaceConstants.ID_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.JURISDICTIONS_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.KEY_JSON_KEY;
 import static com.motorola.constants.InterfaceConstants.NEW_JSON_KEY;
 import static com.motorola.constants.InterfaceConstants.OLD_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.REQUEST_PARAMETERS;
 import static com.motorola.constants.InterfaceConstants.REQUEST_TYPE;
+import static com.motorola.constants.InterfaceConstants.SECTOR_JSON_KEY;
 import static com.motorola.constants.InterfaceConstants.SESSION_ID;
+import static com.motorola.constants.InterfaceConstants.SHIFT_ID_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.STATION_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.TRUSTED_AGENCIES_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.UID_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.UNIT_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.USER_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.VEHICLE_ID_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.WHEN_SUBMITTED;
+import static com.motorola.constants.InterfaceConstants.ZONE_JSON_KEY;
 
 /**
  * Translator class for Spillman version 2019.1
@@ -45,49 +64,49 @@ public class Translator2019_1 implements BaseTranslator {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(Translator2019_1.class);
 	private List<ValidationResult> validationResults = new ArrayList<>();
+	private final CadCloudUtils utils = new CadCloudUtils();
 
 	@Override
 	public UserSessionWrapper translateBookOn(JsonObject payload) {
 		clearValidationResults();
 		UserSessionWrapper result = new UserSessionWrapper();
 		UserSession userSession = new UserSession();
-		String correlationId = getStringByKey(payload, CORERELATION_ID);
-		validateRequiredField(correlationId, CORERELATION_ID);
+		String correlationId = utils.getStringByKey(payload, CORERELATION_ID);
+		validateRequiredStringField(correlationId, CORERELATION_ID);
 		result.setCorrelationId(correlationId);
-		userSession.setCustomerId(getStringByKey(payload, CUSTOMER_ID));
-		userSession.setSessionId(getStringByKey(payload, SESSION_ID));
-		userSession.setUserId(getStringFromNestedJsonByKey(getJsonByKey(payload, InterfaceConstants.REQUEST_PARAMETERS), InterfaceConstants.USER_JSON_KEY, InterfaceConstants.KEY_JSON_KEY));
-		userSession.setDeviceId(getStringFromNestedJsonByKey(getJsonByKey(payload, InterfaceConstants.REQUEST_PARAMETERS), InterfaceConstants.DEVICE_JSON_KEY, InterfaceConstants.KEY_JSON_KEY));
+		userSession.setCustomerId(utils.getStringByKey(payload, CUSTOMER_ID));
+		userSession.setSessionId(utils.getStringByKey(payload, SESSION_ID));
+		JsonObject requestParameters = utils.getJsonByKey(payload, REQUEST_PARAMETERS);
+		if (validateRequiredObjectField(requestParameters, REQUEST_PARAMETERS)) {
+			userSession.setUserId(utils.getStringFromNestedJsonByKey(requestParameters, USER_JSON_KEY, KEY_JSON_KEY));
+		}
+		userSession.setDeviceId(utils.getStringFromNestedJsonByKey(utils.getJsonByKey(payload, REQUEST_PARAMETERS), DEVICE_JSON_KEY, KEY_JSON_KEY));
 
-		JsonObject requestParametersJSON = getJsonByKey(payload, InterfaceConstants.REQUEST_PARAMETERS);
-		JsonObject additionInfoJSON = getJsonByKey(requestParametersJSON, InterfaceConstants.ADDITIONAL_INFO_JSON_KEY);
-		JsonObject unitJSONObject = getJsonByKey(additionInfoJSON, InterfaceConstants.UNIT_JSON_KEY);
+		JsonObject requestParametersJSON = utils.getJsonByKey(payload, REQUEST_PARAMETERS);
+		JsonObject additionInfoJSON = utils.getJsonByKey(requestParametersJSON, ADDITIONAL_INFO_JSON_KEY);
+		JsonObject unitJSONObject = utils.getJsonByKey(additionInfoJSON, UNIT_JSON_KEY);
 		AdditionalInfo additionalInfo = new AdditionalInfo();
 		// gets the Unit info from addition object, translate to UserSession->AdditionalInfo->UnitHandle object fields
 		UnitHandle unitHandler = new UnitHandle();
-		unitHandler.setKey(getStringByKey(unitJSONObject, InterfaceConstants.KEY_JSON_KEY));
-		unitHandler.setAgency(getStringByKey(unitJSONObject, InterfaceConstants.AGENCY_JSON_KEY));
-		unitHandler.setCallSign(getStringByKey(unitJSONObject, InterfaceConstants.CALL_SIGN_JSON_KEY));
-		unitHandler.setShiftId(unitJSONObject.get(InterfaceConstants.SHIFT_ID_JSON_KEY).getAsString());
+		unitHandler.setKey(utils.getStringByKey(unitJSONObject, KEY_JSON_KEY));
+		unitHandler.setAgency(utils.getStringByKey(unitJSONObject, AGENCY_JSON_KEY));
+		unitHandler.setCallSign(utils.getStringByKey(unitJSONObject, CALL_SIGN_JSON_KEY));
+		unitHandler.setShiftId(unitJSONObject.get(SHIFT_ID_JSON_KEY).getAsString());
 		additionalInfo.setUnit(unitHandler);
 		// gets the Jurisdictions from addition object, translate to UserSession->AdditionalInfo-> List<Jurisdiction>
-		additionalInfo.setJurisdictions(getJurisdictions(getJsonArrayByKey(additionInfoJSON, InterfaceConstants.JURISDICTIONS_JSON_KEY)));
+		additionalInfo.setJurisdictions(getJurisdictions(utils.getJsonArrayByKey(additionInfoJSON, JURISDICTIONS_JSON_KEY)));
 		// get the district
 		Lookup districtLookup = new Lookup();
-		districtLookup.setUid(getStringByKey(getJsonByKey(additionInfoJSON, InterfaceConstants.DISTRICT_JSON_KEY), InterfaceConstants.UID_JSON_KEY));
+		districtLookup.setUid(utils.getStringByKey(utils.getJsonByKey(additionInfoJSON, DISTRICT_JSON_KEY), UID_JSON_KEY));
 		additionalInfo.setDistrict(districtLookup);
 		// gets station
 		Lookup stationLookup = new Lookup();
-		stationLookup.setUid(getStringByKey(getJsonByKey(additionInfoJSON, InterfaceConstants.STATION_JSON_KEY), InterfaceConstants.UID_JSON_KEY));
+		stationLookup.setUid(utils.getStringByKey(utils.getJsonByKey(additionInfoJSON, STATION_JSON_KEY), UID_JSON_KEY));
 		additionalInfo.setStation(stationLookup);
-		// transform vehicle
-		additionalInfo.setVehicleId(getStringByKey(additionInfoJSON, InterfaceConstants.VEHICLE_ID_JSON_KEY));
-		// get trusted agencies
+		additionalInfo.setVehicleId(utils.getStringByKey(additionInfoJSON, VEHICLE_ID_JSON_KEY));
 		List<Lookup> trustedAgencies = getTrustedAgencies(additionInfoJSON);
 		additionalInfo.setTrustedAgencies(trustedAgencies);
-		// transform creation date
 		userSession.setWhenSessionCreated(getCreationDate(payload));
-		// transform request parameters
 		userSession.setAdditionalInfo(additionalInfo);
 		result.setModel(userSession);
 
@@ -98,12 +117,12 @@ public class Translator2019_1 implements BaseTranslator {
 	public ResponseNotification translateBookOff(JsonObject payload) {
 		clearValidationResults();
 		ResponseNotification result = new ResponseNotification();
-		String correlationId = getStringByKey(payload, CORERELATION_ID);
-		validateRequiredField(correlationId, CORERELATION_ID);
+		String correlationId = utils.getStringByKey(payload, CORERELATION_ID);
+		validateRequiredStringField(correlationId, CORERELATION_ID);
 		result.setCorrelationId(correlationId);
-		result.setCustomerId(getStringByKey(payload, CUSTOMER_ID));
-		result.setSessionId(getStringByKey(payload, SESSION_ID));
-		result.setResponseType(getStringByKey(payload, REQUEST_TYPE));
+		result.setCustomerId(utils.getStringByKey(payload, CUSTOMER_ID));
+		result.setSessionId(utils.getStringByKey(payload, SESSION_ID));
+		result.setResponseType(utils.getStringByKey(payload, REQUEST_TYPE));
 
 		return result;
 	}
@@ -112,20 +131,14 @@ public class Translator2019_1 implements BaseTranslator {
 	public EmergencyIncident translateCreateIncident(JsonObject payload) {
 		clearValidationResults();
 		EmergencyIncident emergencyIncident = new EmergencyIncident();
-		JsonArray data = getJsonArrayByKey(payload, DATA_JSON_KEY);
-		if (data != null && data.get(0) != null) {
+		JsonArray data = utils.getJsonArrayByKey(payload, DATA_JSON_KEY);
+		if (validateRequiredObjectField(data, DATA_JSON_KEY) && validateRequiredObjectField(data.get(0), DATA_JSON_KEY)) {
 			JsonObject incident = data.get(0).getAsJsonObject();
-			String id = getStringByKey(incident, ID_JSON_KEY);
-			if (StringUtils.isNullOrEmpty(id)) {
-				validationResults.add(new ValidationResult("Incident id is missing.", ValidationErrorType.MISSING_DATA));
-			}
-			else {
+			String id = utils.getStringByKey(incident, ID_JSON_KEY);
+			if (validateRequiredStringField(id, ID_JSON_KEY)) {
 				emergencyIncident.setId(id);
 				emergencyIncident.setKey(id);
 			}
-		}
-		else {
-			validationResults.add(new ValidationResult("Payload data is missing or empty.", ValidationErrorType.MISSING_DATA));
 		}
 
 		return emergencyIncident;
@@ -135,41 +148,28 @@ public class Translator2019_1 implements BaseTranslator {
 	public UpdateEmergencyIncident translateUpdateIncident(JsonObject payload) {
 		clearValidationResults();
 		UpdateEmergencyIncident updateIncident = new UpdateEmergencyIncident();
-
-		JsonArray data = getJsonArrayByKey(payload, DATA_JSON_KEY);
-		if (data != null && data.get(0) != null) {
+		JsonArray data = utils.getJsonArrayByKey(payload, DATA_JSON_KEY);
+		if (validateRequiredObjectField(data, DATA_JSON_KEY) && validateRequiredObjectField(data.get(0), DATA_JSON_KEY)) {
 			JsonObject updateIncidentJson = data.get(0).getAsJsonObject();
-			JsonObject old = getJsonByKey(updateIncidentJson, OLD_JSON_KEY);
-			JsonObject __new = getJsonByKey(updateIncidentJson, NEW_JSON_KEY);
-
-			if (old != null && __new != null && !StringUtils.isNullOrEmpty(getStringByKey(old, ID_JSON_KEY))
-				&& !StringUtils.isNullOrEmpty(getStringByKey(__new, ID_JSON_KEY))) {
+			JsonObject old = utils.getJsonByKey(updateIncidentJson, OLD_JSON_KEY);
+			JsonObject __new = utils.getJsonByKey(updateIncidentJson, NEW_JSON_KEY);
+			if (validateRequiredObjectField(old, OLD_JSON_KEY) && validateRequiredObjectField(__new, NEW_JSON_KEY)
+				&& validateRequiredStringField(utils.getStringByKey(old, ID_JSON_KEY), ID_JSON_KEY)
+				&& validateRequiredStringField(utils.getStringByKey(__new, ID_JSON_KEY), ID_JSON_KEY)) {
 
 				EmergencyIncident newModel = new EmergencyIncident();
-				String new_id = getStringByKey(__new, ID_JSON_KEY);
+				String new_id = utils.getStringByKey(__new, ID_JSON_KEY);
 				newModel.setKey(new_id);
 				newModel.setId(new_id);
 
 				EmergencyIncident oldModel = new EmergencyIncident();
-				String old_id = getStringByKey(old, ID_JSON_KEY);
+				String old_id = utils.getStringByKey(old, ID_JSON_KEY);
 				oldModel.setId(old_id);
 				oldModel.setKey(old_id);
 
 				updateIncident.set__new(newModel);
 				updateIncident.setOld(oldModel);
 			}
-			else {
-				if (old == null || StringUtils.isNullOrEmpty(getStringByKey(old, ID_JSON_KEY))) {
-					validationResults.add(new ValidationResult("Old model is missing or empty.", ValidationErrorType.MISSING_DATA));
-				}
-
-				if (__new == null || StringUtils.isNullOrEmpty(getStringByKey(__new, ID_JSON_KEY))) {
-					validationResults.add(new ValidationResult("New model is missing or empty.", ValidationErrorType.MISSING_DATA));
-				}
-			}
-		}
-		else {
-			validationResults.add(new ValidationResult("Payload data is missing or empty.", ValidationErrorType.MISSING_DATA));
 		}
 
 		return updateIncident;
@@ -182,13 +182,14 @@ public class Translator2019_1 implements BaseTranslator {
 	 */
 	private List<Lookup> getTrustedAgencies(JsonObject infoJSON) {
 		List<Lookup> result = new ArrayList<>();
-		JsonArray agenciesJson = getJsonArrayByKey(infoJSON, InterfaceConstants.TRUSTED_AGENCIES_JSON_KEY);
+		JsonArray agenciesJson = utils.getJsonArrayByKey(infoJSON, TRUSTED_AGENCIES_JSON_KEY);
 		for (JsonElement element : agenciesJson) {
 			JsonObject elementJSON = element.getAsJsonObject();
 			Lookup trustedAgency = new Lookup();
-			trustedAgency.setUid(getStringByKey(elementJSON, InterfaceConstants.UID_JSON_KEY));
+			trustedAgency.setUid(utils.getStringByKey(elementJSON, UID_JSON_KEY));
 			result.add(trustedAgency);
 		}
+
 		return result;
 	}
 
@@ -198,9 +199,9 @@ public class Translator2019_1 implements BaseTranslator {
 	 * @return
 	 */
 	private Date getCreationDate(JsonObject payload) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		Date result = null;
-		String strDate = getStringByKey(payload, InterfaceConstants.WHEN_SUBMITTED);
+		String strDate = utils.getStringByKey(payload, WHEN_SUBMITTED);
 		if (strDate != null) {
 			try {
 				result = formatter.parse(strDate);
@@ -210,6 +211,7 @@ public class Translator2019_1 implements BaseTranslator {
 			}
 
 		}
+
 		return result;
 	}
 
@@ -226,93 +228,18 @@ public class Translator2019_1 implements BaseTranslator {
 			Lookup zoneLookup = new Lookup();
 			Jurisdiction jurisdiction = new Jurisdiction();
 			JsonObject elementJSON = element.getAsJsonObject();
-			JsonObject areaJSON = getJsonByKey(elementJSON, InterfaceConstants.AREA_JSON_KEY);
-			JsonObject sectorJSON = getJsonByKey(elementJSON, InterfaceConstants.SECTOR_JSON_KEY);
-			JsonObject zoneJSON = getJsonByKey(elementJSON, InterfaceConstants.ZONE_JSON_KEY);
-			areaLookup.setUid(getStringByKey(areaJSON, InterfaceConstants.UID_JSON_KEY));
-			sectorLookup.setUid(getStringByKey(sectorJSON, InterfaceConstants.UID_JSON_KEY));
-			zoneLookup.setUid(getStringByKey(zoneJSON, InterfaceConstants.UID_JSON_KEY));
+			JsonObject areaJSON = utils.getJsonByKey(elementJSON, AREA_JSON_KEY);
+			JsonObject sectorJSON = utils.getJsonByKey(elementJSON, SECTOR_JSON_KEY);
+			JsonObject zoneJSON = utils.getJsonByKey(elementJSON, ZONE_JSON_KEY);
+			areaLookup.setUid(utils.getStringByKey(areaJSON, UID_JSON_KEY));
+			sectorLookup.setUid(utils.getStringByKey(sectorJSON, UID_JSON_KEY));
+			zoneLookup.setUid(utils.getStringByKey(zoneJSON, UID_JSON_KEY));
 			jurisdiction.setArea(areaLookup);
 			jurisdiction.setSector(sectorLookup);
 			jurisdiction.setZone(zoneLookup);
 			result.add(jurisdiction);
 		}
 
-		return result;
-	}
-
-	/**
-	 * Get the value of field inside nested json by key
-	 * @param rootJson root json object
-	 * @param nestedJsonKey - nested json key
-	 * @param fieldKey - field key
-	 * @return field string value if exist, otherwise - null
-	 */
-	private String getStringFromNestedJsonByKey(JsonObject rootJson, String nestedJsonKey, String fieldKey) {
-		String result = null;
-		if (rootJson != null && rootJson.get(nestedJsonKey) != null) {
-			JsonObject nestedObject = rootJson.get(nestedJsonKey).getAsJsonObject();
-			if (nestedObject.get(fieldKey) != null) {
-				result = nestedObject.get(fieldKey).getAsString();
-			}
-			else {
-				LOGGER.debug("the nested json %s does not contain key  %s", nestedJsonKey, fieldKey);
-			}
-		}
-		else {
-			LOGGER.debug("the root json does not contain key  %s", nestedJsonKey);
-		}
-		return result;
-	}
-
-	/**
-	 * Gets the String value from incoming json
-	 * @param json - json payload object
-	 * @param key - the property key
-	 * @return - the value if exist, otherwise - null
-	 */
-	private String getStringByKey(JsonObject json, String key) {
-		String result = null;
-		if (json != null && json.get(key) != null) {
-			result = json.get(key).getAsString();
-		}
-		else {
-			LOGGER.debug("The json does not contain key  %s for string value", key);
-		}
-		return result;
-	}
-
-	/**
-	 * Gets JSON value from incoming json
-	 * @param json - json payload object
-	 * @param key - the property key
-	 * @return - the value if exist, otherwise - null
-	 */
-	private JsonObject getJsonByKey(JsonObject json, String key) {
-		JsonObject result = null;
-		if (json != null && json.get(key) != null) {
-			result = json.get(key).getAsJsonObject();
-		}
-		else {
-			LOGGER.debug("the json does not contain key  %s for json value", key);
-		}
-		return result;
-	}
-
-	/**
-	 * Gets Json array from json object by key
-	 * @param json object to get array
-	 * @param key of the array object
-	 * @return json array
-	 */
-	private JsonArray getJsonArrayByKey(JsonObject json, String key) {
-		JsonArray result = null;
-		if (json != null && json.get(key) != null) {
-			result = json.get(key).getAsJsonArray();
-		}
-		else {
-			LOGGER.debug("the json does not contain key  %s for json array value", key);
-		}
 		return result;
 	}
 
@@ -332,13 +259,30 @@ public class Translator2019_1 implements BaseTranslator {
 	}
 
 	/**
-	 * Populates validationResults list with missing data info
+	 * Checks if field is empty or null. If string is invalid adds error message to the validationResults list
 	 * @param field to validate
-	 * @param fieldName
+	 * @param fieldName name of the field
+	 * @return true if present, false if not
 	 */
-	private void validateRequiredField(String field, String fieldName) {
+	private boolean validateRequiredStringField(String field, String fieldName) {
 		if (StringUtils.isNullOrEmpty(field)) {
-			validationResults.add(new ValidationResult(String.format("%s is required field.", fieldName), ValidationErrorType.MISSING_DATA));
+			validationResults.add(new ValidationResult(String.format("%s is required field. ", fieldName), ValidationErrorType.MISSING_DATA));
+			return false;
 		}
+		return true;
+	}
+
+	/**
+	 * Checks if field is null. If so adds error message to the validationResults list
+	 * @param field to validate
+	 * @param fieldName name of the field
+	 * @return true if present, false if not
+	 */
+	private boolean validateRequiredObjectField(Object field, String fieldName) {
+		if (field != null) {
+			validationResults.add(new ValidationResult(String.format("%s is required field. ", fieldName), ValidationErrorType.MISSING_DATA));
+			return false;
+		}
+		return true;
 	}
 }
