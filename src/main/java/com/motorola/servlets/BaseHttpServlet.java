@@ -65,7 +65,7 @@ abstract class BaseHttpServlet extends HttpServlet {
 			requestType = payload.get(REQUEST_TYPE).getAsString();
 			if (!expectedRequestType.equals(requestType)) {
 				validationResults.add(new ValidationResult(
-					String.format("Request type is incorrect. Expected: %s, but was: %s.", expectedRequestType, request),
+					String.format("Request type is incorrect. Expected: %s, but was: %s.", expectedRequestType, requestType),
 					ValidationErrorType.UNEXPECTED_DATA));
 			}
 		}
