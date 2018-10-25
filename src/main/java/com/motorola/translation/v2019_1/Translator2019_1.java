@@ -79,36 +79,34 @@ public class Translator2019_1 implements BaseTranslator {
 		JsonObject requestParameters = utils.getJsonByKey(payload, REQUEST_PARAMETERS);
 		if (validateRequiredObjectField(requestParameters, REQUEST_PARAMETERS)) {
 			userSession.setUserId(utils.getStringFromNestedJsonByKey(requestParameters, USER_JSON_KEY, KEY_JSON_KEY));
+			userSession.setDeviceId(utils.getStringFromNestedJsonByKey(requestParameters, DEVICE_JSON_KEY, KEY_JSON_KEY));
+			JsonObject additionInfoJSON = utils.getJsonByKey(requestParameters, ADDITIONAL_INFO_JSON_KEY);
+			JsonObject unitJSONObject = utils.getJsonByKey(additionInfoJSON, UNIT_JSON_KEY);
+			AdditionalInfo additionalInfo = new AdditionalInfo();
+			// gets the Unit info from addition object, translate to UserSession->AdditionalInfo->UnitHandle object fields
+			UnitHandle unitHandler = new UnitHandle();
+			unitHandler.setKey(utils.getStringByKey(unitJSONObject, KEY_JSON_KEY));
+			unitHandler.setAgency(utils.getStringByKey(unitJSONObject, AGENCY_JSON_KEY));
+			unitHandler.setCallSign(utils.getStringByKey(unitJSONObject, CALL_SIGN_JSON_KEY));
+			unitHandler.setShiftId(unitJSONObject.get(SHIFT_ID_JSON_KEY).getAsString());
+			additionalInfo.setUnit(unitHandler);
+			// gets the Jurisdictions from addition object, translate to UserSession->AdditionalInfo-> List<Jurisdiction>
+			additionalInfo.setJurisdictions(getJurisdictions(utils.getJsonArrayByKey(additionInfoJSON, JURISDICTIONS_JSON_KEY)));
+			// get the district
+			Lookup districtLookup = new Lookup();
+			districtLookup.setUid(utils.getStringByKey(utils.getJsonByKey(additionInfoJSON, DISTRICT_JSON_KEY), UID_JSON_KEY));
+			additionalInfo.setDistrict(districtLookup);
+			// gets station
+			Lookup stationLookup = new Lookup();
+			stationLookup.setUid(utils.getStringByKey(utils.getJsonByKey(additionInfoJSON, STATION_JSON_KEY), UID_JSON_KEY));
+			additionalInfo.setStation(stationLookup);
+			additionalInfo.setVehicleId(utils.getStringByKey(additionInfoJSON, VEHICLE_ID_JSON_KEY));
+			List<Lookup> trustedAgencies = getTrustedAgencies(additionInfoJSON);
+			additionalInfo.setTrustedAgencies(trustedAgencies);
+			userSession.setWhenSessionCreated(getCreationDate(payload));
+			userSession.setAdditionalInfo(additionalInfo);
+			result.setModel(userSession);
 		}
-		userSession.setDeviceId(utils.getStringFromNestedJsonByKey(utils.getJsonByKey(payload, REQUEST_PARAMETERS), DEVICE_JSON_KEY, KEY_JSON_KEY));
-
-		JsonObject requestParametersJSON = utils.getJsonByKey(payload, REQUEST_PARAMETERS);
-		JsonObject additionInfoJSON = utils.getJsonByKey(requestParametersJSON, ADDITIONAL_INFO_JSON_KEY);
-		JsonObject unitJSONObject = utils.getJsonByKey(additionInfoJSON, UNIT_JSON_KEY);
-		AdditionalInfo additionalInfo = new AdditionalInfo();
-		// gets the Unit info from addition object, translate to UserSession->AdditionalInfo->UnitHandle object fields
-		UnitHandle unitHandler = new UnitHandle();
-		unitHandler.setKey(utils.getStringByKey(unitJSONObject, KEY_JSON_KEY));
-		unitHandler.setAgency(utils.getStringByKey(unitJSONObject, AGENCY_JSON_KEY));
-		unitHandler.setCallSign(utils.getStringByKey(unitJSONObject, CALL_SIGN_JSON_KEY));
-		unitHandler.setShiftId(unitJSONObject.get(SHIFT_ID_JSON_KEY).getAsString());
-		additionalInfo.setUnit(unitHandler);
-		// gets the Jurisdictions from addition object, translate to UserSession->AdditionalInfo-> List<Jurisdiction>
-		additionalInfo.setJurisdictions(getJurisdictions(utils.getJsonArrayByKey(additionInfoJSON, JURISDICTIONS_JSON_KEY)));
-		// get the district
-		Lookup districtLookup = new Lookup();
-		districtLookup.setUid(utils.getStringByKey(utils.getJsonByKey(additionInfoJSON, DISTRICT_JSON_KEY), UID_JSON_KEY));
-		additionalInfo.setDistrict(districtLookup);
-		// gets station
-		Lookup stationLookup = new Lookup();
-		stationLookup.setUid(utils.getStringByKey(utils.getJsonByKey(additionInfoJSON, STATION_JSON_KEY), UID_JSON_KEY));
-		additionalInfo.setStation(stationLookup);
-		additionalInfo.setVehicleId(utils.getStringByKey(additionInfoJSON, VEHICLE_ID_JSON_KEY));
-		List<Lookup> trustedAgencies = getTrustedAgencies(additionInfoJSON);
-		additionalInfo.setTrustedAgencies(trustedAgencies);
-		userSession.setWhenSessionCreated(getCreationDate(payload));
-		userSession.setAdditionalInfo(additionalInfo);
-		result.setModel(userSession);
 
 		return result;
 	}
@@ -279,7 +277,7 @@ public class Translator2019_1 implements BaseTranslator {
 	 * @return true if present, false if not
 	 */
 	private boolean validateRequiredObjectField(Object field, String fieldName) {
-		if (field != null) {
+		if (field == null) {
 			validationResults.add(new ValidationResult(String.format("%s is required field. ", fieldName), ValidationErrorType.MISSING_DATA));
 			return false;
 		}
