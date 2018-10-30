@@ -16,59 +16,59 @@ public class JurisdictionalAssignment implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private List<String> area = new ArrayList<String>();
+	private List<Lookup> areas = new ArrayList<>();
 
-	private List<String> sector = new ArrayList<java.lang.String>();
+	private List<Lookup> sectors = new ArrayList<>();
 
-	private List<String> zone = new ArrayList<java.lang.String>();
+	private List<Lookup> beats = new ArrayList<>();
 
 	private Lookup homeStation;
 
 	private Lookup assignedStation;
 
 	/**
-	 * Returns the value of property "area".
-	 * Area
+	 * Returns the value of property "areas".
+	 * Areas
 	 */
-	public List<String> getArea() {
-		return area;
+	public List<Lookup> getAreas() {
+		return areas;
 	}
 
 	/**
-	 * Updates the value of property "area".
+	 * Updates the value of property "areas".
 	 */
-	public void setArea(List<String> area) {
-		this.area = area;
+	public void setAreas(List<Lookup> areas) {
+		this.areas = areas;
 	}
 
 	/**
-	 * Returns the value of property "sector".
-	 * Sector
+	 * Returns the value of property "sectors".
+	 * Sectors
 	 */
-	public List<String> getSector() {
-		return sector;
+	public List<Lookup> getSectors() {
+		return sectors;
 	}
 
 	/**
-	 * Updates the value of property "sector".
+	 * Updates the value of property "sectors".
 	 */
-	public void setSector(List<String> sector) {
-		this.sector = sector;
+	public void setSectors(List<Lookup> sectors) {
+		this.sectors = sectors;
 	}
 
 	/**
-	 * Returns the value of property "zone".
-	 * Beat
+	 * Returns the value of property "beats".
+	 * Beats/zones
 	 */
-	public List<String> getZone() {
-		return zone;
+	public List<Lookup> getBeats() {
+		return beats;
 	}
 
 	/**
-	 * Updates the value of property "zone".
+	 * Updates the value of property "beats".
 	 */
-	public void setZone(List<String> zone) {
-		this.zone = zone;
+	public void setBeats(List<Lookup> beats) {
+		this.beats = beats;
 	}
 
 	/**

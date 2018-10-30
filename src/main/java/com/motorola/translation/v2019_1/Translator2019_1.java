@@ -8,7 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.models.representation.AdditionalInfo;
 import com.motorola.models.representation.EmergencyIncident;
-import com.motorola.models.representation.Jurisdiction;
+import com.motorola.models.representation.JurisdictionalAssignment;
 import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.models.representation.UnitHandle;
@@ -37,7 +37,6 @@ import static com.motorola.constants.InterfaceConstants.CORERELATION_ID;
 import static com.motorola.constants.InterfaceConstants.CUSTOMER_ID;
 import static com.motorola.constants.InterfaceConstants.DATA_JSON_KEY;
 import static com.motorola.constants.InterfaceConstants.DEVICE_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.DISTRICT_JSON_KEY;
 import static com.motorola.constants.InterfaceConstants.ID_JSON_KEY;
 import static com.motorola.constants.InterfaceConstants.JURISDICTIONS_JSON_KEY;
 import static com.motorola.constants.InterfaceConstants.KEY_JSON_KEY;
@@ -90,16 +89,8 @@ public class Translator2019_1 implements BaseTranslator {
 			unitHandler.setCallSign(utils.getStringByKey(unitJSONObject, CALL_SIGN_JSON_KEY));
 			unitHandler.setShiftId(unitJSONObject.get(SHIFT_ID_JSON_KEY).getAsString());
 			additionalInfo.setUnit(unitHandler);
-			// gets the Jurisdictions from addition object, translate to UserSession->AdditionalInfo-> List<Jurisdiction>
-			additionalInfo.setJurisdictions(getJurisdictions(utils.getJsonArrayByKey(additionInfoJSON, JURISDICTIONS_JSON_KEY)));
-			// get the district
-			Lookup districtLookup = new Lookup();
-			districtLookup.setUid(utils.getStringByKey(utils.getJsonByKey(additionInfoJSON, DISTRICT_JSON_KEY), UID_JSON_KEY));
-			additionalInfo.setDistrict(districtLookup);
-			// gets station
-			Lookup stationLookup = new Lookup();
-			stationLookup.setUid(utils.getStringByKey(utils.getJsonByKey(additionInfoJSON, STATION_JSON_KEY), UID_JSON_KEY));
-			additionalInfo.setStation(stationLookup);
+			// gets the Jurisdictions from addition object, translate to UserSession->AdditionalInfo-> JurisdictionAssignment
+			additionalInfo.setJurisdictionalAssignments(createJurisdictionAssigment(additionInfoJSON));
 			additionalInfo.setVehicleId(utils.getStringByKey(additionInfoJSON, VEHICLE_ID_JSON_KEY));
 			List<Lookup> trustedAgencies = getTrustedAgencies(additionInfoJSON);
 			additionalInfo.setTrustedAgencies(trustedAgencies);
@@ -214,31 +205,44 @@ public class Translator2019_1 implements BaseTranslator {
 	}
 
 	/**
-	 * Gets the list og jurisdictions from incoming json
-	 * @param jurisdictionsJSONArray - list of incoming jurisdictions
-	 * @return the list of jurisdictions
+	 * Creates list of jurisdictioAssigment object from incoming json,
+	 * @param additionInfoJSON - json representation
+	 * @return list if jurisdiction assignments
 	 */
-	private List<Jurisdiction> getJurisdictions(JsonArray jurisdictionsJSONArray) {
-		List<Jurisdiction> result = new ArrayList<>();
-		for (JsonElement element : jurisdictionsJSONArray) {
-			Lookup areaLookup = new Lookup();
-			Lookup sectorLookup = new Lookup();
-			Lookup zoneLookup = new Lookup();
-			Jurisdiction jurisdiction = new Jurisdiction();
-			JsonObject elementJSON = element.getAsJsonObject();
-			JsonObject areaJSON = utils.getJsonByKey(elementJSON, AREA_JSON_KEY);
-			JsonObject sectorJSON = utils.getJsonByKey(elementJSON, SECTOR_JSON_KEY);
-			JsonObject zoneJSON = utils.getJsonByKey(elementJSON, ZONE_JSON_KEY);
-			areaLookup.setUid(utils.getStringByKey(areaJSON, UID_JSON_KEY));
-			sectorLookup.setUid(utils.getStringByKey(sectorJSON, UID_JSON_KEY));
-			zoneLookup.setUid(utils.getStringByKey(zoneJSON, UID_JSON_KEY));
-			jurisdiction.setArea(areaLookup);
-			jurisdiction.setSector(sectorLookup);
-			jurisdiction.setZone(zoneLookup);
-			result.add(jurisdiction);
-		}
+	private List<JurisdictionalAssignment> createJurisdictionAssigment(JsonObject additionInfoJSON) {
+		List<JurisdictionalAssignment> result = new ArrayList<>();
+		JurisdictionalAssignment jurisdictionalAssignment = new JurisdictionalAssignment();
 
+		JsonArray jurisdictionsJSONArray = utils.getJsonArrayByKey(additionInfoJSON, JURISDICTIONS_JSON_KEY);
+		List<Lookup> areas = new ArrayList<>();
+		List<Lookup> sectors = new ArrayList<>();
+		List<Lookup> beats = new ArrayList<>();
+		for (JsonElement element : jurisdictionsJSONArray) {
+			JsonObject elementJSON = element.getAsJsonObject();
+			areas.add(createLookup(elementJSON, AREA_JSON_KEY));
+			sectors.add(createLookup(elementJSON, SECTOR_JSON_KEY));
+			beats.add(createLookup(elementJSON, ZONE_JSON_KEY));
+		}
+		jurisdictionalAssignment.setAssignedStation(createLookup(additionInfoJSON, STATION_JSON_KEY));
+		jurisdictionalAssignment.setHomeStation(createLookup(additionInfoJSON, STATION_JSON_KEY));
+		jurisdictionalAssignment.setAreas(areas);
+		jurisdictionalAssignment.setSectors(sectors);
+		jurisdictionalAssignment.setBeats(beats);
+		result.add(jurisdictionalAssignment);
 		return result;
+	}
+
+	/**
+	 * Create the looup objects from uid values
+	 * @param json
+	 * @param key
+	 * @return
+	 */
+	private Lookup createLookup(JsonObject json, String key) {
+		JsonObject uidJson = utils.getJsonByKey(json, key);
+		Lookup lookup = new Lookup();
+		lookup.setUid(utils.getStringByKey(uidJson, UID_JSON_KEY));
+		return lookup;
 	}
 
 	/**

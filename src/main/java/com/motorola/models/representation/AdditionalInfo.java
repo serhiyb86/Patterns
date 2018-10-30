@@ -21,11 +21,7 @@ public class AdditionalInfo implements Serializable {
 
 	private UnitHandle unit;
 
-	private List<Jurisdiction> jurisdictions = new ArrayList<Jurisdiction>();
-
-	private Lookup district;
-
-	private Lookup station;
+	private List<JurisdictionalAssignment> jurisdictionalAssignments = new ArrayList<JurisdictionalAssignment>();
 
 	private String vehicleId;
 
@@ -47,48 +43,18 @@ public class AdditionalInfo implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "jurisdictions".
+	 * Returns the value of property "jurisdictionalAssignments".
 	 *
 	 */
-	public List<Jurisdiction> getJurisdictions() {
-		return jurisdictions;
+	public List<JurisdictionalAssignment> getJurisdictionalAssignments() {
+		return jurisdictionalAssignments;
 	}
 
 	/**
-	 * Updates the value of property "jurisdictions".
+	 * Updates the value of property "jurisdictionalAssignments".
 	 */
-	public void setJurisdictions(List<Jurisdiction> jurisdictions) {
-		this.jurisdictions = jurisdictions;
-	}
-
-	/**
-	 * Returns the value of property "district".
-	 *
-	 */
-	public Lookup getDistrict() {
-		return district;
-	}
-
-	/**
-	 * Updates the value of property "district".
-	 */
-	public void setDistrict(Lookup district) {
-		this.district = district;
-	}
-
-	/**
-	 * Returns the value of property "station".
-	 *
-	 */
-	public Lookup getStation() {
-		return station;
-	}
-
-	/**
-	 * Updates the value of property "station".
-	 */
-	public void setStation(Lookup station) {
-		this.station = station;
+	public void setJurisdictionalAssignments(List<JurisdictionalAssignment> jurisdictionalAssignments) {
+		this.jurisdictionalAssignments = jurisdictionalAssignments;
 	}
 
 	/**

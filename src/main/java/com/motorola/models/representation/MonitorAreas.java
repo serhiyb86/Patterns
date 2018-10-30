@@ -5,37 +5,36 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Monitor area - support monitor subset of units in the station if specified
+ * Monitor areas - support monitor subset of units in the station if specified
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
-public class MonitorArea implements Serializable {
+public class MonitorAreas implements java.io.Serializable {
 
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private List<Lookup> areas = new ArrayList<Lookup>();
+	private List<Lookup> areaKeys = new ArrayList<>();
 
-	private List<StationUnits> stationUnits = new ArrayList<StationUnits>();
+	private List<StationUnits> stationUnits = new ArrayList<>();
 
 	/**
-	 * Returns the value of property "areas".
+	 * Returns the value of property "areaKeys".
 	 *
 	 */
-	public List<Lookup> getAreas() {
-		return areas;
+	public List<Lookup> getAreaKeys() {
+		return areaKeys;
 	}
 
 	/**
-	 * Updates the value of property "areas".
+	 * Updates the value of property "areaKeys".
 	 */
-	public void setAreas(List<Lookup> areas) {
-		this.areas = areas;
+	public void setAreaKeys(List<Lookup> areaKeys) {
+		this.areaKeys = areaKeys;
 	}
 
 	/**

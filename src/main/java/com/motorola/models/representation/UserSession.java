@@ -33,9 +33,7 @@ public class UserSession implements java.io.Serializable {
 
 	private List<String> apiAccessList = new ArrayList<String>();
 
-	private List<Coverage> coverages = new ArrayList<Coverage>();
-
-	private List<MonitorArea> monitorScope = new ArrayList<MonitorArea>();
+	private MonitorAreas monitorAreas;
 
 	private AdditionalInfo additionalInfo;
 
@@ -133,33 +131,18 @@ public class UserSession implements java.io.Serializable {
 	}
 
 	/**
-	 * Returns the value of property "coverages".
-	 * List of coverage entries
+	 * Returns the value of property "monitorAreas".
+	 *
 	 */
-	public List<Coverage> getCoverages() {
-		return coverages;
+	public MonitorAreas getMonitorAreas() {
+		return monitorAreas;
 	}
 
 	/**
-	 * Updates the value of property "coverages".
+	 * Updates the value of property "monitorAreas".
 	 */
-	public void setCoverages(List<Coverage> coverages) {
-		this.coverages = coverages;
-	}
-
-	/**
-	 * Returns the value of property "monitorScope".
-	 * Store monitor areas or monitor station/units
-	 */
-	public List<MonitorArea> getMonitorScope() {
-		return monitorScope;
-	}
-
-	/**
-	 * Updates the value of property "monitorScope".
-	 */
-	public void setMonitorScope(List<MonitorArea> monitorScope) {
-		this.monitorScope = monitorScope;
+	public void setMonitorAreas(MonitorAreas monitorAreas) {
+		this.monitorAreas = monitorAreas;
 	}
 
 	/**
