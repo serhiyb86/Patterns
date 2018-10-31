@@ -8,8 +8,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.models.representation.AdditionalInfo;
 import com.motorola.models.representation.EmergencyIncident;
-import com.motorola.models.representation.JurisdictionalAssignment;
 import com.motorola.models.representation.Lookup;
+import com.motorola.models.representation.MonitorAreas;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.models.representation.UnitHandle;
 import com.motorola.models.representation.UpdateEmergencyIncident;
@@ -29,32 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.motorola.constants.InterfaceConstants.ADDITIONAL_INFO_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.AGENCY_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.AREA_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.CALL_SIGN_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.CORERELATION_ID;
-import static com.motorola.constants.InterfaceConstants.CUSTOMER_ID;
-import static com.motorola.constants.InterfaceConstants.DATA_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.DEVICE_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.ID_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.JURISDICTIONS_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.KEY_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.NEW_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.OLD_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.REQUEST_PARAMETERS;
-import static com.motorola.constants.InterfaceConstants.REQUEST_TYPE;
-import static com.motorola.constants.InterfaceConstants.SECTOR_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.SESSION_ID;
-import static com.motorola.constants.InterfaceConstants.SHIFT_ID_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.STATION_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.TRUSTED_AGENCIES_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.UID_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.UNIT_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.USER_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.VEHICLE_ID_JSON_KEY;
-import static com.motorola.constants.InterfaceConstants.WHEN_SUBMITTED;
-import static com.motorola.constants.InterfaceConstants.ZONE_JSON_KEY;
+import static com.motorola.constants.InterfaceConstants.*;
 
 /**
  * Translator class for Spillman version 2019.1
@@ -70,33 +45,82 @@ public class Translator2019_1 implements BaseTranslator {
 		clearValidationResults();
 		UserSessionWrapper result = new UserSessionWrapper();
 		UserSession userSession = new UserSession();
-		String correlationId = utils.getStringByKey(payload, CORERELATION_ID);
-		validateRequiredStringField(correlationId, CORERELATION_ID);
+		String correlationId = utils.getStringByKey(payload, CORRELATION_ID);
+		validateRequiredStringField(correlationId, CORRELATION_ID);
 		result.setCorrelationId(correlationId);
 		userSession.setCustomerId(utils.getStringByKey(payload, CUSTOMER_ID));
 		userSession.setSessionId(utils.getStringByKey(payload, SESSION_ID));
-		JsonObject requestParameters = utils.getJsonByKey(payload, REQUEST_PARAMETERS);
-		if (validateRequiredObjectField(requestParameters, REQUEST_PARAMETERS)) {
-			userSession.setUserId(utils.getStringFromNestedJsonByKey(requestParameters, USER_JSON_KEY, KEY_JSON_KEY));
-			userSession.setDeviceId(utils.getStringFromNestedJsonByKey(requestParameters, DEVICE_JSON_KEY, KEY_JSON_KEY));
-			JsonObject additionInfoJSON = utils.getJsonByKey(requestParameters, ADDITIONAL_INFO_JSON_KEY);
-			JsonObject unitJSONObject = utils.getJsonByKey(additionInfoJSON, UNIT_JSON_KEY);
-			AdditionalInfo additionalInfo = new AdditionalInfo();
-			// gets the Unit info from addition object, translate to UserSession->AdditionalInfo->UnitHandle object fields
-			UnitHandle unitHandler = new UnitHandle();
-			unitHandler.setKey(utils.getStringByKey(unitJSONObject, KEY_JSON_KEY));
-			unitHandler.setAgency(utils.getStringByKey(unitJSONObject, AGENCY_JSON_KEY));
-			unitHandler.setCallSign(utils.getStringByKey(unitJSONObject, CALL_SIGN_JSON_KEY));
-			unitHandler.setShiftId(unitJSONObject.get(SHIFT_ID_JSON_KEY).getAsString());
-			additionalInfo.setUnit(unitHandler);
-			// gets the Jurisdictions from addition object, translate to UserSession->AdditionalInfo-> JurisdictionAssignment
-			additionalInfo.setJurisdictionalAssignments(createJurisdictionAssigment(additionInfoJSON));
-			additionalInfo.setVehicleId(utils.getStringByKey(additionInfoJSON, VEHICLE_ID_JSON_KEY));
-			List<Lookup> trustedAgencies = getTrustedAgencies(additionInfoJSON);
-			additionalInfo.setTrustedAgencies(trustedAgencies);
-			userSession.setWhenSessionCreated(getCreationDate(payload));
-			userSession.setAdditionalInfo(additionalInfo);
-			result.setModel(userSession);
+		userSession.setDeviceId(utils.getStringByKey(payload, DEVICE_ID));
+		userSession.setUserId(utils.getStringByKey(payload, USER_ID));
+		userSession.setWhenSessionCreated(getDateByKey(payload, WHEN_SESSION_CREATED));
+		userSession.setWhenSessionUpdated(getDateByKey(payload, WHEN_SESSION_UPDATED));
+		userSession.setRoleKey(ROLE_KEY_VAL);
+		if (validateRequiredObjectField(payload, API_ACCESS_LIST)) {
+			JsonArray apiAccessList = utils.getJsonArrayByKey(payload, API_ACCESS_LIST);
+			userSession.setApiAccessList(getAccessList(apiAccessList));
+		}
+		if (validateRequiredObjectField(payload, MONITOR_AREAS)) {
+			JsonObject monitorArea = utils.getJsonByKey(payload, MONITOR_AREAS);
+			userSession.setMonitorAreas(getMonitorArea(monitorArea));
+		}
+
+		if (validateRequiredObjectField(payload, ADDITIONAL_INFO_JSON_KEY)) {
+			JsonObject additionInfoJSON = utils.getJsonByKey(payload, ADDITIONAL_INFO_JSON_KEY);
+			userSession.setAdditionalInfo(getAdditionInfo(additionInfoJSON));
+		}
+
+		result.setModel(userSession);
+		return result;
+	}
+
+	/**
+	 * Gets the additional information from incoming json
+	 * @param additionInfoJSON - incoming json payload
+	 * @return - addition information object
+	 */
+	private AdditionalInfo getAdditionInfo(JsonObject additionInfoJSON) {
+		AdditionalInfo result = new AdditionalInfo();
+		JsonObject unitJSONObject = utils.getJsonByKey(additionInfoJSON, UNIT_JSON_KEY);
+		UnitHandle unitHandler = new UnitHandle();
+		unitHandler.setKey(utils.getStringByKey(unitJSONObject, KEY_JSON_KEY));
+		unitHandler.setAgency(utils.getStringByKey(unitJSONObject, AGENCY_JSON_KEY));
+		result.setUnit(unitHandler);
+		return result;
+	}
+
+	/**
+	 * Gets the monitor areas information
+	 * @param monitorArea - json payload with monitor area information
+	 * @return
+	 */
+	private MonitorAreas getMonitorArea(JsonObject monitorArea) {
+		MonitorAreas result = new MonitorAreas();
+		result.setAreaKeys(createLooup(utils.getJsonArrayByKey(monitorArea, AREAS)));
+		return result;
+	}
+
+	/**
+	 * Creates the  list of lookup from jsonarry elements uid
+	 * @param array json azrra with values
+	 * @return the list of lookups
+	 */
+	private List<Lookup> createLooup(JsonArray array) {
+		List<Lookup> result = new ArrayList<>();
+		for (JsonElement element : array) {
+			JsonObject areaJSON = element.getAsJsonObject();
+			Lookup areaLookup = new Lookup();
+			areaLookup.setUid(utils.getStringByKey(areaJSON, UID_JSON_KEY));
+			result.add(areaLookup);
+		}
+
+		return result;
+	}
+
+	private List<String> getAccessList(JsonArray apiAccessList) {
+		List<String> result = new ArrayList<>();
+		for (JsonElement element : apiAccessList) {
+			JsonObject permissionJSON = element.getAsJsonObject();
+			result.add(utils.getStringByKey(permissionJSON, PERMISSION_ID));
 		}
 
 		return result;
@@ -106,8 +130,8 @@ public class Translator2019_1 implements BaseTranslator {
 	public ResponseNotification translateBookOff(JsonObject payload) {
 		clearValidationResults();
 		ResponseNotification result = new ResponseNotification();
-		String correlationId = utils.getStringByKey(payload, CORERELATION_ID);
-		validateRequiredStringField(correlationId, CORERELATION_ID);
+		String correlationId = utils.getStringByKey(payload, CORRELATION_ID);
+		validateRequiredStringField(correlationId, CORRELATION_ID);
 		result.setCorrelationId(correlationId);
 		result.setCustomerId(utils.getStringByKey(payload, CUSTOMER_ID));
 		result.setSessionId(utils.getStringByKey(payload, SESSION_ID));
@@ -165,32 +189,14 @@ public class Translator2019_1 implements BaseTranslator {
 	}
 
 	/**
-	 * Gets the list of trusted agencies from json object
-	 * @param infoJSON json to get the list of trusted agencies
-	 * @return list with trusted agencies
-	 */
-	private List<Lookup> getTrustedAgencies(JsonObject infoJSON) {
-		List<Lookup> result = new ArrayList<>();
-		JsonArray agenciesJson = utils.getJsonArrayByKey(infoJSON, TRUSTED_AGENCIES_JSON_KEY);
-		for (JsonElement element : agenciesJson) {
-			JsonObject elementJSON = element.getAsJsonObject();
-			Lookup trustedAgency = new Lookup();
-			trustedAgency.setUid(utils.getStringByKey(elementJSON, UID_JSON_KEY));
-			result.add(trustedAgency);
-		}
-
-		return result;
-	}
-
-	/**
-	 * Gets the creation date from json object
+	 * Gets the date from json object
 	 * @param payload - json object
 	 * @return
 	 */
-	private Date getCreationDate(JsonObject payload) {
+	private Date getDateByKey(JsonObject payload, String key) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 		Date result = null;
-		String strDate = utils.getStringByKey(payload, WHEN_SUBMITTED);
+		String strDate = utils.getStringByKey(payload, key);
 		if (strDate != null) {
 			try {
 				result = formatter.parse(strDate);
@@ -201,34 +207,6 @@ public class Translator2019_1 implements BaseTranslator {
 
 		}
 
-		return result;
-	}
-
-	/**
-	 * Creates list of jurisdictioAssigment object from incoming json,
-	 * @param additionInfoJSON - json representation
-	 * @return list if jurisdiction assignments
-	 */
-	private List<JurisdictionalAssignment> createJurisdictionAssigment(JsonObject additionInfoJSON) {
-		List<JurisdictionalAssignment> result = new ArrayList<>();
-		JurisdictionalAssignment jurisdictionalAssignment = new JurisdictionalAssignment();
-
-		JsonArray jurisdictionsJSONArray = utils.getJsonArrayByKey(additionInfoJSON, JURISDICTIONS_JSON_KEY);
-		List<Lookup> areas = new ArrayList<>();
-		List<Lookup> sectors = new ArrayList<>();
-		List<Lookup> beats = new ArrayList<>();
-		for (JsonElement element : jurisdictionsJSONArray) {
-			JsonObject elementJSON = element.getAsJsonObject();
-			areas.add(createLookup(elementJSON, AREA_JSON_KEY));
-			sectors.add(createLookup(elementJSON, SECTOR_JSON_KEY));
-			beats.add(createLookup(elementJSON, ZONE_JSON_KEY));
-		}
-		jurisdictionalAssignment.setAssignedStation(createLookup(additionInfoJSON, STATION_JSON_KEY));
-		jurisdictionalAssignment.setHomeStation(createLookup(additionInfoJSON, STATION_JSON_KEY));
-		jurisdictionalAssignment.setAreas(areas);
-		jurisdictionalAssignment.setSectors(sectors);
-		jurisdictionalAssignment.setBeats(beats);
-		result.add(jurisdictionalAssignment);
 		return result;
 	}
 
