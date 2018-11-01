@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.models.representation.AdditionalInfo;
+import com.motorola.models.representation.ApiError;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.MonitorAreas;
@@ -126,8 +127,28 @@ public class Translator2019_1 implements BaseTranslator {
 		return result;
 	}
 
-	@Override
-	public ResponseNotification translateBookOff(JsonObject payload) {
+	/**
+	 * Appends errors part to the response notification object
+	 * @param notification response notification object
+	 * @param payload json payload
+	 * @return response notification object with error information
+	 */
+	private ResponseNotification addResponsErrorPart(ResponseNotification notification, JsonObject payload) {
+		ApiError error = new ApiError();
+		JsonObject errorJson = utils.getJsonByKey(payload, ERROR);
+		error.setErrorCode(utils.getStringByKey(errorJson, ERROR_CODE));
+		error.setMessage(utils.getStringByKey(errorJson, MESSAGE));
+		notification.setError(error);
+		return notification;
+	}
+
+	/**
+	 * Creates response notification object without error part
+	 *
+	 * @param payload json oayload inclode
+	 * @return response notification object
+	 */
+	private ResponseNotification translteResponsSuccessPart(JsonObject payload) {
 		clearValidationResults();
 		ResponseNotification result = new ResponseNotification();
 		String correlationId = utils.getStringByKey(payload, CORRELATION_ID);
@@ -141,6 +162,16 @@ public class Translator2019_1 implements BaseTranslator {
 		result.setResultNature(utils.getStringByKey(payload, RESULT_NATURE));
 
 		return result;
+	}
+	@Override
+	public ResponseNotification translateBookOff(JsonObject payload) {
+		return translteResponsSuccessPart(payload);
+	}
+
+	@Override
+	public ResponseNotification translateErrorNotification(JsonObject payload){
+		ResponseNotification result = translteResponsSuccessPart(payload);
+		return addResponsErrorPart(result, payload);
 	}
 
 	@Override

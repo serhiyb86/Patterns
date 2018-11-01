@@ -21,6 +21,8 @@ public interface BaseTranslator {
 
 	ResponseNotification translateBookOff(JsonObject payload);
 
+	ResponseNotification translateErrorNotification(JsonObject payload);
+
 	EmergencyIncident translateCreateIncident(JsonObject payload);
 
 	UpdateEmergencyIncident translateUpdateIncident(JsonObject payload);

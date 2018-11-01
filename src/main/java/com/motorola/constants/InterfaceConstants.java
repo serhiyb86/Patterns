@@ -10,11 +10,14 @@ public class InterfaceConstants {
 
 	public static final String BOOK_ON_REQUEST_TYPE = "BookOnRequest";
 	public static final String BOOK_OFF_REQUEST_TYPE = "BookOffRequest";
+	public static final String ERROR_NOTIFICATION_REQUEST_TYPE = "ErrorNotificationRequest";
 	public static final String UPDATE_INCIDENT_REQUEST_TYPE = "UpdateIncidentRequest";
 	public static final String CREATE_INCIDENT_REQUEST_TYPE = "CreateIncidentRequest";
 	public static final String ACCESS_TOKEN = "accessToken";
 	public static final String REQUEST_TYPE = "requestType";
-
+	public static final String ERROR = "error";
+	public static final String ERROR_CODE = "errorCode";
+	public static final String MESSAGE = "message";
 	public static final String DEVICE_ID = "deviceId";
 	public static final String USER_ID = "userId";
 	public static final String WHEN_SESSION_CREATED = "whenSessionCreated";
