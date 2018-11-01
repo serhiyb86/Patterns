@@ -29,6 +29,10 @@ public class InterfaceConstants {
 	//-----------------------------------------
 	public static final String CUSTOMER_ID = "customerId";
 	public static final String SESSION_ID = "sessionId";
+	public static final String SERVICE_ID = "serviceId";
+	public static final String NOTIFICATION_TYPE = "notificationType";
+	public static final String WHEN_SUBMITTED = "whenSubmitted";
+	public static final String RESULT_NATURE = "resultNature";
 	public static final String CORRELATION_ID = "correlationId";
 	public static final String ADDITIONAL_INFO_JSON_KEY = "additionalInfo";
 	public static final String UNIT_JSON_KEY = "unit";

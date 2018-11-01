@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Response notification SB message
@@ -19,13 +17,15 @@ public class ResponseNotification implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
+	private String serviceId;
+
 	private String customerId;
+
+	private String correlationId;
 
 	private String notificationType;
 
 	private String whenSubmitted;
-
-	private String correlationId;
 
 	private String sessionId;
 
@@ -39,7 +39,13 @@ public class ResponseNotification implements Serializable {
 
 	private ApiError error;
 
-	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+	public String getServiceId() {
+		return serviceId;
+	}
+
+	public void setServiceId(String serviceId) {
+		this.serviceId = serviceId;
+	}
 
 	public String getCustomerId() {
 		return customerId;
@@ -47,6 +53,14 @@ public class ResponseNotification implements Serializable {
 
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
+	}
+
+	public String getCorrelationId() {
+		return correlationId;
+	}
+
+	public void setCorrelationId(String correlationId) {
+		this.correlationId = correlationId;
 	}
 
 	public String getNotificationType() {
@@ -63,14 +77,6 @@ public class ResponseNotification implements Serializable {
 
 	public void setWhenSubmitted(String whenSubmitted) {
 		this.whenSubmitted = whenSubmitted;
-	}
-
-	public String getCorrelationId() {
-		return correlationId;
-	}
-
-	public void setCorrelationId(String correlationId) {
-		this.correlationId = correlationId;
 	}
 
 	public String getSessionId() {
@@ -119,14 +125,6 @@ public class ResponseNotification implements Serializable {
 
 	public void setError(ApiError error) {
 		this.error = error;
-	}
-
-	public Map<String, Object> getAdditionalProperties() {
-		return this.additionalProperties;
-	}
-
-	public void setAdditionalProperty(String name, Object value) {
-		this.additionalProperties.put(name, value);
 	}
 
 }

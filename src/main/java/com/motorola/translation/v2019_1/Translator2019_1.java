@@ -133,9 +133,12 @@ public class Translator2019_1 implements BaseTranslator {
 		String correlationId = utils.getStringByKey(payload, CORRELATION_ID);
 		validateRequiredStringField(correlationId, CORRELATION_ID);
 		result.setCorrelationId(correlationId);
+		result.setServiceId(utils.getStringByKey(payload, SERVICE_ID));
 		result.setCustomerId(utils.getStringByKey(payload, CUSTOMER_ID));
+		result.setNotificationType(utils.getStringByKey(payload, NOTIFICATION_TYPE));
+		result.setWhenSubmitted(utils.getStringByKey(payload, WHEN_SUBMITTED));
 		result.setSessionId(utils.getStringByKey(payload, SESSION_ID));
-		result.setResponseType(utils.getStringByKey(payload, REQUEST_TYPE));
+		result.setResultNature(utils.getStringByKey(payload, RESULT_NATURE));
 
 		return result;
 	}
