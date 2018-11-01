@@ -14,6 +14,7 @@ public class InterfaceConstants {
 	public static final String UPDATE_INCIDENT_REQUEST_TYPE = "UpdateIncidentRequest";
 	public static final String CREATE_INCIDENT_REQUEST_TYPE = "CreateIncidentRequest";
 	public static final String ACCESS_TOKEN = "accessToken";
+	public static final String API_URL = "cloudApiUrl";
 	public static final String REQUEST_TYPE = "requestType";
 	public static final String ERROR = "error";
 	public static final String ERROR_CODE = "errorCode";
