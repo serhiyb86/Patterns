@@ -1,0 +1,33 @@
+{
+  "customerId": "myCustomerId",
+  "correlationId": "myCorrelationId",
+  "sessionId": "mySessionID",
+  "deviceId":"myDeviceID",
+  "userId":"myUserId",
+  "requestType": "BookOnRequest",
+  "whenSessionCreated": "2018-10-18T10:16:04.663Z",
+  "whenSessionUpdated": "2018-10-18T10:16:04.663Z",
+  "apiAccessList": [{
+    "permissionId": "Record.All",
+    "permissionLevels": ["READ", "ADD"]
+  },
+    {
+      "permissionId": "SecondRecord.All",
+      "permissionLevels": ["READ", "ADD"]
+    }
+  ],
+  "monitorAreas": {
+    "areas": [{
+      "uid": "LNW"
+    }
+    ]
+  },
+  "additionalInfo": {
+    "unit": {
+      "key": "unitKey",
+      "agency": "unitAgency"
+    }
+  }
+}
+
+
