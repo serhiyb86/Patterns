@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.motorola.constants.InterfaceConstants.ACCESS_TOKEN;
+import static com.motorola.constants.InterfaceConstants.API_URL;
 import static com.motorola.constants.InterfaceConstants.REQUEST_TYPE;
 import static com.motorola.constants.InterfaceConstants.SPILLMAN_VERSION;
 
@@ -36,6 +37,7 @@ abstract class BaseHttpServlet extends HttpServlet {
 	protected final APIClient client = new APIClient();
 	protected BaseTranslator translator = null;
 	protected String accessToken = null;
+	protected String apiURL = null;
 	protected String spillmanVersion = null;
 	protected String requestType = null;
 	protected JsonObject payload = null;
@@ -48,6 +50,7 @@ abstract class BaseHttpServlet extends HttpServlet {
 	 */
 	protected List<ValidationResult> validateRequest(HttpServletRequest request, String expectedRequestType) {
 		accessToken = request.getHeader(ACCESS_TOKEN);
+		apiURL = request.getHeader(API_URL);
 		spillmanVersion = request.getHeader(SPILLMAN_VERSION);
 		payload = CadCloudUtils.extractPayloadFromHttpRequest(request);
 		List<ValidationResult> validationResults = new ArrayList<>();
@@ -75,6 +78,13 @@ abstract class BaseHttpServlet extends HttpServlet {
 		}
 		else {
 			client.getConfig().getSecurityConfig().configureAuthApi_key(accessToken);
+		}
+
+		if (StringUtils.isNullOrEmpty(apiURL)) {
+			validationResults.add(new ValidationResult("Cloud API URL is missing.", ValidationErrorType.MISSING_DATA));
+		}
+		else {
+			client.getConfig().setBasePath(apiURL);
 		}
 
 		if (StringUtils.isNullOrEmpty(spillmanVersion)) {
