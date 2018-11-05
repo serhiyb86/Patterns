@@ -71,7 +71,7 @@ public class TranslatorTest {
 	}
 
 	@Test
-	public void transformationErroTest() {
+	public void transformationErrorTest() {
 		ResponseNotification notification = translator.translateErrorNotification(errorJson);
 		Assert.assertEquals("Service Id translation failed", "475IdSer", notification.getServiceId());
 		Assert.assertEquals("Customer Id translation failed", "Cust1488SR", notification.getCustomerId());
