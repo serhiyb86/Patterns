@@ -133,7 +133,7 @@ public class Translator2019_1 implements BaseTranslator {
 	 * @param payload json payload
 	 * @return response notification object with error information
 	 */
-	private ResponseNotification addResponsErrorPart(ResponseNotification notification, JsonObject payload) {
+	private ResponseNotification addResponseErrorPart(ResponseNotification notification, JsonObject payload) {
 		ApiError error = new ApiError();
 		JsonObject errorJson = utils.getJsonByKey(payload, ERROR);
 		error.setErrorCode(utils.getStringByKey(errorJson, ERROR_CODE));
@@ -148,7 +148,7 @@ public class Translator2019_1 implements BaseTranslator {
 	 * @param payload json oayload inclode
 	 * @return response notification object
 	 */
-	private ResponseNotification translteResponsSuccessPart(JsonObject payload) {
+	private ResponseNotification translateResponseSuccessPart(JsonObject payload) {
 		clearValidationResults();
 		ResponseNotification result = new ResponseNotification();
 		String correlationId = utils.getStringByKey(payload, CORRELATION_ID);
@@ -165,13 +165,13 @@ public class Translator2019_1 implements BaseTranslator {
 	}
 	@Override
 	public ResponseNotification translateBookOff(JsonObject payload) {
-		return translteResponsSuccessPart(payload);
+		return translateResponseSuccessPart(payload);
 	}
 
 	@Override
 	public ResponseNotification translateErrorNotification(JsonObject payload){
-		ResponseNotification result = translteResponsSuccessPart(payload);
-		return addResponsErrorPart(result, payload);
+		ResponseNotification result = translateResponseSuccessPart(payload);
+		return addResponseErrorPart(result, payload);
 	}
 
 	@Override
