@@ -4,6 +4,7 @@
 
 package com.motorola.servlets;
 
+import com.motorola.manager.BaseRequestManager;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
@@ -25,21 +26,24 @@ public class ErrorServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<ValidationResult> validationResult = validateRequest(request, ERROR_NOTIFICATION_REQUEST_TYPE);
-		if (validationResult.size() == 0) {
-			ResponseNotification responseNotification = translator.translateErrorNotification(payload);
-			if (translator.getValidationResults().size() == 0) {
+		BaseRequestManager requestManager = new BaseRequestManager();
+		List<ValidationResult> validationResult = requestManager.validateRequest(request, ERROR_NOTIFICATION_REQUEST_TYPE);
+		if (validationResult.isEmpty()) {
+			ResponseNotification responseNotification = requestManager.getTranslator().translateErrorNotification(requestManager.getPayload());
+			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				//ApiResponse apiResponse = client.responseNotification().responseNotification(responseNotification);
 				//response.getOutputStream().write(apiResponse.toString().getBytes());
 				String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);
 				respondSuccess(response, outgoingModel);
 			}
 			else {
-				respondFailure(response, translator.getValidationResults());
+				respondFailure(response, requestManager.getTranslator().getValidationResults());
 			}
 		}
 		else {
 			respondFailure(response, validationResult);
 		}
 	}
+
 }
+
