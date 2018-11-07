@@ -21,22 +21,27 @@ public class BookOnServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<ValidationResult> validationResult = validateRequest(request, BOOK_ON_REQUEST_TYPE);
-		if (validationResult.size() == 0) {
-			UserSessionWrapper wrapper = translator.translateBookOn(payload);
-			if (translator.getValidationResults().size() == 0) {
-				//ApiResponse apiResponse = client.responseUserSessionCorrelationId(wrapper.getCorrelationId()).bookOnResponse(wrapper.getModel());
-				//response.getOutputStream().write(apiResponse.toString().getBytes());
-				//send also the model for reviewing on the interface side
-				String outgoingModel = CadCloudUtils.convertObjectToJsonString(wrapper);
-				respondSuccess(response, outgoingModel);
+		try {
+			List<ValidationResult> validationResult = validateRequest(request, BOOK_ON_REQUEST_TYPE);
+			if (validationResult.isEmpty()) {
+				UserSessionWrapper wrapper = translator.translateBookOn(payload);
+				if (translator.getValidationResults().isEmpty()) {
+					//ApiResponse apiResponse = client.responseUserSessionCorrelationId(wrapper.getCorrelationId()).bookOnResponse(wrapper.getModel());
+					//response.getOutputStream().write(apiResponse.toString().getBytes());
+					//send also the model for reviewing on the interface side
+					String outgoingModel = CadCloudUtils.convertObjectToJsonString(wrapper);
+					respondSuccess(response, outgoingModel);
+				}
+				else {
+					respondFailure(response, translator.getValidationResults());
+				}
 			}
 			else {
-				respondFailure(response, translator.getValidationResults());
+				respondFailure(response, validationResult);
 			}
 		}
-		else {
-			respondFailure(response, validationResult);
+		finally {
+			clearResources();
 		}
 	}
 }

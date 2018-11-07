@@ -25,21 +25,26 @@ public class ErrorServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<ValidationResult> validationResult = validateRequest(request, ERROR_NOTIFICATION_REQUEST_TYPE);
-		if (validationResult.size() == 0) {
-			ResponseNotification responseNotification = translator.translateErrorNotification(payload);
-			if (translator.getValidationResults().size() == 0) {
-				//ApiResponse apiResponse = client.responseNotification().responseNotification(responseNotification);
-				//response.getOutputStream().write(apiResponse.toString().getBytes());
-				String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);
-				respondSuccess(response, outgoingModel);
+		try {
+			List<ValidationResult> validationResult = validateRequest(request, ERROR_NOTIFICATION_REQUEST_TYPE);
+			if (validationResult.isEmpty()) {
+				ResponseNotification responseNotification = translator.translateErrorNotification(payload);
+				if (translator.getValidationResults().isEmpty()) {
+					//ApiResponse apiResponse = client.responseNotification().responseNotification(responseNotification);
+					//response.getOutputStream().write(apiResponse.toString().getBytes());
+					String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);
+					respondSuccess(response, outgoingModel);
+				}
+				else {
+					respondFailure(response, translator.getValidationResults());
+				}
 			}
 			else {
-				respondFailure(response, translator.getValidationResults());
+				respondFailure(response, validationResult);
 			}
 		}
-		else {
-			respondFailure(response, validationResult);
+		finally {
+			clearResources();
 		}
 	}
 }

@@ -14,6 +14,7 @@ import org.restlet.engine.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,12 +36,12 @@ abstract class BaseHttpServlet extends HttpServlet {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BaseHttpServlet.class);
 
 	protected final APIClient client = new APIClient();
-	protected BaseTranslator translator = null;
-	protected String accessToken = null;
-	protected String apiURL = null;
-	protected String spillmanVersion = null;
-	protected String requestType = null;
-	protected JsonObject payload = null;
+	protected BaseTranslator translator;
+	protected String accessToken;
+	protected String apiURL;
+	protected String spillmanVersion;
+	protected String requestType;
+	protected JsonObject payload;
 
 	/**
 	 * Method that validates incoming request for all required data
@@ -113,8 +114,8 @@ abstract class BaseHttpServlet extends HttpServlet {
 		if (!StringUtils.isNullOrEmpty(responseString)) {
 			responseMessage.append(responseString);
 		}
-		try {
-			response.getOutputStream().write(responseMessage.toString().getBytes());
+		try (ServletOutputStream outputStream = response.getOutputStream()) {
+			outputStream.write(responseMessage.toString().getBytes());
 		}
 		catch (IOException e) {
 			LOGGER.error("Error occured when trying to send the response.");
@@ -129,14 +130,26 @@ abstract class BaseHttpServlet extends HttpServlet {
 	protected void respondFailure(HttpServletResponse response, List<ValidationResult> validationResults) {
 		StringBuilder responseMessage = new StringBuilder("Error happened during processing the request. See details below.");
 		String responseString = CadCloudUtils.convertObjectToJsonString(validationResults);
-		try {
+		try (ServletOutputStream outputStream = response.getOutputStream()) {
 			if (!StringUtils.isNullOrEmpty(responseString)) {
 				responseMessage.append(responseString);
 			}
-			response.getOutputStream().write(responseMessage.toString().getBytes());
+			outputStream.write(responseMessage.toString().getBytes());
 		}
 		catch (IOException e) {
 			LOGGER.error("Error occured when trying to send the response.");
 		}
+	}
+
+	/**
+	 * clears mutable instances of the Servlet.
+	 */
+	public void clearResources() {
+		translator = null;
+		accessToken = null;
+		apiURL = null;
+		spillmanVersion = null;
+		requestType = null;
+		payload = null;
 	}
 }

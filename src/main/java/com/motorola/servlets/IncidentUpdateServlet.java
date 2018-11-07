@@ -21,20 +21,25 @@ public class IncidentUpdateServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<ValidationResult> validationResult = validateRequest(request, UPDATE_INCIDENT_REQUEST_TYPE);
-		if (validationResult.size() == 0) {
-			UpdateEmergencyIncident bean = translator.translateUpdateIncident(payload);
-			if (translator.getValidationResults().size() == 0) {
-				//client.pushIncident().updateIncident(bean);
-				String outgoingModel = CadCloudUtils.convertObjectToJsonString(bean);
-				respondSuccess(response, outgoingModel);
+		try {
+			List<ValidationResult> validationResult = validateRequest(request, UPDATE_INCIDENT_REQUEST_TYPE);
+			if (validationResult.isEmpty()) {
+				UpdateEmergencyIncident bean = translator.translateUpdateIncident(payload);
+				if (translator.getValidationResults().isEmpty()) {
+					//client.pushIncident().updateIncident(bean);
+					String outgoingModel = CadCloudUtils.convertObjectToJsonString(bean);
+					respondSuccess(response, outgoingModel);
+				}
+				else {
+					respondFailure(response, translator.getValidationResults());
+				}
 			}
 			else {
-				respondFailure(response, translator.getValidationResults());
+				respondFailure(response, validationResult);
 			}
 		}
-		else {
-			respondFailure(response, validationResult);
+		finally {
+			clearResources();
 		}
 	}
 }
