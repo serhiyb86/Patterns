@@ -3,6 +3,7 @@
  */
 package com.motorola.servlets;
 
+import com.motorola.manager.BaseRequestManager;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
@@ -21,26 +22,22 @@ public class BookOffServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			List<ValidationResult> validationResult = validateRequest(request, BOOK_OFF_REQUEST_TYPE);
-			if (validationResult.isEmpty()) {
-				ResponseNotification responseNotification = translator.translateBookOff(payload);
-				if (translator.getValidationResults().isEmpty()) {
-					//ApiResponse apiResponse = client.responseNotification().responseNotification(responseNotification);
-					//response.getOutputStream().write(apiResponse.toString().getBytes());
-					String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);
-					respondSuccess(response, outgoingModel);
-				}
-				else {
-					respondFailure(response, translator.getValidationResults());
-				}
+		BaseRequestManager requestManager = new BaseRequestManager();
+		List<ValidationResult> validationResult = requestManager.validateRequest(request, BOOK_OFF_REQUEST_TYPE);
+		if (validationResult.isEmpty()) {
+			ResponseNotification responseNotification = requestManager.getTranslator().translateBookOff(requestManager.getPayload());
+			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
+				//ApiResponse apiResponse = client.responseNotification().responseNotification(responseNotification);
+				//response.getOutputStream().write(apiResponse.toString().getBytes());
+				String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);
+				respondSuccess(response, outgoingModel);
 			}
 			else {
-				respondFailure(response, validationResult);
+				respondFailure(response, requestManager.getTranslator().getValidationResults());
 			}
 		}
-		finally {
-			clearResources();
+		else {
+			respondFailure(response, validationResult);
 		}
 	}
 }

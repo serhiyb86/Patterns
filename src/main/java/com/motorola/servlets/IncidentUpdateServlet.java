@@ -3,6 +3,7 @@
  */
 package com.motorola.servlets;
 
+import com.motorola.manager.BaseRequestManager;
 import com.motorola.models.representation.UpdateEmergencyIncident;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
@@ -21,25 +22,22 @@ public class IncidentUpdateServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			List<ValidationResult> validationResult = validateRequest(request, UPDATE_INCIDENT_REQUEST_TYPE);
-			if (validationResult.isEmpty()) {
-				UpdateEmergencyIncident bean = translator.translateUpdateIncident(payload);
-				if (translator.getValidationResults().isEmpty()) {
-					//client.pushIncident().updateIncident(bean);
-					String outgoingModel = CadCloudUtils.convertObjectToJsonString(bean);
-					respondSuccess(response, outgoingModel);
-				}
-				else {
-					respondFailure(response, translator.getValidationResults());
-				}
+		BaseRequestManager requestManager = new BaseRequestManager();
+		List<ValidationResult> validationResult = requestManager.validateRequest(request, UPDATE_INCIDENT_REQUEST_TYPE);
+		if (validationResult.isEmpty()) {
+			UpdateEmergencyIncident bean = requestManager.getTranslator().translateUpdateIncident(requestManager.getPayload());
+			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
+				//client.pushIncident().updateIncident(bean);
+				String outgoingModel = CadCloudUtils.convertObjectToJsonString(bean);
+				respondSuccess(response, outgoingModel);
 			}
 			else {
-				respondFailure(response, validationResult);
+				respondFailure(response, requestManager.getTranslator().getValidationResults());
 			}
 		}
-		finally {
-			clearResources();
+		else {
+			respondFailure(response, validationResult);
 		}
 	}
 }
+
