@@ -3,6 +3,7 @@
  */
 package com.motorola.servlets;
 
+import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
 import com.motorola.models.representation.UpdateEmergencyIncident;
 import com.motorola.utils.CadCloudUtils;
@@ -15,15 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.motorola.constants.InterfaceConstants.UPDATE_INCIDENT_REQUEST_TYPE;
-
 @WebServlet(urlPatterns = "/incidentUpdate")
 public class IncidentUpdateServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BaseRequestManager requestManager = new BaseRequestManager();
-		List<ValidationResult> validationResult = requestManager.validateRequest(request, UPDATE_INCIDENT_REQUEST_TYPE);
+		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.EmergencyIncidentProperties.UPDATE_INCIDENT_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			UpdateEmergencyIncident bean = requestManager.getTranslator().translateUpdateIncident(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {

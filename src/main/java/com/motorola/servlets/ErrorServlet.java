@@ -4,6 +4,7 @@
 
 package com.motorola.servlets;
 
+import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.utils.CadCloudUtils;
@@ -16,8 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.motorola.constants.InterfaceConstants.ERROR_NOTIFICATION_REQUEST_TYPE;
-
 /**
  * The implementation of endpoint servlet that called when error appears onPrem side
  */
@@ -27,7 +26,7 @@ public class ErrorServlet extends BaseHttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BaseRequestManager requestManager = new BaseRequestManager();
-		List<ValidationResult> validationResult = requestManager.validateRequest(request, ERROR_NOTIFICATION_REQUEST_TYPE);
+		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.NotificationProperties.ERROR_NOTIFICATION_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			ResponseNotification responseNotification = requestManager.getTranslator().translateErrorNotification(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {

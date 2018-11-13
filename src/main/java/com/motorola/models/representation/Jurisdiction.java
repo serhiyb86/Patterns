@@ -10,7 +10,6 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
 public class Jurisdiction implements Serializable {
-
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
@@ -18,7 +17,7 @@ public class Jurisdiction implements Serializable {
 
 	private Lookup sector;
 
-	private Lookup zone;
+	private Lookup beat;
 
 	/**
 	 * Returns the value of property "area".
@@ -51,18 +50,18 @@ public class Jurisdiction implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "zone".
+	 * Returns the value of property "beat".
 	 *
 	 */
-	public Lookup getZone() {
-		return zone;
+	public Lookup getBeat() {
+		return beat;
 	}
 
 	/**
-	 * Updates the value of property "zone".
+	 * Updates the value of property "beat".
 	 */
-	public void setZone(Lookup zone) {
-		this.zone = zone;
+	public void setBeat(Lookup beat) {
+		this.beat = beat;
 	}
 
 }
