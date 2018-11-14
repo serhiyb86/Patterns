@@ -22,7 +22,7 @@ public class IncidentUpdateServlet extends BaseHttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BaseRequestManager requestManager = new BaseRequestManager();
-		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.EmergencyIncidentProperties.UPDATE_INCIDENT_REQUEST_TYPE);
+		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.EmergencyIncident.GeneralProperties.UPDATE_INCIDENT_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			UpdateEmergencyIncident bean = requestManager.getTranslator().translateUpdateIncident(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {

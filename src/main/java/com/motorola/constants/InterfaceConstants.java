@@ -75,31 +75,54 @@ public final class InterfaceConstants {
 	/**
 	 * Contains constants related to the Emergency Incident processing.
 	 */
-	public final class EmergencyIncidentProperties {
+	public final class EmergencyIncident {
 
-		public static final String UPDATE_INCIDENT_REQUEST_TYPE = "UpdateIncidentRequest";
-		public static final String CREATE_INCIDENT_REQUEST_TYPE = "CreateIncidentRequest";
-		public static final String ID_JSON_KEY = "id";
-		public static final String OLD_JSON_KEY = "old";
-		public static final String NEW_JSON_KEY = "new";
-		public static final String INVOLVED_CAD_SUBJECTS = "involvedCADSubjects";
-		public static final String SUBJECT = "subject";
-		public static final String PERSON = "person";
-		public static final String FIRST_NAME = "firstName";
-		public static final String MIDDLE_NAME = "middleName";
-		public static final String LAST_NAME = "lastName";
-		public static final String SUFFIX = "suffix";
-		public static final String BIRTH_DATE = "birthDate";
-		public static final String AGE = "age";
-		public static final String HEIGHT_IN_INCHES = "heightInInches";
-		public static final String WEIGHT_IN_POUNDS = "weightInPounds";
-		public static final String RACE = "race";
-		public static final String GENDER = "gender";
-		public static final String PHYSICAL_BUILD = "physicalBuild";
-		public static final String HAIR_COLOR = "hairColor";
-		public static final String EYE_COLOR = "eyeColor";
-		public static final String DRIVER_LICENSE = "driverLicense";
-		public static final String NUMBER = "number";
-		public static final String STATE = "state";
+		/**
+		 *  Contains EmergencyIncident Person properties.
+		 */
+		public final class Person {
+
+			public static final String PERSON = "person";
+			public static final String FIRST_NAME = "firstName";
+			public static final String MIDDLE_NAME = "middleName";
+			public static final String LAST_NAME = "lastName";
+			public static final String SUFFIX = "suffix";
+			public static final String BIRTH_DATE = "birthDate";
+			public static final String AGE = "age";
+			public static final String HEIGHT_IN_INCHES = "heightInInches";
+			public static final String WEIGHT_IN_POUNDS = "weightInPounds";
+			public static final String RACE = "race";
+			public static final String GENDER = "gender";
+			public static final String PHYSICAL_BUILD = "physicalBuild";
+			public static final String HAIR_COLOR = "hairColor";
+			public static final String EYE_COLOR = "eyeColor";
+			public static final String DRIVER_LICENSE = "driverLicense";
+			public static final String NUMBER = "number";
+			public static final String STATE = "state";
+		}
+
+		/**
+		 *  Contains EmergencyIncident Subject properties.
+		 */
+		public final class Subject {
+
+			public static final String INVOLVED_CAD_SUBJECTS = "involvedCADSubjects";
+			public static final String SUBJECT = "subject";
+			public static final String ROLE = "role";
+		}
+
+		/**
+		 * Contains general properties related to the EmergencyIncident.
+		 */
+		public final class GeneralProperties{
+			public static final String UPDATE_INCIDENT_REQUEST_TYPE = "UpdateIncidentRequest";
+			public static final String CREATE_INCIDENT_REQUEST_TYPE = "CreateIncidentRequest";
+			public static final String ID_JSON_KEY = "id";
+			public static final String OLD_JSON_KEY = "old";
+			public static final String NEW_JSON_KEY = "new";
+			public static final String DATE_FORMAT = "yyyy-MM-dd";
+		}
+
 	}
+
 }

@@ -12,8 +12,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.util.Collections;
-
 /**
  * Contains unit tests related to the EmergencyIncident translation.
  */
@@ -53,10 +51,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentInvalidRoleObject);
 		Assert.assertEquals("C6002", emergencyIncident.getId());
 		Assert.assertEquals("C6002", emergencyIncident.getKey());
-		Subject subject = emergencyIncident.getSubjects().get(0);
-		Assert.assertEquals(Collections.emptyList(), subject.getRole());
-		Person person = subject.getPerson();
-		Assert.assertNull(person);
+		Assert.assertTrue(emergencyIncident.getSubjects().isEmpty());
 	}
 
 	@Test
@@ -75,13 +70,13 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertNull(person.getMiddleName());
 		Assert.assertNull(person.getSuffix());
 		Assert.assertNull(person.getAge());
-		Assert.assertNull(person.getRace().getUid());
-		Assert.assertNull(person.getGender().getUid());
+		Assert.assertNull(person.getRace());
+		Assert.assertNull(person.getGender());
 		Assert.assertNull(person.getHeight());
 		Assert.assertNull(person.getWeight());
-		Assert.assertNull(person.getBuild().getUid());
-		Assert.assertNull(person.getEyeColor().getUid());
-		Assert.assertNull(person.getHairColor().getUid());
+		Assert.assertNull(person.getBuild());
+		Assert.assertNull(person.getEyeColor());
+		Assert.assertNull(person.getHairColor());
 		Assert.assertNull(person.getDriverLicenseNumber());
 		Assert.assertNull(person.getDriverLicenseState());
 	}
