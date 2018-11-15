@@ -24,12 +24,12 @@ abstract class BaseHttpServlet extends HttpServlet {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BaseHttpServlet.class);
 
 	/**
-	 * Respond with success message
-	 * @param response to respond
-	 * @param responseString additional string with data to respond
+	 * Respond with translated model.
+	 * @param response to respond.
+	 * @param responseString additional string with data to respond.
 	 */
-	protected void respondSuccess(HttpServletResponse response, String responseString) {
-		StringBuilder responseMessage = new StringBuilder("Request was successfully processed.");
+	protected void respondWithTranslatedModel(HttpServletResponse response, String responseString) {
+		StringBuilder responseMessage = new StringBuilder("Translated Data: ");
 		if (!StringUtils.isNullOrEmpty(responseString)) {
 			responseMessage.append(responseString);
 		}
@@ -37,7 +37,7 @@ abstract class BaseHttpServlet extends HttpServlet {
 			outputStream.write(responseMessage.toString().getBytes());
 		}
 		catch (IOException e) {
-			LOGGER.error("Error occured when trying to send the response.");
+			LOGGER.error("Error occurred when trying to send the response.");
 		}
 	}
 

@@ -1,0 +1,136 @@
+{
+  "data": [
+    {
+      "id": "C6002",
+      "recordTitle": "Abdominal at 100 S MAIN ST",
+      "emergencyNature": "Abdominal",
+      "priority": "1",
+      "agent": "Spillman",
+      "type": "T",
+      "occurredAfter": "2018-11-12T05:25:28-07:00",
+      "occurredBefore": "2018-11-12T05:25:28-07:00",
+      "whenCreated": "2018-11-12T05:25:45-07:00",
+      "reportedEmergencyLocation": {
+        "id": "240",
+        "recordTitle": "100 S MAIN ST, SFD, ND 35630",
+        "address": {
+          "id": "240",
+          "recordTitle": "100 S MAIN ST, SFD, ND 35630",
+          "streetFullText": "100 S MAIN ST",
+          "houseNumber": "100",
+          "street": "S MAIN ST",
+          "city": "SFD",
+          "state": "ND",
+          "zip": "35630",
+          "crossStreets": "Intersection of: S MAIN ST & S MAN ST & HUNTSVILLE RD",
+          "latitude": 34.810899,
+          "longitude": -87.6465
+        }
+      },
+      "involvedCADSubjects": [
+        {
+          "recordTitle": "last11, first_c m - 68 - B - M",
+          "subject": {
+            "id": "C6002-cmpl",
+            "recordTitle": "last11, first_c m - 68 - B - M",
+            "person": {
+              "id": "3060",
+              "recordTitle": "last11, first_c m - 68 - B - M",
+              "key": "NAM3060",
+              "lastName": "last11",
+              "firstName": "first_c",
+              "middleName": "mm",
+              "suffix": "ss",
+              "birthDate": "1950-01-01",
+              "sex": "M",
+              "age": "68",
+              "heightInInches": 71,
+              "heightInCentimeters": 180,
+              "weightInPounds": 200,
+              "weightInKilograms": 91,
+              "race": "B",
+              "eyeColor": "TAN",
+              "hairColor": "BLN",
+              "physicalBuild": "MCLR",
+              "driverLicense": {
+                "recordTitle": "112qweqwe1, AD",
+                "number": "112qweqwe1",
+                "state": "AD"
+              },
+              "socialSecurityNumber": "-  -",
+              "locations": [
+                {
+                  "id": "3060-primary",
+                  "recordTitle": "Home - comp addr 11, Anderson, AF 75610",
+                  "type": "Home",
+                  "address": {
+                    "recordTitle": "comp addr 11, Anderson, AF 75610",
+                    "streetFullText": "comp addr 11",
+                    "city": "Anderson",
+                    "state": "AF",
+                    "zip": "75610"
+                  }
+                }
+              ],
+              "phones": [
+                {
+                  "id": "3060-Home",
+                  "recordTitle": "Home - (234)555-4433",
+                  "type": "Home",
+                  "number": "(234)555-4433"
+                },
+                {
+                  "id": "3060-Work",
+                  "recordTitle": "Work",
+                  "type": "Work"
+                }
+              ],
+              "gender": "MAL",
+              "biometricData": {}
+            }
+          },
+          "role": "Complainant"
+        }
+      ],
+      "dispatchable": true,
+      "key": "EI-C6002",
+      "dispatches": [
+        {
+          "id": "C6002-SFEM",
+          "recordTitle": "Abdominal-C6002",
+          "key": "CAD-C6002e",
+          "emergencyIncidentId": "C6002",
+          "activeCallNumber": "5e",
+          "disciplineNature": "Abdominal",
+          "discipline": "e",
+          "priority": "1",
+          "incidentLocation": {
+            "id": "240",
+            "recordTitle": "100 S MAIN ST, SFD, ND 35630",
+            "address": {
+              "id": "240",
+              "recordTitle": "100 S MAIN ST, SFD, ND 35630",
+              "streetFullText": "100 S MAIN ST",
+              "houseNumber": "100",
+              "street": "S MAIN ST",
+              "city": "SFD",
+              "state": "ND",
+              "zip": "35630",
+              "crossStreets": "Intersection of: S MAIN ST & S MAN ST & HUNTSVILLE RD",
+              "latitude": 34.8109,
+              "longitude": -87.6465
+            }
+          },
+          "incidentCreated": "2018-11-12T05:25:31-07:00",
+          "zone": "ES",
+          "disposition": "ACT",
+          "clearance": "NA",
+          "status": "RCVD",
+          "whenStatusDeclared": "2018-11-12T05:25:45-07:00",
+          "agency": "SFEM",
+          "active": true
+        }
+      ]
+    }
+  ]
+}

@@ -13,8 +13,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -31,6 +31,7 @@
         <version.com.google.code.gson>2.8.5</version.com.google.code.gson>
         <version.commons.io>2.6</version.commons.io>
         <version.junit>4.12</version.junit>
+        <version.commons-lang3>3.8.1</version.commons-lang3>
     </properties>
 
     <repositories>
@@ -94,6 +95,11 @@
             <artifactId>junit</artifactId>
             <version>${version.junit}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${version.commons-lang3}</version>
         </dependency>
     </dependencies>
 </project>
