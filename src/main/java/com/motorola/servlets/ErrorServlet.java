@@ -37,13 +37,20 @@ public class ErrorServlet extends BaseHttpServlet {
 			ResponseNotification responseNotification = requestManager.getTranslator().translateErrorNotification(requestManager.getPayload());
 			String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
-				try (ServletOutputStream outputStream = response.getOutputStream()){
+				ServletOutputStream outputStream = null;
+				try {
 					ApiResponse apiResponse = requestManager.getApiClient().responseNotification().responseNotification(responseNotification);
+					outputStream = response.getOutputStream();
 					outputStream.write(apiResponse.toString().getBytes());
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send Notification data.", e);
 					respondWithTranslatedModel(response, outgoingModel);
+				}
+				finally {
+					if (outputStream != null) {
+						outputStream.close();
+					}
 				}
 			}
 			else {

@@ -30,14 +30,13 @@ public class IncidentCreateServlet extends BaseHttpServlet {
 		if (validationResult.isEmpty()) {
 			EmergencyIncident bean = requestManager.getTranslator().translateCreateIncident(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
-				String outgoingModel = CadCloudUtils.convertObjectToJsonString(bean);
 				try {
 					requestManager.getApiClient().pushIncident().createIncident(bean);
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send createIncident data.", e);
-					respondWithTranslatedModel(response, outgoingModel);
 				}
+				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean));
 			}
 			else {
 				respondFailure(response, requestManager.getTranslator().getValidationResults());

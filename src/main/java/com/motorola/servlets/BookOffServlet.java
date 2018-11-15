@@ -33,13 +33,20 @@ public class BookOffServlet extends BaseHttpServlet {
 			ResponseNotification responseNotification = requestManager.getTranslator().translateBookOff(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);
-				try (ServletOutputStream outputStream = response.getOutputStream()) {
+				ServletOutputStream outputStream = null;
+				try {
 					ApiResponse apiResponse = requestManager.getApiClient().responseNotification().responseNotification(responseNotification);
+					outputStream = response.getOutputStream();
 					outputStream.write(apiResponse.toString().getBytes());
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send responseNotification data.", e);
 					respondWithTranslatedModel(response, outgoingModel);
+				}
+				finally {
+					if (outputStream != null) {
+						outputStream.close();
+					}
 				}
 			}
 			else {
