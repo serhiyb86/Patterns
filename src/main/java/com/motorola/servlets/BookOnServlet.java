@@ -5,11 +5,15 @@ package com.motorola.servlets;
 
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
+import com.motorola.models.representation.ApiResponse;
 import com.motorola.models.representation.UserSessionWrapper;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +23,8 @@ import java.util.List;
 @WebServlet(urlPatterns = "/bookOn")
 public class BookOnServlet extends BaseHttpServlet {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(BookOnServlet.class);
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BaseRequestManager requestManager = new BaseRequestManager();
@@ -26,11 +32,15 @@ public class BookOnServlet extends BaseHttpServlet {
 		if (validationResult.isEmpty()) {
 			UserSessionWrapper wrapper = requestManager.getTranslator().translateBookOn(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
-				//ApiResponse apiResponse = client.responseUserSessionCorrelationId(wrapper.getCorrelationId()).bookOnResponse(wrapper.getModel());
-				//response.getOutputStream().write(apiResponse.toString().getBytes());
-				//send also the model for reviewing on the interface side
 				String outgoingModel = CadCloudUtils.convertObjectToJsonString(wrapper);
-				respondSuccess(response, outgoingModel);
+				try (ServletOutputStream outputStream = response.getOutputStream()) {
+					ApiResponse apiResponse = requestManager.getApiClient().responseUserSessionCorrelationId(wrapper.getCorrelationId()).bookOnResponse(wrapper.getModel());
+					outputStream.write(apiResponse.toString().getBytes());
+				}
+				catch (Exception e) {
+					LOGGER.error("Failed to send BookOn data.", e);
+					respondWithTranslatedModel(response, outgoingModel);
+				}
 			}
 			else {
 				respondFailure(response, requestManager.getTranslator().getValidationResults());

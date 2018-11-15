@@ -22,8 +22,7 @@ import java.util.List;
  */
 public class BaseRequestManager {
 
-
-	private final APIClient client = new APIClient();
+	private final APIClient apiClient = new APIClient();
 	private BaseTranslator translator;
 	private JsonObject payload;
 
@@ -62,14 +61,14 @@ public class BaseRequestManager {
 			validationResults.add(new ValidationResult("Access token is missing.", ValidationErrorType.MISSING_DATA));
 		}
 		else {
-			client.getConfig().getSecurityConfig().configureAuthApi_key(accessToken);
+			apiClient.getConfig().getSecurityConfig().configureAuthApi_key(accessToken);
 		}
 
 		if (StringUtils.isNullOrEmpty(apiURL)) {
 			validationResults.add(new ValidationResult("Cloud API URL is missing.", ValidationErrorType.MISSING_DATA));
 		}
 		else {
-			client.getConfig().setBasePath(apiURL);
+			apiClient.getConfig().setBasePath(apiURL);
 		}
 
 		if (StringUtils.isNullOrEmpty(spillmanVersion)) {
@@ -95,4 +94,9 @@ public class BaseRequestManager {
 	public BaseTranslator getTranslator() {
 		return translator;
 	}
+
+	public APIClient getApiClient() {
+		return apiClient;
+	}
+
 }
