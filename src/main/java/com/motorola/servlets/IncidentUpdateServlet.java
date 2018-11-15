@@ -30,14 +30,13 @@ public class IncidentUpdateServlet extends BaseHttpServlet {
 		if (validationResult.isEmpty()) {
 			UpdateEmergencyIncident bean = requestManager.getTranslator().translateUpdateIncident(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
-				String outgoingModel = CadCloudUtils.convertObjectToJsonString(bean);
 				try {
 					requestManager.getApiClient().pushIncident().updateIncident(bean);
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send updateIncident data.", e);
-					respondWithTranslatedModel(response, outgoingModel);
 				}
+				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean));
 			}
 			else {
 				respondFailure(response, requestManager.getTranslator().getValidationResults());
