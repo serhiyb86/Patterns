@@ -56,6 +56,7 @@ public class SubjectMapper {
 		for (JsonElement element : array) {
 			JsonObject jsonObject = element.getAsJsonObject();
 			Subject subject = new Subject();
+			subject.setContactRequested("No");
 			mapToSubject(jsonObject.entrySet(), subject);
 			List<String> role = subject.getRole();
 			// add subjects only with particular role.
