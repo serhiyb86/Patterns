@@ -64,21 +64,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Subject subject = emergencyIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", subject.getRole().get(0));
 		Person person = subject.getPerson();
-		Assert.assertNull(person.getFirstName());
-		Assert.assertNull(person.getDateOfBirth());
-		Assert.assertNull(person.getLastName());
-		Assert.assertNull(person.getMiddleName());
-		Assert.assertNull(person.getSuffix());
-		Assert.assertNull(person.getAge());
-		Assert.assertNull(person.getRace());
-		Assert.assertNull(person.getGender());
-		Assert.assertNull(person.getHeight());
-		Assert.assertNull(person.getWeight());
-		Assert.assertNull(person.getBuild());
-		Assert.assertNull(person.getEyeColor());
-		Assert.assertNull(person.getHairColor());
-		Assert.assertNull(person.getDriverLicenseNumber());
-		Assert.assertNull(person.getDriverLicenseState());
+		Assert.assertNull(person);
 	}
 
 	@Test

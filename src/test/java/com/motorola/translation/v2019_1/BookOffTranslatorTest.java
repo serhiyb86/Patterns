@@ -24,7 +24,7 @@ public class BookOffTranslatorTest extends TranslatorTest {
 
 	@Test
 	public void translateBookOff_validData_Test() {
-		ResponseNotification notification = getTranslator().translateBookOff(bookOffJson);
+		ResponseNotification notification = getTranslator().translateResponseNotification(bookOffJson);
 		Assert.assertEquals("Service Id translation failed", "bookOFF_SERVICE_ID", notification.getServiceId());
 		Assert.assertEquals("Customer Id translation failed", "testedCustomerId", notification.getCustomerId());
 		Assert.assertEquals("Correlation Id translation failed", "myCorrelationId", notification.getCorrelationId());

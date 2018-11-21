@@ -19,9 +19,7 @@ public interface BaseTranslator {
 
 	UserSessionWrapper translateBookOn(JsonObject payload);
 
-	ResponseNotification translateBookOff(JsonObject payload);
-
-	ResponseNotification translateErrorNotification(JsonObject payload);
+	ResponseNotification translateResponseNotification(JsonObject payload);
 
 	EmergencyIncident translateCreateIncident(JsonObject payload);
 

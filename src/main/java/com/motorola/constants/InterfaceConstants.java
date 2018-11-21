@@ -121,6 +121,7 @@ public final class InterfaceConstants {
 			public static final String OLD_JSON_KEY = "old";
 			public static final String NEW_JSON_KEY = "new";
 			public static final String DATE_FORMAT = "yyyy-MM-dd";
+			public static final String ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 		}
 
 	}

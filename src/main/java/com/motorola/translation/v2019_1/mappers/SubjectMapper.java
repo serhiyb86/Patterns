@@ -7,9 +7,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.representation.Person;
 import com.motorola.models.representation.Subject;
 import com.motorola.translation.setter.Setter;
 import com.motorola.utils.CadCloudUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +34,10 @@ public class SubjectMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Subject.SUBJECT, (model, value) -> {
 			JsonObject subjectObject = ((JsonElement) value).getAsJsonObject();
 			JsonObject jsonPerson = CadCloudUtils.getJsonByKey(subjectObject, InterfaceConstants.EmergencyIncident.Person.PERSON);
-			model.setPerson(new PersonMapper().createAndMapToPerson(jsonPerson.entrySet()));
+			Person person = new PersonMapper().createAndMapToPerson(jsonPerson.entrySet());
+			if (StringUtils.isNotBlank(person.getLastName())) {
+				model.setPerson(person);
+			}
 		});
 	}
 

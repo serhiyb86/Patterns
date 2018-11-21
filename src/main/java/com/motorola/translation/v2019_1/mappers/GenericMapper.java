@@ -4,6 +4,7 @@
 package com.motorola.translation.v2019_1.mappers;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.motorola.translation.setter.Setter;
 
 import java.util.Map;
@@ -29,13 +30,15 @@ public class GenericMapper<T> {
 	 * @param model model to fill.
 	 * @return filled <T> model.
 	 */
-	public T mapToModel(Set<Map.Entry<String, JsonElement>> data, T model) {
-		data.forEach(entry -> {
-			Setter<T> consumer = setters.get(entry.getKey());
-			if (consumer != null) {
-				consumer.accept(model, entry.getValue());
-			}
-		});
+	public T mapToModel(JsonObject data, T model) {
+		if (data != null) {
+			data.entrySet().forEach(entry -> {
+				Setter<T> consumer = setters.get(entry.getKey());
+				if (consumer != null) {
+					consumer.accept(model, entry.getValue());
+				}
+			});
+		}
 		return model;
 	}
 

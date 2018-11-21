@@ -24,7 +24,7 @@ public class ErrorTranslatorTest extends TranslatorTest {
 
 	@Test
 	public void translateErrorNotification_validData_Test() {
-		ResponseNotification notification = getTranslator().translateErrorNotification(errorJson);
+		ResponseNotification notification = getTranslator().translateResponseNotification(errorJson);
 		Assert.assertEquals("Service Id translation failed", "475IdSer", notification.getServiceId());
 		Assert.assertEquals("Customer Id translation failed", "Cust1488SR", notification.getCustomerId());
 		Assert.assertEquals("Correlation Id translation failed", "88844-859-53", notification.getCorrelationId());

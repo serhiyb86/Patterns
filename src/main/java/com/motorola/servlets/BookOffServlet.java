@@ -30,7 +30,7 @@ public class BookOffServlet extends BaseHttpServlet {
 		BaseRequestManager requestManager = new BaseRequestManager();
 		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.NotificationProperties.BOOK_OFF_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
-			ResponseNotification responseNotification = requestManager.getTranslator().translateBookOff(requestManager.getPayload());
+			ResponseNotification responseNotification = requestManager.getTranslator().translateResponseNotification(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);
 				ServletOutputStream outputStream = null;
