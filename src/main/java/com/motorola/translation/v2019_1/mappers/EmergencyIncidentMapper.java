@@ -9,7 +9,12 @@ import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.Subject;
 import com.motorola.translation.setter.Setter;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class EmergencyIncidentMapper {
 
@@ -25,7 +30,7 @@ public class EmergencyIncidentMapper {
 			JsonArray involvedCADSubjects = ((JsonElement) value).getAsJsonArray();
 			SubjectMapper subjectMapper = new SubjectMapper();
 			List<Subject> subjects = subjectMapper.createAndMapToSubjectList(involvedCADSubjects);
-			model.setSubjects(subjects);
+			model.setSubjects(subjects.stream().filter(subject -> subject.getPerson() != null).collect(Collectors.toList()));
 		});
 	}
 

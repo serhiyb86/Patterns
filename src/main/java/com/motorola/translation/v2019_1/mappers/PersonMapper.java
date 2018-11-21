@@ -4,6 +4,7 @@
 package com.motorola.translation.v2019_1.mappers;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.Person;
@@ -41,7 +42,7 @@ public class PersonMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Person.DRIVER_LICENSE, (model, value) -> {
 				driverLicenceSetters.put(InterfaceConstants.EmergencyIncident.Person.NUMBER, new StringSetter<>(Person::setDriverLicenseNumber));
 				driverLicenceSetters.put(InterfaceConstants.EmergencyIncident.Person.STATE, new StringSetter<>(Person::setDriverLicenseState));
-				new GenericMapper<>(driverLicenceSetters).mapToModel(((JsonElement) value).getAsJsonObject().entrySet(), model);
+				new GenericMapper<>(driverLicenceSetters).mapToModel((JsonObject) value, model);
 			}
 		);
 	}

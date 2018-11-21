@@ -34,7 +34,7 @@ public class ErrorServlet extends BaseHttpServlet {
 		BaseRequestManager requestManager = new BaseRequestManager();
 		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.NotificationProperties.ERROR_NOTIFICATION_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
-			ResponseNotification responseNotification = requestManager.getTranslator().translateErrorNotification(requestManager.getPayload());
+			ResponseNotification responseNotification = requestManager.getTranslator().translateResponseNotification(requestManager.getPayload());
 			String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				ServletOutputStream outputStream = null;
