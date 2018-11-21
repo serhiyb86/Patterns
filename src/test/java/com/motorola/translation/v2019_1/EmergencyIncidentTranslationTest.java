@@ -61,10 +61,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentEmptyValuesObject);
 		Assert.assertNull(emergencyIncident.getId());
 		Assert.assertNull(emergencyIncident.getKey());
-		Subject subject = emergencyIncident.getSubjects().get(0);
-		Assert.assertEquals("Complainant", subject.getRole().get(0));
-		Person person = subject.getPerson();
-		Assert.assertNull(person);
+		Assert.assertTrue(emergencyIncident.getSubjects().isEmpty());
 	}
 
 	@Test
