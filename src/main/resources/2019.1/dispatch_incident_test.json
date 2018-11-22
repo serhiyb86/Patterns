@@ -1,0 +1,72 @@
+{
+  "data": [
+    {
+      "id": "C6028",
+      "recordTitle": "Abdominal",
+      "emergencyNature": "Abdominal",
+      "priority": "1",
+      "agent": "Spillman",
+      "type": "T",
+      "occurredAfter": "2018-11-21T05:57:32-07:00",
+      "occurredBefore": "2018-11-21T05:57:32-07:00",
+      "whenCreated": "2018-11-21T05:57:32-07:00",
+      "involvedCADSubjects": [
+        {
+          "id": "C6028-cntct",
+          "recordTitle": "No Name Provided",
+          "subject": {
+            "id": "C6028-cntct",
+            "recordTitle": "No Name Provided",
+            "person": {
+              "id": "C6028-cntct",
+              "recordTitle": "No Name Provided",
+              "locations": [
+                {
+                  "recordTitle": "Home",
+                  "type": "Home",
+                  "address": {}
+                }
+              ],
+              "phones": [
+                {
+                  "id": "C6028",
+                  "recordTitle": "Home",
+                  "type": "Home"
+                }
+              ]
+            }
+          },
+          "role": "ReportingParty"
+        }
+      ],
+      "dispatchable": true,
+      "key": "EI-C6028",
+      "dispatches": [
+        {
+          "id": "C6028-SPD",
+          "recordTitle": "Abdominal-C6028",
+          "key": "CAD-C6028e",
+          "emergencyIncidentId": "C6028",
+          "activeCallNumber": "24e",
+          "disciplineNature": "Abdominal",
+          "discipline": "e",
+          "priority": "1",
+          "incidentCreated": "2018-11-21T05:57:37-07:00",
+          "determinant": {
+            "id": "01A01",
+            "recordTitle": "01A01-Abdominal pain",
+            "determinant": "01A01",
+            "description": "Abdominal pain"
+          },
+          "disposition": "ACT",
+          "clearance": "NA",
+          "status": "RCVD",
+          "whenStatusDeclared": "2018-11-21T05:57:41-07:00",
+          "responsibleUnitId":"007",
+          "agency": "SPD",
+          "active": true
+        }
+      ]
+    }
+  ]
+}

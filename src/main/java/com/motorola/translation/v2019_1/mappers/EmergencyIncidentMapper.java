@@ -6,6 +6,7 @@ package com.motorola.translation.v2019_1.mappers;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.Subject;
 import com.motorola.translation.setter.Setter;
@@ -32,6 +33,13 @@ public class EmergencyIncidentMapper {
 			List<Subject> subjects = subjectMapper.createAndMapToSubjectList(involvedCADSubjects);
 			model.setSubjects(subjects.stream().filter(subject -> subject.getPerson() != null).collect(Collectors.toList()));
 		});
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISPATCHES, (model, value) -> {
+			JsonArray dispatchesJson = ((JsonElement) value).getAsJsonArray();
+			DispatchableIncidentMapper dispatchesMapper = new DispatchableIncidentMapper();
+			List<DispatchableIncident> dispatches = dispatchesMapper.createAndMapToDispatchIncidentList(dispatchesJson);
+			model.setDispatches(dispatches);
+		});
+
 	}
 
 	public EmergencyIncident createAndMapToEmergencyIncident(Set<Map.Entry<String, JsonElement>> data) {
