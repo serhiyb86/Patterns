@@ -4,6 +4,7 @@
 package com.motorola.translation.v2019_1;
 
 import com.google.gson.JsonObject;
+import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.Person;
 import com.motorola.models.representation.Subject;
@@ -112,6 +113,27 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("BLN", oldPersonValue.getHairColor().getUid());
 		Assert.assertEquals("112qweqwe1_old", oldPersonValue.getDriverLicenseNumber());
 		Assert.assertEquals("AD", oldPersonValue.getDriverLicenseState());
+	}
+
+	@Test
+	public void testDispatchIncidentDataTransformation() {
+		String insertIncidentFileName = "dispatch_incident_test.json";
+		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
+		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
+		DispatchableIncident dispatchIncident =emergencyIncident.getDispatches().get(0);
+
+		Assert.assertEquals("24e", dispatchIncident.getAlias());
+		// TODO:Key
+		Assert.assertEquals("e", dispatchIncident.getDiscipline().getUid());
+		Assert.assertEquals("Abdominal", dispatchIncident.getNature().getNature().getUid());
+		Assert.assertEquals("1", dispatchIncident.getPriority());
+		Assert.assertEquals("SPD", dispatchIncident.getAgency().getUid());
+		Assert.assertEquals("RCVD", dispatchIncident.getStatus().getUid());
+		Assert.assertEquals("2018-11-21T05:57:41-07:00", dispatchIncident.getWhenStatusDeclared());
+		Assert.assertEquals("01A01", dispatchIncident.getProqaDeterminant().getUid());
+		// TODO: isSchedule, type
+		// TODO: check in json with key "responsibleUnitId"
+		Assert.assertEquals("007", dispatchIncident.getPrimaryUnit().getKey());
 	}
 
 }

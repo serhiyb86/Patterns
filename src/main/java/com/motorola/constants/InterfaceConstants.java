@@ -112,6 +112,26 @@ public final class InterfaceConstants {
 		}
 
 		/**
+		 *  Contains EmergencyIncident Dispatches properties.
+		 */
+		public final class Dispatches {
+
+			public static final String DISPATCHES = "dispatches";
+			public static final String ACTIVE_CALL_NUMBER = "activeCallNumber";
+			public static final String ID = "id";
+			public static final String DISCIPLINE = "discipline";
+			public static final String DISCIPLINE_NATURE = "disciplineNature";
+			public static final String PRIORITY = "priority";
+			public static final String AGENCY = "agency";
+			public static final String STATUS = "status";
+			public static final String WHEN_STATUS_DECLARED = "whenStatusDeclared";
+			public static final String DETERMINANT = "determinant";
+			public static final String SCHEDULED_FOR = "scheduledFor";
+			public static final String TYPE = "type";
+			public static final String RESPONSIBLE_UNIT_ID = "responsibleUnitId";
+		}
+
+		/**
 		 * Contains general properties related to the EmergencyIncident.
 		 */
 		public final class GeneralProperties{

@@ -20,7 +20,7 @@ import java.util.Set;
 /**
  * Mapper for converting Json Object with Person data to the {@link Person} object.
  */
-public class PersonMapper {
+public class PersonMapper extends  AbstractMapper {
 
 	private static final Map<String, Setter<Person>> setters = new HashMap<>();
 	private static final Map<String, Setter<Person>> driverLicenceSetters = new HashMap<>();
@@ -45,20 +45,6 @@ public class PersonMapper {
 				new GenericMapper<>(driverLicenceSetters).mapToModel((JsonObject) value, model);
 			}
 		);
-	}
-
-	/**
-	 * Creates {@link Lookup} instance with incoming data.
-	 *
-	 * @param value incoming data.
-	 * @return {@link Lookup} instance.
-	 */
-	private static Lookup createLookup(JsonElement value) {
-		Lookup lookup = new Lookup();
-		if (value != null) {
-			lookup.setUid(value.getAsString());
-		}
-		return lookup;
 	}
 
 	/**
