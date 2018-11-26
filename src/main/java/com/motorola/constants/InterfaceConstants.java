@@ -132,6 +132,25 @@ public final class InterfaceConstants {
 		}
 
 		/**
+		 *  Contains EmergencyIncident Vehicle properties.
+		 */
+		public final class Vehicle {
+
+			public static final String INVOLVED_VEHICLES = "involvedVehicles";
+			public static final String LICENCE_PLATE = "licensePlate";
+			public static final String LICENCE_TYPE = "licenseType";
+			public static final String LICENSE_EXPIRATION = "licenseExpiration";
+			public static final String YEAR = "year";
+			public static final String MAKE = "make";
+			public static final String MODEL = "model";
+			public static final String PRIMARY_COLOR = "primaryColor";
+			public static final String SECONDARY_COLOR = "secondaryColor";
+			public static final String VIN = "vin";
+			public static final String OWNER = "owner";
+			public static final String COMMENT = "comment";
+		}
+
+		/**
 		 * Contains general properties related to the EmergencyIncident.
 		 */
 		public final class GeneralProperties{

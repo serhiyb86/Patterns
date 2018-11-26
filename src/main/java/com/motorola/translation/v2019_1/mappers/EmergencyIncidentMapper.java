@@ -39,6 +39,9 @@ public class EmergencyIncidentMapper {
 			List<DispatchableIncident> dispatches = dispatchesMapper.createAndMapToDispatchIncidentList(dispatchesJson);
 			model.setDispatches(dispatches);
 		});
+		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_VEHICLES, (model, value) -> {
+			JsonArray involvedVehiclles = ((JsonElement)value).getAsJsonArray();
+		});
 
 	}
 
