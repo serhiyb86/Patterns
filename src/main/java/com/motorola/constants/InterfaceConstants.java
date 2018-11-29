@@ -138,6 +138,7 @@ public final class InterfaceConstants {
 
 			public static final String INVOLVED_VEHICLES = "involvedVehicles";
 			public static final String LICENCE_PLATE = "licensePlate";
+			public static final String LICENCE_STATE = "licenseState";
 			public static final String LICENCE_TYPE = "licenseType";
 			public static final String LICENSE_EXPIRATION = "licenseExpiration";
 			public static final String YEAR = "year";

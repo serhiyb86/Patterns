@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.EmergencyIncident;
+import com.motorola.models.representation.InvolvedVehicle;
 import com.motorola.models.representation.Subject;
 import com.motorola.translation.setter.Setter;
 
@@ -40,7 +41,10 @@ public class EmergencyIncidentMapper {
 			model.setDispatches(dispatches);
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_VEHICLES, (model, value) -> {
-			JsonArray involvedVehiclles = ((JsonElement)value).getAsJsonArray();
+			JsonArray vehicleJSON = ((JsonElement)value).getAsJsonArray();
+			VehicleMapper vehicleMapper = new VehicleMapper();
+			List<InvolvedVehicle> involvedVehicles = vehicleMapper.createAndMapToVehicleList(vehicleJSON);
+			model.setVehicles(involvedVehicles);
 		});
 
 	}
