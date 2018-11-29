@@ -31,7 +31,7 @@ public class VehicleMapper extends AbstractMapper{
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_PLATE, new StringSetter<>(Vehicle::setLicensePlate));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_STATE, new StringSetter<>(Vehicle::setLicenseState));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_TYPE, (model, value) -> model.setLicenseType(createLookup((JsonElement) value)));
-		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENSE_EXPIRATION, new DateSetter<>(Vehicle::setLicenseExpirationDate, InterfaceConstants.EmergencyIncident.GeneralProperties.ZONED_DATE_TIME_FORMAT));
+		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENSE_EXPIRATION, new StringSetter<>(Vehicle::setLicenseExpirationDate));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.YEAR, new LongSetter<>(Vehicle::setYear));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.MAKE, (model, value) -> model.setMake(createLookup((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.MODEL, (model, value) -> model.setModel(createLookup((JsonElement) value)));
