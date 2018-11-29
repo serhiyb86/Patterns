@@ -33,8 +33,7 @@ public class InvolvedVehicleMapper {
 			model.setRole(Collections.singletonList(CadCloudUtils.getStringFromJsonElement((JsonElement) value)))
 		);
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_VEHICLE, (model, value) -> {
-			JsonObject involvedVehicleObject = ((JsonElement) value).getAsJsonObject();
-			JsonObject jsonVehicle = CadCloudUtils.getJsonByKey(involvedVehicleObject, InterfaceConstants.EmergencyIncident.Person.PERSON);
+			JsonObject jsonVehicle = ((JsonElement) value).getAsJsonObject();
 			Vehicle vehicle = new VehicleMapper().createVehicle(jsonVehicle.entrySet());
 			model.setVehicle(vehicle);
 		});
