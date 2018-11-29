@@ -41,9 +41,9 @@ public class EmergencyIncidentMapper {
 			model.setDispatches(dispatches);
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_VEHICLES, (model, value) -> {
-			JsonArray vehicleJSON = ((JsonElement)value).getAsJsonArray();
-			VehicleMapper vehicleMapper = new VehicleMapper();
-			List<InvolvedVehicle> involvedVehicles = vehicleMapper.createAndMapToVehicleList(vehicleJSON);
+			JsonArray involvedVehicleJSON = ((JsonElement)value).getAsJsonArray();
+			InvolvedVehicleMapper vehicleMapper = new InvolvedVehicleMapper();
+			List<InvolvedVehicle> involvedVehicles = vehicleMapper.createAndMapToInvolvedVehicleList(involvedVehicleJSON);
 			model.setVehicles(involvedVehicles);
 		});
 
