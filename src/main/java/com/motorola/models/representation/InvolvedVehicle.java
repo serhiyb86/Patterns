@@ -16,9 +16,27 @@ public class InvolvedVehicle implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private List<String> role = new ArrayList<String>();
+	private String key;
+
+	private List<String> role = new ArrayList<>();
 
 	private Vehicle vehicle;
+
+	/**
+	 * Returns the value of property "key>.
+	 * The unique identifier of an involved vehicle
+	 */
+	public String getKey() {
+		return key;
+	}
+
+	/**
+	 * Updates the value of property "key"
+	 * @param key
+	 */
+	public void setKey(String key) {
+		this.key = key;
+	}
 
 	/**
 	 * Returns the value of property "role".
