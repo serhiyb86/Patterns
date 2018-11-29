@@ -60,6 +60,7 @@
           },
           "disposition": "ACT",
           "clearance": "NA",
+          "observed": "11",
           "status": "RCVD",
           "whenStatusDeclared": "2018-11-21T05:57:41-07:00",
           "responsibleUnitId":"007",
