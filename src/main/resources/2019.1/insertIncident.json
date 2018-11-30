@@ -92,6 +92,25 @@
           "role": "Complainant"
         }
       ],
+      "involvedVehicles": [{
+        "key": "100",
+        "relation": "custom_relship",
+        "vehicle": {
+          "licensePlate": "ABC999",
+          "licenseState": "WV",
+          "licenseType": "PC",
+          "licenseExpiration": "2018-11-30",
+          "year": "2000",
+          "make": "PONT",
+          "model": "6000",
+          "primaryColor": "BLK",
+          "secondaryColor": "BLU",
+          "vin": "ABC111",
+          "owner": "1",
+          "comment": "comment_data"
+        }
+      }
+      ],
       "dispatchable": true,
       "key": "EI-C6002",
       "dispatches": [

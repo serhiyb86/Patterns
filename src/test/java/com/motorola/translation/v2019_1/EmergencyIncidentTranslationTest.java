@@ -6,13 +6,17 @@ package com.motorola.translation.v2019_1;
 import com.google.gson.JsonObject;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.EmergencyIncident;
+import com.motorola.models.representation.InvolvedVehicle;
 import com.motorola.models.representation.Person;
 import com.motorola.models.representation.Subject;
 import com.motorola.models.representation.UpdateEmergencyIncident;
+import com.motorola.models.representation.Vehicle;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.text.ParseException;
+import java.util.List;
+
 /**
  * Contains unit tests related to the EmergencyIncident translation.
  */
@@ -43,6 +47,27 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("BLN", person.getHairColor().getUid());
 		Assert.assertEquals("112qweqwe1", person.getDriverLicenseNumber());
 		Assert.assertEquals("AD", person.getDriverLicenseState());
+		//Involved vehicle
+		List<InvolvedVehicle> involvedVehicleList = emergencyIncident.getVehicles();
+		Assert.assertEquals(1, involvedVehicleList.size());
+		InvolvedVehicle involvedVehicle = involvedVehicleList.get(0);
+		Assert.assertNotNull(involvedVehicle);
+		Assert.assertEquals("custom_relship-100", involvedVehicle.getKey());
+		Assert.assertEquals("custom_relship", involvedVehicle.getRole().get(0));
+		Vehicle vehicle = involvedVehicle.getVehicle();
+		Assert.assertNotNull(vehicle);
+		Assert.assertEquals("ABC999", vehicle.getLicensePlate());
+		Assert.assertEquals("WV", vehicle.getLicenseState());
+		Assert.assertEquals("PC", vehicle.getLicenseType().getUid());
+		Assert.assertEquals("2018-11-30T00:00:00.000Z", vehicle.getLicenseExpirationDate());
+		Assert.assertEquals("2000", String.valueOf(vehicle.getYear()));
+		Assert.assertEquals("PONT", vehicle.getMake().getUid());
+		Assert.assertEquals("6000", vehicle.getModel().getUid());
+		Assert.assertEquals("BLK", vehicle.getPrimaryColor().getUid());
+		Assert.assertEquals("BLU", vehicle.getSecondaryColor().getUid());
+		Assert.assertEquals("ABC111", vehicle.getVin());
+		Assert.assertEquals("1", vehicle.getOwner());
+		Assert.assertEquals("comment_data", vehicle.getComment());
 	}
 
 	@Test
@@ -120,7 +145,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		String insertIncidentFileName = "dispatch_incident_test.json";
 		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
-		DispatchableIncident dispatchIncident =emergencyIncident.getDispatches().get(0);
+		DispatchableIncident dispatchIncident = emergencyIncident.getDispatches().get(0);
 
 		Assert.assertEquals("24e", dispatchIncident.getAlias());
 		// TODO:Key

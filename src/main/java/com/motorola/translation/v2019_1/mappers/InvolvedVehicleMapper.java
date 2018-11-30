@@ -39,7 +39,7 @@ public class InvolvedVehicleMapper {
 		});
 	}
 
-	private InvolvedVehicle mapToInvolvedVehicle(Set<Map.Entry<String, JsonElement>> data) {
+	private InvolvedVehicle mapToInvolvedVehicle(Set<Map.Entry<String, JsonElement>> data, String key) {
 		InvolvedVehicle involvedVehicle = new InvolvedVehicle();
 		data.forEach(entry -> {
 			Setter<InvolvedVehicle> consumer = setters.get(entry.getKey());
@@ -47,14 +47,28 @@ public class InvolvedVehicleMapper {
 				consumer.accept(involvedVehicle, entry.getValue());
 			}
 		});
+		//custom unique key
+		involvedVehicle.setKey(key);
 		return involvedVehicle;
+	}
+
+	/**
+	 * Creates unique key combining values from incoming payload
+	 * @param jsonObject - payload json
+	 * @return unique key
+	 */
+	private String createKey(JsonObject jsonObject) {
+		String incomingRelation = CadCloudUtils.getStringByKey(jsonObject, InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_RELATION);
+		String incomingKey = CadCloudUtils.getStringByKey(jsonObject, InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_KEY);
+		return incomingRelation + "-" + incomingKey;
 	}
 
 	public List<InvolvedVehicle> createAndMapToInvolvedVehicleList(JsonArray involvedVehicles) {
 		List<InvolvedVehicle> involvements = new ArrayList<>();
 		for (JsonElement element : involvedVehicles) {
 			JsonObject jsonObject = element.getAsJsonObject();
-			involvements.add(mapToInvolvedVehicle(jsonObject.entrySet()));
+			String customKey = createKey(jsonObject);
+			involvements.add(mapToInvolvedVehicle(jsonObject.entrySet(), customKey));
 		}
 		return involvements;
 	}
