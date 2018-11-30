@@ -144,6 +144,7 @@
           "zone": "ES",
           "disposition": "ACT",
           "clearance": "NA",
+          "observed": "11",
           "status": "RCVD",
           "whenStatusDeclared": "2018-11-12T05:25:45-07:00",
           "agency": "SFEM",

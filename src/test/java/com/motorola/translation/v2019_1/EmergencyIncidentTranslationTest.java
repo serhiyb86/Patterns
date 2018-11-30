@@ -5,6 +5,7 @@ package com.motorola.translation.v2019_1;
 
 import com.google.gson.JsonObject;
 import com.motorola.models.representation.DispatchableIncident;
+import com.motorola.models.representation.Disposition;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.InvolvedVehicle;
 import com.motorola.models.representation.Person;
@@ -156,6 +157,17 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("RCVD", dispatchIncident.getStatus().getUid());
 		Assert.assertEquals("2018-11-21T05:57:41-07:00", dispatchIncident.getWhenStatusDeclared());
 		Assert.assertEquals("01A01", dispatchIncident.getProqaDeterminant().getUid());
+		//Disposition
+		Assert.assertNotNull(dispatchIncident.getDispositions());
+		Assert.assertFalse(dispatchIncident.getDispositions().isEmpty());
+		Assert.assertEquals(1, dispatchIncident.getDispositions().size());
+		Disposition disposition = dispatchIncident.getDispositions().get(0);
+		Assert.assertNotNull(disposition.getCadDisposition());
+		Assert.assertEquals("NA", disposition.getCadDisposition().getUid());
+		Assert.assertNotNull(disposition.getReportDisposition());
+		Assert.assertEquals("ACT", disposition.getReportDisposition().getUid());
+		Assert.assertNotNull(disposition.getObservedOffense());
+		Assert.assertEquals("11", disposition.getObservedOffense().getUid());
 		// TODO: isSchedule, type
 		// TODO: check in json with key "responsibleUnitId"
 		Assert.assertEquals("007", dispatchIncident.getPrimaryUnit().getKey());

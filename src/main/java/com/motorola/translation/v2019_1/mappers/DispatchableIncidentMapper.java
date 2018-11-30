@@ -11,6 +11,7 @@ import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.Nature;
 import com.motorola.models.representation.UnitHandle;
+import com.motorola.translation.setter.custom.disposition.DispositionSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import org.apache.commons.lang3.StringUtils;
@@ -34,11 +35,17 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 		// TODO: not present in the model Key field
 		//setters.put(InterfaceConstants.EmergencyIncident.Dispatches.ID, new StringSetter<>(DispatchableIncident::setKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE, (model, value) -> model.setDiscipline(createLookup((JsonElement) value)));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.AGENCY, (model, value) -> model.setAgency(createLookup((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE_NATURE, (model, value) -> model.setNature(createNature((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.PRIORITY, new StringSetter<>(DispatchableIncident::setPriority));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.AGENCY, (model, value) -> model.setAgency(createLookup((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.STATUS, (model, value) -> model.setStatus(createLookup((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.WHEN_STATUS_DECLARED, new StringSetter<>(DispatchableIncident::setWhenStatusDeclared));
+
+		//Use custom setter for nested disposition model
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CLEARANCE, new DispositionSetter((disp, value) -> disp.setCadDisposition(createLookup((JsonElement) value))));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISPOSITION, new DispositionSetter((disp, value) -> disp.setReportDisposition(createLookup((JsonElement) value))));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.OBSERVED, new DispositionSetter((disp, value) -> disp.setObservedOffense(createLookup((JsonElement) value))));
+
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DETERMINANT, (model, value) -> model.setProqaDeterminant(createProqaDeterminant((JsonElement) value)));
 		//TODO: isSchedule
 		//setters.put(InterfaceConstants.EmergencyIncident.Dispatches.SCHEDULED_FOR , (model, value) -> model.setIsScheduled(checkSchedule((JsonElement) value)));
