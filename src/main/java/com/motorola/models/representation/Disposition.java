@@ -1,14 +1,14 @@
+/*
+ * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
+ */
 package com.motorola.models.representation;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.motorola.models.Config;
 
 import java.io.Serializable;
-import java.util.Date;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -25,7 +25,7 @@ public class Disposition implements Serializable {
 
 	private UnitHandle unitHandle;
 
-	private Date whenCadDispositionEntered;
+	private String whenCadDispositionEntered;
 
 	private String comment;
 
@@ -93,15 +93,14 @@ public class Disposition implements Serializable {
 	 * Returns the value of property "whenCadDispositionEntered".
 	 * Date and Time the Disposition was entered
 	 */
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public Date getWhenCadDispositionEntered() {
+	public String getWhenCadDispositionEntered() {
 		return whenCadDispositionEntered;
 	}
 
 	/**
 	 * Updates the value of property "whenCadDispositionEntered".
 	 */
-	public void setWhenCadDispositionEntered(Date whenCadDispositionEntered) {
+	public void setWhenCadDispositionEntered(String whenCadDispositionEntered) {
 		this.whenCadDispositionEntered = whenCadDispositionEntered;
 	}
 

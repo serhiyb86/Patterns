@@ -125,6 +125,9 @@ public final class InterfaceConstants {
 			public static final String AGENCY = "agency";
 			public static final String STATUS = "status";
 			public static final String WHEN_STATUS_DECLARED = "whenStatusDeclared";
+			public static final String CLEARANCE = "clearance";
+			public static final String DISPOSITION = "disposition";
+			public static final String OBSERVED = "observed";
 			public static final String DETERMINANT = "determinant";
 			public static final String SCHEDULED_FOR = "scheduledFor";
 			public static final String TYPE = "type";
