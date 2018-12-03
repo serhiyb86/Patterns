@@ -1,7 +1,7 @@
 /*
  * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
  */
-package com.motorola.translation.v2019_1.mappers;
+package com.motorola.translation.v2019_1.mappers.incident;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -11,6 +11,8 @@ import com.motorola.translation.setter.ApiDateSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import com.motorola.translation.v2019_1.mappers.AbstractMapper;
+import com.motorola.translation.v2019_1.mappers.GenericMapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +21,7 @@ import java.util.Set;
 /**
  * Mapper for converting Json Object with Person data to the {@link Person} object.
  */
-public class PersonMapper extends  AbstractMapper {
+public class PersonMapper extends AbstractMapper {
 
 	private static final Map<String, Setter<Person>> setters = new HashMap<>();
 	private static final Map<String, Setter<Person>> driverLicenceSetters = new HashMap<>();

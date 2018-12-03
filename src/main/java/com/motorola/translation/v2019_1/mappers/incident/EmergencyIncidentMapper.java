@@ -1,7 +1,7 @@
 /*
  * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
  */
-package com.motorola.translation.v2019_1.mappers;
+package com.motorola.translation.v2019_1.mappers.incident;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -12,13 +12,16 @@ import com.motorola.models.representation.IncidentComment;
 import com.motorola.models.representation.InvolvedVehicle;
 import com.motorola.models.representation.Subject;
 import com.motorola.translation.setter.Setter;
+import com.motorola.translation.v2019_1.mappers.InvolvedVehicleMapper;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+/**
+ * Mapper for converting Json Object with EmergencyIncident data to the {@link EmergencyIncident} object.
+ */
 public class EmergencyIncidentMapper {
 
 	private static final Map<String, Setter<EmergencyIncident>> setters = new HashMap<>();

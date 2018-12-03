@@ -163,6 +163,9 @@ public final class InterfaceConstants {
 		public final class GeneralProperties{
 			public static final String UPDATE_INCIDENT_REQUEST_TYPE = "UpdateIncidentRequest";
 			public static final String CREATE_INCIDENT_REQUEST_TYPE = "CreateIncidentRequest";
+			public static final String UNIT_STATUS_CREATE_REQUEST_TYPE = "CreateUnitStatusRequest";
+			public static final String UNIT_STATUS_UPDATE_REQUEST_TYPE = "UpdateUnitStatusRequest";
+			public static final String UNIT_STATUS_DELETE_REQUEST_TYPE = "DeleteUnitStatusRequest";
 			public static final String ID_JSON_KEY = "id";
 			public static final String OLD_JSON_KEY = "old";
 			public static final String NEW_JSON_KEY = "new";
@@ -194,4 +197,38 @@ public final class InterfaceConstants {
 
 	}
 
+	public final class Unit {
+		/**
+		 * Contains general properties related to the EmergencyIncident.
+		 */
+		public final class GeneralProperties{
+			public static final String CUSTOMER_ID = "customerId";
+			public static final String UNIT = "unit";
+			public static final String DATA = "data";
+			public static final String KEY = "key";
+			public static final String AGENCY = "agency";
+			public static final String CALL_SIGN = "callSign";
+			public static final String STATUS = "status";
+			public static final String WHEN_STATUS_DECLARED = "whenStatusDeclared";
+			public static final String MINIMUM_STAFFING_LEVEL = "minimumStaffingLevel";
+			public static final String IS_PERSONNEL_OUTSIDE_UNIT = "isPersonnelOutsideUnit";
+			public static final String OLD_JSON_KEY = "old";
+			public static final String NEW_JSON_KEY = "new";
+			public static final String ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+		}
+
+
+		public final class JurisdictionalAssignment {
+			public static final String JURISDICTIONAL_ASSIGNMENT = "JurisdictionalAssignment";
+			public static final String BEATS = "beats";
+		}
+
+		public final class AssignedIncident {
+			public static final String ASSIGNED_INCIDENT = "AssignedIncident";
+			public static final String KEY = "key";
+			public static final String ID = "id";
+			public static final String DISPATCH_KEY = "dispatchKey";
+			public static final String DISPATCH_ALIAS = "dispatchAlias";
+		}
+	}
 }

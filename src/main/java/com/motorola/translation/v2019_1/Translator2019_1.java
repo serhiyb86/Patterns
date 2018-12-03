@@ -4,26 +4,25 @@
 package com.motorola.translation.v2019_1;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
-import com.motorola.models.representation.ApiError;
 import com.motorola.models.representation.EmergencyIncident;
-import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.ResponseNotification;
+import com.motorola.models.representation.Unit;
 import com.motorola.models.representation.UpdateEmergencyIncident;
+import com.motorola.models.representation.UpdateUnit;
 import com.motorola.models.representation.UserSession;
 import com.motorola.models.representation.UserSessionWrapper;
-import com.motorola.translation.v2019_1.mappers.EmergencyIncidentMapper;
+import com.motorola.translation.v2019_1.mappers.incident.EmergencyIncidentMapper;
 import com.motorola.translation.BaseTranslator;
 import com.motorola.translation.v2019_1.mappers.bookon.UserSessionMapper;
 import com.motorola.translation.v2019_1.mappers.notification.ResponseNotificationMapper;
+import com.motorola.translation.v2019_1.mappers.unit.UnitMapper;
+import com.motorola.translation.v2019_1.mappers.unit.UpdateUnitMapper;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
 import com.motorola.validation.ValidationErrorType;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +87,8 @@ public class Translator2019_1 implements BaseTranslator {
 			if (validateRequiredObjectField(old, InterfaceConstants.EmergencyIncident.GeneralProperties.OLD_JSON_KEY)
 				&& validateRequiredObjectField(__new, InterfaceConstants.EmergencyIncident.GeneralProperties.NEW_JSON_KEY)
 				&& validateRequiredStringField(CadCloudUtils.getStringByKey(old, InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY), InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY)
-				&& validateRequiredStringField(CadCloudUtils.getStringByKey(__new, InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY), InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY)) {
+				&& validateRequiredStringField(CadCloudUtils.getStringByKey(__new, InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY),
+				InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY)) {
 
 				EmergencyIncidentMapper mapper = new EmergencyIncidentMapper();
 				EmergencyIncident newModel = mapper.createAndMapToEmergencyIncident(__new.entrySet());
@@ -99,6 +99,34 @@ public class Translator2019_1 implements BaseTranslator {
 			}
 		}
 		return updateIncident;
+	}
+
+	@Override
+	public Unit translateUnitStatusCreate(JsonObject payload) {
+		clearValidationResults();
+		Unit unit = null;
+		JsonArray data = CadCloudUtils.getJsonArrayByKey(payload, InterfaceConstants.GeneralProperties.DATA_JSON_KEY);
+		if (validateRequiredObjectField(data, InterfaceConstants.GeneralProperties.DATA_JSON_KEY) && validateRequiredObjectField(data.get(0), InterfaceConstants.GeneralProperties.DATA_JSON_KEY)) {
+			JsonObject unitData = data.get(0).getAsJsonObject();
+			UnitMapper mapper = new UnitMapper();
+			unit = mapper.createAndMapToUnit(unitData);
+		}
+
+		return unit;
+	}
+
+	@Override
+	public UpdateUnit translateUnitStatusUpdates(JsonObject payload) {
+		clearValidationResults();
+		UpdateUnit updateUnit = null;
+		JsonArray data = CadCloudUtils.getJsonArrayByKey(payload, InterfaceConstants.GeneralProperties.DATA_JSON_KEY);
+		if (validateRequiredObjectField(data, InterfaceConstants.GeneralProperties.DATA_JSON_KEY)
+			&& validateRequiredObjectField(data.get(0), InterfaceConstants.GeneralProperties.DATA_JSON_KEY)) {
+			JsonObject updateUnitData = data.get(0).getAsJsonObject();
+			UpdateUnitMapper mapper = new UpdateUnitMapper();
+			updateUnit = mapper.createAndMapToUpdateUnit(updateUnitData);
+		}
+		return updateUnit;
 	}
 
 	/**

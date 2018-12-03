@@ -6,7 +6,9 @@ package com.motorola.translation;
 import com.google.gson.JsonObject;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.models.representation.EmergencyIncident;
+import com.motorola.models.representation.Unit;
 import com.motorola.models.representation.UpdateEmergencyIncident;
+import com.motorola.models.representation.UpdateUnit;
 import com.motorola.models.representation.UserSessionWrapper;
 import com.motorola.validation.ValidationResult;
 
@@ -24,6 +26,10 @@ public interface BaseTranslator {
 	EmergencyIncident translateCreateIncident(JsonObject payload);
 
 	UpdateEmergencyIncident translateUpdateIncident(JsonObject payload);
+
+	Unit translateUnitStatusCreate(JsonObject payload);
+
+	UpdateUnit translateUnitStatusUpdates(JsonObject payload);
 
 	List<ValidationResult> getValidationResults();
 }

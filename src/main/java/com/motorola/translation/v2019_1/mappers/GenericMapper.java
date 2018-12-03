@@ -3,12 +3,10 @@
  */
 package com.motorola.translation.v2019_1.mappers;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.translation.setter.Setter;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Mapper for setting the incoming data to the <T> model.

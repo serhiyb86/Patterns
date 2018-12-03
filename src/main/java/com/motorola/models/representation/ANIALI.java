@@ -14,7 +14,7 @@ public class ANIALI implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private VerifiedAddress address;
+	private Address address;
 
 	private String carrier;
 
@@ -34,14 +34,14 @@ public class ANIALI implements Serializable {
 	 * Returns the value of property "address".
 	 *
 	 */
-	public VerifiedAddress getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 
 	/**
 	 * Updates the value of property "address".
 	 */
-	public void setAddress(VerifiedAddress address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 

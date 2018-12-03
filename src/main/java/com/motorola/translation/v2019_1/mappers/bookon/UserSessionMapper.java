@@ -71,7 +71,7 @@ public class UserSessionMapper {
 	 * @param userSession target object.
 	 * @return filled target object with mapped data.
 	 */
-	public UserSession mapToUserSession(Set<Map.Entry<String, JsonElement>> data, UserSession userSession) {
+	private UserSession mapToUserSession(Set<Map.Entry<String, JsonElement>> data, UserSession userSession) {
 		data.forEach(entry -> {
 			Setter<UserSession> consumer = setters.get(entry.getKey());
 			if (consumer != null) {

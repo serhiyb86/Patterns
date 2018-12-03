@@ -16,6 +16,8 @@ public class Unit implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
+	private String customerId;
+
 	private String key;
 
 	private String agency;
@@ -32,7 +34,7 @@ public class Unit implements Serializable {
 
 	private String lastKnownLocation;
 
-	private VerifiedAddress currentLocation;
+	private Address currentLocation;
 
 	private String destinationLocation;
 
@@ -59,6 +61,21 @@ public class Unit implements Serializable {
 	private JurisdictionalAssignment jurisdictionalAssignment;
 
 	private Fleet fleetAssignment;
+
+	/**
+	 * Returns the value of property "customerId".
+	 * Use for DB partition
+	 */
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	/**
+	 * Updates the value of property "customerId".
+	 */
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
 
 	/**
 	 * Returns the value of property "key".
@@ -184,14 +201,14 @@ public class Unit implements Serializable {
 	 * Returns the value of property "currentLocation".
 	 *
 	 */
-	public VerifiedAddress getCurrentLocation() {
+	public Address getCurrentLocation() {
 		return currentLocation;
 	}
 
 	/**
 	 * Updates the value of property "currentLocation".
 	 */
-	public void setCurrentLocation(VerifiedAddress currentLocation) {
+	public void setCurrentLocation(Address currentLocation) {
 		this.currentLocation = currentLocation;
 	}
 
