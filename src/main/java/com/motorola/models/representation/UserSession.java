@@ -37,9 +37,9 @@ public class UserSession implements java.io.Serializable {
 
 	private AdditionalInfo additionalInfo;
 
-	private Date whenSessionCreated;
+	private String whenSessionCreated;
 
-	private Date whenSessionUpdated;
+	private String whenSessionUpdated;
 
 	/**
 	 * Returns the value of property "customerId".
@@ -164,15 +164,14 @@ public class UserSession implements java.io.Serializable {
 	 * Returns the value of property "whenSessionCreated".
 	 * The time stamp when the book on request is processed by on prem CAD
 	 */
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public Date getWhenSessionCreated() {
+	public String getWhenSessionCreated() {
 		return whenSessionCreated;
 	}
 
 	/**
 	 * Updates the value of property "whenSessionCreated".
 	 */
-	public void setWhenSessionCreated(Date whenSessionCreated) {
+	public void setWhenSessionCreated(String whenSessionCreated) {
 		this.whenSessionCreated = whenSessionCreated;
 	}
 
@@ -180,15 +179,14 @@ public class UserSession implements java.io.Serializable {
 	 * Returns the value of property "whenSessionUpdated".
 	 * The time stamp when the book on request is processed by on prem CAD
 	 */
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public Date getWhenSessionUpdated() {
+	public String getWhenSessionUpdated() {
 		return whenSessionUpdated;
 	}
 
 	/**
 	 * Updates the value of property "whenSessionUpdated".
 	 */
-	public void setWhenSessionUpdated(Date whenSessionUpdated) {
+	public void setWhenSessionUpdated(String whenSessionUpdated) {
 		this.whenSessionUpdated = whenSessionUpdated;
 	}
 

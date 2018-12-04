@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 
 /**
  * Unit test for verify translator.
@@ -25,8 +24,6 @@ public class TranslatorTest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TranslatorTest.class);
 
 	private BaseTranslator translator = TranslatorsFactory.getTranslator(InterfaceConstants.GeneralProperties.VERSION_2019_1);
-	private final SimpleDateFormat zonedDateTimeFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-	private final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
 	public JsonObject initInputPayload(String inputName) {
 		JsonObject result = null;
@@ -57,11 +54,4 @@ public class TranslatorTest {
 		return translator;
 	}
 
-	public SimpleDateFormat getZonedDateTimeFormatter() {
-		return zonedDateTimeFormatter;
-	}
-
-	public SimpleDateFormat getDateFormatter() {
-		return dateFormatter;
-	}
 }

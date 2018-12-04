@@ -31,7 +31,7 @@ public class Person implements Serializable {
 
 	private String phone;
 
-	private Date dateOfBirth;
+	private String dateOfBirth;
 
 	private String comment;
 
@@ -149,17 +149,15 @@ public class Person implements Serializable {
 
 	/**
 	 * Returns the value of property "dateOfBirth".
-	 * Person's Date of Birth
 	 */
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
 	/**
 	 * Updates the value of property "dateOfBirth".
 	 */
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

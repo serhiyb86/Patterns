@@ -8,7 +8,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.UserSession;
-import com.motorola.translation.setter.DateSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.utils.CadCloudUtils;
@@ -32,9 +31,9 @@ public class UserSessionMapper {
 		setters.put(InterfaceConstants.BookOnProperties.DEVICE_ID, new StringSetter<>(UserSession::setDeviceId));
 		setters.put(InterfaceConstants.BookOnProperties.USER_ID, new StringSetter<>(UserSession::setUserId));
 		setters.put(InterfaceConstants.BookOnProperties.WHEN_SESSION_CREATED,
-			new DateSetter<>(UserSession::setWhenSessionCreated, InterfaceConstants.EmergencyIncident.GeneralProperties.ZONED_DATE_TIME_FORMAT));
+			new StringSetter<>(UserSession::setWhenSessionCreated));
 		setters.put(InterfaceConstants.BookOnProperties.WHEN_SESSION_UPDATED,
-			new DateSetter<>(UserSession::setWhenSessionUpdated, InterfaceConstants.EmergencyIncident.GeneralProperties.ZONED_DATE_TIME_FORMAT));
+			new StringSetter<>(UserSession::setWhenSessionUpdated));
 		//	will be changed after clarifications of the onPrem permission model.
 		setters.put(InterfaceConstants.BookOnProperties.API_ACCESS_LIST, (model, value) -> {
 			List<String> result = new ArrayList<>();

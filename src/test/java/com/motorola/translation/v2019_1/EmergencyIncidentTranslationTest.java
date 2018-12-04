@@ -34,7 +34,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("Complainant", subject.getRole().get(0));
 		Person person = subject.getPerson();
 		Assert.assertEquals("first_c", person.getFirstName());
-		Assert.assertEquals(getDateFormatter().parse("1950-01-01"), person.getDateOfBirth());
+		Assert.assertEquals("1950-01-01T00:00:00.000Z", person.getDateOfBirth());
 		Assert.assertEquals("last11", person.getLastName());
 		Assert.assertEquals("mm", person.getMiddleName());
 		Assert.assertEquals("ss", person.getSuffix());
@@ -103,7 +103,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("Complainant", newSubject.getRole().get(0));
 		Person newPersonValue = newSubject.getPerson();
 		Assert.assertEquals("first_new", newPersonValue.getFirstName());
-		Assert.assertEquals(getDateFormatter().parse("1950-01-01"), newPersonValue.getDateOfBirth());
+		Assert.assertEquals("1950-01-01T00:00:00.000Z", newPersonValue.getDateOfBirth());
 		Assert.assertEquals("last11_new", newPersonValue.getLastName());
 		Assert.assertEquals("mm_new", newPersonValue.getMiddleName());
 		Assert.assertEquals("ss_new", newPersonValue.getSuffix());
@@ -125,7 +125,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("Complainant", oldSubject.getRole().get(0));
 		Person oldPersonValue = oldSubject.getPerson();
 		Assert.assertEquals("first_old", oldPersonValue.getFirstName());
-		Assert.assertEquals(getDateFormatter().parse("1950-01-01"), oldPersonValue.getDateOfBirth());
+		Assert.assertEquals("1950-01-01T00:00:00.000Z", oldPersonValue.getDateOfBirth());
 		Assert.assertEquals("last11_old", oldPersonValue.getLastName());
 		Assert.assertEquals("mm_old", oldPersonValue.getMiddleName());
 		Assert.assertEquals("ss_old", oldPersonValue.getSuffix());
