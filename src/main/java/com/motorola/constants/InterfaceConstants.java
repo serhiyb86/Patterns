@@ -170,6 +170,28 @@ public final class InterfaceConstants {
 			public static final String ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 		}
 
+		/**
+		 * Contains IncidentComment properties.
+		 */
+		public final class Comment {
+			public static final String INCIDENT_COMMENTS = "incidentComments";
+			public static final String ID = "id";
+			public static final String RECORD_TITLE = "recordTitle";
+			public static final String CALL_NUMBER = "callNumber";
+			public static final String ENTERED_BY = "enteredBy";
+			public static final String ENTERED_BY_SNAME = "shortName";
+			public static final String WHEN_ENTERED = "whenEntered";
+			public static final String URGENCY = "urgency";
+			public static final String COMMENT = "comment";
+			public static final String ROOT_COMMENT = "rootCommentId";
+			public static final String AUDIENCE = "audience";
+			public static final String SOURCE = "source";
+			public static final String ON_BEHALF_OF_UNIT = "onBehalfOfUnit";
+			public static final String ON_BEHALF_OF_UNIT_ID = "id";
+			public static final String ON_BEHALF_OF_USER = "onBehalfOfUser";
+			public static final String ON_BEHALF_OF_USER_SNAME = "shortName";
+		}
+
 	}
 
 }
