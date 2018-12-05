@@ -2,14 +2,11 @@ package com.motorola.models.representation;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.motorola.models.Config;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

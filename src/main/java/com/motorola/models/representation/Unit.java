@@ -2,14 +2,11 @@ package com.motorola.models.representation;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.motorola.models.Config;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -31,7 +28,7 @@ public class Unit implements Serializable {
 
 	private String status;
 
-	private Date whenStatusDeclared;
+	private String whenStatusDeclared;
 
 	private String lastKnownLocation;
 
@@ -157,15 +154,14 @@ public class Unit implements Serializable {
 	 * Returns the value of property "whenStatusDeclared".
 	 * Date and Time the Unit entered into the current status
 	 */
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public java.util.Date getWhenStatusDeclared() {
+	public String getWhenStatusDeclared() {
 		return whenStatusDeclared;
 	}
 
 	/**
 	 * Updates the value of property "whenStatusDeclared".
 	 */
-	public void setWhenStatusDeclared(Date whenStatusDeclared) {
+	public void setWhenStatusDeclared(String whenStatusDeclared) {
 		this.whenStatusDeclared = whenStatusDeclared;
 	}
 
