@@ -6,13 +6,11 @@ package com.motorola.translation.v2019_1.mappers;
 import com.google.gson.JsonElement;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Vehicle;
+import com.motorola.translation.setter.ApiDateSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 import java.util.Map;
@@ -29,7 +27,7 @@ public class VehicleMapper extends AbstractMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_PLATE, new StringSetter<>(Vehicle::setLicensePlate));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_STATE, new StringSetter<>(Vehicle::setLicenseState));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_TYPE, (model, value) -> model.setLicenseType(createLookup((JsonElement) value)));
-		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENSE_EXPIRATION, (model, value) -> model.setLicenseExpirationDate(formatDate((JsonElement) value)));
+		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENSE_EXPIRATION, new ApiDateSetter<>(Vehicle::setLicenseExpirationDate));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.YEAR, new LongSetter<>(Vehicle::setYear));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.MAKE, (model, value) -> model.setMake(createLookup((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.MODEL, (model, value) -> model.setModel(createLookup((JsonElement) value)));
@@ -38,24 +36,6 @@ public class VehicleMapper extends AbstractMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.VIN, new StringSetter<>(Vehicle::setVin));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.OWNER, new StringSetter<>(Vehicle::setOwner));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.COMMENT, new StringSetter<>(Vehicle::setComment));
-	}
-
-	/**
-	 * Format date for accept String in CAD Cloud models ( )
-	 * @param value - incoming date string json value
-	 */
-	private static String formatDate(JsonElement value) {
-		String result = "";
-		// incoming format
-		DateTimeFormatter incomingFormatter = DateTimeFormatter.ofPattern(InterfaceConstants.EmergencyIncident.GeneralProperties.DATE_FORMAT);
-		// result format for date
-		DateTimeFormatter outgoingFormatter = DateTimeFormatter.ofPattern(InterfaceConstants.EmergencyIncident.GeneralProperties.ZONED_DATE_TIME_FORMAT);
-		if (value != null) {
-			LocalDate localDate = LocalDate.parse(value.getAsString(), incomingFormatter);
-			LocalDateTime localDateTime = localDate.atStartOfDay();
-			result = outgoingFormatter.format(localDateTime);
-		}
-		return result;
 	}
 
 	/**

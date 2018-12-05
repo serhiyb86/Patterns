@@ -2,13 +2,10 @@ package com.motorola.models.representation;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.motorola.models.Config;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -29,7 +26,7 @@ public class Alert implements Serializable {
 
 	private String whenExpired;
 
-	private Date whenCreated;
+	private String whenCreated;
 
 	private Contact owner;
 
@@ -129,15 +126,14 @@ public class Alert implements Serializable {
 	 * Returns the value of property "whenCreated".
 	 * Date and Time when the alert was created
 	 */
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public Date getWhenCreated() {
+	public String getWhenCreated() {
 		return whenCreated;
 	}
 
 	/**
 	 * Updates the value of property "whenCreated".
 	 */
-	public void setWhenCreated(Date whenCreated) {
+	public void setWhenCreated(String whenCreated) {
 		this.whenCreated = whenCreated;
 	}
 

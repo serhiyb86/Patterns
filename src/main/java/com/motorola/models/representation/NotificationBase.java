@@ -2,13 +2,10 @@ package com.motorola.models.representation;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.motorola.models.Config;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Header for on prem notification SB messages
@@ -23,7 +20,7 @@ public class NotificationBase implements Serializable {
 
     private String notificationType;
 
-    private Date whenSubmitted;
+    private String whenSubmitted;
 
     /**
      * Returns the value of property "customerId". 
@@ -59,15 +56,14 @@ public class NotificationBase implements Serializable {
      * Returns the value of property "whenSubmitted". 
      * The time stamp when the book on response notification is submitted
      */
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-    public Date getWhenSubmitted() {
+    public String getWhenSubmitted() {
         return whenSubmitted;
     }
 
     /**
      * Updates the value of property "whenSubmitted". 
      */
-    public void setWhenSubmitted(Date whenSubmitted) {
+    public void setWhenSubmitted(String whenSubmitted) {
         this.whenSubmitted = whenSubmitted;
     }
 
