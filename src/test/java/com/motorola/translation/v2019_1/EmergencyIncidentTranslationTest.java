@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.Disposition;
 import com.motorola.models.representation.EmergencyIncident;
+import com.motorola.models.representation.IncidentComment;
 import com.motorola.models.representation.InvolvedVehicle;
 import com.motorola.models.representation.Person;
 import com.motorola.models.representation.Subject;
@@ -171,6 +172,25 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		// TODO: isSchedule, type
 		// TODO: check in json with key "responsibleUnitId"
 		Assert.assertEquals("007", dispatchIncident.getPrimaryUnit().getKey());
+		//Dispatch - Comments
+		Assert.assertNotNull(dispatchIncident.getComments());
+		Assert.assertFalse(dispatchIncident.getComments().isEmpty());
+		Assert.assertEquals(1, dispatchIncident.getComments().size());
+		IncidentComment comment = dispatchIncident.getComments().get(0);
+		Assert.assertEquals("2dc19f42-590a-4d04-8481-573a21f4bdf7", comment.getKey());
+		Assert.assertEquals("comment1", comment.getComments());
+		Assert.assertEquals("2018-03-12T08:00:51-06:00", comment.getWhenEntered());
+		Assert.assertNotNull(comment.getSource());
+		Assert.assertEquals("User", comment.getSource().getUid());
+		Assert.assertEquals("All", comment.getAudience());
+		Assert.assertNotNull(comment.getOnBehalfOfUnit());
+		Assert.assertEquals("101", comment.getOnBehalfOfUnit().getKey());
+		Assert.assertNotNull(comment.getOnBehalfOfUser());
+		Assert.assertEquals("XML User", comment.getOnBehalfOfUser().getNameCode());
+		Assert.assertNotNull(comment.getEnteredBy());
+		Assert.assertEquals("Spillman", comment.getEnteredBy().getNameCode());
+		Assert.assertNull(comment.getDevice());
+		Assert.assertEquals("urgent", comment.getIsPriority());
 	}
 
 }
