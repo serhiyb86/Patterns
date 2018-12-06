@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Mapper for converting Json Object with Subject data to the {@link Subject} object.
@@ -34,15 +33,15 @@ public class SubjectMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Subject.SUBJECT, (model, value) -> {
 			JsonObject subjectObject = ((JsonElement) value).getAsJsonObject();
 			JsonObject jsonPerson = CadCloudUtils.getJsonByKey(subjectObject, InterfaceConstants.EmergencyIncident.Person.PERSON);
-			Person person = new PersonMapper().createAndMapToPerson(jsonPerson.entrySet());
+			Person person = new PersonMapper().createAndMapToPerson(jsonPerson);
 			if (StringUtils.isNotBlank(person.getLastName())) {
 				model.setPerson(person);
 			}
 		});
 	}
 
-	private void mapToSubject(Set<Map.Entry<String, JsonElement>> data, Subject subject) {
-		data.forEach(entry -> {
+	private void mapToSubject(JsonObject data, Subject subject) {
+		data.entrySet().forEach(entry -> {
 			Setter<Subject> consumer = setters.get(entry.getKey());
 			if (consumer != null) {
 				consumer.accept(subject, entry.getValue());
@@ -62,7 +61,7 @@ public class SubjectMapper {
 			JsonObject jsonObject = element.getAsJsonObject();
 			Subject subject = new Subject();
 			subject.setContactRequested("No");
-			mapToSubject(jsonObject.entrySet(), subject);
+			mapToSubject(jsonObject, subject);
 			List<String> role = subject.getRole();
 			// add subjects only with particular role.
 			if (!role.isEmpty() && "Complainant".equals(role.get(0)) || "ReportingParty".equals(role.get(0))) {

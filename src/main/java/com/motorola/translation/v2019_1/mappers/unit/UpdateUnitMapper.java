@@ -23,13 +23,17 @@ public class UpdateUnitMapper {
 		setters.put(InterfaceConstants.Unit.GeneralProperties.OLD_JSON_KEY, ((model, value) -> {
 			JsonObject oldUnitData = ((JsonElement) value).getAsJsonObject();
 			UnitMapper unitMapper = new UnitMapper();
+			IncidentHandleMapper incidentHandleMapper = new IncidentHandleMapper();
 			model.setOld(unitMapper.createAndMapToUnit(oldUnitData));
+			model.getOld().setAssignedIncident(incidentHandleMapper.createAndMapToIncidentHandle(oldUnitData));
 		}));
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.NEW_JSON_KEY, ((model, value) -> {
 			JsonObject newUnitData = ((JsonElement) value).getAsJsonObject();
 			UnitMapper unitMapper = new UnitMapper();
+			IncidentHandleMapper incidentHandleMapper = new IncidentHandleMapper();
 			model.set__new(unitMapper.createAndMapToUnit(newUnitData));
+			model.get__new().setAssignedIncident(incidentHandleMapper.createAndMapToIncidentHandle(newUnitData));
 		}));
 	}
 

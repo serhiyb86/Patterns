@@ -21,7 +21,7 @@ public class IncidentHandleMapper {
 	private static final Map<String, Setter<IncidentHandle>> setters = new HashMap<>();
 
 	static {
-		setters.put(InterfaceConstants.Unit.AssignedIncident.KEY, (model, value) -> {
+		setters.put(InterfaceConstants.Unit.AssignedIncident.CALL_ID, (model, value) -> {
 			String id = ((JsonElement) value).getAsString();
 			model.setKey(id);
 			model.setId(id);
@@ -32,10 +32,9 @@ public class IncidentHandleMapper {
 
 	public IncidentHandle createAndMapToIncidentHandle(JsonObject incidentHandleData) {
 		IncidentHandle incidentHandle = new IncidentHandle();
-		incidentHandleData.entrySet().forEach(entry -> {
-			Setter<IncidentHandle> consumer = setters.get(entry.getKey());
-			if (consumer != null) {
-				consumer.accept(incidentHandle, entry.getValue());
+		setters.forEach((key, value) -> {
+			if (incidentHandleData.get(key) != null) {
+				value.accept(incidentHandle, incidentHandleData.get(key));
 			}
 		});
 		return incidentHandle;

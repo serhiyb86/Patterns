@@ -17,6 +17,7 @@ import com.motorola.translation.v2019_1.mappers.incident.EmergencyIncidentMapper
 import com.motorola.translation.BaseTranslator;
 import com.motorola.translation.v2019_1.mappers.bookon.UserSessionMapper;
 import com.motorola.translation.v2019_1.mappers.notification.ResponseNotificationMapper;
+import com.motorola.translation.v2019_1.mappers.unit.IncidentHandleMapper;
 import com.motorola.translation.v2019_1.mappers.unit.UnitMapper;
 import com.motorola.translation.v2019_1.mappers.unit.UpdateUnitMapper;
 import com.motorola.utils.CadCloudUtils;
@@ -41,7 +42,7 @@ public class Translator2019_1 implements BaseTranslator {
 		String correlationId = CadCloudUtils.getStringByKey(payload, InterfaceConstants.BookOnProperties.CORRELATION_ID);
 		validateRequiredStringField(correlationId, InterfaceConstants.BookOnProperties.CORRELATION_ID);
 		result.setCorrelationId(correlationId);
-		UserSession userSession = new UserSessionMapper().createAndMapToUserSession(payload.entrySet());
+		UserSession userSession = new UserSessionMapper().createAndMapToUserSession(payload);
 		userSession.setRoleKey(InterfaceConstants.BookOnProperties.ROLE_KEY_VAL);
 		result.setModel(userSession);
 		validateRequiredObjectField(userSession.getApiAccessList(), InterfaceConstants.BookOnProperties.API_ACCESS_LIST);
@@ -54,7 +55,7 @@ public class Translator2019_1 implements BaseTranslator {
 	@Override
 	public ResponseNotification translateResponseNotification(JsonObject payload) {
 		clearValidationResults();
-		ResponseNotification notification = new ResponseNotificationMapper().createAndMapToResponseNotification(payload.entrySet());
+		ResponseNotification notification = new ResponseNotificationMapper().createAndMapToResponseNotification(payload);
 		validateRequiredStringField(notification.getCorrelationId(), InterfaceConstants.NotificationProperties.CORRELATION_ID);
 
 		return notification;
@@ -68,7 +69,7 @@ public class Translator2019_1 implements BaseTranslator {
 		if (validateRequiredObjectField(data, InterfaceConstants.GeneralProperties.DATA_JSON_KEY) && validateRequiredObjectField(data.get(0), InterfaceConstants.GeneralProperties.DATA_JSON_KEY)) {
 			JsonObject incident = data.get(0).getAsJsonObject();
 			EmergencyIncidentMapper mapper = new EmergencyIncidentMapper();
-			emergencyIncident = mapper.createAndMapToEmergencyIncident(incident.entrySet());
+			emergencyIncident = mapper.createAndMapToEmergencyIncident(incident);
 		}
 		return emergencyIncident;
 	}
@@ -91,8 +92,8 @@ public class Translator2019_1 implements BaseTranslator {
 				InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY)) {
 
 				EmergencyIncidentMapper mapper = new EmergencyIncidentMapper();
-				EmergencyIncident newModel = mapper.createAndMapToEmergencyIncident(__new.entrySet());
-				EmergencyIncident oldModel = mapper.createAndMapToEmergencyIncident(old.entrySet());
+				EmergencyIncident newModel = mapper.createAndMapToEmergencyIncident(__new);
+				EmergencyIncident oldModel = mapper.createAndMapToEmergencyIncident(old);
 
 				updateIncident.set__new(newModel);
 				updateIncident.setOld(oldModel);
@@ -108,8 +109,10 @@ public class Translator2019_1 implements BaseTranslator {
 		JsonArray data = CadCloudUtils.getJsonArrayByKey(payload, InterfaceConstants.GeneralProperties.DATA_JSON_KEY);
 		if (validateRequiredObjectField(data, InterfaceConstants.GeneralProperties.DATA_JSON_KEY) && validateRequiredObjectField(data.get(0), InterfaceConstants.GeneralProperties.DATA_JSON_KEY)) {
 			JsonObject unitData = data.get(0).getAsJsonObject();
-			UnitMapper mapper = new UnitMapper();
-			unit = mapper.createAndMapToUnit(unitData);
+			UnitMapper unitMapper = new UnitMapper();
+			IncidentHandleMapper incidentHandleMapper = new IncidentHandleMapper();
+			unit = unitMapper.createAndMapToUnit(unitData);
+			unit.setAssignedIncident(incidentHandleMapper.createAndMapToIncidentHandle(unitData));
 		}
 
 		return unit;

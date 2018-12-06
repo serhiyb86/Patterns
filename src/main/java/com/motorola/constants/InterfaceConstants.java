@@ -216,7 +216,7 @@ public final class InterfaceConstants {
 		}
 
 		public final class AssignedIncident {
-			public static final String ASSIGNED_INCIDENT = "AssignedIncident";
+			public static final String CALL_ID = "callId";
 			public static final String KEY = "key";
 			public static final String ID = "id";
 			public static final String DISPATCH_KEY = "dispatchKey";

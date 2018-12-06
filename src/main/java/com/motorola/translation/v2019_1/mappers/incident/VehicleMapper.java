@@ -1,20 +1,21 @@
 /*
  * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
  */
-package com.motorola.translation.v2019_1.mappers;
+package com.motorola.translation.v2019_1.mappers.incident;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Vehicle;
 import com.motorola.translation.setter.ApiDateSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import com.motorola.translation.v2019_1.mappers.AbstractMapper;
 
 import java.util.HashMap;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Mapper for converting Json Object with InvolvedVehicles data to the {@link Vehicle} object.
@@ -43,9 +44,9 @@ public class VehicleMapper extends AbstractMapper {
 	 * @param data json data
 	 * @return the {@link Vehicle}object
 	 */
-	public Vehicle createVehicle(Set<Map.Entry<String, JsonElement>> data) {
+	public Vehicle createVehicle(JsonObject data) {
 		Vehicle vehicle = new Vehicle();
-		data.forEach(entry -> {
+		data.entrySet().forEach(entry -> {
 			Setter<Vehicle> consumer = setters.get(entry.getKey());
 			if (consumer != null) {
 				consumer.accept(vehicle, entry.getValue());

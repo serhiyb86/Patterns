@@ -46,7 +46,7 @@ public class ResponseNotificationMapper {
 	 * @param data json data.
 	 * @return {@link ResponseNotification} object with mapped data.
 	 */
-	public ResponseNotification createAndMapToResponseNotification(Set<Map.Entry<String, JsonElement>> data) {
+	public ResponseNotification createAndMapToResponseNotification(JsonObject data) {
 		ResponseNotification notification = new ResponseNotification();
 		return mapToResponseNotification(data, notification);
 	}
@@ -58,8 +58,8 @@ public class ResponseNotificationMapper {
 	 * @param notification target object.
 	 * @return filled target object with mapped data.
 	 */
-	public ResponseNotification mapToResponseNotification(Set<Map.Entry<String, JsonElement>> data, ResponseNotification notification) {
-		data.forEach(entry -> {
+	public ResponseNotification mapToResponseNotification(JsonObject data, ResponseNotification notification) {
+		data.entrySet().forEach(entry -> {
 			Setter<ResponseNotification> consumer = setters.get(entry.getKey());
 			if (consumer != null) {
 				consumer.accept(notification, entry.getValue());

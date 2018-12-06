@@ -6,12 +6,10 @@ package com.motorola.translation.v2019_1.mappers.unit;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
-import com.motorola.models.representation.IncidentHandle;
 import com.motorola.models.representation.JurisdictionalAssignment;
 import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.Unit;
 import com.motorola.translation.setter.BooleanSetter;
-import com.motorola.translation.setter.DateSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
@@ -50,14 +48,6 @@ public class UnitMapper {
 			jurisdictionalAssignment.setBeats(new ArrayList<>(Arrays.asList(lookup)));
 			model.setJurisdictionalAssignment(jurisdictionalAssignment);
 		});
-
-		/**setters.put(InterfaceConstants.Unit.AssignedIncident.ASSIGNED_INCIDENT, ((model, value) -> {
-			JsonObject incidentHandleData = ((JsonElement) value).getAsJsonObject();
-			IncidentHandleMapper incidentHandleMapper = new IncidentHandleMapper();
-			IncidentHandle incidentHandle = incidentHandleMapper.createAndMapToIncidentHandle(incidentHandleData);
-			model.setAssignedIncident(incidentHandle);
-		}));*/
-
 	}
 
 	public Unit createAndMapToUnit(JsonObject unitData) {

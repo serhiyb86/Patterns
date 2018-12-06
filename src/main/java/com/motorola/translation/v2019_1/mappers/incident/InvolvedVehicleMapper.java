@@ -1,7 +1,7 @@
 /*
  * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
  */
-package com.motorola.translation.v2019_1.mappers;
+package com.motorola.translation.v2019_1.mappers.incident;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Mapper for converting Json Object with InvolvedVehicles data to the {@link InvolvedVehicle} object.
@@ -34,14 +33,14 @@ public class InvolvedVehicleMapper {
 		);
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_VEHICLE, (model, value) -> {
 			JsonObject jsonVehicle = ((JsonElement) value).getAsJsonObject();
-			Vehicle vehicle = new VehicleMapper().createVehicle(jsonVehicle.entrySet());
+			Vehicle vehicle = new VehicleMapper().createVehicle(jsonVehicle);
 			model.setVehicle(vehicle);
 		});
 	}
 
-	private InvolvedVehicle mapToInvolvedVehicle(Set<Map.Entry<String, JsonElement>> data, String key) {
+	private InvolvedVehicle mapToInvolvedVehicle(JsonObject data, String key) {
 		InvolvedVehicle involvedVehicle = new InvolvedVehicle();
-		data.forEach(entry -> {
+		data.entrySet().forEach(entry -> {
 			Setter<InvolvedVehicle> consumer = setters.get(entry.getKey());
 			if (consumer != null) {
 				consumer.accept(involvedVehicle, entry.getValue());
@@ -68,7 +67,7 @@ public class InvolvedVehicleMapper {
 		for (JsonElement element : involvedVehicles) {
 			JsonObject jsonObject = element.getAsJsonObject();
 			String customKey = createKey(jsonObject);
-			involvements.add(mapToInvolvedVehicle(jsonObject.entrySet(), customKey));
+			involvements.add(mapToInvolvedVehicle(jsonObject, customKey));
 		}
 		return involvements;
 	}

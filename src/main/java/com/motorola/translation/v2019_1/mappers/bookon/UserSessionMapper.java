@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Mapper for converting Json Object with appropriate data to the {@link UserSession} object.
@@ -59,7 +58,7 @@ public class UserSessionMapper {
 	 * @param data json data.
 	 * @return {@link UserSession} object with mapped data.
 	 */
-	public UserSession createAndMapToUserSession(Set<Map.Entry<String, JsonElement>> data) {
+	public UserSession createAndMapToUserSession(JsonObject data) {
 		UserSession userSession = new UserSession();
 		return mapToUserSession(data, userSession);
 	}
@@ -71,8 +70,8 @@ public class UserSessionMapper {
 	 * @param userSession target object.
 	 * @return filled target object with mapped data.
 	 */
-	private UserSession mapToUserSession(Set<Map.Entry<String, JsonElement>> data, UserSession userSession) {
-		data.forEach(entry -> {
+	private UserSession mapToUserSession(JsonObject data, UserSession userSession) {
+		data.entrySet().forEach(entry -> {
 			Setter<UserSession> consumer = setters.get(entry.getKey());
 			if (consumer != null) {
 				consumer.accept(userSession, entry.getValue());

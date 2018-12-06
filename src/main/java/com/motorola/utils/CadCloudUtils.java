@@ -8,8 +8,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.motorola.models.representation.Lookup;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.io.IOUtils;
 import org.restlet.engine.util.StringUtils;
 import org.slf4j.Logger;
