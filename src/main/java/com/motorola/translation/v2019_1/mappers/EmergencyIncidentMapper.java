@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.EmergencyIncident;
+import com.motorola.models.representation.IncidentComment;
 import com.motorola.models.representation.InvolvedVehicle;
 import com.motorola.models.representation.Subject;
 import com.motorola.translation.setter.Setter;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class EmergencyIncidentMapper {
 
 	private static final Map<String, Setter<EmergencyIncident>> setters = new HashMap<>();
+	private static final Map<Object, Setter<EmergencyIncident>> postSetters = new HashMap<>();
 
 	static {
 		setters.put(InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY, (model, value) -> {
@@ -46,20 +48,43 @@ public class EmergencyIncidentMapper {
 			List<InvolvedVehicle> involvedVehicles = vehicleMapper.createAndMapToInvolvedVehicleList(involvedVehicleJSON);
 			model.setVehicles(involvedVehicles);
 		});
+		setters.put(InterfaceConstants.EmergencyIncident.Comment.INCIDENT_COMMENTS, (model, value) -> {
+			JsonArray incidentCommentsJSON = ((JsonElement)value).getAsJsonArray();
+			IncidentCommentMapper incidentCommentMapper = new IncidentCommentMapper();
+			List<IncidentComment> incidentComments = incidentCommentMapper.createAndMapToIncidentCommentList(incidentCommentsJSON);
+			//Copy this comments into all DispatchableIncidents after all fields mapped
+			postSetters.put(incidentComments, (incident, comments) -> {
+				List<DispatchableIncident> incidentDispatches = incident.getDispatches();
+				if (incidentDispatches != null) {
+					incidentDispatches.forEach(dispatch -> dispatch.setComments((List<IncidentComment>) comments));
+				}
+			});
+		});
 
 	}
 
 	public EmergencyIncident createAndMapToEmergencyIncident(Set<Map.Entry<String, JsonElement>> data) {
 		EmergencyIncident incident = new EmergencyIncident();
-		return mapToEmergencyIncident(data, incident);
+		EmergencyIncident emergencyIncident = mapToEmergencyIncident(data, incident);
+		return executePostSetters(emergencyIncident);
 	}
 
-	public EmergencyIncident mapToEmergencyIncident(Set<Map.Entry<String, JsonElement>> data, EmergencyIncident incident) {
+	private EmergencyIncident mapToEmergencyIncident(Set<Map.Entry<String, JsonElement>> data, EmergencyIncident incident) {
 		data.forEach(entry -> {
 			Setter<EmergencyIncident> consumer = setters.get(entry.getKey());
 			if (consumer != null) {
 				consumer.accept(incident, entry.getValue());
 			}
+		});
+		return incident;
+	}
+
+	/**
+	 * Make additional changes to fields. Used for fields that can not be properly set during mapping.
+	 */
+	private EmergencyIncident executePostSetters(EmergencyIncident incident) {
+		postSetters.forEach((data, setter) -> {
+			setter.accept(incident, data);
 		});
 		return incident;
 	}

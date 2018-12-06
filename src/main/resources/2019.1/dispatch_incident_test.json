@@ -67,6 +67,29 @@
           "agency": "SPD",
           "active": true
         }
+      ],
+      "incidentComments": [
+        {
+          "id": "2dc19f42-590a-4d04-8481-573a21f4bdf7",
+          "recordTitle": "2dc19f42-590a-4d04-8481-573a21f4bdf7",
+          "callNumber": "C6002",
+          "enteredBy": {
+            "shortName": "Spillman"
+          },
+          "whenEntered": "2018-03-12T08:00:51-06:00",
+          "urgency": "Critical",
+          "comment": "comment1",
+          "rootCommentId": "2dc19f42-590a-4d04-8481-573a21f4bdf7",
+          "audience": "All",
+          "source": "User",
+          "onBehalfOfUnit": {
+            "id": "101",
+            "recordTitle": "101"
+          },
+          "onBehalfOfUser": {
+            "shortName": "XML User"
+          }
+        }
       ]
     }
   ]

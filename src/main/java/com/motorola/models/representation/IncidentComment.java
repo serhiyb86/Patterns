@@ -1,14 +1,14 @@
+/*
+ * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
+ */
 package com.motorola.models.representation;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.motorola.models.Config;
 
 import java.io.Serializable;
-import java.util.Date;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -17,9 +17,11 @@ public class IncidentComment implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
+	private String key;
+
 	private String comments;
 
-	private Date whenEntered;
+	private String whenEntered;
 
 	private Lookup source;
 
@@ -34,6 +36,21 @@ public class IncidentComment implements Serializable {
 	private DeviceHandle device;
 
 	private String isPriority;
+
+	/**
+	 * Returns the value of property "key".
+	 * Comment text
+	 */
+	public String getKey() {
+		return key;
+	}
+
+	/**
+	 * Updates the value of property "key".
+	 */
+	public void setKey(String key) {
+		this.key = key;
+	}
 
 	/**
 	 * Returns the value of property "comments".
@@ -54,15 +71,14 @@ public class IncidentComment implements Serializable {
 	 * Returns the value of property "whenEntered".
 	 * Date and Time of the Incident Comment
 	 */
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public Date getWhenEntered() {
+	public String getWhenEntered() {
 		return whenEntered;
 	}
 
 	/**
 	 * Updates the value of property "whenEntered".
 	 */
-	public void setWhenEntered(Date whenEntered) {
+	public void setWhenEntered(String whenEntered) {
 		this.whenEntered = whenEntered;
 	}
 
