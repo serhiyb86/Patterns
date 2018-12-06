@@ -3,7 +3,6 @@
  */
 package com.motorola.translation.v2019_1.mappers.bookon;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.AdditionalInfo;
@@ -14,7 +13,6 @@ import com.motorola.translation.v2019_1.mappers.GenericMapper;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Mapper for converting Json Object with appropriate data to the {@link AdditionalInfo} object.
@@ -40,7 +38,7 @@ public class AdditionalInfoMapper {
 	public AdditionalInfo createAndMapToAdditionalInfo(JsonObject data) {
 		AdditionalInfo additionalInfo = new AdditionalInfo();
 		if (data != null) {
-			mapToAdditionalInfo(data.entrySet(), additionalInfo);
+			mapToAdditionalInfo(data, additionalInfo);
 		}
 		return additionalInfo;
 	}
@@ -52,8 +50,8 @@ public class AdditionalInfoMapper {
 	 * @param additionalInfo target object.
 	 * @return filled target object with mapped data.
 	 */
-	public AdditionalInfo mapToAdditionalInfo(Set<Map.Entry<String, JsonElement>> data, AdditionalInfo additionalInfo) {
-		data.forEach(entry -> {
+	public AdditionalInfo mapToAdditionalInfo(JsonObject data, AdditionalInfo additionalInfo) {
+		data.entrySet().forEach(entry -> {
 			Setter<AdditionalInfo> consumer = setters.get(entry.getKey());
 			if (consumer != null) {
 				consumer.accept(additionalInfo, entry.getValue());

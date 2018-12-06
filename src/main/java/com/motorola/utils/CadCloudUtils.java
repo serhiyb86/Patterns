@@ -8,7 +8,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.motorola.models.representation.Lookup;
 import org.apache.commons.io.IOUtils;
 import org.restlet.engine.util.StringUtils;
 import org.slf4j.Logger;
@@ -142,6 +141,20 @@ public class CadCloudUtils {
 		String result = null;
 		if (element != null) {
 			result = element.getAsString();
+		}
+		return result;
+	}
+
+	/**
+	 * Converts {@link JsonElement} object to the {@link Boolean} instance.
+	 *
+	 * @param element {@link JsonElement} object.
+	 * @return {@link Boolean} instance.
+	 */
+	public static Boolean getBooleanFromJsonElement(JsonElement element) {
+		Boolean result = null;
+		if (element != null) {
+			result = element.getAsBoolean();
 		}
 		return result;
 	}

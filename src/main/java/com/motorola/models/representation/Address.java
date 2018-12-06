@@ -11,7 +11,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
-public class VerifiedAddress implements Serializable {
+public class Address implements Serializable {
 
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;

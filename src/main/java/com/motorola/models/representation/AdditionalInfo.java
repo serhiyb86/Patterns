@@ -21,7 +21,7 @@ public class AdditionalInfo implements Serializable {
 
 	private UnitHandle unit;
 
-	private List<JurisdictionalAssignment> jurisdictionalAssignments = new ArrayList<JurisdictionalAssignment>();
+	private JurisdictionalAssignment assignments;
 
 	private String vehicleId;
 
@@ -46,15 +46,15 @@ public class AdditionalInfo implements Serializable {
 	 * Returns the value of property "jurisdictionalAssignments".
 	 *
 	 */
-	public List<JurisdictionalAssignment> getJurisdictionalAssignments() {
-		return jurisdictionalAssignments;
+	public JurisdictionalAssignment getAssignments() {
+		return assignments;
 	}
 
 	/**
 	 * Updates the value of property "jurisdictionalAssignments".
 	 */
-	public void setJurisdictionalAssignments(List<JurisdictionalAssignment> jurisdictionalAssignments) {
-		this.jurisdictionalAssignments = jurisdictionalAssignments;
+	public void setAssignments(JurisdictionalAssignment assignments) {
+		this.assignments = assignments;
 	}
 
 	/**

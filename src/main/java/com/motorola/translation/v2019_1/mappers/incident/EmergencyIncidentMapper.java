@@ -1,10 +1,11 @@
 /*
  * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
  */
-package com.motorola.translation.v2019_1.mappers;
+package com.motorola.translation.v2019_1.mappers.incident;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.EmergencyIncident;
@@ -16,9 +17,11 @@ import com.motorola.translation.setter.Setter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Mapper for converting Json Object with EmergencyIncident data to the {@link EmergencyIncident} object.
+ */
 public class EmergencyIncidentMapper {
 
 	private static final Map<String, Setter<EmergencyIncident>> setters = new HashMap<>();
@@ -43,13 +46,13 @@ public class EmergencyIncidentMapper {
 			model.setDispatches(dispatches);
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_VEHICLES, (model, value) -> {
-			JsonArray involvedVehicleJSON = ((JsonElement)value).getAsJsonArray();
+			JsonArray involvedVehicleJSON = ((JsonElement) value).getAsJsonArray();
 			InvolvedVehicleMapper vehicleMapper = new InvolvedVehicleMapper();
 			List<InvolvedVehicle> involvedVehicles = vehicleMapper.createAndMapToInvolvedVehicleList(involvedVehicleJSON);
 			model.setVehicles(involvedVehicles);
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.INCIDENT_COMMENTS, (model, value) -> {
-			JsonArray incidentCommentsJSON = ((JsonElement)value).getAsJsonArray();
+			JsonArray incidentCommentsJSON = ((JsonElement) value).getAsJsonArray();
 			IncidentCommentMapper incidentCommentMapper = new IncidentCommentMapper();
 			List<IncidentComment> incidentComments = incidentCommentMapper.createAndMapToIncidentCommentList(incidentCommentsJSON);
 			//Copy this comments into all DispatchableIncidents after all fields mapped
@@ -63,14 +66,14 @@ public class EmergencyIncidentMapper {
 
 	}
 
-	public EmergencyIncident createAndMapToEmergencyIncident(Set<Map.Entry<String, JsonElement>> data) {
+	public EmergencyIncident createAndMapToEmergencyIncident(JsonObject data) {
 		EmergencyIncident incident = new EmergencyIncident();
 		EmergencyIncident emergencyIncident = mapToEmergencyIncident(data, incident);
 		return executePostSetters(emergencyIncident);
 	}
 
-	private EmergencyIncident mapToEmergencyIncident(Set<Map.Entry<String, JsonElement>> data, EmergencyIncident incident) {
-		data.forEach(entry -> {
+	private EmergencyIncident mapToEmergencyIncident(JsonObject data, EmergencyIncident incident) {
+		data.entrySet().forEach(entry -> {
 			Setter<EmergencyIncident> consumer = setters.get(entry.getKey());
 			if (consumer != null) {
 				consumer.accept(incident, entry.getValue());

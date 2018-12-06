@@ -1,7 +1,7 @@
 /*
  * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
  */
-package com.motorola.translation.v2019_1.mappers;
+package com.motorola.translation.v2019_1.mappers.incident;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -14,13 +14,13 @@ import com.motorola.models.representation.UnitHandle;
 import com.motorola.translation.setter.custom.disposition.DispositionSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import com.motorola.translation.v2019_1.mappers.AbstractMapper;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Mapper for converting Json Object with DispatchesIncident data to the {@link DispatchableIncident} object.
@@ -78,7 +78,7 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 		List<DispatchableIncident> dispatchableIncidents = new ArrayList<>();
 		for (JsonElement element : array) {
 			JsonObject jsonObject = element.getAsJsonObject();
-			dispatchableIncidents.add(mapToDispatchIncident(jsonObject.entrySet()));
+			dispatchableIncidents.add(mapToDispatchIncident(jsonObject));
 		}
 		return dispatchableIncidents;
 	}
@@ -88,9 +88,9 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 	 * @param data json data
 	 * @return the {@link DispatchableIncident}object
 	 */
-	private DispatchableIncident mapToDispatchIncident(Set<Map.Entry<String, JsonElement>> data) {
+	private DispatchableIncident mapToDispatchIncident(JsonObject data) {
 		DispatchableIncident dispatchableIncident = new DispatchableIncident();
-		data.forEach(entry -> {
+		data.entrySet().forEach(entry -> {
 			Setter<DispatchableIncident> consumer = setters.get(entry.getKey());
 			if (consumer != null) {
 				consumer.accept(dispatchableIncident, entry.getValue());

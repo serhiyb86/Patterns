@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Mapper for converting Json Object with appropriate data to the {@link MonitorAreas} object.
@@ -52,7 +51,7 @@ public class MonitorAreasMapper {
 	public MonitorAreas createAndMapToMonitorAreas(JsonObject data) {
 		MonitorAreas monitorAreas = new MonitorAreas();
 		if (data != null) {
-			mapToMonitorAreas(data.entrySet(), monitorAreas);
+			mapToMonitorAreas(data, monitorAreas);
 		}
 		return monitorAreas;
 	}
@@ -64,8 +63,8 @@ public class MonitorAreasMapper {
 	 * @param monitorAreas target object.
 	 * @return filled target object with mapped data.
 	 */
-	public MonitorAreas mapToMonitorAreas(Set<Map.Entry<String, JsonElement>> data, MonitorAreas monitorAreas) {
-		data.forEach(entry -> {
+	public MonitorAreas mapToMonitorAreas(JsonObject data, MonitorAreas monitorAreas) {
+		data.entrySet().forEach(entry -> {
 			Setter<MonitorAreas> consumer = setters.get(entry.getKey());
 			if (consumer != null) {
 				consumer.accept(monitorAreas, entry.getValue());

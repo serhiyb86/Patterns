@@ -31,7 +31,7 @@
         <version.com.google.code.gson>2.8.5</version.com.google.code.gson>
         <version.commons.io>2.6</version.commons.io>
         <version.junit>4.12</version.junit>
-        <version.commons-lang3>3.8.1</version.commons-lang3>
+        <version.commons-lang3>3.7</version.commons-lang3>
     </properties>
 
     <repositories>
