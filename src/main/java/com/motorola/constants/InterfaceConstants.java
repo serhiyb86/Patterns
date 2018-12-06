@@ -205,22 +205,14 @@ public final class InterfaceConstants {
 			public static final String CUSTOMER_ID = "customerId";
 			public static final String UNIT = "unit";
 			public static final String DATA = "data";
-			public static final String KEY = "key";
-			public static final String AGENCY = "agency";
-			public static final String CALL_SIGN = "callSign";
-			public static final String STATUS = "status";
+			public static final String UNIT_AGENCY = "unitAgency";
+			public static final String UNIT_STATUS_CODE = "unitStatusCode";
 			public static final String WHEN_STATUS_DECLARED = "whenStatusDeclared";
 			public static final String MINIMUM_STAFFING_LEVEL = "minimumStaffingLevel";
 			public static final String IS_PERSONNEL_OUTSIDE_UNIT = "isPersonnelOutsideUnit";
 			public static final String OLD_JSON_KEY = "old";
 			public static final String NEW_JSON_KEY = "new";
-			public static final String ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-		}
-
-
-		public final class JurisdictionalAssignment {
-			public static final String JURISDICTIONAL_ASSIGNMENT = "JurisdictionalAssignment";
-			public static final String BEATS = "beats";
+			public static final String UNIT_ZONE = "unitZone";
 		}
 
 		public final class AssignedIncident {
