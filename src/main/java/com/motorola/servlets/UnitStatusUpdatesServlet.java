@@ -7,6 +7,7 @@ import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
 import com.motorola.models.representation.Unit;
 import com.motorola.models.representation.UpdateUnit;
+import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,6 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BaseRequestManager requestManager = new BaseRequestManager();
-
 		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.EmergencyIncident.GeneralProperties.UNIT_STATUS_CREATE_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			Unit unit = requestManager.getTranslator().translateUnitStatusCreate(requestManager.getPayload());
@@ -37,14 +37,16 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 				catch (Exception e) {
 					LOGGER.error("Failed to send onDutyUnit data.", e);
 				}
-			} else {
+				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit));
+			}
+			else {
 				respondFailure(response, requestManager.getTranslator().getValidationResults());
 			}
-		}	else {
+		}
+		else {
 			respondFailure(response, validationResult);
 		}
 	}
-
 
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) {
@@ -59,11 +61,13 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 				catch (Exception e) {
 					LOGGER.error("Failed to send unitStatusUpdates data.", e);
 				}
+				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unitUpdates));
 			}
 			else {
 				respondFailure(response, requestManager.getTranslator().getValidationResults());
 			}
-		}	else {
+		}
+		else {
 			respondFailure(response, validationResult);
 		}
 	}
