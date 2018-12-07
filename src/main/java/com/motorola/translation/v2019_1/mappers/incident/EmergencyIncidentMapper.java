@@ -68,10 +68,9 @@ public class EmergencyIncidentMapper {
 	}
 
 	private EmergencyIncident mapToEmergencyIncident(JsonObject data, EmergencyIncident incident) {
-		data.entrySet().forEach(entry -> {
-			Setter<EmergencyIncident> consumer = setters.get(entry.getKey());
-			if (consumer != null) {
-				consumer.accept(incident, entry.getValue());
+		setters.forEach((key, value) -> {
+			if (data.get(key) != null) {
+				value.accept(incident, data.get(key));
 			}
 		});
 		return incident;
