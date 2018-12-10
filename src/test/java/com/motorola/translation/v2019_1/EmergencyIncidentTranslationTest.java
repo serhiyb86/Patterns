@@ -169,7 +169,8 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("ACT", disposition.getReportDisposition().getUid());
 		Assert.assertNotNull(disposition.getObservedOffense());
 		Assert.assertEquals("11", disposition.getObservedOffense().getUid());
-		// TODO: isSchedule, type
+		Assert.assertEquals("T", dispatchIncident.getIncidentSource().getUid());
+		Assert.assertEquals(true, dispatchIncident.getIsScheduled());
 		// TODO: check in json with key "responsibleUnitId"
 		Assert.assertEquals("007", dispatchIncident.getPrimaryUnit().getKey());
 		//Dispatch - Comments

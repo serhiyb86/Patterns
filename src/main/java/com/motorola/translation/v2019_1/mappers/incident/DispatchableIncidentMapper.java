@@ -15,6 +15,7 @@ import com.motorola.translation.setter.custom.disposition.DispositionSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.v2019_1.mappers.AbstractMapper;
+import com.motorola.utils.CadCloudUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -47,10 +48,8 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.OBSERVED, new DispositionSetter((disp, value) -> disp.setObservedOffense(createLookup((JsonElement) value))));
 
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DETERMINANT, (model, value) -> model.setProqaDeterminant(createProqaDeterminant((JsonElement) value)));
-		//TODO: isSchedule
-		//setters.put(InterfaceConstants.EmergencyIncident.Dispatches.SCHEDULED_FOR , (model, value) -> model.setIsScheduled(checkSchedule((JsonElement) value)));
-		//TODO: incidentSource
-		//setters.put(InterfaceConstants.EmergencyIncident.Dispatches.TYPE ,new BooleanSetter<>(DispatchableIncident::setIsScheduled));
+		// if incoming value is present and not empty - result=true
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.SCHEDULED_FOR , (model, value) -> model.setIsScheduled(checkSchedule((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RESPONSIBLE_UNIT_ID, (model, value) -> model.setPrimaryUnit(createUnit((JsonElement) value)));
 	}
 
@@ -90,6 +89,8 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 	 */
 	private DispatchableIncident mapToDispatchIncident(JsonObject data) {
 		DispatchableIncident dispatchableIncident = new DispatchableIncident();
+		// set default value for IsScheduled
+		dispatchableIncident.setIsScheduled(false);
 		data.entrySet().forEach(entry -> {
 			Setter<DispatchableIncident> consumer = setters.get(entry.getKey());
 			if (consumer != null) {
@@ -123,5 +124,13 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 			nature.setNature(createLookup(value));
 		}
 		return nature;
+	}
+
+	public Lookup mapIncidentSource(JsonObject data) {
+		String strVal = CadCloudUtils.getStringByKey(data,InterfaceConstants.EmergencyIncident.Dispatches.TYPE);
+		if (strVal != null) {
+			return createLookup(strVal);
+		}
+		return new Lookup();
 	}
 }
