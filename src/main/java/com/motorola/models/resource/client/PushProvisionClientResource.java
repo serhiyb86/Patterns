@@ -5,6 +5,7 @@ import com.motorola.models.representation.ProvisionItemList;
 import com.motorola.models.resource.PushProvisionResource;
 import com.motorola.models.security.SecurityRuntimeConfigurator;
 import com.motorola.models.security.authenticators.defined.Api_keyAuthenticator;
+import org.restlet.resource.ClientResource;
 
 public class PushProvisionClientResource {
 
@@ -31,7 +32,7 @@ public class PushProvisionClientResource {
 	 * @throws org.restlet.resource.ResourceException if the call to the API fails
 	 */
 	public void provisionItemUpdate(ProvisionItemList bean) {
-		org.restlet.resource.ClientResource client = new org.restlet.resource.ClientResource(absolutePath);
+		ClientResource client = new ClientResource(absolutePath);
 		securityRuntimeConfigurator.accept(Api_keyAuthenticator.class).configure(client);
 
 		client.wrap(PushProvisionResource.class).provisionItemUpdate(bean);
