@@ -32,9 +32,7 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 
 	static {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.ACTIVE_CALL_NUMBER, new StringSetter<>(DispatchableIncident::setAlias));
-
-		// TODO: not present in the model Key field
-		//setters.put(InterfaceConstants.EmergencyIncident.Dispatches.ID, new StringSetter<>(DispatchableIncident::setKey));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.ID, new StringSetter<>(DispatchableIncident::setKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE, (model, value) -> model.setDiscipline(createLookup((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.AGENCY, (model, value) -> model.setAgency(createLookup((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE_NATURE, (model, value) -> model.setNature(createNature((JsonElement) value)));
