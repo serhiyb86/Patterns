@@ -30,7 +30,7 @@ public class EmergencyIncidentMapper {
 	static {
 		setters.put(InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY, (model, value) -> {
 			String id = ((JsonElement) value).getAsString();
-			model.setId(id);
+			model.setAlias(id);
 			model.setKey(id);
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Subject.INVOLVED_CAD_SUBJECTS, (model, value) -> {
