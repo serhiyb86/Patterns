@@ -18,7 +18,7 @@ public class DeviceHandle implements Serializable {
 
 	private Lookup agency;
 
-	private String id;
+	private String name;
 
 	/**
 	 * Returns the value of property "key".
@@ -51,18 +51,18 @@ public class DeviceHandle implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "id".
-	 * Device Id
+	 * Returns the value of property "name".
+	 * Device Name
 	 */
-	public String getId() {
-		return id;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * Updates the value of property "id".
+	 * Updates the value of property "name".
 	 */
-	public void setId(String id) {
-		this.id = id;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
