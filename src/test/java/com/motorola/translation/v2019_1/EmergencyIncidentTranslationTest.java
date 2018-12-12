@@ -29,7 +29,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		String insertIncidentFileName = "insertIncident.json";
 		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
-		Assert.assertEquals("C6002", emergencyIncident.getId());
+		Assert.assertEquals("C6002", emergencyIncident.getAlias());
 		Assert.assertEquals("C6002", emergencyIncident.getKey());
 		Subject subject = emergencyIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", subject.getRole().get(0));
@@ -77,7 +77,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		String insertIncidentInvalidRoleFileName = "insertIncidentInvalidRole.json";
 		JsonObject insertIncidentInvalidRoleObject = initInputPayload(insertIncidentInvalidRoleFileName);
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentInvalidRoleObject);
-		Assert.assertEquals("C6002", emergencyIncident.getId());
+		Assert.assertEquals("C6002", emergencyIncident.getAlias());
 		Assert.assertEquals("C6002", emergencyIncident.getKey());
 		Assert.assertTrue(emergencyIncident.getSubjects().isEmpty());
 	}
@@ -87,7 +87,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		String insertIncidentEmptyValuesFileName = "insertIncidentEmptyValues.json";
 		JsonObject insertIncidentEmptyValuesObject = initInputPayload(insertIncidentEmptyValuesFileName);
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentEmptyValuesObject);
-		Assert.assertNull(emergencyIncident.getId());
+		Assert.assertNull(emergencyIncident.getAlias());
 		Assert.assertNull(emergencyIncident.getKey());
 		Assert.assertTrue(emergencyIncident.getSubjects().isEmpty());
 	}
@@ -98,7 +98,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		JsonObject updateIncidentObject = initInputPayload(updateIncidentFileName);
 		UpdateEmergencyIncident updateEmergencyIncident = getTranslator().translateUpdateIncident(updateIncidentObject);
 		EmergencyIncident newIncident = updateEmergencyIncident.get__new();
-		Assert.assertEquals("C6002", newIncident.getId());
+		Assert.assertEquals("C6002", newIncident.getAlias());
 		Assert.assertEquals("C6002", newIncident.getKey());
 		Subject newSubject = newIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", newSubject.getRole().get(0));
@@ -120,7 +120,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("AD", newPersonValue.getDriverLicenseState());
 
 		EmergencyIncident oldIncident = updateEmergencyIncident.getOld();
-		Assert.assertEquals("C6002", newIncident.getId());
+		Assert.assertEquals("C6002", newIncident.getAlias());
 		Assert.assertEquals("C6002", newIncident.getKey());
 		Subject oldSubject = oldIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", oldSubject.getRole().get(0));
@@ -169,7 +169,8 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("ACT", disposition.getReportDisposition().getUid());
 		Assert.assertNotNull(disposition.getObservedOffense());
 		Assert.assertEquals("11", disposition.getObservedOffense().getUid());
-		// TODO: isSchedule, type
+		Assert.assertEquals("T", dispatchIncident.getIncidentSource().getUid());
+		Assert.assertEquals(true, dispatchIncident.getIsScheduled());
 		// TODO: check in json with key "responsibleUnitId"
 		Assert.assertEquals("007", dispatchIncident.getPrimaryUnit().getKey());
 		//Dispatch - Comments

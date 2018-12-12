@@ -65,7 +65,8 @@
           "whenStatusDeclared": "2018-11-21T05:57:41-07:00",
           "responsibleUnitId":"007",
           "agency": "SPD",
-          "active": true
+          "active": true,
+          "scheduledFor":"U1"
         }
       ],
       "incidentComments": [
