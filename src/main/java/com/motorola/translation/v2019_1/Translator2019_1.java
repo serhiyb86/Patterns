@@ -140,6 +140,11 @@ public class Translator2019_1 implements BaseTranslator {
 		return validationResults;
 	}
 
+	@Override
+	public String getVersion() {
+		return InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0;
+	}
+
 	/**
 	 * Clears the list with validation result
 	 */

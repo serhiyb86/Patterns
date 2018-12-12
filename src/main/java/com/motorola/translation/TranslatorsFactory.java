@@ -3,11 +3,15 @@
  */
 package com.motorola.translation;
 
-import com.motorola.constants.InterfaceConstants;
-import com.motorola.translation.v2019_1.Translator2019_1;
-import org.restlet.engine.util.StringUtils;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.motorola.constants.InterfaceConstants;
+import com.motorola.translation.v2019_1.Translator2019_1;
 
 /**
  * Factory class for the on-premise -> Cad Cloud Api translators
@@ -16,20 +20,36 @@ public class TranslatorsFactory {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TranslatorsFactory.class);
 
+	private static final List<TranslatorVersion> TRANSLATOR_VERSIONS = Collections.unmodifiableList(Arrays.asList(
+		//Place the newest versions on top
+		//The order here is important for correct work
+		TranslatorVersion.parse(InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0)
+	));
+
 	/**
 	 * Method that returns translator for the specified Spillman version
 	 * @param spillmanVersion version to set
 	 * @return translator for the specified Spillman version or null for unknown version
 	 */
-	public static BaseTranslator getTranslator(String spillmanVersion) {
-		if (!StringUtils.isNullOrEmpty(spillmanVersion)) {
-			switch (spillmanVersion) {
-				case InterfaceConstants.GeneralProperties.VERSION_2019_1:
-					return new Translator2019_1();
-				default:
-					LOGGER.error(String.format("Spillman version: %s is missing or unknown.", spillmanVersion));
-			}
+	public BaseTranslator getTranslator(String spillmanVersion) {
+		switch (findLeastVersionFor(spillmanVersion)) {
+			case InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0:
+				return new Translator2019_1();
+			default:
+				LOGGER.error("Spillman version: {} is missing or unknown.", spillmanVersion);
 		}
 		return null;
+	}
+
+	/**
+	 * Parse version from request header and find the closest corresponding version from available.
+	 */
+	private String findLeastVersionFor(String versionFromRequest) {
+		TranslatorVersion requiredVersion = TranslatorVersion.parse(versionFromRequest);
+		return TRANSLATOR_VERSIONS.stream()
+			.filter(requiredVersion::notOlderThan)
+			.findFirst()
+			.orElse(requiredVersion)
+			.toString();
 	}
 }

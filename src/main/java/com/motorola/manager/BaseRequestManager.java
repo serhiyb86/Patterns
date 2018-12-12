@@ -23,6 +23,7 @@ import java.util.List;
 public class BaseRequestManager {
 
 	private final APIClient apiClient = new APIClient();
+	private TranslatorsFactory translatorsFactory = new TranslatorsFactory();
 	private BaseTranslator translator;
 	private JsonObject payload;
 
@@ -75,7 +76,7 @@ public class BaseRequestManager {
 			validationResults.add(new ValidationResult("Spillman version is missing.", ValidationErrorType.MISSING_DATA));
 		}
 		else {
-			translator = TranslatorsFactory.getTranslator(spillmanVersion);
+			translator = translatorsFactory.getTranslator(spillmanVersion);
 			if (translator == null) {
 				validationResults.add(
 					new ValidationResult(
