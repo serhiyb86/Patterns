@@ -1,7 +1,7 @@
 /*
  * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
  */
-package com.motorola.translation.v2019_1.mappers.incident;
+package com.motorola.translation.v2019_1_15_0.mappers.incident;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

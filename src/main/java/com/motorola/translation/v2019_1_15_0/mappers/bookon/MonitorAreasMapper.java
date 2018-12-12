@@ -1,7 +1,7 @@
 /*
  * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
  */
-package com.motorola.translation.v2019_1.mappers.bookon;
+package com.motorola.translation.v2019_1_15_0.mappers.bookon;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -11,7 +11,7 @@ import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.MonitorAreas;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
-import com.motorola.translation.v2019_1.mappers.GenericMapper;
+import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;

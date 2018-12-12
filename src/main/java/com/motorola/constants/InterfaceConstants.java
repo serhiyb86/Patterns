@@ -13,7 +13,7 @@ public final class InterfaceConstants {
 	 */
 	public final class GeneralProperties {
 
-		public static final String VERSION_2019_1 = "2019.1";
+		public static final String VERSION_2019_1_15_0 = "2019.1.15.0";
 		public static final String REQUEST_TYPE = "requestType";
 		public static final String UID_JSON_KEY = "uid";
 		public static final String DATA_JSON_KEY = "data";

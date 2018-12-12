@@ -1,7 +1,7 @@
 /*
  * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
  */
-package com.motorola.translation.v2019_1;
+package com.motorola.translation.v2019_1_15_0;
 
 import com.google.gson.JsonObject;
 import com.motorola.models.representation.UserSession;

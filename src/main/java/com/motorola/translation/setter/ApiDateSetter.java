@@ -5,7 +5,7 @@ package com.motorola.translation.setter;
 
 import com.google.gson.JsonElement;
 import com.motorola.constants.InterfaceConstants;
-import com.motorola.translation.v2019_1.Translator2019_1;
+import com.motorola.translation.v2019_1_15_0.Translator;
 import com.motorola.utils.CadCloudUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class ApiDateSetter<T> implements Setter<T> {
 	private final BiConsumer<T, String> setFunction;
 	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(InterfaceConstants.EmergencyIncident.GeneralProperties.DATE_FORMAT);
 	private DateTimeFormatter apiDateFormatter = DateTimeFormatter.ofPattern(InterfaceConstants.EmergencyIncident.GeneralProperties.ZONED_DATE_TIME_FORMAT);
-	private static final Logger LOGGER = LoggerFactory.getLogger(Translator2019_1.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(Translator.class);
 
 	public ApiDateSetter(BiConsumer<T, String> setFunction) {
 		this.setFunction = setFunction;

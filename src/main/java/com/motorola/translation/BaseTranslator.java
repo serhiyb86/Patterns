@@ -32,4 +32,6 @@ public interface BaseTranslator {
 	UpdateUnit translateUnitStatusUpdates(JsonObject payload);
 
 	List<ValidationResult> getValidationResults();
+
+	String getVersion();
 }
