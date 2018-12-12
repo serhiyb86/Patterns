@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.motorola.constants.InterfaceConstants;
-import com.motorola.translation.v2019_1_15_0.Translator2019_1_15_0;
 
 /**
  * Factory class for the on-premise -> Cad Cloud Api translators
@@ -34,7 +33,7 @@ public class TranslatorsFactory {
 	public BaseTranslator getTranslator(String spillmanVersion) {
 		switch (findLeastVersionFor(spillmanVersion)) {
 			case InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0:
-				return new Translator2019_1_15_0();
+				return new com.motorola.translation.v2019_1_15_0.Translator();
 			default:
 				LOGGER.error("Spillman version: {} is missing or unknown.", spillmanVersion);
 		}

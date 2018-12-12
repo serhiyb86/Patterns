@@ -10,8 +10,6 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.motorola.translation.v2019_1_15_0.Translator2019_1_15_0;
-
 public class TranslatorsFactoryTest {
 
 	private TranslatorsFactory factory;
@@ -25,26 +23,26 @@ public class TranslatorsFactoryTest {
 	public void getTranslator_sameVersion_test() {
 		BaseTranslator translator = factory.getTranslator("2019.1.15.0");
 		assertNotNull(translator);
-		assertTrue(translator instanceof Translator2019_1_15_0);
+		assertTrue(translator instanceof com.motorola.translation.v2019_1_15_0.Translator);
 	}
 
 	@Test
 	public void getTranslator_greaterVersion_test() {
 		BaseTranslator translator = factory.getTranslator("2020.1.15.0");
 		assertNotNull(translator);
-		assertTrue(translator instanceof Translator2019_1_15_0);
+		assertTrue(translator instanceof com.motorola.translation.v2019_1_15_0.Translator);
 
 		BaseTranslator translator2 = factory.getTranslator("2019.2.15.0");
 		assertNotNull(translator2);
-		assertTrue(translator2 instanceof Translator2019_1_15_0);
+		assertTrue(translator2 instanceof com.motorola.translation.v2019_1_15_0.Translator);
 
 		BaseTranslator translator3 = factory.getTranslator("2019.1.20.0");
 		assertNotNull(translator3);
-		assertTrue(translator3 instanceof Translator2019_1_15_0);
+		assertTrue(translator3 instanceof com.motorola.translation.v2019_1_15_0.Translator);
 
 		BaseTranslator translator4 = factory.getTranslator("2019.1.15.55");
 		assertNotNull(translator4);
-		assertTrue(translator4 instanceof Translator2019_1_15_0);
+		assertTrue(translator4 instanceof com.motorola.translation.v2019_1_15_0.Translator);
 	}
 
 	@Test
@@ -66,22 +64,22 @@ public class TranslatorsFactoryTest {
 	public void getTranslator_shortVersion_test() {
 		BaseTranslator translator = factory.getTranslator("2019.1.15");
 		assertNotNull(translator);
-		assertTrue(translator instanceof Translator2019_1_15_0);
+		assertTrue(translator instanceof com.motorola.translation.v2019_1_15_0.Translator);
 
 		BaseTranslator translator2 = factory.getTranslator("2019.2");
 		assertNotNull(translator2);
-		assertTrue(translator2 instanceof Translator2019_1_15_0);
+		assertTrue(translator2 instanceof com.motorola.translation.v2019_1_15_0.Translator);
 
 		BaseTranslator translator3 = factory.getTranslator("2022");
 		assertNotNull(translator3);
-		assertTrue(translator3 instanceof Translator2019_1_15_0);
+		assertTrue(translator3 instanceof com.motorola.translation.v2019_1_15_0.Translator);
 	}
 
 	@Test
 	public void getTranslator_invalidVersion_test() {
 		BaseTranslator translator = factory.getTranslator("2019.1.15.0-SNAPSHOT");
 		assertNotNull(translator);
-		assertTrue(translator instanceof Translator2019_1_15_0);
+		assertTrue(translator instanceof com.motorola.translation.v2019_1_15_0.Translator);
 
 		BaseTranslator translator2 = factory.getTranslator("2019-SNAPSHOT");
 		assertNull(translator2);

@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Translator class for Spillman version 2019.1
  */
-public class Translator2019_1_15_0 implements BaseTranslator {
+public class Translator implements BaseTranslator {
 
 	private List<ValidationResult> validationResults = new ArrayList<>();
 
