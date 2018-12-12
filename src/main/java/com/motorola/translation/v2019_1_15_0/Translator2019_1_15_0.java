@@ -1,7 +1,7 @@
 /*
  * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
  */
-package com.motorola.translation.v2019_1;
+package com.motorola.translation.v2019_1_15_0;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -13,13 +13,13 @@ import com.motorola.models.representation.UpdateEmergencyIncident;
 import com.motorola.models.representation.UpdateUnit;
 import com.motorola.models.representation.UserSession;
 import com.motorola.models.representation.UserSessionWrapper;
-import com.motorola.translation.v2019_1.mappers.incident.EmergencyIncidentMapper;
+import com.motorola.translation.v2019_1_15_0.mappers.incident.EmergencyIncidentMapper;
 import com.motorola.translation.BaseTranslator;
-import com.motorola.translation.v2019_1.mappers.bookon.UserSessionMapper;
-import com.motorola.translation.v2019_1.mappers.notification.ResponseNotificationMapper;
-import com.motorola.translation.v2019_1.mappers.unit.IncidentHandleMapper;
-import com.motorola.translation.v2019_1.mappers.unit.UnitMapper;
-import com.motorola.translation.v2019_1.mappers.unit.UpdateUnitMapper;
+import com.motorola.translation.v2019_1_15_0.mappers.bookon.UserSessionMapper;
+import com.motorola.translation.v2019_1_15_0.mappers.notification.ResponseNotificationMapper;
+import com.motorola.translation.v2019_1_15_0.mappers.unit.IncidentHandleMapper;
+import com.motorola.translation.v2019_1_15_0.mappers.unit.UnitMapper;
+import com.motorola.translation.v2019_1_15_0.mappers.unit.UpdateUnitMapper;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
 import com.motorola.validation.ValidationErrorType;
@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Translator class for Spillman version 2019.1
  */
-public class Translator2019_1 implements BaseTranslator {
+public class Translator2019_1_15_0 implements BaseTranslator {
 
 	private List<ValidationResult> validationResults = new ArrayList<>();
 

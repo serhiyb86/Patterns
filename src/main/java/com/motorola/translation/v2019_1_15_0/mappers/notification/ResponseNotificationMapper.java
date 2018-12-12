@@ -1,20 +1,18 @@
 /*
  * Copyright 2018 Motorola Solutions, Inc. ALL RIGHTS RESERVED
  */
-package com.motorola.translation.v2019_1.mappers.notification;
+package com.motorola.translation.v2019_1_15_0.mappers.notification;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.ApiError;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
-import com.motorola.translation.v2019_1.mappers.GenericMapper;
+import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Mapper for converting Json Object with appropriate data to the {@link  ResponseNotification} object.
