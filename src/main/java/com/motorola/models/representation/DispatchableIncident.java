@@ -16,6 +16,8 @@ public class DispatchableIncident implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
+	private String key;
+
 	private String alias;
 
 	private Lookup discipline;
@@ -45,6 +47,21 @@ public class DispatchableIncident implements Serializable {
 	private List<UnitHandle> assignedUnits = new ArrayList<UnitHandle>();
 
 	private UnitHandle primaryUnit;
+
+	/**
+	 * Returns the value of property "key".
+	 * Dispatchable Incident Key
+	 */
+	public String getKey() {
+		return key;
+	}
+
+	/**
+	 * Updates the value of property "key".
+	 */
+	public void setKey(String key) {
+		this.key = key;
+	}
 
 	/**
 	 * Returns the value of property "alias".

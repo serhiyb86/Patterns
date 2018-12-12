@@ -16,10 +16,21 @@ public abstract class AbstractMapper {
 	 * @return {@link Lookup} instance.
 	 */
 	public static Lookup createLookup(JsonElement value) {
-		Lookup lookup = new Lookup();
 		if (value != null) {
-			lookup.setUid(value.getAsString());
+			return createLookup(value.getAsString());
 		}
+		return new Lookup();
+	}
+	/**
+	 * Creates {@link Lookup} instance with incoming string value.
+	 *
+	 * @param value incoming data.
+	 * @return {@link Lookup} instance.
+	 */
+	public static Lookup createLookup(String value) {
+		Lookup lookup = new Lookup();
+		lookup.setUid(value);
 		return lookup;
+
 	}
 }

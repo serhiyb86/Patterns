@@ -19,15 +19,32 @@ public class EmergencyIncident implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
+	private String customerId;
+
 	private String key;
 
-	private String id;
+	private String alias;
 
 	private List<Subject> subjects = new ArrayList<Subject>();
 
 	private List<InvolvedVehicle> vehicles = new ArrayList<InvolvedVehicle>();
 
 	private List<DispatchableIncident> dispatches = new ArrayList<DispatchableIncident>();
+
+	/**
+	 * Returns the value of property "customerId".
+	 * Use for DB partition
+	 */
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	/**
+	 * Updates the value of property "customerId".
+	 */
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
 
 	/**
 	 * Returns the value of property "key".
@@ -45,18 +62,18 @@ public class EmergencyIncident implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "id".
-	 * Incident Id
+	 * Returns the value of property "alias".
+	 * Incident Alias
 	 */
-	public String getId() {
-		return id;
+	public String getAlias() {
+		return alias;
 	}
 
 	/**
-	 * Updates the value of property "id".
+	 * Updates the value of property "alias".
 	 */
-	public void setId(String id) {
-		this.id = id;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 	/**

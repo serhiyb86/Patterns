@@ -10,75 +10,76 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
 public class Equipment implements Serializable {
-    /** Default serial version ID. */
-    private static final long serialVersionUID = 1L;
 
-    private Lookup agency;
+	/** Default serial version ID. */
+	private static final long serialVersionUID = 1L;
 
-    private Lookup type;
+	private Lookup agency;
 
-    private String equipmentItemName;
+	private Lookup type;
 
-    private String id;
+	private String equipmentItemName;
 
-    /**
-     * Returns the value of property "agency". 
-     * 
-     */
-    public Lookup getAgency() {
-        return agency;
-    }
+	private String key;
 
-    /**
-     * Updates the value of property "agency". 
-     */
-    public void setAgency(Lookup agency) {
-        this.agency = agency;
-    }
+	/**
+	 * Returns the value of property "agency".
+	 *
+	 */
+	public Lookup getAgency() {
+		return agency;
+	}
 
-    /**
-     * Returns the value of property "type". 
-     * 
-     */
-    public Lookup getType() {
-        return type;
-    }
+	/**
+	 * Updates the value of property "agency".
+	 */
+	public void setAgency(Lookup agency) {
+		this.agency = agency;
+	}
 
-    /**
-     * Updates the value of property "type". 
-     */
-    public void setType(Lookup type) {
-        this.type = type;
-    }
+	/**
+	 * Returns the value of property "type".
+	 *
+	 */
+	public Lookup getType() {
+		return type;
+	}
 
-    /**
-     * Returns the value of property "equipmentItemName". 
-     * Equipment item name
-     */
-    public String getEquipmentItemName() {
-        return equipmentItemName;
-    }
+	/**
+	 * Updates the value of property "type".
+	 */
+	public void setType(Lookup type) {
+		this.type = type;
+	}
 
-    /**
-     * Updates the value of property "equipmentItemName". 
-     */
-    public void setEquipmentItemName(String equipmentItemName) {
-        this.equipmentItemName = equipmentItemName;
-    }
+	/**
+	 * Returns the value of property "equipmentItemName".
+	 * Equipment item name
+	 */
+	public String getEquipmentItemName() {
+		return equipmentItemName;
+	}
 
-    /**
-     * Returns the value of property "id". 
-     * Equipment Id
-     */
-    public String getId() {
-        return id;
-    }
+	/**
+	 * Updates the value of property "equipmentItemName".
+	 */
+	public void setEquipmentItemName(String equipmentItemName) {
+		this.equipmentItemName = equipmentItemName;
+	}
 
-    /**
-     * Updates the value of property "id". 
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+	/**
+	 * Returns the value of property "key".
+	 * Equipment Key
+	 */
+	public String getKey() {
+		return key;
+	}
+
+	/**
+	 * Updates the value of property "key".
+	 */
+	public void setKey(String key) {
+		this.key = key;
+	}
 
 }

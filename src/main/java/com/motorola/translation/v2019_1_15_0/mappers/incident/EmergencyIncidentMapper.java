@@ -25,11 +25,12 @@ import java.util.stream.Collectors;
 public class EmergencyIncidentMapper {
 
 	private static final Map<String, Setter<EmergencyIncident>> setters = new LinkedHashMap<>();
+	private static DispatchableIncidentMapper dispatchesMapper = new DispatchableIncidentMapper();
 
 	static {
 		setters.put(InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY, (model, value) -> {
 			String id = ((JsonElement) value).getAsString();
-			model.setId(id);
+			model.setAlias(id);
 			model.setKey(id);
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Subject.INVOLVED_CAD_SUBJECTS, (model, value) -> {
@@ -40,7 +41,6 @@ public class EmergencyIncidentMapper {
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISPATCHES, (model, value) -> {
 			JsonArray dispatchesJson = ((JsonElement) value).getAsJsonArray();
-			DispatchableIncidentMapper dispatchesMapper = new DispatchableIncidentMapper();
 			List<DispatchableIncident> dispatches = dispatchesMapper.createAndMapToDispatchIncidentList(dispatchesJson);
 			model.setDispatches(dispatches);
 		});
@@ -64,6 +64,13 @@ public class EmergencyIncidentMapper {
 	public EmergencyIncident createAndMapToEmergencyIncident(JsonObject data) {
 		EmergencyIncident incident = new EmergencyIncident();
 		EmergencyIncident emergencyIncident = mapToEmergencyIncident(data, incident);
+		// add incidentSource for each dispatch incident
+		List<DispatchableIncident> dispatchableIncidents = emergencyIncident.getDispatches();
+		dispatchableIncidents.forEach(dispatchableIncident -> {
+			if (dispatchableIncident != null) {
+				dispatchableIncident.setIncidentSource(dispatchesMapper.mapIncidentSource(data));
+			}
+		});
 		return emergencyIncident;
 	}
 
