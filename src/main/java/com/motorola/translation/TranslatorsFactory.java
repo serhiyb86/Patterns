@@ -22,7 +22,7 @@ public class TranslatorsFactory {
 	private static final List<TranslatorVersion> TRANSLATOR_VERSIONS = Collections.unmodifiableList(Arrays.asList(
 		//Place the newest versions on top
 		//The order here is important for correct work
-		TranslatorVersion.parse(InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0)
+		new TranslatorVersion(InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0)
 	));
 
 	/**
@@ -44,9 +44,9 @@ public class TranslatorsFactory {
 	 * Parse version from request header and find the closest corresponding version from available.
 	 */
 	private String findLeastVersionFor(String versionFromRequest) {
-		TranslatorVersion requiredVersion = TranslatorVersion.parse(versionFromRequest);
+		TranslatorVersion requiredVersion = new TranslatorVersion(versionFromRequest);
 		return TRANSLATOR_VERSIONS.stream()
-			.filter(requiredVersion::notOlderThan)
+			.filter(requiredVersion::notLessThan)
 			.findFirst()
 			.orElse(requiredVersion)
 			.toString();
