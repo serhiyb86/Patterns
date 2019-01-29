@@ -8,7 +8,11 @@ import com.motorola.models.representation.ReportNumber;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Mapper for converting Json Object with ReportNumber data to the {@link ReportNumber} object.

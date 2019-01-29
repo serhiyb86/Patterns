@@ -5,20 +5,22 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
-public class ReportNumber implements java.io.Serializable {
+public class ReportNumber implements Serializable {
 
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private java.lang.String key;
+	private String key;
 
-	private java.lang.String alias;
+	private String alias;
 
 	private UnitHandle unitHandle;
 
-	private java.lang.String agencyAlias;
+	private String agencyAlias;
 
 	/**
 	 * Returns the value of property "key".
@@ -69,7 +71,7 @@ public class ReportNumber implements java.io.Serializable {
 	 * Returns the value of property "agencyAlias".
 	 * Id of the agency that created the report
 	 */
-	public java.lang.String getAgencyAlias() {
+	public String getAgencyAlias() {
 		return agencyAlias;
 	}
 
