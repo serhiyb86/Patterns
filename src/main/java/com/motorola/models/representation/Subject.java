@@ -16,11 +16,28 @@ public class Subject implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
+	private String key;
+
 	private String contactRequested;
 
 	private List<String> role = new ArrayList<>();
 
 	private Person person;
+
+	/**
+	 * Returns the value of property "key".
+	 * The unique identifier for a Subject
+	 */
+	public String getKey() {
+		return key;
+	}
+
+	/**
+	 * Updates the value of property "key".
+	 */
+	public void setKey(String key) {
+		this.key = key;
+	}
 
 	/**
 	 * Returns the value of property "contactRequested".

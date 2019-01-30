@@ -10,6 +10,7 @@ import com.motorola.models.representation.JurisdictionalAssignment;
 import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.Unit;
 import com.motorola.translation.setter.BooleanSetter;
+import com.motorola.translation.setter.DateSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
@@ -36,7 +37,7 @@ public class UnitMapper {
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_AGENCY, new StringSetter<>(Unit::setAgency));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_STATUS_CODE, new StringSetter<>(Unit::setStatus));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_STATUS_DECLARED,
-			new StringSetter<>(Unit::setWhenStatusDeclared));
+			new DateSetter<>(Unit::setWhenStatusDeclared, InterfaceConstants.GeneralProperties.DATE_TIME_FORMAT));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.MINIMUM_STAFFING_LEVEL, new LongSetter<>(Unit::setMinimumStaffingLevel));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.IS_PERSONNEL_OUTSIDE_UNIT, new BooleanSetter<>(Unit::setIsPersonnelOutsideUnit));
 

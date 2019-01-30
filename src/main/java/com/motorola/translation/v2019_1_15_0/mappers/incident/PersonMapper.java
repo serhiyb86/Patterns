@@ -7,7 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Person;
-import com.motorola.translation.setter.ApiDateSetter;
+import com.motorola.translation.setter.DateSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
@@ -33,7 +33,7 @@ public class PersonMapper extends AbstractMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Person.HEIGHT_IN_INCHES, new StringSetter<>(Person::setHeight));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.WEIGHT_IN_POUNDS, new LongSetter<>(Person::setWeight));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.AGE, new LongSetter<>(Person::setAge));
-		setters.put(InterfaceConstants.EmergencyIncident.Person.BIRTH_DATE, new ApiDateSetter<>(Person::setDateOfBirth));
+		setters.put(InterfaceConstants.EmergencyIncident.Person.BIRTH_DATE, new DateSetter<>(Person::setDateOfBirth, InterfaceConstants.GeneralProperties.DATE_FORMAT));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.HAIR_COLOR, ((model, value) -> model.setHairColor(createLookup((JsonElement) value))));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.RACE, (model, value) -> model.setRace(createLookup((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.GENDER, (model, value) -> model.setGender(createLookup((JsonElement) value)));

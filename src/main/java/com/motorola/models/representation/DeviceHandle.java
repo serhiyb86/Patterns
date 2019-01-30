@@ -10,13 +10,12 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
 public class DeviceHandle implements Serializable {
-
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
 	private String key;
 
-	private Lookup agency;
+	private String agencyAlias;
 
 	private String name;
 
@@ -36,18 +35,18 @@ public class DeviceHandle implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "agency".
-	 *
+	 * Returns the value of property "agencyAlias".
+	 * Device Agency Id
 	 */
-	public Lookup getAgency() {
-		return agency;
+	public String getAgencyAlias() {
+		return agencyAlias;
 	}
 
 	/**
-	 * Updates the value of property "agency".
+	 * Updates the value of property "agencyAlias".
 	 */
-	public void setAgency(Lookup agency) {
-		this.agency = agency;
+	public void setAgencyAlias(String agencyAlias) {
+		this.agencyAlias = agencyAlias;
 	}
 
 	/**

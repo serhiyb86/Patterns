@@ -7,7 +7,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.representation.DeviceHandle;
+import com.motorola.models.representation.PersonnelHandle;
 import com.motorola.models.representation.UserSession;
+import com.motorola.translation.setter.DateSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.utils.CadCloudUtils;
@@ -27,12 +30,24 @@ public class UserSessionMapper {
 	static {
 		setters.put(InterfaceConstants.BookOnProperties.CUSTOMER_ID, new StringSetter<>(UserSession::setCustomerId));
 		setters.put(InterfaceConstants.BookOnProperties.SESSION_ID, new StringSetter<>(UserSession::setSessionId));
-		setters.put(InterfaceConstants.BookOnProperties.DEVICE_ID, new StringSetter<>(UserSession::setDeviceId));
-		setters.put(InterfaceConstants.BookOnProperties.USER_ID, new StringSetter<>(UserSession::setUserId));
+		setters.put(InterfaceConstants.BookOnProperties.DEVICE_KEY, (model, value) -> {
+			if (value != null) {
+				DeviceHandle deviceHandle = new DeviceHandle();
+				deviceHandle.setKey(CadCloudUtils.getStringFromJsonElement((JsonElement) value));
+				model.setDevice(deviceHandle);
+			}
+		});
+		setters.put(InterfaceConstants.BookOnProperties.USER_KEY, (model, value) -> {
+			if (value != null) {
+				PersonnelHandle personnelHandle = new PersonnelHandle();
+				personnelHandle.setKey(CadCloudUtils.getStringFromJsonElement((JsonElement) value));
+				model.setUser(personnelHandle);
+			}
+		});
 		setters.put(InterfaceConstants.BookOnProperties.WHEN_SESSION_CREATED,
-			new StringSetter<>(UserSession::setWhenSessionCreated));
+			new DateSetter<>(UserSession::setWhenSessionCreated, InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT));
 		setters.put(InterfaceConstants.BookOnProperties.WHEN_SESSION_UPDATED,
-			new StringSetter<>(UserSession::setWhenSessionUpdated));
+			new DateSetter<>(UserSession::setWhenSessionUpdated, InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT));
 		//	will be changed after clarifications of the onPrem permission model.
 		setters.put(InterfaceConstants.BookOnProperties.API_ACCESS_LIST, (model, value) -> {
 			List<String> result = new ArrayList<>();
@@ -71,10 +86,9 @@ public class UserSessionMapper {
 	 * @return filled target object with mapped data.
 	 */
 	private UserSession mapToUserSession(JsonObject data, UserSession userSession) {
-		data.entrySet().forEach(entry -> {
-			Setter<UserSession> consumer = setters.get(entry.getKey());
-			if (consumer != null) {
-				consumer.accept(userSession, entry.getValue());
+		setters.forEach((key, value) -> {
+			if (data.get(key) != null) {
+				value.accept(userSession, data.get(key));
 			}
 		});
 		return userSession;

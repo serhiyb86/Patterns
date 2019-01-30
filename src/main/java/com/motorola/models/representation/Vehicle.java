@@ -23,7 +23,7 @@ public class Vehicle implements Serializable {
 
 	private Lookup licenseType;
 
-	private String licenseExpirationDate;
+	private Date licenseExpirationDate;
 
 	private Long year;
 
@@ -90,16 +90,17 @@ public class Vehicle implements Serializable {
 
 	/**
 	 * Returns the value of property "licenseExpirationDate".
-	 *
+	 * License Plate expiration date
 	 */
-	public String getLicenseExpirationDate() {
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
+	public java.util.Date getLicenseExpirationDate() {
 		return licenseExpirationDate;
 	}
 
 	/**
 	 * Updates the value of property "licenseExpirationDate".
 	 */
-	public void setLicenseExpirationDate(String licenseExpirationDate) {
+	public void setLicenseExpirationDate(Date licenseExpirationDate) {
 		this.licenseExpirationDate = licenseExpirationDate;
 	}
 

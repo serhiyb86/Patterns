@@ -7,9 +7,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.Config;
 import com.motorola.models.representation.IncidentComment;
 import com.motorola.models.representation.PersonnelHandle;
 import com.motorola.models.representation.UnitHandle;
+import com.motorola.translation.setter.DateSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.v2019_1_15_0.mappers.AbstractMapper;
@@ -30,7 +32,7 @@ public class IncidentCommentMapper extends AbstractMapper {
 	static {
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.ID, new StringSetter<>(IncidentComment::setKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.COMMENT, new StringSetter<>(IncidentComment::setComments));
-		setters.put(InterfaceConstants.EmergencyIncident.Comment.WHEN_ENTERED, new StringSetter<>(IncidentComment::setWhenEntered));
+		setters.put(InterfaceConstants.EmergencyIncident.Comment.WHEN_ENTERED, new DateSetter<>(IncidentComment::setWhenEntered, InterfaceConstants.GeneralProperties.DATE_TIME_FORMAT));
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.SOURCE, (model, value) -> model.setSource(createLookup((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.AUDIENCE, new StringSetter<>(IncidentComment::setAudience));
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_UNIT, (model, value) -> {

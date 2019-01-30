@@ -14,9 +14,26 @@ public class Location implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
+	private String key;
+
 	private Address address;
 
 	private String type;
+
+	/**
+	 * Returns the value of property "key".
+	 * The unique identifier for the location
+	 */
+	public java.lang.String getKey() {
+		return key;
+	}
+
+	/**
+	 * Updates the value of property "key".
+	 */
+	public void setKey(java.lang.String key) {
+		this.key = key;
+	}
 
 	/**
 	 * Returns the value of property "address".
