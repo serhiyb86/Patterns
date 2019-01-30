@@ -12,6 +12,7 @@ import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.IncidentComment;
 import com.motorola.models.representation.InvolvedVehicle;
 import com.motorola.models.representation.Person;
+import com.motorola.models.representation.ReportNumber;
 import com.motorola.models.representation.Subject;
 import com.motorola.models.representation.UpdateEmergencyIncident;
 import com.motorola.models.representation.Vehicle;
@@ -198,6 +199,13 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("Spillman", comment.getEnteredBy().getNameCode());
 		Assert.assertNull(comment.getDevice());
 		Assert.assertEquals("urgent", comment.getIsPriority());
+		// Dispatch - ReportNumbers
+		ReportNumber reportNumber = dispatchIncident.getReportNumbers().get(0);
+		Assert.assertNotNull(reportNumber);
+		Assert.assertEquals("1109-0013-SPDF", reportNumber.getKey());
+		Assert.assertEquals("1109-0013", reportNumber.getAlias());
+		Assert.assertEquals("SPDF", reportNumber.getAgencyAlias());
+		Assert.assertNull(reportNumber.getUnitHandle());
 	}
 
 }
