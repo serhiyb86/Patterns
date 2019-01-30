@@ -132,6 +132,17 @@ public final class InterfaceConstants {
 			public static final String SCHEDULED_FOR = "scheduledFor";
 			public static final String TYPE = "type";
 			public static final String RESPONSIBLE_UNIT_ID = "responsibleUnitId";
+			public static final String RELATED_RECORDS = "relatedRecords";
+
+			/**
+			 * Contains RelatedRecord properties
+			 */
+			public final class RelatedRecord {
+
+				public static final String REPORT_NUMBER = "reportNumber";
+				public static final String ID = "id";
+				public static final String AGENCY = "agency";
+			}
 		}
 
 		/**

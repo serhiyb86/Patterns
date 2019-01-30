@@ -48,6 +48,8 @@ public class DispatchableIncident implements Serializable {
 
 	private UnitHandle primaryUnit;
 
+	private List<ReportNumber> reportNumbers;
+
 	/**
 	 * Returns the value of property "key".
 	 * Dispatchable Incident Key
@@ -288,4 +290,17 @@ public class DispatchableIncident implements Serializable {
 		this.primaryUnit = primaryUnit;
 	}
 
+	/**
+	 * Returns the value of property "reportNumbers"
+	 */
+	public List<ReportNumber> getReportNumbers() {
+		return reportNumbers;
+	}
+
+	/**
+	 * Updates the value of property "reportNumbers"
+	 */
+	public void setReportNumbers(List<ReportNumber> reportNumbers) {
+		this.reportNumbers = reportNumbers;
+	}
 }

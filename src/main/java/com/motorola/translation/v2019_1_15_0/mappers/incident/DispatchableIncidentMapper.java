@@ -10,6 +10,7 @@ import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.Nature;
+import com.motorola.models.representation.ReportNumber;
 import com.motorola.models.representation.UnitHandle;
 import com.motorola.translation.setter.custom.disposition.DispositionSetter;
 import com.motorola.translation.setter.Setter;
@@ -49,6 +50,11 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 		// if incoming value is present and not empty - result=true
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.SCHEDULED_FOR , (model, value) -> model.setIsScheduled(checkSchedule((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RESPONSIBLE_UNIT_ID, (model, value) -> model.setPrimaryUnit(createUnit((JsonElement) value)));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RELATED_RECORDS, (model, value) -> {
+			ReportNumberMapper reportNumberMapper = new ReportNumberMapper();
+			List<ReportNumber> reportNumberList = reportNumberMapper.createAndMapToReportNumberList(((JsonElement) value).getAsJsonArray());
+			model.setReportNumbers(reportNumberList);
+		});
 	}
 
 	private static Boolean checkSchedule(JsonElement value) {
