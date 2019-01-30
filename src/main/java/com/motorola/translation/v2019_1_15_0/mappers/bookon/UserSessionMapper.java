@@ -7,8 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
-import com.motorola.models.representation.DeviceHandle;
-import com.motorola.models.representation.PersonnelHandle;
+import com.motorola.models.representation.RoleHandle;
 import com.motorola.models.representation.UserSession;
 import com.motorola.translation.setter.DateSetter;
 import com.motorola.translation.setter.Setter;
@@ -30,19 +29,16 @@ public class UserSessionMapper {
 	static {
 		setters.put(InterfaceConstants.BookOnProperties.CUSTOMER_ID, new StringSetter<>(UserSession::setCustomerId));
 		setters.put(InterfaceConstants.BookOnProperties.SESSION_ID, new StringSetter<>(UserSession::setSessionId));
-		setters.put(InterfaceConstants.BookOnProperties.DEVICE_KEY, (model, value) -> {
-			if (value != null) {
-				DeviceHandle deviceHandle = new DeviceHandle();
-				deviceHandle.setKey(CadCloudUtils.getStringFromJsonElement((JsonElement) value));
-				model.setDevice(deviceHandle);
-			}
-		});
-		setters.put(InterfaceConstants.BookOnProperties.USER_KEY, (model, value) -> {
-			if (value != null) {
-				PersonnelHandle personnelHandle = new PersonnelHandle();
-				personnelHandle.setKey(CadCloudUtils.getStringFromJsonElement((JsonElement) value));
-				model.setUser(personnelHandle);
-			}
+		setters.put(InterfaceConstants.BookOnProperties.DEVICE, (model, value) ->
+			model.setDevice(new DeviceHandleMapper().createAndMapDeviceHandle((JsonObject) value))
+		);
+		setters.put(InterfaceConstants.BookOnProperties.USER, (model, value) ->
+			model.setUser(new PersonnelHandleMapper().createAndMapPersonnelHandle((JsonObject) value))
+		);
+		setters.put(InterfaceConstants.BookOnProperties.ROLE, (model, value) -> {
+			RoleHandle role = new RoleHandleMapper().createAndMapRoleHandle((JsonObject) value);
+			role.setKey(InterfaceConstants.BookOnProperties.ROLE_KEY_VAL);
+			model.setRole(role);
 		});
 		setters.put(InterfaceConstants.BookOnProperties.WHEN_SESSION_CREATED,
 			new DateSetter<>(UserSession::setWhenSessionCreated, InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT));

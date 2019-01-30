@@ -1,33 +1,47 @@
 {
   "customerId": "myCustomerId",
-  "correlationId": "myCorrelationId",
-  "sessionId": "mySessionID",
-  "deviceKey":"myDeviceID",
-  "userKey":"myUserId",
-  "requestType": "BookOnRequest",
-  "whenSessionCreated": "2018-10-18T10:16:04.663Z",
-  "whenSessionUpdated": "2018-10-18T10:16:04.663Z",
-  "apiAccessList": [{
-    "permissionId": "Record.All",
-    "permissionLevels": ["READ", "ADD"]
-  },
+  "apiAccessList": [
     {
-      "permissionId": "SecondRecord.All",
-      "permissionLevels": ["READ", "ADD"]
+      "permissionId": "Record.All",
+      "permissionLevels": [
+        "READ",
+        "ADD"
+      ]
     }
   ],
   "monitorAreas": {
-    "areas": [{
-      "uid": "LNW"
-    }
+    "areas": [
+      {
+        "uid": "LSW"
+      }
     ]
   },
   "additionalInfo": {
     "unit": {
-      "key": "unitKey",
-      "agency": "unitAgency"
+      "key": "104",
+      "agency": "SPD"
     }
-  }
+  },
+  "whenSessionCreated": "2019-01-30T12:26:23.771Z",
+  "whenSessionUpdated": "2019-01-30T12:26:23.771Z",
+  "user": {
+    "userKey": "userKey",
+    "userNameCode": "userNameCode",
+    "userAgency": "userAgency"
+  },
+  "device": {
+    "deviceKey": "deviceKey",
+    "deviceName": "deviceName",
+    "deviceAgency": "deviceAgency"
+  },
+  "role": {
+    "roleKey": "roleKey",
+    "roleNameCode": "roleNameCode",
+    "roleAgency": "roleAgency"
+  },
+  "requestType": "BookOnRequest",
+  "correlationId": "myCorrelationId",
+  "sessionId": "mySessionID"
 }
 
 

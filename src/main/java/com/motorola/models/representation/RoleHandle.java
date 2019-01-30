@@ -10,6 +10,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
 public class RoleHandle implements Serializable {
+
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
@@ -17,7 +18,7 @@ public class RoleHandle implements Serializable {
 
 	private String nameCode;
 
-	private Lookup agency;
+	private String agencyAlias;
 
 	/**
 	 * Returns the value of property "key".
@@ -50,19 +51,18 @@ public class RoleHandle implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "agency".
-	 *
+	 * Returns the value of property "agencyAlias".
+	 * Role's Agency Id
 	 */
-	public Lookup getAgency() {
-		return agency;
+	public String getAgencyAlias() {
+		return agencyAlias;
 	}
 
 	/**
-	 * Updates the value of property "agency".
+	 * Updates the value of property "agencyAlias".
 	 */
-	public void setAgency(Lookup agency) {
-		this.agency = agency;
+	public void setAgencyAlias(String agencyAlias) {
+		this.agencyAlias = agencyAlias;
 	}
-
 }
 

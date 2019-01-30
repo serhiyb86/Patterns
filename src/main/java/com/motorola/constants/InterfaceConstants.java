@@ -38,8 +38,17 @@ public final class InterfaceConstants {
 	public final class BookOnProperties {
 
 		public static final String BOOK_ON_REQUEST_TYPE = "BookOnRequest";
+		public static final String DEVICE = "device";
 		public static final String DEVICE_KEY = "deviceKey";
+		public static final String DEVICE_AGENCY = "deviceAgency";
+		public static final String DEVICE_NAME = "deviceName";
+		public static final String USER = "user";
 		public static final String USER_KEY = "userKey";
+		public static final String USER_NAME = "userNameCode";
+		public static final String USER_AGENCY = "userAgency";
+		public static final String ROLE = "role";
+		public static final String ROLE_NAME = "roleNameCode";
+		public static final String ROLE_AGENCY = "roleAgency";
 		public static final String WHEN_SESSION_CREATED = "whenSessionCreated";
 		public static final String WHEN_SESSION_UPDATED = "whenSessionUpdated";
 		public static final String API_ACCESS_LIST = "apiAccessList";

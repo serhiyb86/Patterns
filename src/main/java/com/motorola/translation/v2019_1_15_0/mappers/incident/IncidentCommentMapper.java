@@ -7,7 +7,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
-import com.motorola.models.Config;
 import com.motorola.models.representation.IncidentComment;
 import com.motorola.models.representation.PersonnelHandle;
 import com.motorola.models.representation.UnitHandle;

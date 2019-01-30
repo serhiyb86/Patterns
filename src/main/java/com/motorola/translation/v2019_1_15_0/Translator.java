@@ -8,7 +8,6 @@ import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.ResponseNotification;
-import com.motorola.models.representation.RoleHandle;
 import com.motorola.models.representation.Unit;
 import com.motorola.models.representation.UpdateEmergencyIncident;
 import com.motorola.models.representation.UpdateUnit;
@@ -44,9 +43,6 @@ public class Translator implements BaseTranslator {
 		validateRequiredStringField(correlationId, InterfaceConstants.BookOnProperties.CORRELATION_ID);
 		result.setCorrelationId(correlationId);
 		UserSession userSession = new UserSessionMapper().createAndMapToUserSession(payload);
-		RoleHandle roleHandle = new RoleHandle();
-		roleHandle.setKey(InterfaceConstants.BookOnProperties.ROLE_KEY_VAL);
-		userSession.setRole(roleHandle);
 		result.setModel(userSession);
 		validateRequiredObjectField(userSession.getApiAccessList(), InterfaceConstants.BookOnProperties.API_ACCESS_LIST);
 		validateRequiredObjectField(userSession.getMonitorAreas(), InterfaceConstants.BookOnProperties.MONITOR_AREAS);
