@@ -10,7 +10,6 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
 public class PersonnelHandle implements Serializable {
-
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
@@ -18,7 +17,7 @@ public class PersonnelHandle implements Serializable {
 
 	private String nameCode;
 
-	private Lookup agency;
+	private String agencyAlias;
 
 	/**
 	 * Returns the value of property "key".
@@ -51,18 +50,18 @@ public class PersonnelHandle implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "agency".
-	 *
+	 * Returns the value of property "agencyAlias".
+	 * User's Agency Id
 	 */
-	public Lookup getAgency() {
-		return agency;
+	public String getAgencyAlias() {
+		return agencyAlias;
 	}
 
 	/**
-	 * Updates the value of property "agency".
+	 * Updates the value of property "agencyAlias".
 	 */
-	public void setAgency(Lookup agency) {
-		this.agency = agency;
+	public void setAgencyAlias(String agencyAlias) {
+		this.agencyAlias = agencyAlias;
 	}
 
 }

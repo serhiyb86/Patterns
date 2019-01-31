@@ -17,6 +17,10 @@ public final class InterfaceConstants {
 		public static final String REQUEST_TYPE = "requestType";
 		public static final String UID_JSON_KEY = "uid";
 		public static final String DATA_JSON_KEY = "data";
+		public static final String DATE_FORMAT = "yyyy-MM-dd";
+		public static final String ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+		public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+		public static final String AVL_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.S";
 	}
 
 	/**
@@ -35,8 +39,17 @@ public final class InterfaceConstants {
 	public final class BookOnProperties {
 
 		public static final String BOOK_ON_REQUEST_TYPE = "BookOnRequest";
-		public static final String DEVICE_ID = "deviceId";
-		public static final String USER_ID = "userId";
+		public static final String DEVICE = "device";
+		public static final String DEVICE_KEY = "deviceKey";
+		public static final String DEVICE_AGENCY = "deviceAgency";
+		public static final String DEVICE_NAME = "deviceName";
+		public static final String USER = "user";
+		public static final String USER_KEY = "userKey";
+		public static final String USER_NAME = "userNameCode";
+		public static final String USER_AGENCY = "userAgency";
+		public static final String ROLE = "role";
+		public static final String ROLE_NAME = "roleNameCode";
+		public static final String ROLE_AGENCY = "roleAgency";
 		public static final String WHEN_SESSION_CREATED = "whenSessionCreated";
 		public static final String WHEN_SESSION_UPDATED = "whenSessionUpdated";
 		public static final String API_ACCESS_LIST = "apiAccessList";
@@ -180,8 +193,6 @@ public final class InterfaceConstants {
 			public static final String ID_JSON_KEY = "id";
 			public static final String OLD_JSON_KEY = "old";
 			public static final String NEW_JSON_KEY = "new";
-			public static final String DATE_FORMAT = "yyyy-MM-dd";
-			public static final String ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 		}
 
 		/**

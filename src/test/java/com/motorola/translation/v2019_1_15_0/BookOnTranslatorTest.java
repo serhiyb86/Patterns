@@ -4,37 +4,50 @@
 package com.motorola.translation.v2019_1_15_0;
 
 import com.google.gson.JsonObject;
+import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.representation.DeviceHandle;
+import com.motorola.models.representation.PersonnelHandle;
+import com.motorola.models.representation.RoleHandle;
 import com.motorola.models.representation.UserSession;
 import com.motorola.models.representation.UserSessionWrapper;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Contains unit tests related to the BookOn translation.
  */
 public class BookOnTranslatorTest extends TranslatorTest {
 
-	private JsonObject bookOnJson;
-	private String bookOnInputName = "bookOnInput.json";
-
-	@Before
-	public void setup() {
-		bookOnJson = initInputPayload(bookOnInputName);
-	}
+	private final SimpleDateFormat zonedDateTimeFormat = new SimpleDateFormat(InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT);
 
 	@Test
-	public void translateBookOn_validData_Test() {
+	public void translateBookOn_validData_Test() throws ParseException {
+		JsonObject bookOnJson = initInputPayload("bookOnInput.json");
 		UserSessionWrapper wrapper = getTranslator().translateBookOn(bookOnJson);
 		UserSession model = wrapper.getModel();
 		Assert.assertEquals("Correlation id translation failed", "myCorrelationId", wrapper.getCorrelationId());
 		Assert.assertEquals("Customer id translation failed", "myCustomerId", model.getCustomerId());
 		Assert.assertEquals("Session id translation failed", "mySessionID", model.getSessionId());
-		Assert.assertEquals("User id translation failed", "myUserId", model.getUserId());
-		Assert.assertEquals("Device id translation failed", "myDeviceID", model.getDeviceId());
-		Assert.assertEquals("Device id translation failed", "user", model.getRoleKey());
-		Assert.assertEquals("Api access list size translation failed", 2, model.getApiAccessList().size());
-		Assert.assertNotNull("Empty create date after translation", model.getWhenSessionCreated());
-		Assert.assertNotNull("Empty updat date after translation", model.getWhenSessionUpdated());
+		Assert.assertEquals("Api access list size translation failed", 1, model.getApiAccessList().size());
+		Assert.assertEquals("Wrong create date after translation", zonedDateTimeFormat.parse("2019-01-30T12:26:23.771Z"), model.getWhenSessionCreated());
+		Assert.assertEquals("Wrong update date after translation", zonedDateTimeFormat.parse("2019-01-30T12:26:23.771Z"), model.getWhenSessionUpdated());
+		RoleHandle role = model.getRole();
+		Assert.assertNotNull(role);
+		Assert.assertEquals("role.key translation failed", "user", role.getKey());
+		Assert.assertEquals("role.agencyAlias translation failed", "roleAgency", role.getAgencyAlias());
+		Assert.assertEquals("role.nameCode translation failed", "roleNameCode", role.getNameCode());
+		DeviceHandle device = model.getDevice();
+		Assert.assertNotNull(device);
+		Assert.assertEquals("device.key translation failed", "deviceKey", device.getKey());
+		Assert.assertEquals("device.agencyAlias translation failed", "deviceAgency", device.getAgencyAlias());
+		Assert.assertEquals("device.nameCode translation failed", "deviceName", device.getName());
+		PersonnelHandle user = model.getUser();
+		Assert.assertNotNull(user);
+		Assert.assertEquals("user.key translation failed", "userKey", user.getKey());
+		Assert.assertEquals("user.agencyAlias translation failed", "userAgency", user.getAgencyAlias());
+		Assert.assertEquals("user.nameCode translation failed", "userNameCode", user.getNameCode());
 	}
 }

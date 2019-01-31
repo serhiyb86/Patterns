@@ -24,8 +24,8 @@ import java.util.function.BiConsumer;
 public class ApiDateSetter<T> implements Setter<T> {
 
 	private final BiConsumer<T, String> setFunction;
-	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(InterfaceConstants.EmergencyIncident.GeneralProperties.DATE_FORMAT);
-	private DateTimeFormatter apiDateFormatter = DateTimeFormatter.ofPattern(InterfaceConstants.EmergencyIncident.GeneralProperties.ZONED_DATE_TIME_FORMAT);
+	private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(InterfaceConstants.GeneralProperties.DATE_FORMAT);
+	private DateTimeFormatter apiDateFormatter = DateTimeFormatter.ofPattern(InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT);
 	private static final Logger LOGGER = LoggerFactory.getLogger(Translator.class);
 
 	public ApiDateSetter(BiConsumer<T, String> setFunction) {

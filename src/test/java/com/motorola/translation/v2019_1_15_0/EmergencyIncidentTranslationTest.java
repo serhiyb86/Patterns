@@ -3,7 +3,9 @@
  */
 package com.motorola.translation.v2019_1_15_0;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.JsonObject;
+import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.Disposition;
 import com.motorola.models.representation.EmergencyIncident;
@@ -18,6 +20,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -25,8 +28,11 @@ import java.util.List;
  */
 public class EmergencyIncidentTranslationTest extends TranslatorTest {
 
+	private final SimpleDateFormat dateTimeFormat = new SimpleDateFormat(InterfaceConstants.GeneralProperties.DATE_TIME_FORMAT);
+	private final SimpleDateFormat dateFormat = new SimpleDateFormat(InterfaceConstants.GeneralProperties.DATE_FORMAT);
+
 	@Test
-	public void translateCreateIncident_validData_Test() throws ParseException {
+	public void translateCreateIncident_validData_Test() throws ParseException, JsonProcessingException {
 		String insertIncidentFileName = "insertIncident.json";
 		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
@@ -36,7 +42,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("Complainant", subject.getRole().get(0));
 		Person person = subject.getPerson();
 		Assert.assertEquals("first_c", person.getFirstName());
-		Assert.assertEquals("1950-01-01T00:00:00.000Z", person.getDateOfBirth());
+		Assert.assertEquals(dateFormat.parse("1950-01-01"), person.getDateOfBirth());
 		Assert.assertEquals("last11", person.getLastName());
 		Assert.assertEquals("mm", person.getMiddleName());
 		Assert.assertEquals("ss", person.getSuffix());
@@ -62,7 +68,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("ABC999", vehicle.getLicensePlate());
 		Assert.assertEquals("WV", vehicle.getLicenseState());
 		Assert.assertEquals("PC", vehicle.getLicenseType().getUid());
-		Assert.assertEquals("2018-11-30T00:00:00.000Z", vehicle.getLicenseExpirationDate());
+		Assert.assertEquals(dateFormat.parse("2018-11-30"), vehicle.getLicenseExpirationDate());
 		Assert.assertEquals("2000", String.valueOf(vehicle.getYear()));
 		Assert.assertEquals("PONT", vehicle.getMake().getUid());
 		Assert.assertEquals("6000", vehicle.getModel().getUid());
@@ -105,7 +111,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("Complainant", newSubject.getRole().get(0));
 		Person newPersonValue = newSubject.getPerson();
 		Assert.assertEquals("first_new", newPersonValue.getFirstName());
-		Assert.assertEquals("1950-01-01T00:00:00.000Z", newPersonValue.getDateOfBirth());
+		Assert.assertEquals(dateFormat.parse("1950-01-01"), newPersonValue.getDateOfBirth());
 		Assert.assertEquals("last11_new", newPersonValue.getLastName());
 		Assert.assertEquals("mm_new", newPersonValue.getMiddleName());
 		Assert.assertEquals("ss_new", newPersonValue.getSuffix());
@@ -127,7 +133,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("Complainant", oldSubject.getRole().get(0));
 		Person oldPersonValue = oldSubject.getPerson();
 		Assert.assertEquals("first_old", oldPersonValue.getFirstName());
-		Assert.assertEquals("1950-01-01T00:00:00.000Z", oldPersonValue.getDateOfBirth());
+		Assert.assertEquals(dateFormat.parse("1950-01-01"), oldPersonValue.getDateOfBirth());
 		Assert.assertEquals("last11_old", oldPersonValue.getLastName());
 		Assert.assertEquals("mm_old", oldPersonValue.getMiddleName());
 		Assert.assertEquals("ss_old", oldPersonValue.getSuffix());
@@ -144,7 +150,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 	}
 
 	@Test
-	public void testDispatchIncidentDataTransformation() {
+	public void testDispatchIncidentDataTransformation() throws ParseException {
 		String insertIncidentFileName = "dispatch_incident_test.json";
 		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
@@ -181,7 +187,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		IncidentComment comment = dispatchIncident.getComments().get(0);
 		Assert.assertEquals("2dc19f42-590a-4d04-8481-573a21f4bdf7", comment.getKey());
 		Assert.assertEquals("comment1", comment.getComments());
-		Assert.assertEquals("2018-03-12T08:00:51-06:00", comment.getWhenEntered());
+		Assert.assertEquals(dateTimeFormat.parse("2018-03-12T08:00:51-06:00"), comment.getWhenEntered());
 		Assert.assertNotNull(comment.getSource());
 		Assert.assertEquals("User", comment.getSource().getUid());
 		Assert.assertEquals("All", comment.getAudience());

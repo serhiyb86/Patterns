@@ -34,7 +34,11 @@ public class ProvisionItem implements Serializable {
 
 	private String agencyKey;
 
+	private String agencyAlias;
+
 	private String agencyTypeKey;
+
+	private String agencyTypeAlias;
 
 	private String parentKey;
 
@@ -137,6 +141,21 @@ public class ProvisionItem implements Serializable {
 	}
 
 	/**
+	 * Returns the value of property "agencyAlias".
+	 * Agency code for the setting belongs to. Null to be agency type or customer wide
+	 */
+	public String getAgencyAlias() {
+		return agencyAlias;
+	}
+
+	/**
+	 * Updates the value of property "agencyAlias".
+	 */
+	public void setAgencyAlias(String agencyAlias) {
+		this.agencyAlias = agencyAlias;
+	}
+
+	/**
 	 * Returns the value of property "agencyTypeKey".
 	 * Agency key uid for the setting belongs to. Null to be agency or customer wide
 	 */
@@ -150,6 +169,22 @@ public class ProvisionItem implements Serializable {
 	public void setAgencyTypeKey(String agencyTypeKey) {
 		this.agencyTypeKey = agencyTypeKey;
 	}
+
+	/**
+	 * Returns the value of property "agencyTypeAlias".
+	 * Agency code for the setting belongs to. Null to be agency or customer wide
+	 */
+	public String getAgencyTypeAlias() {
+		return agencyTypeAlias;
+	}
+
+	/**
+	 * Updates the value of property "agencyTypeAlias".
+	 */
+	public void setAgencyTypeAlias(String agencyTypeAlias) {
+		this.agencyTypeAlias = agencyTypeAlias;
+	}
+
 
 	/**
 	 * Returns the value of property "parentKey".

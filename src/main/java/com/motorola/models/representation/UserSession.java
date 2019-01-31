@@ -2,10 +2,14 @@ package com.motorola.models.representation;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.motorola.models.Config;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,8 +17,7 @@ import java.util.List;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
-public class UserSession implements java.io.Serializable {
-
+public class UserSession implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
@@ -22,21 +25,21 @@ public class UserSession implements java.io.Serializable {
 
 	private String sessionId;
 
-	private String userId;
+	private PersonnelHandle user;
 
-	private String deviceId;
+	private DeviceHandle device;
 
-	private String roleKey;
+	private RoleHandle role;
 
-	private List<String> apiAccessList = new ArrayList<String>();
+	private List<String> apiAccessList = new ArrayList<>();
 
 	private MonitorAreas monitorAreas;
 
 	private AdditionalInfo additionalInfo;
 
-	private String whenSessionCreated;
+	private Date whenSessionCreated;
 
-	private String whenSessionUpdated;
+	private Date whenSessionUpdated;
 
 	/**
 	 * Returns the value of property "customerId".
@@ -52,6 +55,7 @@ public class UserSession implements java.io.Serializable {
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
+
 	/**
 	 * Returns the value of property "sessionId".
 	 *
@@ -68,48 +72,48 @@ public class UserSession implements java.io.Serializable {
 	}
 
 	/**
-	 * Returns the value of property "userId".
+	 * Returns the value of property "user".
 	 *
 	 */
-	public String getUserId() {
-		return userId;
+	public PersonnelHandle getUser() {
+		return user;
 	}
 
 	/**
-	 * Updates the value of property "userId".
+	 * Updates the value of property "user".
 	 */
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUser(PersonnelHandle user) {
+		this.user = user;
 	}
 
 	/**
-	 * Returns the value of property "deviceId".
+	 * Returns the value of property "device".
 	 *
 	 */
-	public String getDeviceId() {
-		return deviceId;
+	public DeviceHandle getDevice() {
+		return device;
 	}
 
 	/**
-	 * Updates the value of property "deviceId".
+	 * Updates the value of property "device".
 	 */
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
+	public void setDevice(DeviceHandle device) {
+		this.device = device;
 	}
 
 	/**
-	 * Returns the value of property "roleKey".
+	 * Returns the value of property "role".
 	 *
 	 */
-	public String getRoleKey() {
-		return roleKey;
+	public RoleHandle getRole() {
+		return role;
 	}
 
 	/**
-	 * Updates the value of property "roleKey".
+	 * Updates the value of property "role".
 	 */
-	public void setRoleKey(String roleKey) {
-		this.roleKey = roleKey;
+	public void setRole(RoleHandle role) {
+		this.role = role;
 	}
 
 	/**
@@ -161,14 +165,15 @@ public class UserSession implements java.io.Serializable {
 	 * Returns the value of property "whenSessionCreated".
 	 * The time stamp when the book on request is processed by on prem CAD
 	 */
-	public String getWhenSessionCreated() {
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
+	public Date getWhenSessionCreated() {
 		return whenSessionCreated;
 	}
 
 	/**
 	 * Updates the value of property "whenSessionCreated".
 	 */
-	public void setWhenSessionCreated(String whenSessionCreated) {
+	public void setWhenSessionCreated(Date whenSessionCreated) {
 		this.whenSessionCreated = whenSessionCreated;
 	}
 
@@ -176,14 +181,15 @@ public class UserSession implements java.io.Serializable {
 	 * Returns the value of property "whenSessionUpdated".
 	 * The time stamp when the book on request is processed by on prem CAD
 	 */
-	public String getWhenSessionUpdated() {
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
+	public Date getWhenSessionUpdated() {
 		return whenSessionUpdated;
 	}
 
 	/**
 	 * Updates the value of property "whenSessionUpdated".
 	 */
-	public void setWhenSessionUpdated(String whenSessionUpdated) {
+	public void setWhenSessionUpdated(Date whenSessionUpdated) {
 		this.whenSessionUpdated = whenSessionUpdated;
 	}
 

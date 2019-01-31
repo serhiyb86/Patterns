@@ -2,11 +2,14 @@ package com.motorola.models.representation;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.motorola.models.Config;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -28,7 +31,7 @@ public class Person implements Serializable {
 
 	private String phone;
 
-	private String dateOfBirth;
+	private Date dateOfBirth;
 
 	private String comment;
 
@@ -146,17 +149,20 @@ public class Person implements Serializable {
 
 	/**
 	 * Returns the value of property "dateOfBirth".
+	 * Person's Date of Birth
 	 */
-	public String getDateOfBirth() {
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
 	/**
 	 * Updates the value of property "dateOfBirth".
 	 */
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+
 
 	/**
 	 * Returns the value of property "comment".

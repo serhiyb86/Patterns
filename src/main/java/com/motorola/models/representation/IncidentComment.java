@@ -3,10 +3,13 @@
  */
 package com.motorola.models.representation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.motorola.models.Config;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
@@ -21,7 +24,7 @@ public class IncidentComment implements Serializable {
 
 	private String comments;
 
-	private String whenEntered;
+	private Date whenEntered;
 
 	private Lookup source;
 
@@ -36,7 +39,6 @@ public class IncidentComment implements Serializable {
 	private DeviceHandle device;
 
 	private String isPriority;
-
 	/**
 	 * Returns the value of property "key".
 	 * Comment text
@@ -71,14 +73,15 @@ public class IncidentComment implements Serializable {
 	 * Returns the value of property "whenEntered".
 	 * Date and Time of the Incident Comment
 	 */
-	public String getWhenEntered() {
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
+	public Date getWhenEntered() {
 		return whenEntered;
 	}
 
 	/**
 	 * Updates the value of property "whenEntered".
 	 */
-	public void setWhenEntered(String whenEntered) {
+	public void setWhenEntered(Date whenEntered) {
 		this.whenEntered = whenEntered;
 	}
 

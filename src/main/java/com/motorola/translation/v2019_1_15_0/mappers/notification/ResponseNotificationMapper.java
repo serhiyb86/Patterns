@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.ApiError;
 import com.motorola.models.representation.ResponseNotification;
+import com.motorola.translation.setter.DateSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
@@ -26,7 +27,7 @@ public class ResponseNotificationMapper {
 		setters.put(InterfaceConstants.NotificationProperties.SERVICE_ID, new StringSetter<>(ResponseNotification::setServiceId));
 		setters.put(InterfaceConstants.NotificationProperties.CUSTOMER_ID, new StringSetter<>(ResponseNotification::setCustomerId));
 		setters.put(InterfaceConstants.NotificationProperties.NOTIFICATION_TYPE, new StringSetter<>(ResponseNotification::setNotificationType));
-		setters.put(InterfaceConstants.NotificationProperties.WHEN_SUBMITTED, new StringSetter<>(ResponseNotification::setWhenSubmitted));
+		setters.put(InterfaceConstants.NotificationProperties.WHEN_SUBMITTED, new DateSetter<>(ResponseNotification::setWhenSubmitted, InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT));
 		setters.put(InterfaceConstants.NotificationProperties.SESSION_ID, new StringSetter<>(ResponseNotification::setSessionId));
 		setters.put(InterfaceConstants.NotificationProperties.RESULT_NATURE, new StringSetter<>(ResponseNotification::setResultNature));
 		setters.put(InterfaceConstants.NotificationProperties.ERROR, (model, value) -> {

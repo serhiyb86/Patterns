@@ -2,10 +2,13 @@ package com.motorola.models.representation;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.motorola.models.Config;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -28,7 +31,7 @@ public class ANIALI implements Serializable {
 
 	private String rawData;
 
-	private String whenReceived;
+	private Date whenReceived;
 
 	/**
 	 * Returns the value of property "address".
@@ -139,14 +142,15 @@ public class ANIALI implements Serializable {
 	 * Returns the value of property "whenReceived".
 	 * Date and Time when ANIALI Received
 	 */
-	public String getWhenReceived() {
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
+	public Date getWhenReceived() {
 		return whenReceived;
 	}
 
 	/**
 	 * Updates the value of property "whenReceived".
 	 */
-	public void setWhenReceived(String whenReceived) {
+	public void setWhenReceived(Date whenReceived) {
 		this.whenReceived = whenReceived;
 	}
 
