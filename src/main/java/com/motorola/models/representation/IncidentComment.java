@@ -3,13 +3,13 @@
  */
 package com.motorola.models.representation;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.motorola.models.Config;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.motorola.models.serializer.ZonedDateTimeSerializer;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
@@ -24,7 +24,8 @@ public class IncidentComment implements Serializable {
 
 	private String comments;
 
-	private Date whenEntered;
+	@JsonSerialize(using = ZonedDateTimeSerializer.class)
+	private ZonedDateTime whenEntered;
 
 	private Lookup source;
 
@@ -73,15 +74,14 @@ public class IncidentComment implements Serializable {
 	 * Returns the value of property "whenEntered".
 	 * Date and Time of the Incident Comment
 	 */
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public Date getWhenEntered() {
+	public ZonedDateTime getWhenEntered() {
 		return whenEntered;
 	}
 
 	/**
 	 * Updates the value of property "whenEntered".
 	 */
-	public void setWhenEntered(Date whenEntered) {
+	public void setWhenEntered(ZonedDateTime whenEntered) {
 		this.whenEntered = whenEntered;
 	}
 

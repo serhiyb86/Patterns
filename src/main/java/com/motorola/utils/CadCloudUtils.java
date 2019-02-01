@@ -3,6 +3,9 @@
  */
 package com.motorola.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -27,6 +30,7 @@ public class CadCloudUtils {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CadCloudUtils.class);
 	private static final JsonParser JSON_PARSER = new JsonParser();
 	private static final Gson GSON = new Gson();
+	private static final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer();
 
 	/**
 	 * Method that extracts json payload from the http request
@@ -50,10 +54,14 @@ public class CadCloudUtils {
 	 * @return json string
 	 */
 	public static String convertObjectToJsonString(Object object) {
-		if (object != null) {
-			return GSON.toJson(object);
+		String serializedObject = null;
+		try {
+			serializedObject = OBJECT_WRITER.writeValueAsString(object);
 		}
-		return null;
+		catch (JsonProcessingException e) {
+			LOGGER.error("Failed to serialize Object.", e);
+		}
+		return serializedObject;
 	}
 
 	/**

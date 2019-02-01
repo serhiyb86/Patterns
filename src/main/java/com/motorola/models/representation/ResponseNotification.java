@@ -2,13 +2,13 @@ package com.motorola.models.representation;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.motorola.models.Config;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.motorola.models.serializer.ZonedDateTimeSerializer;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 /**
  * Response notification SB message
@@ -28,7 +28,8 @@ public class ResponseNotification implements Serializable {
 
 	private String notificationType;
 
-	private Date whenSubmitted;
+	@JsonSerialize(using = ZonedDateTimeSerializer.class)
+	private ZonedDateTime whenSubmitted;
 
 	private String sessionId;
 
@@ -78,15 +79,14 @@ public class ResponseNotification implements Serializable {
 	 * Returns the value of property "whenSubmitted".
 	 * The time stamp when the book on response notification is submitted
 	 */
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public Date getWhenSubmitted() {
+	public ZonedDateTime getWhenSubmitted() {
 		return whenSubmitted;
 	}
 
 	/**
 	 * Updates the value of property "whenSubmitted".
 	 */
-	public void setWhenSubmitted(Date whenSubmitted) {
+	public void setWhenSubmitted(ZonedDateTime whenSubmitted) {
 		this.whenSubmitted = whenSubmitted;
 	}
 

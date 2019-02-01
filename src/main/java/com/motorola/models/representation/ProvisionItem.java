@@ -5,11 +5,13 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.motorola.models.Config;
+import com.motorola.models.serializer.LocalDateTimeSerializer;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,9 +46,11 @@ public class ProvisionItem implements Serializable {
 
 	private List<KeyValue> attritues = new ArrayList<KeyValue>();
 
-	private Date whenUpdated;
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	private LocalDateTime whenUpdated;
 
-	private Date whenCreated;
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	private LocalDateTime whenCreated;
 
 	private Boolean isExpired;
 
@@ -214,7 +218,7 @@ public class ProvisionItem implements Serializable {
 	 * Timestamp when the entry was updated
 	 */
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public Date getWhenUpdated() {
+	public LocalDateTime getWhenUpdated() {
 		return whenUpdated;
 	}
 
@@ -228,7 +232,7 @@ public class ProvisionItem implements Serializable {
 	/**
 	 * Updates the value of property "whenUpdated".
 	 */
-	public void setWhenUpdated(Date whenUpdated) {
+	public void setWhenUpdated(LocalDateTime whenUpdated) {
 		this.whenUpdated = whenUpdated;
 	}
 
@@ -236,15 +240,14 @@ public class ProvisionItem implements Serializable {
 	 * Returns the value of property "whenCreated".
 	 * Timestamp when the entry was created
 	 */
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public java.util.Date getWhenCreated() {
+	public LocalDateTime getWhenCreated() {
 		return whenCreated;
 	}
 
 	/**
 	 * Updates the value of property "whenCreated".
 	 */
-	public void setWhenCreated(Date whenCreated) {
+	public void setWhenCreated(LocalDateTime whenCreated) {
 		this.whenCreated = whenCreated;
 	}
 
