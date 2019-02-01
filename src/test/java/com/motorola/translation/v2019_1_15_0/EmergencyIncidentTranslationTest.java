@@ -3,14 +3,18 @@
  */
 package com.motorola.translation.v2019_1_15_0;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.representation.Address;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.Disposition;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.IncidentComment;
 import com.motorola.models.representation.InvolvedVehicle;
+import com.motorola.models.representation.Jurisdiction;
+import com.motorola.models.representation.Location;
 import com.motorola.models.representation.Person;
 import com.motorola.models.representation.ReportNumber;
 import com.motorola.models.representation.Subject;
@@ -56,6 +60,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("BLN", person.getHairColor().getUid());
 		Assert.assertEquals("112qweqwe1", person.getDriverLicenseNumber());
 		Assert.assertEquals("AD", person.getDriverLicenseState());
+		Assert.assertEquals("customerId", emergencyIncident.getCustomerId());
 		//Involved vehicle
 		List<InvolvedVehicle> involvedVehicleList = emergencyIncident.getVehicles();
 		Assert.assertEquals(1, involvedVehicleList.size());
@@ -107,6 +112,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		EmergencyIncident newIncident = updateEmergencyIncident.get__new();
 		Assert.assertEquals("C6002", newIncident.getAlias());
 		Assert.assertEquals("C6002", newIncident.getKey());
+		Assert.assertEquals("customerId", newIncident.getCustomerId());
 		Subject newSubject = newIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", newSubject.getRole().get(0));
 		Person newPersonValue = newSubject.getPerson();
@@ -154,8 +160,9 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		String insertIncidentFileName = "dispatch_incident_test.json";
 		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
+		Assert.assertNotNull(emergencyIncident);
 		DispatchableIncident dispatchIncident = emergencyIncident.getDispatches().get(0);
-
+		Assert.assertNotNull(dispatchIncident);
 		Assert.assertEquals("24e", dispatchIncident.getAlias());
 		// TODO:Key
 		Assert.assertEquals("e", dispatchIncident.getDiscipline().getUid());
@@ -206,6 +213,27 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("1109-0013", reportNumber.getAlias());
 		Assert.assertEquals("SPDF", reportNumber.getAgencyAlias());
 		Assert.assertNull(reportNumber.getUnitHandle());
+		// Dispatch - Location
+		Location location = dispatchIncident.getLocation();
+		Assert.assertNotNull(location);
+		Assert.assertEquals("1", location.getKey());
+
+		Address address = location.getAddress();
+		Assert.assertNotNull(address);
+		Assert.assertEquals("100 S MAIN ST", address.getFullText());
+		Assert.assertEquals("Intersection of: S MAIN ST & S MAN ST & HUNTSVILLE RD", address.getCrossStreet());
+		Assert.assertEquals("SFD", address.getCity());
+		Assert.assertEquals("ND", address.getState());
+		Assert.assertEquals("35630", address.getZip());
+		Assert.assertEquals("34.8109", address.getLatitude());
+		Assert.assertEquals("-87.6465", address.getLongitude());
+		Assert.assertEquals("100 S MAIN ST", address.getDescription());
+		Assert.assertEquals("100", address.getGeoverificationLevel());
+		Assert.assertTrue(address.getIsVerified());
+
+		Jurisdiction jurisdiction = address.getJurisdiction();
+		Assert.assertNotNull(jurisdiction);
+		Assert.assertEquals("LSW", jurisdiction.getArea().getUid());
 	}
 
 }

@@ -1,6 +1,7 @@
 {
   "data": [
     {
+      "customerId": "customerId",
       "id": "C6002",
       "recordTitle": "Abdominal at 100 S MAIN ST",
       "emergencyNature": "Abdominal",

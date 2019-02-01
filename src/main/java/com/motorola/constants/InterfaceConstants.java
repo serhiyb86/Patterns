@@ -90,6 +90,7 @@ public final class InterfaceConstants {
 	 */
 	public final class EmergencyIncident {
 
+		public static final String CUSTOMER_ID = "customerId";
 		/**
 		 *  Contains EmergencyIncident Person properties.
 		 */
@@ -146,6 +147,8 @@ public final class InterfaceConstants {
 			public static final String TYPE = "type";
 			public static final String RESPONSIBLE_UNIT_ID = "responsibleUnitId";
 			public static final String RELATED_RECORDS = "relatedRecords";
+			public static final String INCIDENT_LOCATION = "incidentLocation";
+			public static final String ZONE = "zone";
 
 			/**
 			 * Contains RelatedRecord properties
@@ -155,6 +158,35 @@ public final class InterfaceConstants {
 				public static final String REPORT_NUMBER = "reportNumber";
 				public static final String ID = "id";
 				public static final String AGENCY = "agency";
+			}
+
+			public final class IncidentLocation {
+
+				public static final String ADDRESS = "address";
+				public static final String TYPE = "type";
+
+				public final class Address {
+
+					public static final String STREET_FULL_TEXT = "streetFullText";
+					public static final String CROSS_STREET = "crossStreets";
+					public static final String CITY = "city";
+					public static final String STATE = "state";
+					public static final String ZIP = "zip";
+					public static final String LATITUDE = "latitude";
+					public static final String LONGITUDE = "longitude";
+					public static final String ID = "id";
+					public static final String ALERTS = "alerts";
+
+					public final class Alert {
+
+						public static final String TYPE = "type";
+						public static final String CODE = "code";
+						public static final String COMMENT = "comment";
+						public static final String LEVEL = "level";
+						public static final String START_DATE = "startDate";
+						public static final String END_DATE = "endDate";
+					}
+				}
 			}
 		}
 
