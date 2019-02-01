@@ -7,7 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Vehicle;
-import com.motorola.translation.setter.DateSetter;
+import com.motorola.translation.setter.LocalDateSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
@@ -28,7 +28,7 @@ public class VehicleMapper extends AbstractMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_PLATE, new StringSetter<>(Vehicle::setLicensePlate));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_STATE, new StringSetter<>(Vehicle::setLicenseState));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_TYPE, (model, value) -> model.setLicenseType(createLookup((JsonElement) value)));
-		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENSE_EXPIRATION, new DateSetter<>(Vehicle::setLicenseExpirationDate, InterfaceConstants.GeneralProperties.DATE_FORMAT));
+		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENSE_EXPIRATION, new LocalDateSetter<>(Vehicle::setLicenseExpirationDate, InterfaceConstants.GeneralProperties.DATE_FORMAT));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.YEAR, new LongSetter<>(Vehicle::setYear));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.MAKE, (model, value) -> model.setMake(createLookup((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.MODEL, (model, value) -> model.setModel(createLookup((JsonElement) value)));

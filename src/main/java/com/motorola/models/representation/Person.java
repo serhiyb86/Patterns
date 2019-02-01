@@ -5,11 +5,13 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.motorola.models.Config;
+import com.motorola.models.serializer.LocalDateSerializer;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -31,7 +33,8 @@ public class Person implements Serializable {
 
 	private String phone;
 
-	private Date dateOfBirth;
+	@JsonSerialize(using = LocalDateSerializer.class)
+	private LocalDate dateOfBirth;
 
 	private String comment;
 
@@ -152,14 +155,14 @@ public class Person implements Serializable {
 	 * Person's Date of Birth
 	 */
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
 	/**
 	 * Updates the value of property "dateOfBirth".
 	 */
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

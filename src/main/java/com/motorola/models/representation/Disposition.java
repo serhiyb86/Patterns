@@ -3,13 +3,13 @@
  */
 package com.motorola.models.representation;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.motorola.models.Config;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.motorola.models.serializer.LocalDateTimeSerializer;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
@@ -28,7 +28,8 @@ public class Disposition implements Serializable {
 
 	private UnitHandle unitHandle;
 
-	private Date whenCadDispositionEntered;
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	private LocalDateTime whenCadDispositionEntered;
 
 	private String comment;
 
@@ -96,15 +97,14 @@ public class Disposition implements Serializable {
 	 * Returns the value of property "whenCadDispositionEntered".
 	 * Date and Time the Disposition was entered
 	 */
-	@JsonFormat(shape =JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public Date getWhenCadDispositionEntered() {
+	public LocalDateTime getWhenCadDispositionEntered() {
 		return whenCadDispositionEntered;
 	}
 
 	/**
 	 * Updates the value of property "whenCadDispositionEntered".
 	 */
-	public void setWhenCadDispositionEntered(Date whenCadDispositionEntered) {
+	public void setWhenCadDispositionEntered(LocalDateTime whenCadDispositionEntered) {
 		this.whenCadDispositionEntered = whenCadDispositionEntered;
 	}
 

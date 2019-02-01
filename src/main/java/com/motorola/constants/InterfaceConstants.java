@@ -18,7 +18,8 @@ public final class InterfaceConstants {
 		public static final String UID_JSON_KEY = "uid";
 		public static final String DATA_JSON_KEY = "data";
 		public static final String DATE_FORMAT = "yyyy-MM-dd";
-		public static final String ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+		public static final String ZONED_DATE_TIME_WITH_MS_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+		public static final String ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
 		public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 		public static final String AVL_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.S";
 	}

@@ -2,13 +2,13 @@ package com.motorola.models.representation;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.motorola.models.Config;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.motorola.models.serializer.LocalDateTimeSerializer;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -25,7 +25,8 @@ public class GpsData implements Serializable {
 
 	private String speed;
 
-	private Date whenReported;
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	private LocalDateTime whenReported;
 
 	/**
 	 * Returns the value of property "latitude".
@@ -91,15 +92,14 @@ public class GpsData implements Serializable {
 	 * Returns the value of property "whenReported".
 	 * Date and Time of the last update
 	 */
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public Date getWhenReported() {
+	public LocalDateTime getWhenReported() {
 		return whenReported;
 	}
 
 	/**
 	 * Updates the value of property "whenReported".
 	 */
-	public void setWhenReported(Date whenReported) {
+	public void setWhenReported(LocalDateTime whenReported) {
 		this.whenReported = whenReported;
 	}
 

@@ -4,7 +4,7 @@
 package com.motorola.translation.v2019_1_15_0;
 
 import com.google.gson.JsonObject;
-import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.Config;
 import com.motorola.models.representation.DeviceHandle;
 import com.motorola.models.representation.PersonnelHandle;
 import com.motorola.models.representation.RoleHandle;
@@ -14,14 +14,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Contains unit tests related to the BookOn translation.
  */
 public class BookOnTranslatorTest extends TranslatorTest {
 
-	private final SimpleDateFormat zonedDateTimeFormat = new SimpleDateFormat(InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT);
+	private final DateTimeFormatter format = DateTimeFormatter.ofPattern(Config.DATETIME_FORMAT);
 
 	@Test
 	public void translateBookOn_validData_Test() throws ParseException {
@@ -32,8 +33,8 @@ public class BookOnTranslatorTest extends TranslatorTest {
 		Assert.assertEquals("Customer id translation failed", "myCustomerId", model.getCustomerId());
 		Assert.assertEquals("Session id translation failed", "mySessionID", model.getSessionId());
 		Assert.assertEquals("Api access list size translation failed", 1, model.getApiAccessList().size());
-		Assert.assertEquals("Wrong create date after translation", zonedDateTimeFormat.parse("2019-01-30T12:26:23.771Z"), model.getWhenSessionCreated());
-		Assert.assertEquals("Wrong update date after translation", zonedDateTimeFormat.parse("2019-01-30T12:26:23.771Z"), model.getWhenSessionUpdated());
+		Assert.assertEquals("Wrong create date after translation", ZonedDateTime.parse("2019-01-30T12:26:23.771Z", format), model.getWhenSessionCreated());
+		Assert.assertEquals("Wrong update date after translation", ZonedDateTime.parse("2019-01-30T12:26:23.771Z", format), model.getWhenSessionUpdated());
 		RoleHandle role = model.getRole();
 		Assert.assertNotNull(role);
 		Assert.assertEquals("role.key translation failed", "user", role.getKey());

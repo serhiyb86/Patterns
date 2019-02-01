@@ -7,11 +7,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.Config;
 import com.motorola.models.representation.RoleHandle;
 import com.motorola.models.representation.UserSession;
-import com.motorola.translation.setter.DateSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import com.motorola.translation.setter.ZonedDateTimeSetter;
 import com.motorola.utils.CadCloudUtils;
 
 import java.util.ArrayList;
@@ -41,9 +42,9 @@ public class UserSessionMapper {
 			model.setRole(role);
 		});
 		setters.put(InterfaceConstants.BookOnProperties.WHEN_SESSION_CREATED,
-			new DateSetter<>(UserSession::setWhenSessionCreated, InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT));
+			new ZonedDateTimeSetter<>(UserSession::setWhenSessionCreated, Config.DATETIME_FORMAT));
 		setters.put(InterfaceConstants.BookOnProperties.WHEN_SESSION_UPDATED,
-			new DateSetter<>(UserSession::setWhenSessionUpdated, InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT));
+			new ZonedDateTimeSetter<>(UserSession::setWhenSessionUpdated, Config.DATETIME_FORMAT));
 		//	will be changed after clarifications of the onPrem permission model.
 		setters.put(InterfaceConstants.BookOnProperties.API_ACCESS_LIST, (model, value) -> {
 			List<String> result = new ArrayList<>();

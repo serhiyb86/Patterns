@@ -4,20 +4,21 @@
 package com.motorola.translation.v2019_1_15_0;
 
 import com.google.gson.JsonObject;
-import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.Config;
 import com.motorola.models.representation.ResponseNotification;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Contains unit tests related to the Error translation.
  */
 public class ErrorTranslatorTest extends TranslatorTest {
 
-	private final SimpleDateFormat zonedDateTimeFormat = new SimpleDateFormat(InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT);
+	private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern(Config.DATETIME_FORMAT);
 
 	@Test
 	public void translateErrorNotification_validData_Test() throws ParseException {
@@ -27,7 +28,7 @@ public class ErrorTranslatorTest extends TranslatorTest {
 		Assert.assertEquals("Customer Id translation failed", "Cust1488SR", notification.getCustomerId());
 		Assert.assertEquals("Correlation Id translation failed", "88844-859-53", notification.getCorrelationId());
 		Assert.assertEquals("Notification type Id translation failed", "Response", notification.getNotificationType());
-		Assert.assertEquals("When submitted translation failed", zonedDateTimeFormat.parse("2018-10-31T18:05:58.203Z"), notification.getWhenSubmitted());
+		Assert.assertEquals("When submitted translation failed", ZonedDateTime.parse("2018-10-31T18:05:58.203Z", dateTimeFormat), notification.getWhenSubmitted());
 		Assert.assertEquals("Session Id translation failed", "string", notification.getSessionId());
 		Assert.assertEquals("Result nature translation failed", "Failure", notification.getResultNature());
 		Assert.assertNotNull("Empty error, failed translate error object", notification.getError());
