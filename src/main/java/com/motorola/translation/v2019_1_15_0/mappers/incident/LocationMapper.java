@@ -27,12 +27,11 @@ public class LocationMapper {
 	}
 
 	public Location createAndMapLocation(JsonObject data, Jurisdiction jurisdiction) {
-		Location location = new Location();
+		final Location location = new Location();
 
-		data.entrySet().forEach(entry -> {
-			Setter<Location> consumer = setters.get(entry.getKey());
-			if (consumer != null) {
-				consumer.accept(location, entry.getValue());
+		setters.forEach((key, consumer)->{
+			if (data.get(key)!= null) {
+				consumer.accept(location, data.get(key));
 			}
 		});
 

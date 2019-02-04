@@ -43,12 +43,10 @@ public class AddressMapper extends AbstractMapper {
 	 * @return {@link Address} object
 	 */
 	public Address createAndMapToAddress(JsonObject data, Jurisdiction jurisdiction) {
-		Address address = new Address();
-
-		data.entrySet().forEach(entry -> {
-			Setter<Address> consumer = setters.get(entry.getKey());
-			if (consumer != null) {
-				consumer.accept(address, entry.getValue());
+		final Address address = new Address();
+		setters.forEach((key, consumer)->{
+			if (data.get(key)!= null) {
+				consumer.accept(address, data.get(key));
 			}
 		});
 
