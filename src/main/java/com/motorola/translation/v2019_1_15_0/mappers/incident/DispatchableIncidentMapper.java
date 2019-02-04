@@ -8,6 +8,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.DispatchableIncident;
+import com.motorola.models.representation.Jurisdiction;
+import com.motorola.models.representation.Location;
 import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.Nature;
 import com.motorola.models.representation.ReportNumber;
@@ -95,6 +97,7 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 		DispatchableIncident dispatchableIncident = new DispatchableIncident();
 		// set default value for IsScheduled
 		dispatchableIncident.setIsScheduled(false);
+		dispatchableIncident.setLocation(createLocation(data));
 		data.entrySet().forEach(entry -> {
 			Setter<DispatchableIncident> consumer = setters.get(entry.getKey());
 			if (consumer != null) {
@@ -136,5 +139,32 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 			return createLookup(strVal);
 		}
 		return new Lookup();
+	}
+
+	/**
+	 * Creates {@link Jurisdiction} object
+	 */
+	private Jurisdiction createJurisdiction(String zone) {
+		Jurisdiction jurisdiction = new Jurisdiction();
+		if (zone != null) {
+			jurisdiction.setArea(createLookup(zone));
+		}
+		return jurisdiction;
+	}
+
+	/**
+	 * Creates {@link Location} object
+	 */
+	private Location createLocation(JsonObject data) {
+		JsonObject locationJson = CadCloudUtils.getJsonByKey(data, InterfaceConstants.EmergencyIncident.Dispatches.INCIDENT_LOCATION);
+		String zone = CadCloudUtils.getStringByKey(data, InterfaceConstants.EmergencyIncident.Dispatches.ZONE);
+
+		if (locationJson != null) {
+			LocationMapper locationMapper = new LocationMapper();
+			return locationMapper.createAndMapLocation(locationJson, createJurisdiction(zone));
+		}
+		else {
+			return new Location();
+		}
 	}
 }

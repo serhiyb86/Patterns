@@ -13,6 +13,7 @@ import com.motorola.models.representation.IncidentComment;
 import com.motorola.models.representation.InvolvedVehicle;
 import com.motorola.models.representation.Subject;
 import com.motorola.translation.setter.Setter;
+import com.motorola.translation.setter.StringSetter;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -58,7 +59,7 @@ public class EmergencyIncidentMapper {
 				model.getDispatches().forEach(d -> d.setComments(incidentComments));
 			}
 		});
-
+		setters.put(InterfaceConstants.EmergencyIncident.CUSTOMER_ID, new StringSetter<>(EmergencyIncident::setCustomerId));
 	}
 
 	public EmergencyIncident createAndMapToEmergencyIncident(JsonObject data) {

@@ -51,6 +51,24 @@
           "disciplineNature": "Abdominal",
           "discipline": "e",
           "priority": "1",
+          "incidentLocation": {
+            "id": "240",
+            "recordTitle": "100 S MAIN ST, SFD, ND 35630",
+            "address": {
+              "id": "240",
+              "recordTitle": "100 S MAIN ST, SFD, ND 35630",
+              "streetFullText": "100 S MAIN ST",
+              "houseNumber": "100",
+              "street": "S MAIN ST",
+              "city": "SFD",
+              "state": "ND",
+              "zip": "35630",
+              "crossStreets": "Intersection of: S MAIN ST & S MAN ST & HUNTSVILLE RD",
+              "latitude": 34.8109,
+              "longitude": -87.6465
+            }
+          },
+          "zone": "LSW",
           "incidentCreated": "2018-11-21T05:57:37-07:00",
           "determinant": {
             "id": "01A01",
