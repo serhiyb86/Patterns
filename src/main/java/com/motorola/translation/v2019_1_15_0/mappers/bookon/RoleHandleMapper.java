@@ -21,7 +21,7 @@ public class RoleHandleMapper {
 
 	static {
 		setters.put(InterfaceConstants.BookOnProperties.ROLE_NAME, new StringSetter<>(RoleHandle::setNameCode));
-		setters.put(InterfaceConstants.BookOnProperties.ROLE_AGENCY, new StringSetter<>(RoleHandle::setAgencyAlias));
+		setters.put(InterfaceConstants.BookOnProperties.ROLE_AGENCY_ALIAS, new StringSetter<>(RoleHandle::setAgencyAlias));
 	}
 
 	/**
