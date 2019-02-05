@@ -27,17 +27,17 @@
   "user": {
     "userKey": "userKey",
     "userNameCode": "userNameCode",
-    "userAgency": "userAgency"
+    "userAgencyAlias": "userAgency"
   },
   "device": {
     "deviceKey": "deviceKey",
     "deviceName": "deviceName",
-    "deviceAgency": "deviceAgency"
+    "deviceAgencyAlias": "deviceAgency"
   },
   "role": {
     "roleKey": "roleKey",
     "roleNameCode": "roleNameCode",
-    "roleAgency": "roleAgency"
+    "roleAgencyAlias": "roleAgency"
   },
   "requestType": "BookOnRequest",
   "correlationId": "myCorrelationId",

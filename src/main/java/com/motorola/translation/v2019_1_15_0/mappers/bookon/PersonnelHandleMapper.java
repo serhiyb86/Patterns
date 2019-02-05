@@ -22,7 +22,7 @@ public class PersonnelHandleMapper {
 	static {
 		setters.put(InterfaceConstants.BookOnProperties.USER_KEY, new StringSetter<>(PersonnelHandle::setKey));
 		setters.put(InterfaceConstants.BookOnProperties.USER_NAME, new StringSetter<>(PersonnelHandle::setNameCode));
-		setters.put(InterfaceConstants.BookOnProperties.USER_AGENCY, new StringSetter<>(PersonnelHandle::setAgencyAlias));
+		setters.put(InterfaceConstants.BookOnProperties.USER_AGENCY_ALIAS, new StringSetter<>(PersonnelHandle::setAgencyAlias));
 	}
 
 	/**
