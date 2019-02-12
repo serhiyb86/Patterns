@@ -22,9 +22,9 @@ public class IncidentHandleMapper {
 
 	static {
 		setters.put(InterfaceConstants.Unit.AssignedIncident.CALL_ID, (model, value) -> {
-			String id = ((JsonElement) value).getAsString();
-			model.setKey(id);
-			model.setId(id);
+			String callId = ((JsonElement) value).getAsString();
+			model.setKey(callId);
+			model.setAlias(callId);
 		});
 		setters.put(InterfaceConstants.Unit.AssignedIncident.DISPATCH_KEY, new StringSetter<>(IncidentHandle::setDispatchKey));
 		setters.put(InterfaceConstants.Unit.AssignedIncident.DISPATCH_ALIAS, new StringSetter<>(IncidentHandle::setDispatchAlias));

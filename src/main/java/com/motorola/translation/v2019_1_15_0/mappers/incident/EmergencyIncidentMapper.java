@@ -55,7 +55,7 @@ public class EmergencyIncidentMapper {
 			JsonArray incidentCommentsJSON = ((JsonElement) value).getAsJsonArray();
 			IncidentCommentMapper incidentCommentMapper = new IncidentCommentMapper();
 			List<IncidentComment> incidentComments = incidentCommentMapper.createAndMapToIncidentCommentList(incidentCommentsJSON);
-			if (model.getDispatches() != null && model.getDispatches().size() > 0) {
+			if (model.getDispatches() != null && !model.getDispatches().isEmpty()) {
 				model.getDispatches().forEach(d -> d.setComments(incidentComments));
 			}
 		});

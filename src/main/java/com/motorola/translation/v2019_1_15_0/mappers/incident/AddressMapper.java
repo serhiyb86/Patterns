@@ -33,7 +33,7 @@ public class AddressMapper extends AbstractMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.LONGITUDE, new StringSetter<>(Address::setLongitude));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ID, new MultipleFieldsStringSetter<>(
 			(model, value) -> model.setIsVerified(StringUtils.isNotEmpty(value)),
-			(model, value) -> model.setGeoverificationLevel(StringUtils.isEmpty(value) ? "" : "100")));
+			(model, value) -> model.setGeoverificationLevel(StringUtils.isEmpty(value) ? "0" : "100")));
 	}
 
 	/**

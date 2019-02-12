@@ -50,13 +50,9 @@ public class IncidentCommentMapper extends AbstractMapper {
 			user.setNameCode(userName.getAsString());
 			model.setOnBehalfOfUser(user);
 		});
-		setters.put(InterfaceConstants.EmergencyIncident.Comment.ENTERED_BY, (model, value) -> {
-			JsonObject jsonObject = ((JsonElement) value).getAsJsonObject();
-			JsonElement officerName = jsonObject.get(InterfaceConstants.EmergencyIncident.Comment.ENTERED_BY_SNAME);
-			PersonnelHandle personnel = new PersonnelHandle();
-			personnel.setNameCode(officerName.getAsString());
-			model.setEnteredBy(personnel);
-		});
+		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.ENTERED_BY, (model, value) ->
+			model.setEnteredBy(new PersonnelHandleMapper().createAndMapPersonnelHandle((JsonObject) value))
+		);
 		//Ignore Device for now
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.URGENCY, (model, value) -> model.setIsPriority(parseUrgency((JsonElement) value)));
 	}
