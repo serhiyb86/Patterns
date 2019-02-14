@@ -250,6 +250,7 @@ public final class InterfaceConstants {
 
 			public final class EnteredBy {
 				public static final String ENTERED_BY = "enteredBy";
+				public static final String ABBR = "abbr";
 				public static final String SNAME = "shortName";
 				public static final String AGENCY = "agency";
 			}

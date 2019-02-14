@@ -44,6 +44,11 @@ public class AddressMapper extends AbstractMapper {
 	 */
 	public Address createAndMapToAddress(JsonObject data, Jurisdiction jurisdiction) {
 		final Address address = new Address();
+
+		//Set default values
+		address.setIsVerified(false);
+		address.setGeoverificationLevel("0");
+
 		setters.forEach((key, consumer)->{
 			if (data.get(key)!= null) {
 				consumer.accept(address, data.get(key));
