@@ -33,7 +33,7 @@ public class AddressMapper extends AbstractMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.LONGITUDE, new StringSetter<>(Address::setLongitude));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ID, new MultipleFieldsStringSetter<>(
 			(model, value) -> model.setIsVerified(StringUtils.isNotEmpty(value)),
-			(model, value) -> model.setGeoverificationLevel(StringUtils.isEmpty(value) ? "" : "100")));
+			(model, value) -> model.setGeoverificationLevel(StringUtils.isEmpty(value) ? "0" : "100")));
 	}
 
 	/**
@@ -44,6 +44,11 @@ public class AddressMapper extends AbstractMapper {
 	 */
 	public Address createAndMapToAddress(JsonObject data, Jurisdiction jurisdiction) {
 		final Address address = new Address();
+
+		//Set default values
+		address.setIsVerified(false);
+		address.setGeoverificationLevel("0");
+
 		setters.forEach((key, consumer)->{
 			if (data.get(key)!= null) {
 				consumer.accept(address, data.get(key));

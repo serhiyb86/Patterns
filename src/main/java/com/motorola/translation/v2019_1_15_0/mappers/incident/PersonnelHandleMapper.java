@@ -1,7 +1,10 @@
 /*
  * Copyright 2019 Motorola Solutions, Inc. ALL RIGHTS RESERVED
  */
-package com.motorola.translation.v2019_1_15_0.mappers.bookon;
+package com.motorola.translation.v2019_1_15_0.mappers.incident;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
@@ -9,20 +12,17 @@ import com.motorola.models.representation.PersonnelHandle;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * Mapper for converting Json Object with appropriate data to the {@link PersonnelHandle} object for BookOn model.
+ * Mapper for converting Json Object with appropriate data to the {@link PersonnelHandle} object for EmergencyIncident model.
  */
 public class PersonnelHandleMapper {
 
 	private static final Map<String, Setter<PersonnelHandle>> setters = new HashMap<>();
 
 	static {
-		setters.put(InterfaceConstants.BookOnProperties.USER_KEY, new StringSetter<>(PersonnelHandle::setKey));
-		setters.put(InterfaceConstants.BookOnProperties.USER_NAME, new StringSetter<>(PersonnelHandle::setNameCode));
-		setters.put(InterfaceConstants.BookOnProperties.USER_AGENCY_ALIAS, new StringSetter<>(PersonnelHandle::setAgencyAlias));
+		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.ABBR, new StringSetter<>(PersonnelHandle::setKey));
+		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.SNAME, new StringSetter<>(PersonnelHandle::setNameCode));
+		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.AGENCY, new StringSetter<>(PersonnelHandle::setAgencyAlias));
 	}
 
 	/**

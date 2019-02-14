@@ -122,6 +122,7 @@ public final class InterfaceConstants {
 		public final class Subject {
 
 			public static final String INVOLVED_CAD_SUBJECTS = "involvedCADSubjects";
+			public static final String ID = "id";
 			public static final String SUBJECT = "subject";
 			public static final String ROLE = "role";
 		}
@@ -236,8 +237,6 @@ public final class InterfaceConstants {
 			public static final String ID = "id";
 			public static final String RECORD_TITLE = "recordTitle";
 			public static final String CALL_NUMBER = "callNumber";
-			public static final String ENTERED_BY = "enteredBy";
-			public static final String ENTERED_BY_SNAME = "shortName";
 			public static final String WHEN_ENTERED = "whenEntered";
 			public static final String URGENCY = "urgency";
 			public static final String COMMENT = "comment";
@@ -248,6 +247,13 @@ public final class InterfaceConstants {
 			public static final String ON_BEHALF_OF_UNIT_ID = "id";
 			public static final String ON_BEHALF_OF_USER = "onBehalfOfUser";
 			public static final String ON_BEHALF_OF_USER_SNAME = "shortName";
+
+			public final class EnteredBy {
+				public static final String ENTERED_BY = "enteredBy";
+				public static final String ABBR = "abbr";
+				public static final String SNAME = "shortName";
+				public static final String AGENCY = "agency";
+			}
 		}
 
 	}

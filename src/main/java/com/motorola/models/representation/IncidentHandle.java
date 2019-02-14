@@ -17,7 +17,7 @@ public class IncidentHandle implements Serializable {
 
 	private String key;
 
-	private String id;
+	private String alias;
 
 	private String dispatchKey;
 
@@ -39,18 +39,18 @@ public class IncidentHandle implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "id".
-	 * Incident Id
+	 * Returns the value of property "alias".
+	 * Incident alias
 	 */
-	public String getId() {
-		return id;
+	public String getAlias() {
+		return alias;
 	}
 
 	/**
-	 * Updates the value of property "id".
+	 * Updates the value of property "alias".
 	 */
-	public void setId(String id) {
-		this.id = id;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 	/**
