@@ -9,6 +9,7 @@ import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.IncidentHandle;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,10 @@ public class IncidentHandleMapper {
 				value.accept(incidentHandle, incidentHandleData.get(key));
 			}
 		});
+		// TODO: remove after general validation logic will be added.
+		if (StringUtils.isBlank(incidentHandle.getKey()) || StringUtils.isBlank(incidentHandle.getDispatchKey())) {
+			return null;
+		}
 		return incidentHandle;
 	}
 }
