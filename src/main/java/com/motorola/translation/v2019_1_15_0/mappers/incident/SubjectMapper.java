@@ -27,14 +27,14 @@ public class SubjectMapper {
 	private static final Map<String, Setter<Subject>> setters = new HashMap<>();
 
 	static {
-		setters.put(InterfaceConstants.EmergencyIncident.Subject.ID, (model, value) ->
-			model.setKey(CadCloudUtils.getStringFromJsonElement((JsonElement) value))
-		);
 		setters.put(InterfaceConstants.EmergencyIncident.Subject.ROLE, (model, value) ->
 			model.setRole(Collections.singletonList(CadCloudUtils.getStringFromJsonElement((JsonElement) value)))
 		);
-		setters.put(InterfaceConstants.EmergencyIncident.Subject.SUBJECT, (model, value) -> {
+		setters.put(InterfaceConstants.EmergencyIncident.Subject.NestedSubject.NESTED_SUBJECT, (model, value) -> {
 			JsonObject subjectObject = ((JsonElement) value).getAsJsonObject();
+			//Map ID
+			model.setKey(CadCloudUtils.getStringByKey(subjectObject, InterfaceConstants.EmergencyIncident.Subject.NestedSubject.ID));
+			//Map Person
 			JsonObject jsonPerson = CadCloudUtils.getJsonByKey(subjectObject, InterfaceConstants.EmergencyIncident.Person.PERSON);
 			Person person = new PersonMapper().createAndMapToPerson(jsonPerson);
 			if (StringUtils.isNotBlank(person.getLastName())) {
