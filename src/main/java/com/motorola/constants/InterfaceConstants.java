@@ -122,9 +122,13 @@ public final class InterfaceConstants {
 		public final class Subject {
 
 			public static final String INVOLVED_CAD_SUBJECTS = "involvedCADSubjects";
-			public static final String ID = "id";
-			public static final String SUBJECT = "subject";
 			public static final String ROLE = "role";
+
+			public final class NestedSubject {
+
+				public static final String NESTED_SUBJECT = "subject";
+				public static final String ID = "id";
+			}
 		}
 
 		/**
