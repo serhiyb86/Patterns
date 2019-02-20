@@ -146,7 +146,7 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 	 */
 	private Jurisdiction createJurisdiction(String zone) {
 		Jurisdiction jurisdiction = null;
-		if (zone != null) {
+		if (StringUtils.isNotBlank(zone)) {
 			jurisdiction = new Jurisdiction();
 			jurisdiction.setArea(createLookup(zone));
 		}

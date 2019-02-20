@@ -3,6 +3,12 @@
  */
 package com.motorola.translation.v2019_1_15_0.mappers.incident;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Address;
@@ -11,15 +17,14 @@ import com.motorola.translation.setter.MultipleFieldsStringSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.v2019_1_15_0.mappers.AbstractMapper;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.motorola.utils.CadCloudUtils;
 
 /**
  * Mapper for converting Json Object with Address data to the {@link Address} object.
  */
 public class AddressMapper extends AbstractMapper {
+
+	private static final String NO_GEOVALID = "NOGEO";
 
 	private static final Map<String, Setter<Address>> setters = new HashMap<>();
 
@@ -31,9 +36,14 @@ public class AddressMapper extends AbstractMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ZIP, new StringSetter<>(Address::setZip));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.LATITUDE, new StringSetter<>(Address::setLatitude));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.LONGITUDE, new StringSetter<>(Address::setLongitude));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ID, new MultipleFieldsStringSetter<>(
-			(model, value) -> model.setIsVerified(StringUtils.isNotEmpty(value)),
-			(model, value) -> model.setGeoverificationLevel(StringUtils.isEmpty(value) ? "0" : "100")));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ID, (model, value) -> {
+			String idValue = CadCloudUtils.getStringFromJsonElement((JsonElement) value);
+			if (StringUtils.isNotBlank(idValue) && !NO_GEOVALID.equals(idValue)) {
+				//If address is geo-valid
+				model.setIsVerified(true);
+				model.setGeoverificationLevel("100");
+			} //otherwise - default values remain
+		});
 	}
 
 	/**
