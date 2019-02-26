@@ -25,13 +25,17 @@ public class AlertMapper extends AbstractMapper {
 	private static final Map<String, Setter<Alert>> setters = new HashMap<>();
 
 	static {
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.TYPE, (model, value)  -> model.setType(createLookup((JsonElement) value)));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.CODE, (model, value)  -> model.setCategory(createLookup((JsonElement) value)));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.COMMENT, new StringSetter<>(Alert::setTitle));
-		//TODO: verifylevels
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.TYPE, (model, value) -> model.setType(createLookup((JsonElement) value)));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.ALERT, (model, value) -> model.setCategory(createLookup((JsonElement) value)));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.COMMENT, ((model, value) -> {
+			String comment = ((JsonElement) value).getAsString();
+			// comment and title
+			model.setTitle(comment);
+			model.setComment(comment);
+		}));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.LEVEL, new StringSetter<>(Alert::setPriority));
-		//TODO: verify comment and title
-		//TODO: created dat is string or Date
+		//TODO: check formats
+		//setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.START_DATE, new LocalDateTimeSetter<>(Alert::setWhenCreated, InterfaceConstants.GeneralProperties.DATE_FORMAT));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.END_DATE, new StringSetter<>(Alert::setWhenExpired));
 	}
 
