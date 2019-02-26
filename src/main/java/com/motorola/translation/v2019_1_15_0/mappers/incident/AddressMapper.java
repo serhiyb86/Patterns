@@ -6,6 +6,7 @@ package com.motorola.translation.v2019_1_15_0.mappers.incident;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.JsonArray;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.JsonElement;
@@ -38,11 +39,18 @@ public class AddressMapper extends AbstractMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.LONGITUDE, new StringSetter<>(Address::setLongitude));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ID, (model, value) -> {
 			String idValue = CadCloudUtils.getStringFromJsonElement((JsonElement) value);
+			model.setId(idValue);
 			if (StringUtils.isNotBlank(idValue) && !NO_GEOVALID.equals(idValue)) {
 				//If address is geo-valid
 				model.setIsVerified(true);
 				model.setGeoverificationLevel("100");
 			} //otherwise - default values remain
+		});
+
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ALERTS, (model, value) -> {
+			AlertMapping alertMapping = new AlertMapping();
+			JsonArray alerts = ((JsonElement) value).getAsJsonArray();
+			model.setAlerts(alertMapping.createAndMapToAlertList(alerts));
 		});
 	}
 
@@ -59,8 +67,8 @@ public class AddressMapper extends AbstractMapper {
 		address.setIsVerified(false);
 		address.setGeoverificationLevel("0");
 
-		setters.forEach((key, consumer)->{
-			if (data.get(key)!= null) {
+		setters.forEach((key, consumer) -> {
+			if (data.get(key) != null) {
 				consumer.accept(address, data.get(key));
 			}
 		});

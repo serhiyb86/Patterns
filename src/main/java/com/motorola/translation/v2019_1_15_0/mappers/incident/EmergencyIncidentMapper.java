@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.representation.Address;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.IncidentComment;
@@ -14,7 +15,9 @@ import com.motorola.models.representation.InvolvedVehicle;
 import com.motorola.models.representation.Subject;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import com.motorola.utils.CadCloudUtils;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +32,15 @@ public class EmergencyIncidentMapper {
 	private static DispatchableIncidentMapper dispatchesMapper = new DispatchableIncidentMapper();
 
 	static {
+		//map address with alerts
+		Map<String, Address> emergencyAlertLocationAddress = new HashMap<>();
+		setters.put(InterfaceConstants.EmergencyIncident.GeneralProperties.REPORTED_EMERGENCY_LOCATION_KEY, (model, value) -> {
+			JsonObject addressObject = CadCloudUtils.getJsonByKey((JsonObject) value, InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.ADDRESS);
+			AddressMapper addressMapper = new AddressMapper();
+			Address address = addressMapper.createAndMapToAddress(addressObject, null);
+			emergencyAlertLocationAddress.put(address.getId(), address);
+		});
+
 		setters.put(InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY, (model, value) -> {
 			String id = ((JsonElement) value).getAsString();
 			model.setAlias(id);

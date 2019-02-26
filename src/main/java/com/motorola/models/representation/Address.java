@@ -16,6 +16,8 @@ public class Address implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
+	private String id;
+
 	private String fullText;
 
 	private String crossStreet;
@@ -47,6 +49,14 @@ public class Address implements Serializable {
 	private List<Alert> alerts = new ArrayList<Alert>();
 
 	private String geoverificationLevel;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	/**
 	 * Returns the value of property "fullText".

@@ -231,6 +231,7 @@ public final class InterfaceConstants {
 			public static final String ID_JSON_KEY = "id";
 			public static final String OLD_JSON_KEY = "old";
 			public static final String NEW_JSON_KEY = "new";
+			public static final String REPORTED_EMERGENCY_LOCATION_KEY = "reportedEmergencyLocation";
 		}
 
 		/**
