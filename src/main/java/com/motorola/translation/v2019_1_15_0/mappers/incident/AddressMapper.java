@@ -48,7 +48,7 @@ public class AddressMapper extends AbstractMapper {
 		});
 
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ALERTS, (model, value) -> {
-			AlertMapping alertMapping = new AlertMapping();
+			AlertMapper alertMapping = new AlertMapper();
 			JsonArray alerts = ((JsonElement) value).getAsJsonArray();
 			model.setAlerts(alertMapping.createAndMapToAlertList(alerts));
 		});
