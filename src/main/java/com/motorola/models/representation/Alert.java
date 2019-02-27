@@ -5,7 +5,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.motorola.models.serializer.LocalDateTimeSerializer;
+import com.motorola.models.serializer.LocalDateSerializer;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -29,7 +29,7 @@ public class Alert implements Serializable {
 
 	private String whenExpired;
 
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate whenCreated;
 
 	private Contact owner;
