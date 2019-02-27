@@ -30,12 +30,12 @@ public class AlertMapper extends AbstractMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.ALERT, (model, value) -> model.setCategory(createLookup((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.COMMENT, ((model, value) -> {
 			String comment = ((JsonElement) value).getAsString();
-			// comment and title
+			// comment and title mapped to one incoming value
 			model.setTitle(comment);
 			model.setComment(comment);
 		}));
+		// the level field doesn't receive from API ( will be hardcoded for default value '0'
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.LEVEL, new StringSetter<>(Alert::setPriority));
-		//TODO: check formats
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.START_DATE, new LocalDateSetter<>(Alert::setWhenCreated, InterfaceConstants.GeneralProperties.DATE_FORMAT));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.END_DATE, new StringSetter<>(Alert::setWhenExpired));
 	}
@@ -48,9 +48,16 @@ public class AlertMapper extends AbstractMapper {
 				consumer.accept(alert, entry.getValue());
 			}
 		});
+		// set default value '0' for priority
+		alert.setPriority("0`");
 		return alert;
 	}
 
+	/***
+	 * Create the list of alerts
+	 * @param alerts - json array objects with alerts information
+	 * @returnlist of alerts
+	 */
 	public List<Alert> createAndMapToAlertList(JsonArray alerts) {
 		List<Alert> involvements = new ArrayList<>();
 		for (JsonElement element : alerts) {
