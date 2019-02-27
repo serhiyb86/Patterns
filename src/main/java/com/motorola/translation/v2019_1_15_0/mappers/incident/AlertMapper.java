@@ -42,10 +42,9 @@ public class AlertMapper extends AbstractMapper {
 
 	private Alert mapToAlert(JsonObject data) {
 		Alert alert = new Alert();
-		data.entrySet().forEach(entry -> {
-			Setter<Alert> consumer = setters.get(entry.getKey());
-			if (consumer != null) {
-				consumer.accept(alert, entry.getValue());
+		setters.forEach((key, consumer)->{
+			if (data.get(key)!= null) {
+				consumer.accept(alert, data.get(key));
 			}
 		});
 		// set default value '0' for priority
