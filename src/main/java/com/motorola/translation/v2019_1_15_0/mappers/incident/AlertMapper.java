@@ -49,7 +49,7 @@ public class AlertMapper extends AbstractMapper {
 			}
 		});
 		// set default value '0' for priority
-		alert.setPriority("0`");
+		alert.setPriority("0");
 		return alert;
 	}
 
