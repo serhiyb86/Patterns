@@ -5,10 +5,10 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.motorola.models.serializer.LocalDateTimeSerializer;
+import com.motorola.models.serializer.LocalDateSerializer;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -29,8 +29,8 @@ public class Alert implements Serializable {
 
 	private String whenExpired;
 
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	private LocalDateTime whenCreated;
+	@JsonSerialize(using = LocalDateSerializer.class)
+	private LocalDate whenCreated;
 
 	private Contact owner;
 
@@ -129,14 +129,14 @@ public class Alert implements Serializable {
 	 * Returns the value of property "whenCreated".
 	 * Date and Time when the alert was created
 	 */
-	public LocalDateTime getWhenCreated() {
+	public LocalDate getWhenCreated() {
 		return whenCreated;
 	}
 
 	/**
 	 * Updates the value of property "whenCreated".
 	 */
-	public void setWhenCreated(LocalDateTime whenCreated) {
+	public void setWhenCreated(LocalDate whenCreated) {
 		this.whenCreated = whenCreated;
 	}
 

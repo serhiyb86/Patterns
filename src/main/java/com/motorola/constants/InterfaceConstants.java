@@ -186,7 +186,7 @@ public final class InterfaceConstants {
 					public final class Alert {
 
 						public static final String TYPE = "type";
-						public static final String CODE = "code";
+						public static final String ALERT = "alert";
 						public static final String COMMENT = "comment";
 						public static final String LEVEL = "level";
 						public static final String START_DATE = "startDate";
@@ -231,6 +231,7 @@ public final class InterfaceConstants {
 			public static final String ID_JSON_KEY = "id";
 			public static final String OLD_JSON_KEY = "old";
 			public static final String NEW_JSON_KEY = "new";
+			public static final String REPORTED_EMERGENCY_LOCATION_KEY = "reportedEmergencyLocation";
 		}
 
 		/**

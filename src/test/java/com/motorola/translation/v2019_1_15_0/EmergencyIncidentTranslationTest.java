@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Address;
+import com.motorola.models.representation.Alert;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.Disposition;
 import com.motorola.models.representation.EmergencyIncident;
@@ -84,6 +85,20 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("ABC111", vehicle.getVin());
 		Assert.assertEquals("1", vehicle.getOwner());
 		Assert.assertEquals("comment_data", vehicle.getComment());
+		// location address alerts test
+		List<DispatchableIncident> dispatches = emergencyIncident.getDispatches();
+		DispatchableIncident dispatchableIncident = dispatches.get(0);
+		Address address = dispatchableIncident.getLocation().getAddress();
+		Assert.assertEquals(2, address.getAlerts().size());
+		// verification for alert fields
+		Alert alert = address.getAlerts().get(0);
+		Assert.assertEquals("Address", alert.getType().getUid());
+		Assert.assertEquals("DRUG", alert.getCategory().getUid());
+		Assert.assertEquals("Possible Drugs on Premises", alert.getTitle());
+		Assert.assertEquals("Possible Drugs on Premises", alert.getComment());
+		Assert.assertEquals("0", alert.getPriority());
+		Assert.assertEquals("2003-10-24", alert.getWhenExpired());
+		Assert.assertEquals(LocalDate.parse("2001-10-24", dateFormat), alert.getWhenCreated());
 	}
 
 	@Test

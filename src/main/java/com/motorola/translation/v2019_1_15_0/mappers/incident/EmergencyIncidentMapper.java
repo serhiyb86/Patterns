@@ -7,6 +7,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.representation.Address;
+import com.motorola.models.representation.Alert;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.IncidentComment;
@@ -14,7 +16,9 @@ import com.motorola.models.representation.InvolvedVehicle;
 import com.motorola.models.representation.Subject;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import com.motorola.utils.CadCloudUtils;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +31,17 @@ public class EmergencyIncidentMapper {
 
 	private static final Map<String, Setter<EmergencyIncident>> setters = new LinkedHashMap<>();
 	private static DispatchableIncidentMapper dispatchesMapper = new DispatchableIncidentMapper();
+	private static Map<String, Address> emergencyAlertLocationAddress = new HashMap<>();
 
 	static {
+		//map address with alerts
+		setters.put(InterfaceConstants.EmergencyIncident.GeneralProperties.REPORTED_EMERGENCY_LOCATION_KEY, (model, value) -> {
+			JsonObject addressObject = CadCloudUtils.getJsonByKey((JsonObject) value, InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.ADDRESS);
+			AddressMapper addressMapper = new AddressMapper();
+			Address address = addressMapper.createAndMapToAddress(addressObject, null);
+			emergencyAlertLocationAddress.put(address.getId(), address);
+		});
+
 		setters.put(InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY, (model, value) -> {
 			String id = ((JsonElement) value).getAsString();
 			model.setAlias(id);
@@ -72,6 +85,8 @@ public class EmergencyIncidentMapper {
 				dispatchableIncident.setIncidentSource(dispatchesMapper.mapIncidentSource(data));
 			}
 		});
+		//append alerts to the dispatches addresses
+		appendAlerts(dispatchableIncidents, emergencyAlertLocationAddress);
 		return emergencyIncident;
 	}
 
@@ -82,6 +97,19 @@ public class EmergencyIncidentMapper {
 			}
 		});
 		return incident;
+	}
+
+	private void appendAlerts(List<DispatchableIncident> dispatches, Map<String, Address> emergencyAlertLocationAddress) {
+		for (DispatchableIncident dispatchableIncident : dispatches) {
+			Address address = dispatchableIncident.getLocation().getAddress();
+			String addressId = address.getId();
+			// check if address is emergency address (id is one of the keys in map)
+			if (emergencyAlertLocationAddress.containsKey(addressId)) {
+				List<Alert> emergencyAlerts = emergencyAlertLocationAddress.get(addressId).getAlerts();
+				// append alerts
+				address.setAlerts(emergencyAlerts);
+			}
+		}
 	}
 
 }
