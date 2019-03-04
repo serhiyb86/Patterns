@@ -23,7 +23,7 @@
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <version.org.slf4j>1.7.12</version.org.slf4j>
+        <version.org.slf4j>1.7.21</version.org.slf4j>
         <version.org.javax>3.1.0</version.org.javax>
         <version.org.fasterxml>2.9.7</version.org.fasterxml>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -64,6 +64,20 @@
             <artifactId>slf4j-api</artifactId>
             <version>${version.org.slf4j}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.21</version>
+        </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
