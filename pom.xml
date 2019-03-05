@@ -23,6 +23,7 @@
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <properties>
+        <version.lf4j>1.2.17</version.lf4j>
         <version.org.slf4j>1.7.21</version.org.slf4j>
         <version.org.javax>3.1.0</version.org.javax>
         <version.org.fasterxml>2.9.7</version.org.fasterxml>
@@ -68,14 +69,14 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${version.lf4j}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.21</version>
+            <version>${version.org.slf4j}</version>
         </dependency>
 
         <dependency>

@@ -26,8 +26,8 @@ public class LoggerUtils {
 	public static void printJsonLogs(ResponseNotification notification) {
 		String nature = notification.getResultNature();
 		// log information message
-		if (notification.getError() != null) {
-			ApiError error = notification.getError();
+		ApiError error = notification.getError();
+		if (error != null) {
 			// construct error message
 			String message = nature + MESSAGE_DELIMITER
 				+ error.getErrorCode() + MESSAGE_DELIMITER + error.getMessage();
