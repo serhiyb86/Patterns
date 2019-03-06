@@ -9,6 +9,7 @@ import com.motorola.manager.BaseRequestManager;
 import com.motorola.models.representation.ApiResponse;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.utils.CadCloudUtils;
+import com.motorola.utils.LoggerUtils;
 import com.motorola.validation.ValidationResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +38,7 @@ public class ErrorServlet extends BaseHttpServlet {
 			ResponseNotification responseNotification = requestManager.getTranslator().translateResponseNotification(requestManager.getPayload());
 			String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
+				LoggerUtils.printJsonLogs(responseNotification);
 				ServletOutputStream outputStream = null;
 				try {
 					ApiResponse apiResponse = requestManager.getApiClient().responseNotification().responseNotification(responseNotification);
