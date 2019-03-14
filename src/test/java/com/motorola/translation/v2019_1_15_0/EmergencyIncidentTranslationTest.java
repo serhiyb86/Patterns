@@ -56,7 +56,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals(Long.valueOf(68), person.getAge());
 		Assert.assertEquals("B", person.getRace().getUid());
 		Assert.assertEquals("MAL", person.getGender().getUid());
-		Assert.assertEquals("71", person.getHeight());
+		Assert.assertEquals(Long.valueOf(71), person.getHeight());
 		Assert.assertEquals(Long.valueOf(200), person.getWeight());
 		Assert.assertEquals("MCLR", person.getBuild().getUid());
 		Assert.assertEquals("TAN", person.getEyeColor().getUid());
@@ -141,7 +141,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals(Long.valueOf(68), newPersonValue.getAge());
 		Assert.assertEquals("B", newPersonValue.getRace().getUid());
 		Assert.assertEquals("MAL", newPersonValue.getGender().getUid());
-		Assert.assertEquals("71", newPersonValue.getHeight());
+		Assert.assertEquals(Long.valueOf(71), newPersonValue.getHeight());
 		Assert.assertEquals(Long.valueOf(200), newPersonValue.getWeight());
 		Assert.assertEquals("MCLR", newPersonValue.getBuild().getUid());
 		Assert.assertEquals("TAN", newPersonValue.getEyeColor().getUid());
@@ -163,7 +163,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals(Long.valueOf(68), oldPersonValue.getAge());
 		Assert.assertEquals("B", oldPersonValue.getRace().getUid());
 		Assert.assertEquals("MAL", oldPersonValue.getGender().getUid());
-		Assert.assertEquals("71", oldPersonValue.getHeight());
+		Assert.assertEquals(Long.valueOf(71), oldPersonValue.getHeight());
 		Assert.assertEquals(Long.valueOf(200), oldPersonValue.getWeight());
 		Assert.assertEquals("MCLR", oldPersonValue.getBuild().getUid());
 		Assert.assertEquals("TAN", oldPersonValue.getEyeColor().getUid());
