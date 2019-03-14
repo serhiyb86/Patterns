@@ -30,7 +30,7 @@ public class PersonMapper extends AbstractMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Person.LAST_NAME, new StringSetter<>(Person::setLastName));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.SUFFIX, new StringSetter<>(Person::setSuffix));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.MIDDLE_NAME, new StringSetter<>(Person::setMiddleName));
-		setters.put(InterfaceConstants.EmergencyIncident.Person.HEIGHT_IN_INCHES, new StringSetter<>(Person::setHeight));
+		setters.put(InterfaceConstants.EmergencyIncident.Person.HEIGHT_IN_INCHES, new LongSetter<>(Person::setHeight));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.WEIGHT_IN_POUNDS, new LongSetter<>(Person::setWeight));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.AGE, new LongSetter<>(Person::setAge));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.BIRTH_DATE, new LocalDateSetter<>(Person::setDateOfBirth, InterfaceConstants.GeneralProperties.DATE_FORMAT));

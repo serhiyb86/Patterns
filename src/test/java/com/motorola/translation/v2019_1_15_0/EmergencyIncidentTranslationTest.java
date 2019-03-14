@@ -3,7 +3,6 @@
  */
 package com.motorola.translation.v2019_1_15_0;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
@@ -19,6 +18,7 @@ import com.motorola.models.representation.Location;
 import com.motorola.models.representation.Person;
 import com.motorola.models.representation.ReportNumber;
 import com.motorola.models.representation.Subject;
+import com.motorola.models.representation.UnitHandle;
 import com.motorola.models.representation.UpdateEmergencyIncident;
 import com.motorola.models.representation.Vehicle;
 import org.junit.Assert;
@@ -251,6 +251,27 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Jurisdiction jurisdiction = address.getJurisdiction();
 		Assert.assertNotNull(jurisdiction);
 		Assert.assertEquals("LSW", jurisdiction.getArea().getUid());
+		// Assigned Unit
+		List<UnitHandle> assignedUnits = dispatchIncident.getAssignedUnits( );
+		Assert.assertNotNull(assignedUnits);
+		Assert.assertEquals(2, assignedUnits.size( ));
+
+		UnitHandle assignedUnit1 = assignedUnits.get(0);
+		Assert.assertNotNull(assignedUnit1);
+		Assert.assertEquals("F14", assignedUnit1.getKey( ));
+		Assert.assertNull(assignedUnit1.getAgency( ));
+		Assert.assertNull(assignedUnit1.getCallSign( ));
+		Assert.assertNull(assignedUnit1.getShiftId( ));
+
+		UnitHandle assignedUnit2 = assignedUnits.get(1);
+		Assert.assertNotNull(assignedUnit2);
+		Assert.assertEquals("F16", assignedUnit2.getKey( ));
+		Assert.assertNull(assignedUnit2.getAgency( ));
+		Assert.assertNull(assignedUnit2.getCallSign( ));
+		Assert.assertNull(assignedUnit2.getShiftId( ));
+
+
+
 	}
 
 }

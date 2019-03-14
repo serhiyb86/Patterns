@@ -152,6 +152,7 @@ public final class InterfaceConstants {
 			public static final String SCHEDULED_FOR = "scheduledFor";
 			public static final String TYPE = "type";
 			public static final String RESPONSIBLE_UNIT_ID = "responsibleUnitId";
+			public static final String RESPONDING_UNIT_IDS = "respondingUnitIds";
 			public static final String RELATED_RECORDS = "relatedRecords";
 			public static final String INCIDENT_LOCATION = "incidentLocation";
 			public static final String ZONE = "zone";

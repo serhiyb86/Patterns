@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.constants.InterfaceConstants.EmergencyIncident.Dispatches;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.Jurisdiction;
 import com.motorola.models.representation.Location;
@@ -57,6 +58,7 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 			List<ReportNumber> reportNumberList = reportNumberMapper.createAndMapToReportNumberList(((JsonElement) value).getAsJsonArray());
 			model.setReportNumbers(reportNumberList);
 		});
+		setters.put(Dispatches.RESPONDING_UNIT_IDS, (model, value) -> model.setAssignedUnits(createAndMapToUnitsList((JsonArray) value)));
 	}
 
 	private static Boolean checkSchedule(JsonElement value) {
@@ -167,5 +169,13 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 		else {
 			return new Location();
 		}
+	}
+
+	private static List<UnitHandle> createAndMapToUnitsList(JsonArray array) {
+		List<UnitHandle> unitHandles = new ArrayList<>( );
+		for (JsonElement element : array) {
+			unitHandles.add(createUnit(element));
+		}
+		return unitHandles;
 	}
 }
