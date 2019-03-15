@@ -3,7 +3,6 @@
  */
 package com.motorola.translation.v2019_1_15_0;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
@@ -19,6 +18,7 @@ import com.motorola.models.representation.Location;
 import com.motorola.models.representation.Person;
 import com.motorola.models.representation.ReportNumber;
 import com.motorola.models.representation.Subject;
+import com.motorola.models.representation.UnitHandle;
 import com.motorola.models.representation.UpdateEmergencyIncident;
 import com.motorola.models.representation.Vehicle;
 import org.junit.Assert;
@@ -56,7 +56,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals(Long.valueOf(68), person.getAge());
 		Assert.assertEquals("B", person.getRace().getUid());
 		Assert.assertEquals("MAL", person.getGender().getUid());
-		Assert.assertEquals("71", person.getHeight());
+		Assert.assertEquals(Long.valueOf(71), person.getHeight());
 		Assert.assertEquals(Long.valueOf(200), person.getWeight());
 		Assert.assertEquals("MCLR", person.getBuild().getUid());
 		Assert.assertEquals("TAN", person.getEyeColor().getUid());
@@ -141,7 +141,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals(Long.valueOf(68), newPersonValue.getAge());
 		Assert.assertEquals("B", newPersonValue.getRace().getUid());
 		Assert.assertEquals("MAL", newPersonValue.getGender().getUid());
-		Assert.assertEquals("71", newPersonValue.getHeight());
+		Assert.assertEquals(Long.valueOf(71), newPersonValue.getHeight());
 		Assert.assertEquals(Long.valueOf(200), newPersonValue.getWeight());
 		Assert.assertEquals("MCLR", newPersonValue.getBuild().getUid());
 		Assert.assertEquals("TAN", newPersonValue.getEyeColor().getUid());
@@ -163,7 +163,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals(Long.valueOf(68), oldPersonValue.getAge());
 		Assert.assertEquals("B", oldPersonValue.getRace().getUid());
 		Assert.assertEquals("MAL", oldPersonValue.getGender().getUid());
-		Assert.assertEquals("71", oldPersonValue.getHeight());
+		Assert.assertEquals(Long.valueOf(71), oldPersonValue.getHeight());
 		Assert.assertEquals(Long.valueOf(200), oldPersonValue.getWeight());
 		Assert.assertEquals("MCLR", oldPersonValue.getBuild().getUid());
 		Assert.assertEquals("TAN", oldPersonValue.getEyeColor().getUid());
@@ -251,6 +251,27 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Jurisdiction jurisdiction = address.getJurisdiction();
 		Assert.assertNotNull(jurisdiction);
 		Assert.assertEquals("LSW", jurisdiction.getArea().getUid());
+		// Assigned Unit
+		List<UnitHandle> assignedUnits = dispatchIncident.getAssignedUnits( );
+		Assert.assertNotNull(assignedUnits);
+		Assert.assertEquals(2, assignedUnits.size( ));
+
+		UnitHandle assignedUnit1 = assignedUnits.get(0);
+		Assert.assertNotNull(assignedUnit1);
+		Assert.assertEquals("F14", assignedUnit1.getKey( ));
+		Assert.assertNull(assignedUnit1.getAgency( ));
+		Assert.assertNull(assignedUnit1.getCallSign( ));
+		Assert.assertNull(assignedUnit1.getShiftId( ));
+
+		UnitHandle assignedUnit2 = assignedUnits.get(1);
+		Assert.assertNotNull(assignedUnit2);
+		Assert.assertEquals("F16", assignedUnit2.getKey( ));
+		Assert.assertNull(assignedUnit2.getAgency( ));
+		Assert.assertNull(assignedUnit2.getCallSign( ));
+		Assert.assertNull(assignedUnit2.getShiftId( ));
+
+
+
 	}
 
 }

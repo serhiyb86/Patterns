@@ -44,7 +44,7 @@ public class Person implements Serializable {
 
 	private Long age;
 
-	private String height;
+	private Long height;
 
 	private Long weight;
 
@@ -231,14 +231,14 @@ public class Person implements Serializable {
 	 * Returns the value of property "height".
 	 * Person's Height (inches)
 	 */
-	public String getHeight() {
+	public Long getHeight() {
 		return height;
 	}
 
 	/**
 	 * Updates the value of property "height".
 	 */
-	public void setHeight(String height) {
+	public void setHeight(Long height) {
 		this.height = height;
 	}
 

@@ -82,6 +82,10 @@
           "status": "RCVD",
           "whenStatusDeclared": "2018-11-21T05:57:41-07:00",
           "responsibleUnitId":"007",
+          "respondingUnitIds":[
+            "F14",
+            "F16"
+          ],
           "agency": "SPD",
           "active": true,
           "scheduledFor":"U1",
