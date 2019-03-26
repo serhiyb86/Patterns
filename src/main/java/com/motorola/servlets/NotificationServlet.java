@@ -25,10 +25,10 @@ import java.util.List;
 /**
  * The implementation of endpoint servlet that called when error appears onPrem side
  */
-@WebServlet(urlPatterns = "/error")
-public class ErrorServlet extends BaseHttpServlet {
+@WebServlet(urlPatterns = "/notification")
+public class NotificationServlet extends BaseHttpServlet {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ErrorServlet.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(NotificationServlet.class);
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
