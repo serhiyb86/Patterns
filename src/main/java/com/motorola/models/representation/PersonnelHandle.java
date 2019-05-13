@@ -19,6 +19,8 @@ public class PersonnelHandle implements Serializable {
 
 	private String agencyAlias;
 
+	private String idmId;
+
 	/**
 	 * Returns the value of property "key".
 	 * Unique Identifier
@@ -62,6 +64,21 @@ public class PersonnelHandle implements Serializable {
 	 */
 	public void setAgencyAlias(String agencyAlias) {
 		this.agencyAlias = agencyAlias;
+	}
+
+	/**
+	 * Returns the value of property "idmId".
+	 * User's Command Central Id - IdM user ID in email format
+	 */
+	public String getIdmId() {
+		return idmId;
+	}
+
+	/**
+	 * Updates the value of property "idmId".
+	 */
+	public void setIdmId(String idmId) {
+		this.idmId = idmId;
 	}
 
 }

@@ -25,7 +25,7 @@ public class AdditionalInfo implements Serializable {
 
 	private String vehicleId;
 
-	private List<Lookup> trustedAgencies = new ArrayList<Lookup>();
+    private List<String> trustedAgenciesKeys = new ArrayList<>();
 
 	/**
 	 * Returns the value of property "unit".
@@ -72,19 +72,19 @@ public class AdditionalInfo implements Serializable {
 		this.vehicleId = vehicleId;
 	}
 
-	/**
-	 * Returns the value of property "trustedAgencies".
-	 * return trusted agency id list after log in - used by client to pick additional areas for coverage. No need to fill when submit the bookon.
-	 */
-	public List<Lookup> getTrustedAgencies() {
-		return trustedAgencies;
-	}
+    /**
+     * Returns the value of property "trustedAgenciesKeys". 
+     * return trusted agency id list after log in - used by client to pick additional areas for coverage. No need to fill when submit the bookon.[Mapped To Codes Table:-cad.agency]
+     */
+    public List<String> getTrustedAgenciesKeys() {
+        return trustedAgenciesKeys;
+    }
 
-	/**
-	 * Updates the value of property "trustedAgencies".
-	 */
-	public void setTrustedAgencies(List<Lookup> trustedAgencies) {
-		this.trustedAgencies = trustedAgencies;
-	}
+    /**
+     * Updates the value of property "trustedAgenciesKeys". 
+     */
+    public void setTrustedAgenciesKeys(List<String> trustedAgenciesKeys) {
+        this.trustedAgenciesKeys = trustedAgenciesKeys;
+    }
 
 }

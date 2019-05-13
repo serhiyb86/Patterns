@@ -19,7 +19,7 @@ public class MonitorAreas implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private List<Lookup> areaKeys = new ArrayList<>();
+	private List<String> areaKeys = new ArrayList<>();
 
 	private List<StationUnits> stationUnits = new ArrayList<>();
 
@@ -27,14 +27,14 @@ public class MonitorAreas implements Serializable {
 	 * Returns the value of property "areaKeys".
 	 *
 	 */
-	public List<Lookup> getAreaKeys() {
+	public List<String> getAreaKeys() {
 		return areaKeys;
 	}
 
 	/**
 	 * Updates the value of property "areaKeys".
 	 */
-	public void setAreaKeys(List<Lookup> areaKeys) {
+	public void setAreaKeys(List<String> areaKeys) {
 		this.areaKeys = areaKeys;
 	}
 
