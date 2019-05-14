@@ -11,14 +11,12 @@ import com.motorola.constants.InterfaceConstants.EmergencyIncident.Dispatches;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.Jurisdiction;
 import com.motorola.models.representation.Location;
-import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.Nature;
 import com.motorola.models.representation.ReportNumber;
 import com.motorola.models.representation.UnitHandle;
 import com.motorola.translation.setter.custom.disposition.DispositionSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
-import com.motorola.translation.v2019_1_15_0.mappers.AbstractMapper;
 import com.motorola.utils.CadCloudUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -30,28 +28,28 @@ import java.util.Map;
 /**
  * Mapper for converting Json Object with DispatchesIncident data to the {@link DispatchableIncident} object.
  */
-public class DispatchableIncidentMapper extends AbstractMapper {
+public class DispatchableIncidentMapper {
 
 	private static final Map<String, Setter<DispatchableIncident>> setters = new HashMap<>();
 
 	static {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.ACTIVE_CALL_NUMBER, new StringSetter<>(DispatchableIncident::setAlias));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.ID, new StringSetter<>(DispatchableIncident::setKey));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE, (model, value) -> model.setDiscipline(createLookup((JsonElement) value)));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.AGENCY, (model, value) -> model.setAgency(createLookup((JsonElement) value)));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE, new StringSetter<>(DispatchableIncident::setDisciplineKey));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.AGENCY, new StringSetter<>(DispatchableIncident::setAgencyKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE_NATURE, (model, value) -> model.setNature(createNature((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.PRIORITY, new StringSetter<>(DispatchableIncident::setPriority));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.STATUS, (model, value) -> model.setStatus(createLookup((JsonElement) value)));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.STATUS, new StringSetter<>(DispatchableIncident::setStatusKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.WHEN_STATUS_DECLARED, new StringSetter<>(DispatchableIncident::setWhenStatusDeclared));
 
 		//Use custom setter for nested disposition model
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CLEARANCE, new DispositionSetter((disp, value) -> disp.setCadDisposition(createLookup((JsonElement) value))));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISPOSITION, new DispositionSetter((disp, value) -> disp.setReportDisposition(createLookup((JsonElement) value))));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.OBSERVED, new DispositionSetter((disp, value) -> disp.setObservedOffense(createLookup((JsonElement) value))));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CLEARANCE, new DispositionSetter((disp, value) -> disp.setCadDispositionKey(value.toString())));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISPOSITION, new DispositionSetter((disp, value) -> disp.setReportDispositionKey(value.toString())));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.OBSERVED, new DispositionSetter((disp, value) -> disp.setObservedOffenseKey(value.toString())));
 
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DETERMINANT, (model, value) -> model.setProqaDeterminant(createProqaDeterminant((JsonElement) value)));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DETERMINANT, (model, value) -> model.setProqaDeterminantKey(createProqaDeterminant((JsonElement) value)));
 		// if incoming value is present and not empty - result=true
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.SCHEDULED_FOR , (model, value) -> model.setIsScheduled(checkSchedule((JsonElement) value)));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.SCHEDULED_FOR, (model, value) -> model.setIsScheduled(checkSchedule((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RESPONSIBLE_UNIT_ID, (model, value) -> model.setPrimaryUnit(createUnit((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RELATED_RECORDS, (model, value) -> {
 			ReportNumberMapper reportNumberMapper = new ReportNumberMapper();
@@ -70,9 +68,9 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 		return result;
 	}
 
-	private static Lookup createProqaDeterminant(JsonElement value) {
+	private static String createProqaDeterminant(JsonElement value) {
 		JsonElement determinantId = value.getAsJsonObject().get(InterfaceConstants.EmergencyIncident.Dispatches.ID);
-		return createLookup(determinantId);
+		return determinantId != null ? determinantId.getAsString() : "";
 	}
 
 	/**
@@ -130,17 +128,13 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 	private static Nature createNature(JsonElement value) {
 		Nature nature = new Nature();
 		if (value != null) {
-			nature.setNature(createLookup(value));
+			nature.setNatureKey(value.getAsString());
 		}
 		return nature;
 	}
 
-	public Lookup mapIncidentSource(JsonObject data) {
-		String strVal = CadCloudUtils.getStringByKey(data,InterfaceConstants.EmergencyIncident.Dispatches.TYPE);
-		if (strVal != null) {
-			return createLookup(strVal);
-		}
-		return new Lookup();
+	public String mapIncidentSource(JsonObject data) {
+		return CadCloudUtils.getStringByKey(data, InterfaceConstants.EmergencyIncident.Dispatches.TYPE);
 	}
 
 	/**
@@ -150,7 +144,7 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 		Jurisdiction jurisdiction = null;
 		if (StringUtils.isNotBlank(zone)) {
 			jurisdiction = new Jurisdiction();
-			jurisdiction.setArea(createLookup(zone));
+			jurisdiction.setAreaKey(zone);
 		}
 		return jurisdiction;
 	}
@@ -172,7 +166,7 @@ public class DispatchableIncidentMapper extends AbstractMapper {
 	}
 
 	private static List<UnitHandle> createAndMapToUnitsList(JsonArray array) {
-		List<UnitHandle> unitHandles = new ArrayList<>( );
+		List<UnitHandle> unitHandles = new ArrayList<>();
 		for (JsonElement element : array) {
 			unitHandles.add(createUnit(element));
 		}
