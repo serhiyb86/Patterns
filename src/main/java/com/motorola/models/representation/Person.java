@@ -38,9 +38,9 @@ public class Person implements Serializable {
 
 	private String comment;
 
-	private Lookup race;
+	private String raceKey;
 
-	private Lookup gender;
+	private String genderKey;
 
 	private Long age;
 
@@ -48,11 +48,11 @@ public class Person implements Serializable {
 
 	private Long weight;
 
-	private Lookup build;
+	private String buildKey;
 
-	private Lookup hairColor;
+	private String hairColorKey;
 
-	private Lookup eyeColor;
+	private String eyeColorKey;
 
 	private String driverLicenseNumber;
 
@@ -183,33 +183,33 @@ public class Person implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "race".
-	 *
+	 * Returns the value of property "raceKey".
+	 * Person's Race (Key) [Mapped To Codes Table:-person.race]
 	 */
-	public Lookup getRace() {
-		return race;
+	public String getRaceKey() {
+		return raceKey;
 	}
 
 	/**
-	 * Updates the value of property "race".
+	 * Updates the value of property "raceKey".
 	 */
-	public void setRace(Lookup race) {
-		this.race = race;
+	public void setRaceKey(String raceKey) {
+		this.raceKey = raceKey;
 	}
 
 	/**
-	 * Returns the value of property "gender".
-	 *
+	 * Returns the value of property "genderKey".
+	 * Person's Gender (Key) [Mapped To Codes Table:-person.gender]
 	 */
-	public Lookup getGender() {
-		return gender;
+	public String getGenderKey() {
+		return genderKey;
 	}
 
 	/**
-	 * Updates the value of property "gender".
+	 * Updates the value of property "genderKey".
 	 */
-	public void setGender(Lookup gender) {
-		this.gender = gender;
+	public void setGenderKey(String genderKey) {
+		this.genderKey = genderKey;
 	}
 
 	/**
@@ -258,48 +258,48 @@ public class Person implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "build".
-	 *
+	 * Returns the value of property "buildKey".
+	 * Person's Build (Key) [Mapped To Codes Table:-person.build]
 	 */
-	public Lookup getBuild() {
-		return build;
+	public String getBuildKey() {
+		return buildKey;
 	}
 
 	/**
-	 * Updates the value of property "build".
+	 * Updates the value of property "buildKey".
 	 */
-	public void setBuild(Lookup build) {
-		this.build = build;
+	public void setBuildKey(String buildKey) {
+		this.buildKey = buildKey;
 	}
 
 	/**
-	 * Returns the value of property "hairColor".
-	 *
+	 * Returns the value of property "hairColorKey".
+	 * Person's Hair Color (Key) [Mapped To Codes Table:-person.hairColor]
 	 */
-	public Lookup getHairColor() {
-		return hairColor;
+	public String getHairColorKey() {
+		return hairColorKey;
 	}
 
 	/**
-	 * Updates the value of property "hairColor".
+	 * Updates the value of property "hairColorKey".
 	 */
-	public void setHairColor(Lookup hairColor) {
-		this.hairColor = hairColor;
+	public void setHairColorKey(String hairColorKey) {
+		this.hairColorKey = hairColorKey;
 	}
 
 	/**
-	 * Returns the value of property "eyeColor".
-	 *
+	 * Returns the value of property "eyeColorKey".
+	 * Person's Eye Color (Key) [Mapped To Codes Table:-person.eyeColor]
 	 */
-	public Lookup getEyeColor() {
-		return eyeColor;
+	public String getEyeColorKey() {
+		return eyeColorKey;
 	}
 
 	/**
-	 * Updates the value of property "eyeColor".
+	 * Updates the value of property "eyeColorKey".
 	 */
-	public void setEyeColor(Lookup eyeColor) {
-		this.eyeColor = eyeColor;
+	public void setEyeColorKey(String eyeColorKey) {
+		this.eyeColorKey = eyeColorKey;
 	}
 
 	/**

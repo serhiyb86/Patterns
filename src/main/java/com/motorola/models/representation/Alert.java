@@ -17,9 +17,9 @@ public class Alert implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private Lookup type;
+	private String typeKey;
 
-	private Lookup category;
+	private String categoryKey;
 
 	private String title;
 
@@ -36,33 +36,33 @@ public class Alert implements Serializable {
 
 	private Contact contact;
 	/**
-	 * Returns the value of property "type".
-	 *
+	 * Returns the value of property "typeKey".
+	 * Type of Alert (Key)[Mapped To Codes Table:-cad.alert.type]
 	 */
-	public Lookup getType() {
-		return type;
+	public String getTypeKey() {
+		return typeKey;
 	}
 
 	/**
-	 * Updates the value of property "type".
+	 * Updates the value of property "typeKey".
 	 */
-	public void setType(Lookup type) {
-		this.type = type;
+	public void setTypeKey(String typeKey) {
+		this.typeKey = typeKey;
 	}
 
 	/**
-	 * Returns the value of property "category".
-	 *
+	 * Returns the value of property "categoryKey".
+	 * Alert Category (Key) [Mapped To Codes Table:-cad.alert.category]
 	 */
-	public Lookup getCategory() {
-		return category;
+	public String getCategoryKey() {
+		return categoryKey;
 	}
 
 	/**
-	 * Updates the value of property "category".
+	 * Updates the value of property "categoryKey".
 	 */
-	public void setCategory(Lookup category) {
-		this.category = category;
+	public void setCategoryKey(String categoryKey) {
+		this.categoryKey = categoryKey;
 	}
 
 	/**

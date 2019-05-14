@@ -16,7 +16,7 @@ public class Address implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private String id;
+	private String key;
 
 	private String fullText;
 
@@ -50,12 +50,19 @@ public class Address implements Serializable {
 
 	private String geoverificationLevel;
 
-	public String getId() {
-		return id;
+	/**
+	 * Returns the value of property "key".
+	 * Unique identifier of the address, currently used for finding Dispatches with the same address
+	 */
+	public String getKey() {
+		return key;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	/**
+	 * Updates the value of property "key".
+	 */
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	/**

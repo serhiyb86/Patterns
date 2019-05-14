@@ -4,8 +4,11 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.motorola.models.serializer.ZonedDateTimeSerializer;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +33,12 @@ public class EmergencyIncident implements Serializable {
 	private List<InvolvedVehicle> vehicles = new ArrayList<InvolvedVehicle>();
 
 	private List<DispatchableIncident> dispatches = new ArrayList<DispatchableIncident>();
+
+	@JsonSerialize(using = ZonedDateTimeSerializer.class)
+	private ZonedDateTime whenCreated;
+
+	@JsonSerialize(using = ZonedDateTimeSerializer.class)
+	private ZonedDateTime whenUpdated;
 
 	/**
 	 * Returns the value of property "customerId".
@@ -119,6 +128,36 @@ public class EmergencyIncident implements Serializable {
 	 */
 	public void setDispatches(List<DispatchableIncident> dispatches) {
 		this.dispatches = dispatches;
+	}
+
+	/**
+	 * Returns the value of property "whenCreated".
+	 * Date and Time the Incident created
+	 */
+	public ZonedDateTime getWhenCreated() {
+		return whenCreated;
+	}
+
+	/**
+	 * Updates the value of property "whenCreated".
+	 */
+	public void setWhenCreated(ZonedDateTime whenCreated) {
+		this.whenCreated = whenCreated;
+	}
+
+	/**
+	 * Returns the value of property "whenUpdated".
+	 * Date and Time the Incident updated
+	 */
+	public ZonedDateTime getWhenUpdated() {
+		return whenUpdated;
+	}
+
+	/**
+	 * Updates the value of property "whenUpdated".
+	 */
+	public void setWhenUpdated(ZonedDateTime whenUpdated) {
+		this.whenUpdated = whenUpdated;
 	}
 
 }
