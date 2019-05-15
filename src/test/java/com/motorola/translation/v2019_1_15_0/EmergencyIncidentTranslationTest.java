@@ -54,13 +54,13 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("mm", person.getMiddleName());
 		Assert.assertEquals("ss", person.getSuffix());
 		Assert.assertEquals(Long.valueOf(68), person.getAge());
-		Assert.assertEquals("B", person.getRace().getUid());
-		Assert.assertEquals("MAL", person.getGender().getUid());
+		Assert.assertEquals("B", person.getRaceKey());
+		Assert.assertEquals("MAL", person.getGenderKey());
 		Assert.assertEquals(Long.valueOf(71), person.getHeight());
 		Assert.assertEquals(Long.valueOf(200), person.getWeight());
-		Assert.assertEquals("MCLR", person.getBuild().getUid());
-		Assert.assertEquals("TAN", person.getEyeColor().getUid());
-		Assert.assertEquals("BLN", person.getHairColor().getUid());
+		Assert.assertEquals("MCLR", person.getBuildKey());
+		Assert.assertEquals("TAN", person.getEyeColorKey());
+		Assert.assertEquals("BLN", person.getHairColorKey());
 		Assert.assertEquals("112qweqwe1", person.getDriverLicenseNumber());
 		Assert.assertEquals("AD", person.getDriverLicenseState());
 		Assert.assertEquals("customerId", emergencyIncident.getCustomerId());
@@ -70,18 +70,18 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		InvolvedVehicle involvedVehicle = involvedVehicleList.get(0);
 		Assert.assertNotNull(involvedVehicle);
 		Assert.assertEquals("custom_relship-100", involvedVehicle.getKey());
-		Assert.assertEquals("custom_relship", involvedVehicle.getRole().get(0));
+		Assert.assertEquals("custom_relship", involvedVehicle.getRoleKeys().get(0));
 		Vehicle vehicle = involvedVehicle.getVehicle();
 		Assert.assertNotNull(vehicle);
 		Assert.assertEquals("ABC999", vehicle.getLicensePlate());
 		Assert.assertEquals("WV", vehicle.getLicenseState());
-		Assert.assertEquals("PC", vehicle.getLicenseType().getUid());
+		Assert.assertEquals("PC", vehicle.getLicenseTypeKey());
 		Assert.assertEquals(LocalDate.parse("2018-11-30", dateFormat), vehicle.getLicenseExpirationDate());
 		Assert.assertEquals("2000", String.valueOf(vehicle.getYear()));
-		Assert.assertEquals("PONT", vehicle.getMake().getUid());
-		Assert.assertEquals("6000", vehicle.getModel().getUid());
-		Assert.assertEquals("BLK", vehicle.getPrimaryColor().getUid());
-		Assert.assertEquals("BLU", vehicle.getSecondaryColor().getUid());
+		Assert.assertEquals("PONT", vehicle.getMakeKey());
+		Assert.assertEquals("6000", vehicle.getModelKey());
+		Assert.assertEquals("BLK", vehicle.getPrimaryColorKey());
+		Assert.assertEquals("BLU", vehicle.getSecondaryColorKey());
 		Assert.assertEquals("ABC111", vehicle.getVin());
 		Assert.assertEquals("1", vehicle.getOwner());
 		Assert.assertEquals("comment_data", vehicle.getComment());
@@ -92,8 +92,8 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals(2, address.getAlerts().size());
 		// verification for alert fields
 		Alert alert = address.getAlerts().get(0);
-		Assert.assertEquals("Address", alert.getType().getUid());
-		Assert.assertEquals("DRUG", alert.getCategory().getUid());
+		Assert.assertEquals("Address", alert.getTypeKey());
+		Assert.assertEquals("DRUG", alert.getCategoryKey());
 		Assert.assertEquals("Possible Drugs on Premises", alert.getTitle());
 		Assert.assertEquals("Possible Drugs on Premises", alert.getComment());
 		Assert.assertEquals("0", alert.getPriority());
@@ -139,13 +139,13 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("mm_new", newPersonValue.getMiddleName());
 		Assert.assertEquals("ss_new", newPersonValue.getSuffix());
 		Assert.assertEquals(Long.valueOf(68), newPersonValue.getAge());
-		Assert.assertEquals("B", newPersonValue.getRace().getUid());
-		Assert.assertEquals("MAL", newPersonValue.getGender().getUid());
+		Assert.assertEquals("B", newPersonValue.getRaceKey());
+		Assert.assertEquals("MAL", newPersonValue.getGenderKey());
 		Assert.assertEquals(Long.valueOf(71), newPersonValue.getHeight());
 		Assert.assertEquals(Long.valueOf(200), newPersonValue.getWeight());
-		Assert.assertEquals("MCLR", newPersonValue.getBuild().getUid());
-		Assert.assertEquals("TAN", newPersonValue.getEyeColor().getUid());
-		Assert.assertEquals("BLN", newPersonValue.getHairColor().getUid());
+		Assert.assertEquals("MCLR", newPersonValue.getBuildKey());
+		Assert.assertEquals("TAN", newPersonValue.getEyeColorKey());
+		Assert.assertEquals("BLN", newPersonValue.getHairColorKey());
 		Assert.assertEquals("112qweqwe1_new", newPersonValue.getDriverLicenseNumber());
 		Assert.assertEquals("AD", newPersonValue.getDriverLicenseState());
 
@@ -161,13 +161,13 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("mm_old", oldPersonValue.getMiddleName());
 		Assert.assertEquals("ss_old", oldPersonValue.getSuffix());
 		Assert.assertEquals(Long.valueOf(68), oldPersonValue.getAge());
-		Assert.assertEquals("B", oldPersonValue.getRace().getUid());
-		Assert.assertEquals("MAL", oldPersonValue.getGender().getUid());
+		Assert.assertEquals("B", oldPersonValue.getRaceKey());
+		Assert.assertEquals("MAL", oldPersonValue.getGenderKey());
 		Assert.assertEquals(Long.valueOf(71), oldPersonValue.getHeight());
 		Assert.assertEquals(Long.valueOf(200), oldPersonValue.getWeight());
-		Assert.assertEquals("MCLR", oldPersonValue.getBuild().getUid());
-		Assert.assertEquals("TAN", oldPersonValue.getEyeColor().getUid());
-		Assert.assertEquals("BLN", oldPersonValue.getHairColor().getUid());
+		Assert.assertEquals("MCLR", oldPersonValue.getBuildKey());
+		Assert.assertEquals("TAN", oldPersonValue.getEyeColorKey());
+		Assert.assertEquals("BLN", oldPersonValue.getHairColorKey());
 		Assert.assertEquals("112qweqwe1_old", oldPersonValue.getDriverLicenseNumber());
 		Assert.assertEquals("AD", oldPersonValue.getDriverLicenseState());
 	}
@@ -182,25 +182,25 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertNotNull(dispatchIncident);
 		Assert.assertEquals("24e", dispatchIncident.getAlias());
 		// TODO:Key
-		Assert.assertEquals("e", dispatchIncident.getDiscipline().getUid());
-		Assert.assertEquals("Abdominal", dispatchIncident.getNature().getNature().getUid());
+		Assert.assertEquals("e", dispatchIncident.getDisciplineKey());
+		Assert.assertEquals("Abdominal", dispatchIncident.getNature().getNatureKey());
 		Assert.assertEquals("1", dispatchIncident.getPriority());
-		Assert.assertEquals("SPD", dispatchIncident.getAgency().getUid());
-		Assert.assertEquals("RCVD", dispatchIncident.getStatus().getUid());
+		Assert.assertEquals("SPD", dispatchIncident.getAgencyKey());
+		Assert.assertEquals("RCVD", dispatchIncident.getStatusKey());
 		Assert.assertEquals("2018-11-21T05:57:41-07:00", dispatchIncident.getWhenStatusDeclared());
-		Assert.assertEquals("01A01", dispatchIncident.getProqaDeterminant().getUid());
+		Assert.assertEquals("01A01", dispatchIncident.getProqaDeterminantKey());
 		//Disposition
 		Assert.assertNotNull(dispatchIncident.getDispositions());
 		Assert.assertFalse(dispatchIncident.getDispositions().isEmpty());
 		Assert.assertEquals(1, dispatchIncident.getDispositions().size());
 		Disposition disposition = dispatchIncident.getDispositions().get(0);
-		Assert.assertNotNull(disposition.getCadDisposition());
-		Assert.assertEquals("NA", disposition.getCadDisposition().getUid());
-		Assert.assertNotNull(disposition.getReportDisposition());
-		Assert.assertEquals("ACT", disposition.getReportDisposition().getUid());
-		Assert.assertNotNull(disposition.getObservedOffense());
-		Assert.assertEquals("11", disposition.getObservedOffense().getUid());
-		Assert.assertEquals("T", dispatchIncident.getIncidentSource().getUid());
+		Assert.assertNotNull(disposition.getCadDispositionKey());
+		Assert.assertEquals("NA", disposition.getCadDispositionKey());
+		Assert.assertNotNull(disposition.getReportDispositionKey());
+		Assert.assertEquals("ACT", disposition.getReportDispositionKey());
+		Assert.assertNotNull(disposition.getObservedOffenseKey());
+		Assert.assertEquals("11", disposition.getObservedOffenseKey());
+		Assert.assertEquals("T", dispatchIncident.getIncidentSourceKey());
 		Assert.assertEquals(true, dispatchIncident.getIsScheduled());
 		// TODO: check in json with key "responsibleUnitId"
 		Assert.assertEquals("007", dispatchIncident.getPrimaryUnit().getKey());
@@ -212,8 +212,8 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("2dc19f42-590a-4d04-8481-573a21f4bdf7", comment.getKey());
 		Assert.assertEquals("comment1", comment.getComments());
 		Assert.assertEquals(ZonedDateTime.parse("2018-03-12T08:00:51-06:00", zonedDateTimeFormat), comment.getWhenEntered());
-		Assert.assertNotNull(comment.getSource());
-		Assert.assertEquals("User", comment.getSource().getUid());
+		Assert.assertNotNull(comment.getSourceKey());
+		Assert.assertEquals("User", comment.getSourceKey());
 		Assert.assertEquals("All", comment.getAudience());
 		Assert.assertNotNull(comment.getOnBehalfOfUnit());
 		Assert.assertEquals("101", comment.getOnBehalfOfUnit().getKey());
@@ -250,7 +250,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 
 		Jurisdiction jurisdiction = address.getJurisdiction();
 		Assert.assertNotNull(jurisdiction);
-		Assert.assertEquals("LSW", jurisdiction.getArea().getUid());
+		Assert.assertEquals("LSW", jurisdiction.getAreaKey());
 		// Assigned Unit
 		List<UnitHandle> assignedUnits = dispatchIncident.getAssignedUnits( );
 		Assert.assertNotNull(assignedUnits);
