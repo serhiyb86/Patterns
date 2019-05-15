@@ -43,9 +43,9 @@ public class DispatchableIncidentMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.WHEN_STATUS_DECLARED, new StringSetter<>(DispatchableIncident::setWhenStatusDeclared));
 
 		//Use custom setter for nested disposition model
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CLEARANCE, new DispositionSetter((disp, value) -> disp.setCadDispositionKey(value.toString())));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISPOSITION, new DispositionSetter((disp, value) -> disp.setReportDispositionKey(value.toString())));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.OBSERVED, new DispositionSetter((disp, value) -> disp.setObservedOffenseKey(value.toString())));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CLEARANCE, new DispositionSetter((disp, value) -> disp.setCadDispositionKey(extractValue(value))));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISPOSITION, new DispositionSetter((disp, value) -> disp.setReportDispositionKey(extractValue(value))));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.OBSERVED, new DispositionSetter((disp, value) -> disp.setObservedOffenseKey(extractValue(value))));
 
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DETERMINANT, (model, value) -> model.setProqaDeterminantKey(createProqaDeterminant((JsonElement) value)));
 		// if incoming value is present and not empty - result=true
@@ -57,6 +57,10 @@ public class DispatchableIncidentMapper {
 			model.setReportNumbers(reportNumberList);
 		});
 		setters.put(Dispatches.RESPONDING_UNIT_IDS, (model, value) -> model.setAssignedUnits(createAndMapToUnitsList((JsonArray) value)));
+	}
+
+	private static String extractValue(Object value) {
+		return CadCloudUtils.getStringFromJsonElement((JsonElement) value);
 	}
 
 	private static Boolean checkSchedule(JsonElement value) {
