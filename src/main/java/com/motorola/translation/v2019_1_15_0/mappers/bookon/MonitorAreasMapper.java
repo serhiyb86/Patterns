@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.MonitorAreas;
 import com.motorola.translation.setter.Setter;
+import com.motorola.utils.CadCloudUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +29,9 @@ public class MonitorAreasMapper {
 				List<String> monitorAreas = new ArrayList<>();
 				for (JsonElement element : ((JsonArray) value)) {
 					if (element != null) {
-						monitorAreas.add(element.getAsString());
+						// we don't want to change protocol between on-premise and on-cloud
+						JsonObject obj  = (JsonObject)element;
+						monitorAreas.add(CadCloudUtils.getStringByKey(obj, InterfaceConstants.GeneralProperties.UID_JSON_KEY));
 					}
 				}
 				model.setAreaKeys(monitorAreas);
