@@ -1,6 +1,6 @@
 package com.motorola.models.security.authenticators;
 
-import static String.format;
+import static java.lang.String.format;
 
 import org.restlet.data.ChallengeResponse;
 import org.restlet.data.ChallengeScheme;
