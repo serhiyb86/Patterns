@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -14,25 +16,25 @@ public class Fleet implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private Lookup agency;
+	private String agencyKey;
 
 	private String vehicleId;
 
-	private Equipment equipment;
+	private List<Equipment> equipment = new ArrayList<Equipment>();
 
 	/**
-	 * Returns the value of property "agency".
-	 *
+	 * Returns the value of property "agencyKey".
+	 * Agency Key [Mapped To Codes Table:-cad.agency]
 	 */
-	public Lookup getAgency() {
-		return agency;
+	public String getAgencyKey() {
+		return agencyKey;
 	}
 
 	/**
-	 * Updates the value of property "agency".
+	 * Updates the value of property "agencyKey".
 	 */
-	public void setAgency(Lookup agency) {
-		this.agency = agency;
+	public void setAgencyKey(String agencyKey) {
+		this.agencyKey = agencyKey;
 	}
 
 	/**
@@ -52,16 +54,16 @@ public class Fleet implements Serializable {
 
 	/**
 	 * Returns the value of property "equipment".
-	 *
+	 * Equipment assigned to the vehicle
 	 */
-	public Equipment getEquipment() {
+	public List<Equipment> getEquipment() {
 		return equipment;
 	}
 
 	/**
 	 * Updates the value of property "equipment".
 	 */
-	public void setEquipment(Equipment equipment) {
+	public void setEquipment(List<Equipment> equipment) {
 		this.equipment = equipment;
 	}
 

@@ -14,42 +14,42 @@ public class Equipment implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private Lookup agency;
+	private String agencyKey;
 
-	private Lookup type;
+	private String typeKey;
 
 	private String equipmentItemName;
 
 	private String key;
 
 	/**
-	 * Returns the value of property "agency".
-	 *
+	 * Returns the value of property "agencyKey".
+	 * Agency Key [Mapped To Codes Table:-cad.agency]
 	 */
-	public Lookup getAgency() {
-		return agency;
+	public String getAgencyKey() {
+		return agencyKey;
 	}
 
 	/**
-	 * Updates the value of property "agency".
+	 * Updates the value of property "agencyKey".
 	 */
-	public void setAgency(Lookup agency) {
-		this.agency = agency;
+	public void setAgencyKey(String agencyKey) {
+		this.agencyKey = agencyKey;
 	}
 
 	/**
-	 * Returns the value of property "type".
-	 *
+	 * Returns the value of property "typeKey".
+	 * Equipment type key [Mapped To Codes Table:-cad.equipment.type]
 	 */
-	public Lookup getType() {
-		return type;
+	public String getTypeKey() {
+		return typeKey;
 	}
 
 	/**
-	 * Updates the value of property "type".
+	 * Updates the value of property "typeKey".
 	 */
-	public void setType(Lookup type) {
-		this.type = type;
+	public void setTypeKey(String typeKey) {
+		this.typeKey = typeKey;
 	}
 
 	/**
