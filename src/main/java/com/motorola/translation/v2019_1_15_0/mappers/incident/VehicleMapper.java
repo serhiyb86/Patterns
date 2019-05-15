@@ -3,7 +3,6 @@
  */
 package com.motorola.translation.v2019_1_15_0.mappers.incident;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Vehicle;
@@ -11,7 +10,6 @@ import com.motorola.translation.setter.LocalDateSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
-import com.motorola.translation.v2019_1_15_0.mappers.AbstractMapper;
 
 import java.util.HashMap;
 
