@@ -41,6 +41,7 @@
   },
   "requestType": "BookOnRequest",
   "correlationId": "myCorrelationId",
+  "serviceId": "test_serviceId",
   "sessionId": "mySessionID"
 }
 

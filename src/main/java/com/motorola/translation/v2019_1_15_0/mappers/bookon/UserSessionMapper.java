@@ -30,6 +30,7 @@ public class UserSessionMapper {
 	static {
 		setters.put(InterfaceConstants.BookOnProperties.CUSTOMER_ID, new StringSetter<>(UserSession::setCustomerId));
 		setters.put(InterfaceConstants.BookOnProperties.SESSION_ID, new StringSetter<>(UserSession::setSessionId));
+		setters.put(InterfaceConstants.BookOnProperties.SERVICE_ID, new StringSetter<>(UserSession::setServiceId));
 		setters.put(InterfaceConstants.BookOnProperties.DEVICE, (model, value) ->
 			model.setDevice(new DeviceHandleMapper().createAndMapDeviceHandle((JsonObject) value))
 		);

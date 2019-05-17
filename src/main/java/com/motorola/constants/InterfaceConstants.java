@@ -60,6 +60,7 @@ public final class InterfaceConstants {
 		public static final String CORRELATION_ID = "correlationId";
 		public static final String CUSTOMER_ID = "customerId";
 		public static final String SESSION_ID = "sessionId";
+		public static final String SERVICE_ID = "serviceId";
 		public static final String ROLE_KEY_VAL = "user";
 		public static final String ADDITIONAL_INFO_JSON_KEY = "additionalInfo";
 		public static final String UNIT_JSON_KEY = "unit";
