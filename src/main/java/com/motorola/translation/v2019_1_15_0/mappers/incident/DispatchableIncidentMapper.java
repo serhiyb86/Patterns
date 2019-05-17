@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.constants.InterfaceConstants.EmergencyIncident.Dispatches;
 import com.motorola.models.representation.DispatchableIncident;
+import com.motorola.models.representation.Disposition;
 import com.motorola.models.representation.Jurisdiction;
 import com.motorola.models.representation.Location;
 import com.motorola.models.representation.Nature;
@@ -108,6 +109,12 @@ public class DispatchableIncidentMapper {
 				consumer.accept(dispatchableIncident, entry.getValue());
 			}
 		});
+		// added required field key for disposition
+		// the index 0 is the same like in DispositionSetter implemented  for IF-2017
+		List <Disposition> dispositions = dispatchableIncident.getDispositions();
+		if(!dispositions.isEmpty()){
+			dispositions.get(0).setKey("1");
+		}
 		return dispatchableIncident;
 	}
 

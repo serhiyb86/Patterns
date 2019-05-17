@@ -275,6 +275,7 @@ public final class InterfaceConstants {
 			public static final String DATA = "data";
 			public static final String UNIT_AGENCY = "unitAgency";
 			public static final String UNIT_STATUS_CODE = "unitStatusCode";
+			public static final String UNIT_TYPE_CODE = "unitType";
 			public static final String WHEN_STATUS_DECLARED = "whenStatusDeclared";
 			public static final String MINIMUM_STAFFING_LEVEL = "minimumStaffingLevel";
 			public static final String IS_PERSONNEL_OUTSIDE_UNIT = "isPersonnelOutsideUnit";

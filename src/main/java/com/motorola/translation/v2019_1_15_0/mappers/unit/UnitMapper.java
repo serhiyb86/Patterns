@@ -35,6 +35,7 @@ public class UnitMapper {
 		setters.put(InterfaceConstants.Unit.GeneralProperties.CUSTOMER_ID, new StringSetter<>(Unit::setCustomerId));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_AGENCY, new StringSetter<>(Unit::setAgency));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_STATUS_CODE, new StringSetter<>(Unit::setStatus));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_TYPE_CODE, new StringSetter<>(Unit::setDisciplineKey));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_STATUS_DECLARED,
 			new LocalDateTimeSetter<>(Unit::setWhenStatusDeclared, InterfaceConstants.GeneralProperties.AVL_DATE_TIME_FORMAT));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.MINIMUM_STAFFING_LEVEL, new LongSetter<>(Unit::setMinimumStaffingLevel));
