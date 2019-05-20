@@ -13,55 +13,55 @@ public class Jurisdiction implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private Lookup area;
+    private String areaKey;
 
-	private Lookup sector;
+    private String sectorKey;
 
-	private Lookup beat;
+    private String beatKey;
 
-	/**
-	 * Returns the value of property "area".
-	 *
-	 */
-	public Lookup getArea() {
-		return area;
-	}
+    /**
+     * Returns the value of property "areaKey". 
+     * Area [Mapped To Codes Table:-cad.jurisdiction.area]
+     */
+    public String getAreaKey() {
+        return areaKey;
+    }
 
-	/**
-	 * Updates the value of property "area".
-	 */
-	public void setArea(Lookup area) {
-		this.area = area;
-	}
+    /**
+     * Updates the value of property "areaKey". 
+     */
+    public void setAreaKey(String areaKey) {
+        this.areaKey = areaKey;
+    }
 
-	/**
-	 * Returns the value of property "sector".
-	 *
-	 */
-	public Lookup getSector() {
-		return sector;
-	}
+    /**
+     * Returns the value of property "sectorKey". 
+     * Sector/District [Mapped To Codes Table:-cad.jurisdiction.sector]
+     */
+    public String getSectorKey() {
+        return sectorKey;
+    }
 
-	/**
-	 * Updates the value of property "sector".
-	 */
-	public void setSector(Lookup sector) {
-		this.sector = sector;
-	}
+    /**
+     * Updates the value of property "sectorKey". 
+     */
+    public void setSectorKey(String sectorKey) {
+        this.sectorKey = sectorKey;
+    }
 
-	/**
-	 * Returns the value of property "beat".
-	 *
-	 */
-	public Lookup getBeat() {
-		return beat;
-	}
+    /**
+     * Returns the value of property "beatKey". 
+     * Beat/Zone [Mapped To Codes Table:-cad.jurisdiction.beat]
+     */
+    public String getBeatKey() {
+        return beatKey;
+    }
 
-	/**
-	 * Updates the value of property "beat".
-	 */
-	public void setBeat(Lookup beat) {
-		this.beat = beat;
-	}
+    /**
+     * Updates the value of property "beatKey". 
+     */
+    public void setBeatKey(String beatKey) {
+        this.beatKey = beatKey;
+    }
 
 }

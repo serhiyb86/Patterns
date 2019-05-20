@@ -27,7 +27,7 @@ public class IncidentComment implements Serializable {
 	@JsonSerialize(using = ZonedDateTimeSerializer.class)
 	private ZonedDateTime whenEntered;
 
-	private Lookup source;
+	private String sourceKey;
 
 	private String audience;
 
@@ -86,18 +86,18 @@ public class IncidentComment implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "source".
-	 *
+	 * Returns the value of property "sourceKey".
+	 * Comment Source Key [Mapped To Codes Table:-cad.incidentComment.source]"
 	 */
-	public Lookup getSource() {
-		return source;
+	public String getSourceKey() {
+		return sourceKey;
 	}
 
 	/**
-	 * Updates the value of property "source".
+	 * Updates the value of property "sourceKey".
 	 */
-	public void setSource(Lookup source) {
-		this.source = source;
+	public void setSourceKey(String sourceKey) {
+		this.sourceKey = sourceKey;
 	}
 
 	/**

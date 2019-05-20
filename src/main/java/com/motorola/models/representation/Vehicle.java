@@ -21,22 +21,22 @@ public class Vehicle implements Serializable {
 
 	private String licenseState;
 
-	private Lookup licenseType;
+	private String licenseTypeKey;
 
 	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate licenseExpirationDate;
 
 	private Long year;
 
-	private Lookup make;
+	private String makeKey;
 
-	private Lookup model;
+	private String modelKey;
 
-	private Lookup primaryColor;
+	private String primaryColorKey;
 
-	private Lookup secondaryColor;
+	private String secondaryColorKey;
 
-	private Lookup style;
+	private String styleKey;
 
 	private String vin;
 
@@ -75,18 +75,18 @@ public class Vehicle implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "licenseType".
-	 *
+	 * Returns the value of property "licenseTypeKey".
+	 * License Plate Type Key [Mapped To Codes Table:-vehicle.type]
 	 */
-	public Lookup getLicenseType() {
-		return licenseType;
+	public String getLicenseTypeKey() {
+		return licenseTypeKey;
 	}
 
 	/**
-	 * Updates the value of property "licenseType".
+	 * Updates the value of property "licenseTypeKey".
 	 */
-	public void setLicenseType(Lookup licenseType) {
-		this.licenseType = licenseType;
+	public void setLicenseTypeKey(String licenseTypeKey) {
+		this.licenseTypeKey = licenseTypeKey;
 	}
 
 	/**
@@ -120,78 +120,78 @@ public class Vehicle implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "make".
-	 *
+	 * Returns the value of property "makeKey".
+	 * Vehicle Make Key [Mapped To Codes Table:-vehicle.make]
 	 */
-	public Lookup getMake() {
-		return make;
+	public String getMakeKey() {
+		return makeKey;
 	}
 
 	/**
-	 * Updates the value of property "make".
+	 * Updates the value of property "makeKey".
 	 */
-	public void setMake(Lookup make) {
-		this.make = make;
+	public void setMakeKey(String makeKey) {
+		this.makeKey = makeKey;
 	}
 
 	/**
-	 * Returns the value of property "model".
-	 *
+	 * Returns the value of property "modelKey".
+	 * Vehicle Model Key [Mapped To Codes Table:-vehicle.model]
 	 */
-	public Lookup getModel() {
-		return model;
+	public String getModelKey() {
+		return modelKey;
 	}
 
 	/**
-	 * Updates the value of property "model".
+	 * Updates the value of property "modelKey".
 	 */
-	public void setModel(Lookup model) {
-		this.model = model;
+	public void setModelKey(String modelKey) {
+		this.modelKey = modelKey;
 	}
 
 	/**
-	 * Returns the value of property "primaryColor".
-	 *
+	 * Returns the value of property "primaryColorKey".
+	 * Primary Color Key of Vehicle [Mapped To Codes Table:-vehicle.color]
 	 */
-	public Lookup getPrimaryColor() {
-		return primaryColor;
+	public String getPrimaryColorKey() {
+		return primaryColorKey;
 	}
 
 	/**
-	 * Updates the value of property "primaryColor".
+	 * Updates the value of property "primaryColorKey".
 	 */
-	public void setPrimaryColor(Lookup primaryColor) {
-		this.primaryColor = primaryColor;
+	public void setPrimaryColorKey(String primaryColorKey) {
+		this.primaryColorKey = primaryColorKey;
 	}
 
 	/**
-	 * Returns the value of property "secondaryColor".
-	 *
+	 * Returns the value of property "secondaryColorKey".
+	 * Secondary Color Key of Vehicle [Mapped To Codes Table:-vehicle.color]
 	 */
-	public Lookup getSecondaryColor() {
-		return secondaryColor;
+	public String getSecondaryColorKey() {
+		return secondaryColorKey;
 	}
 
 	/**
-	 * Updates the value of property "secondaryColor".
+	 * Updates the value of property "secondaryColorKey".
 	 */
-	public void setSecondaryColor(Lookup secondaryColor) {
-		this.secondaryColor = secondaryColor;
+	public void setSecondaryColorKey(String secondaryColorKey) {
+		this.secondaryColorKey = secondaryColorKey;
 	}
 
 	/**
-	 * Returns the value of property "style".
-	 *
+	 * Returns the value of property "styleKey".
+	 * Vehicle Style
 	 */
-	public Lookup getStyle() {
-		return style;
+	public String getStyleKey() {
+		return styleKey;
 	}
 
 	/**
-	 * Updates the value of property "style".
+	 * Updates the value of property "styleKey".
 	 */
-	public void setStyle(Lookup style) {
-		this.style = style;
+	public void setStyleKey(String styleKey) {
+		this.styleKey = styleKey;
 	}
 
 	/**

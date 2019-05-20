@@ -39,7 +39,7 @@ public class EmergencyIncidentMapper {
 			JsonObject addressObject = CadCloudUtils.getJsonByKey((JsonObject) value, InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.ADDRESS);
 			AddressMapper addressMapper = new AddressMapper();
 			Address address = addressMapper.createAndMapToAddress(addressObject, null);
-			emergencyAlertLocationAddress.put(address.getId(), address);
+			emergencyAlertLocationAddress.put(address.getKey(), address);
 		});
 
 		setters.put(InterfaceConstants.EmergencyIncident.GeneralProperties.ID_JSON_KEY, (model, value) -> {
@@ -82,7 +82,7 @@ public class EmergencyIncidentMapper {
 		List<DispatchableIncident> dispatchableIncidents = emergencyIncident.getDispatches();
 		dispatchableIncidents.forEach(dispatchableIncident -> {
 			if (dispatchableIncident != null) {
-				dispatchableIncident.setIncidentSource(dispatchesMapper.mapIncidentSource(data));
+				dispatchableIncident.setIncidentSourceKey(dispatchesMapper.mapIncidentSource(data));
 			}
 		});
 		//append alerts to the dispatches addresses
@@ -102,7 +102,7 @@ public class EmergencyIncidentMapper {
 	private void appendAlerts(List<DispatchableIncident> dispatches, Map<String, Address> emergencyAlertLocationAddress) {
 		for (DispatchableIncident dispatchableIncident : dispatches) {
 			Address address = dispatchableIncident.getLocation().getAddress();
-			String addressId = address.getId();
+			String addressId = address.getKey();
 			// check if address is emergency address (id is one of the keys in map)
 			if (emergencyAlertLocationAddress.containsKey(addressId)) {
 				List<Alert> emergencyAlerts = emergencyAlertLocationAddress.get(addressId).getAlerts();

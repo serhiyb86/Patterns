@@ -16,7 +16,7 @@ public class Capability implements Serializable {
 
 	private Long quantity;
 
-	private Lookup capability;
+	private String capabilityKey;
 
 	/**
 	 * Returns the value of property "quantity".
@@ -34,18 +34,18 @@ public class Capability implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "capability".
-	 *
+	 * Returns the value of property "capabilityKey".
+	 * Capability (Key) [Mapped To Codes Table:-cad.unit.capability]
 	 */
-	public Lookup getCapability() {
-		return capability;
+	public String getCapabilityKey() {
+		return capabilityKey;
 	}
 
 	/**
-	 * Updates the value of property "capability".
+	 * Updates the value of property "capabilityKey".
 	 */
-	public void setCapability(Lookup capability) {
-		this.capability = capability;
+	public void setCapabilityKey(String capabilityKey) {
+		this.capabilityKey = capabilityKey;
 	}
 
 }

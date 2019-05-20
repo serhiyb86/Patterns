@@ -60,6 +60,7 @@ public final class InterfaceConstants {
 		public static final String CORRELATION_ID = "correlationId";
 		public static final String CUSTOMER_ID = "customerId";
 		public static final String SESSION_ID = "sessionId";
+		public static final String SERVICE_ID = "serviceId";
 		public static final String ROLE_KEY_VAL = "user";
 		public static final String ADDITIONAL_INFO_JSON_KEY = "additionalInfo";
 		public static final String UNIT_JSON_KEY = "unit";
@@ -274,6 +275,7 @@ public final class InterfaceConstants {
 			public static final String DATA = "data";
 			public static final String UNIT_AGENCY = "unitAgency";
 			public static final String UNIT_STATUS_CODE = "unitStatusCode";
+			public static final String UNIT_TYPE_CODE = "unitType";
 			public static final String WHEN_STATUS_DECLARED = "whenStatusDeclared";
 			public static final String MINIMUM_STAFFING_LEVEL = "minimumStaffingLevel";
 			public static final String IS_PERSONNEL_OUTSIDE_UNIT = "isPersonnelOutsideUnit";

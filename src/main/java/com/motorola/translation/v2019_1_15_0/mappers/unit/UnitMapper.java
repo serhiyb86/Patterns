@@ -7,7 +7,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.JurisdictionalAssignment;
-import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.Unit;
 import com.motorola.translation.setter.BooleanSetter;
 import com.motorola.translation.setter.LocalDateTimeSetter;
@@ -16,8 +15,8 @@ import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,6 +35,7 @@ public class UnitMapper {
 		setters.put(InterfaceConstants.Unit.GeneralProperties.CUSTOMER_ID, new StringSetter<>(Unit::setCustomerId));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_AGENCY, new StringSetter<>(Unit::setAgency));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_STATUS_CODE, new StringSetter<>(Unit::setStatus));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_TYPE_CODE, new StringSetter<>(Unit::setDisciplineKey));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_STATUS_DECLARED,
 			new LocalDateTimeSetter<>(Unit::setWhenStatusDeclared, InterfaceConstants.GeneralProperties.AVL_DATE_TIME_FORMAT));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.MINIMUM_STAFFING_LEVEL, new LongSetter<>(Unit::setMinimumStaffingLevel));
@@ -43,10 +43,10 @@ public class UnitMapper {
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_ZONE, (model, value) -> {
 			String assignmentData = ((JsonElement) value).getAsString();
+			List<String> beats = new ArrayList<>();
+			beats.add(assignmentData);
 			JurisdictionalAssignment jurisdictionalAssignment = new JurisdictionalAssignment();
-			Lookup lookup = new Lookup();
-			lookup.setUid(assignmentData);
-			jurisdictionalAssignment.setBeats(new ArrayList<>(Arrays.asList(lookup)));
+			jurisdictionalAssignment.setBeatsKeys(beats);
 			model.setJurisdictionalAssignment(jurisdictionalAssignment);
 		});
 	}

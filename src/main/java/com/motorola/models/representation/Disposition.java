@@ -20,11 +20,13 @@ public class Disposition implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private Lookup cadDisposition;
+	private String key;
 
-	private Lookup reportDisposition;
+	private String cadDispositionKey;
 
-	private Lookup observedOffense;
+	private String reportDispositionKey;
+
+	private String observedOffenseKey;
 
 	private UnitHandle unitHandle;
 
@@ -34,48 +36,63 @@ public class Disposition implements Serializable {
 	private String comment;
 
 	/**
-	 * Returns the value of property "cadDisposition".
-	 *
+	 * Returns the value of property "key".
+	 * The unique identifier of this disposition
 	 */
-	public Lookup getCadDisposition() {
-		return cadDisposition;
+	public String getKey() {
+		return key;
 	}
 
 	/**
-	 * Updates the value of property "cadDisposition".
+	 * Updates the value of property "key".
 	 */
-	public void setCadDisposition(Lookup cadDisposition) {
-		this.cadDisposition = cadDisposition;
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	/**
-	 * Returns the value of property "reportDisposition".
-	 *
+	 * Returns the value of property "cadDispositionKey".
+	 * CAD Disposition Key [Mapped To Codes Table:-cad.disposition.cadDisposition]
 	 */
-	public Lookup getReportDisposition() {
-		return reportDisposition;
+	public String getCadDispositionKey() {
+		return cadDispositionKey;
 	}
 
 	/**
-	 * Updates the value of property "reportDisposition".
+	 * Updates the value of property "cadDispositionKey".
 	 */
-	public void setReportDisposition(Lookup reportDisposition) {
-		this.reportDisposition = reportDisposition;
+	public void setCadDispositionKey(String cadDispositionKey) {
+		this.cadDispositionKey = cadDispositionKey;
 	}
 
 	/**
-	 * Returns the value of property "observedOffense".
-	 *
+	 * Returns the value of property "reportDispositionKey".
+	 * Law Report Disposition Key [Mapped To Codes Table:-cad.disposition.reportDisposition]
 	 */
-	public Lookup getObservedOffense() {
-		return observedOffense;
+	public String getReportDispositionKey() {
+		return reportDispositionKey;
 	}
 
 	/**
-	 * Updates the value of property "observedOffense".
+	 * Updates the value of property "reportDispositionKey".
 	 */
-	public void setObservedOffense(Lookup observedOffense) {
-		this.observedOffense = observedOffense;
+	public void setReportDispositionKey(String reportDispositionKey) {
+		this.reportDispositionKey = reportDispositionKey;
+	}
+
+	/**
+	 * Returns the value of property "observedOffenseKey".
+	 * Observed Offense Key [Mapped To Codes Table:-cad.disposition.observedOffense]
+	 */
+	public String getObservedOffenseKey() {
+		return observedOffenseKey;
+	}
+
+	/**
+	 * Updates the value of property "observedOffenseKey".
+	 */
+	public void setObservedOffenseKey(String observedOffenseKey) {
+		this.observedOffenseKey = observedOffenseKey;
 	}
 
 	/**

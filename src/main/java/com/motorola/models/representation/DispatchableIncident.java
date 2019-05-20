@@ -20,15 +20,15 @@ public class DispatchableIncident implements Serializable {
 
 	private String alias;
 
-	private Lookup discipline;
+	private String disciplineKey;
 
-	private Lookup agency;
+	private String agencyKey;
 
 	private Nature nature;
 
 	private String priority;
 
-	private Lookup status;
+	private String statusKey;
 
 	private String whenStatusDeclared;
 
@@ -38,11 +38,11 @@ public class DispatchableIncident implements Serializable {
 
 	private List<Disposition> dispositions = new ArrayList<Disposition>();
 
-	private Lookup proqaDeterminant;
+	private String proqaDeterminantKey;
 
 	private Boolean isScheduled;
 
-	private Lookup incidentSource;
+	private String incidentSourceKey;
 
 	private List<UnitHandle> assignedUnits = new ArrayList<UnitHandle>();
 
@@ -81,33 +81,33 @@ public class DispatchableIncident implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "discipline".
-	 *
+	 * Returns the value of property "disciplineKey".
+	 * Agency Type Key [Mapped To Codes Table:-cad.agencyType]
 	 */
-	public Lookup getDiscipline() {
-		return discipline;
+	public String getDisciplineKey() {
+		return disciplineKey;
 	}
 
 	/**
-	 * Updates the value of property "discipline".
+	 * Updates the value of property "disciplineKey".
 	 */
-	public void setDiscipline(Lookup discipline) {
-		this.discipline = discipline;
+	public void setDisciplineKey(String disciplineKey) {
+		this.disciplineKey = disciplineKey;
 	}
 
 	/**
-	 * Returns the value of property "agency".
-	 *
+	 * Returns the value of property "agencyKey".
+	 * Agency Key [Mapped To Codes Table:-cad.agency]
 	 */
-	public Lookup getAgency() {
-		return agency;
+	public String getAgencyKey() {
+		return agencyKey;
 	}
 
 	/**
-	 * Updates the value of property "agency".
+	 * Updates the value of property "agencyKey".
 	 */
-	public void setAgency(Lookup agency) {
-		this.agency = agency;
+	public void setAgencyKey(String agencyKey) {
+		this.agencyKey = agencyKey;
 	}
 
 	/**
@@ -141,18 +141,18 @@ public class DispatchableIncident implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "status".
-	 *
+	 * Returns the value of property "statusKey".
+	 * Current Status Key [Mapped To Codes Table:-cad.dispatchIncident.status]
 	 */
-	public Lookup getStatus() {
-		return status;
+	public String getStatusKey() {
+		return statusKey;
 	}
 
 	/**
-	 * Updates the value of property "status".
+	 * Updates the value of property "statusKey".
 	 */
-	public void setStatus(Lookup status) {
-		this.status = status;
+	public void setStatusKey(String statusKey) {
+		this.statusKey = statusKey;
 	}
 
 	/**
@@ -216,18 +216,18 @@ public class DispatchableIncident implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "proqaDeterminant".
-	 *
+	 * Returns the value of property "proqaDeterminantKey".
+	 * ProQA Determinant Key [Mapped To Codes Table:-cad.dispatchIncident.proqaDeterminant]
 	 */
-	public Lookup getProqaDeterminant() {
-		return proqaDeterminant;
+	public String getProqaDeterminantKey() {
+		return proqaDeterminantKey;
 	}
 
 	/**
-	 * Updates the value of property "proqaDeterminant".
+	 * Updates the value of property "proqaDeterminantKey".
 	 */
-	public void setProqaDeterminant(Lookup proqaDeterminant) {
-		this.proqaDeterminant = proqaDeterminant;
+	public void setProqaDeterminantKey(String proqaDeterminantKey) {
+		this.proqaDeterminantKey = proqaDeterminantKey;
 	}
 
 	/**
@@ -246,18 +246,18 @@ public class DispatchableIncident implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "incidentSource".
-	 *
+	 * Returns the value of property "incidentSourceKey".
+	 * Incident Source Key that indicates how the incident was reported [Mapped To Codes Table:-cad.dispatchIncident.incidentSource]
 	 */
-	public Lookup getIncidentSource() {
-		return incidentSource;
+	public String getIncidentSourceKey() {
+		return incidentSourceKey;
 	}
 
 	/**
-	 * Updates the value of property "incidentSource".
+	 * Updates the value of property "incidentSourceKey".
 	 */
-	public void setIncidentSource(Lookup incidentSource) {
-		this.incidentSource = incidentSource;
+	public void setIncidentSourceKey(String incidentSourceKey) {
+		this.incidentSourceKey = incidentSourceKey;
 	}
 
 	/**

@@ -7,11 +7,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
-import com.motorola.models.representation.Lookup;
 import com.motorola.models.representation.MonitorAreas;
 import com.motorola.translation.setter.Setter;
-import com.motorola.translation.setter.StringSetter;
-import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
+import com.motorola.utils.CadCloudUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,13 +26,12 @@ public class MonitorAreasMapper {
 	static {
 		setters.put(InterfaceConstants.BookOnProperties.AREAS, (model, value) -> {
 			if (value != null) {
-				HashMap<String, Setter<Lookup>> innerSetters = new HashMap<>();
-				innerSetters.put(InterfaceConstants.GeneralProperties.UID_JSON_KEY, new StringSetter<>(Lookup::setUid));
-				GenericMapper<Lookup> mapper = new GenericMapper<>(innerSetters);
-				List<Lookup> monitorAreas = new ArrayList<>();
+				List<String> monitorAreas = new ArrayList<>();
 				for (JsonElement element : ((JsonArray) value)) {
 					if (element != null) {
-						monitorAreas.add(mapper.mapToModel(element.getAsJsonObject(), new Lookup()));
+						// we don't want to change protocol between on-premise and on-cloud
+						JsonObject obj  = (JsonObject)element;
+						monitorAreas.add(CadCloudUtils.getStringByKey(obj, InterfaceConstants.GeneralProperties.UID_JSON_KEY));
 					}
 				}
 				model.setAreaKeys(monitorAreas);

@@ -14,40 +14,40 @@ public class Nature implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private Lookup nature;
+	private String natureKey;
 
-	private Lookup modifyingcircumstance;
+	private String modifyingcircumstanceKey;
 
 	private Long alarmlevel;
 
 	/**
-	 * Returns the value of property "nature".
-	 *
+	 * Returns the value of property "natureKey".
+	 * Incident Type Key [Mapped To Codes Table:-cad.dispatchIncident.nature]
 	 */
-	public Lookup getNature() {
-		return nature;
+	public String getNatureKey() {
+		return natureKey;
 	}
 
 	/**
-	 * Updates the value of property "nature".
+	 * Updates the value of property "natureKey".
 	 */
-	public void setNature(Lookup nature) {
-		this.nature = nature;
+	public void setNatureKey(String natureKey) {
+		this.natureKey = natureKey;
 	}
 
 	/**
-	 * Returns the value of property "modifyingcircumstance".
-	 *
+	 * Returns the value of property "modifyingcircumstanceKey".
+	 * Modifying Circumstance Key [Mapped To Codes Table:-cad.dispatchIncident.nature.modifyingCircumstance]
 	 */
-	public Lookup getModifyingcircumstance() {
-		return modifyingcircumstance;
+	public String getModifyingcircumstanceKey() {
+		return modifyingcircumstanceKey;
 	}
 
 	/**
-	 * Updates the value of property "modifyingcircumstance".
+	 * Updates the value of property "modifyingcircumstanceKey".
 	 */
-	public void setModifyingcircumstance(Lookup modifyingcircumstance) {
-		this.modifyingcircumstance = modifyingcircumstance;
+	public void setModifyingcircumstanceKey(String modifyingcircumstanceKey) {
+		this.modifyingcircumstanceKey = modifyingcircumstanceKey;
 	}
 
 	/**

@@ -16,89 +16,90 @@ public class JurisdictionalAssignment implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private List<Lookup> areas = new ArrayList<>();
+	private List<String> areasKeys = new ArrayList<>();
 
-	private List<Lookup> sectors = new ArrayList<>();
+	private List<String> sectorsKeys = new ArrayList<>();
 
-	private List<Lookup> beats = new ArrayList<>();
+	private List<String> beatsKeys = new ArrayList<>();
 
-	private Lookup homeStation;
+	private String homeStationKey;
 
-	private Lookup assignedStation;
+	private String assignedStationKey;
 
 	/**
-	 * Returns the value of property "areas".
-	 * Areas
+	 * Returns the value of property "areasKeys".
+	 * Areas [Mapped To Codes Table:-cad.jurisdiction.area]
 	 */
-	public List<Lookup> getAreas() {
-		return areas;
+	public List<String> getAreasKeys() {
+		return areasKeys;
 	}
 
 	/**
-	 * Updates the value of property "areas".
+	 * Updates the value of property "areasKeys".
 	 */
-	public void setAreas(List<Lookup> areas) {
-		this.areas = areas;
+	public void setAreasKeys(List<String> areasKeys) {
+		this.areasKeys = areasKeys;
 	}
 
 	/**
-	 * Returns the value of property "sectors".
-	 * Sectors
+	 * Returns the value of property "sectorsKeys".
+	 * Sectors [Mapped To Codes Table:-cad.jurisdiction.sector]
 	 */
-	public List<Lookup> getSectors() {
-		return sectors;
+	public List<String> getSectorsKeys() {
+		return sectorsKeys;
+	}
+
+
+	/**
+	 * Updates the value of property "sectorsKeys".
+	 */
+	public void setSectorsKeys(List<String> sectorsKeys) {
+		this.sectorsKeys = sectorsKeys;
 	}
 
 	/**
-	 * Updates the value of property "sectors".
+	 * Returns the value of property "beatsKeys".
+	 * Beats/zones [Mapped To Codes Table:-cad.jurisdiction.beat]
 	 */
-	public void setSectors(List<Lookup> sectors) {
-		this.sectors = sectors;
+	public List<String> getBeatsKeys() {
+		return beatsKeys;
 	}
 
 	/**
-	 * Returns the value of property "beats".
-	 * Beats/zones
+	 * Updates the value of property "beatsKeys".
 	 */
-	public List<Lookup> getBeats() {
-		return beats;
+	public void setBeatsKeys(List<String> beatsKeys) {
+		this.beatsKeys = beatsKeys;
 	}
 
 	/**
-	 * Updates the value of property "beats".
+	 * Returns the value of property "homeStationKey".
+	 * Home (Default) Station Key [Mapped To Codes Table:-cad.jurisdiction.station]
 	 */
-	public void setBeats(List<Lookup> beats) {
-		this.beats = beats;
+	public String getHomeStationKey() {
+		return homeStationKey;
 	}
 
 	/**
-	 * Returns the value of property "homeStation".
-	 *
+	 * Updates the value of property "homeStationKey".
 	 */
-	public Lookup getHomeStation() {
-		return homeStation;
+	public void setHomeStationKey(String homeStationKey) {
+		this.homeStationKey = homeStationKey;
 	}
 
 	/**
-	 * Updates the value of property "homeStation".
+	 * Returns the value of property "assignedStationKey".
+	 * Currently assigned Station Key [Mapped To Codes Table:-cad.jurisdiction.station]
 	 */
-	public void setHomeStation(Lookup homeStation) {
-		this.homeStation = homeStation;
+	public String getAssignedStationKey() {
+		return assignedStationKey;
 	}
 
 	/**
-	 * Returns the value of property "assignedStation".
-	 *
+	 * Updates the value of property "assignedStationKey".
 	 */
-	public Lookup getAssignedStation() {
-		return assignedStation;
-	}
-
-	/**
-	 * Updates the value of property "assignedStation".
-	 */
-	public void setAssignedStation(Lookup assignedStation) {
-		this.assignedStation = assignedStation;
+	public void setAssignedStationKey(String assignedStationKey) {
+		this.assignedStationKey = assignedStationKey;
 	}
 
 }

@@ -29,7 +29,7 @@ public class InvolvedVehicleMapper {
 	static {
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_KEY, new StringSetter<>(InvolvedVehicle::setKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_RELATION, (model, value) ->
-			model.setRole(Collections.singletonList(CadCloudUtils.getStringFromJsonElement((JsonElement) value)))
+			model.setRoleKeys(Collections.singletonList(CadCloudUtils.getStringFromJsonElement((JsonElement) value)))
 		);
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_VEHICLE, (model, value) -> {
 			JsonObject jsonVehicle = ((JsonElement) value).getAsJsonObject();

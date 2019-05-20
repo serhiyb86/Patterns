@@ -11,7 +11,6 @@ import com.motorola.models.representation.Alert;
 import com.motorola.translation.setter.LocalDateSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
-import com.motorola.translation.v2019_1_15_0.mappers.AbstractMapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,13 +20,13 @@ import java.util.Map;
 /**
  * Mapper for converting Json Object with Alert data to the {@link Alert} object.
  */
-public class AlertMapper extends AbstractMapper {
+public class AlertMapper {
 
 	private static final Map<String, Setter<Alert>> setters = new HashMap<>();
 
 	static {
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.TYPE, (model, value) -> model.setType(createLookup((JsonElement) value)));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.ALERT, (model, value) -> model.setCategory(createLookup((JsonElement) value)));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.TYPE, new StringSetter<>(Alert::setTypeKey));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.ALERT,  new StringSetter<>(Alert::setCategoryKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.COMMENT, ((model, value) -> {
 			String comment = ((JsonElement) value).getAsString();
 			// comment and title mapped to one incoming value

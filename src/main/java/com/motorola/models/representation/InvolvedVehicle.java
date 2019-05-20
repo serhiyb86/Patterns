@@ -18,7 +18,7 @@ public class InvolvedVehicle implements Serializable {
 
 	private String key;
 
-	private List<String> role = new ArrayList<>();
+	private List<String> roleKeys = new ArrayList<>();
 
 	private Vehicle vehicle;
 
@@ -39,18 +39,18 @@ public class InvolvedVehicle implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "role".
-	 * Vehicle's Role(s) on the incident
+	 * Returns the value of property "roleKeys".
+	 * Vehicle's Role(s) on the incident [Mapped To Codes Table:-vehicle.role]
 	 */
-	public List<String> getRole() {
-		return role;
+	public List<String> getRoleKeys() {
+		return roleKeys;
 	}
 
 	/**
-	 * Updates the value of property "role".
+	 * Updates the value of property "roleKeys".
 	 */
-	public void setRole(List<String> role) {
-		this.role = role;
+	public void setRoleKeys(List<String> roleKeys) {
+		this.roleKeys = roleKeys;
 	}
 
 	/**

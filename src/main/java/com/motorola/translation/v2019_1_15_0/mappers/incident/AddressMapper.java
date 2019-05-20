@@ -17,13 +17,12 @@ import com.motorola.models.representation.Jurisdiction;
 import com.motorola.translation.setter.MultipleFieldsStringSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
-import com.motorola.translation.v2019_1_15_0.mappers.AbstractMapper;
 import com.motorola.utils.CadCloudUtils;
 
 /**
  * Mapper for converting Json Object with Address data to the {@link Address} object.
  */
-public class AddressMapper extends AbstractMapper {
+public class AddressMapper {
 
 	private static final String NO_GEOVALID = "NOGEO";
 
@@ -39,7 +38,7 @@ public class AddressMapper extends AbstractMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.LONGITUDE, new StringSetter<>(Address::setLongitude));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ID, (model, value) -> {
 			String idValue = CadCloudUtils.getStringFromJsonElement((JsonElement) value);
-			model.setId(idValue);
+			model.setKey(idValue);
 			if (StringUtils.isNotBlank(idValue) && !NO_GEOVALID.equals(idValue)) {
 				//If address is geo-valid
 				model.setIsVerified(true);

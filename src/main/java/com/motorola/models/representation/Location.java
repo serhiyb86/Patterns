@@ -24,14 +24,14 @@ public class Location implements Serializable {
 	 * Returns the value of property "key".
 	 * The unique identifier for the location
 	 */
-	public java.lang.String getKey() {
+	public String getKey() {
 		return key;
 	}
 
 	/**
 	 * Updates the value of property "key".
 	 */
-	public void setKey(java.lang.String key) {
+	public void setKey(String key) {
 		this.key = key;
 	}
 

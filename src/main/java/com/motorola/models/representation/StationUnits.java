@@ -19,23 +19,23 @@ public class StationUnits implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private Lookup station;
+	private String stationKey;
 
 	private List<UnitHandle> units = new ArrayList<UnitHandle>();
 
 	/**
-	 * Returns the value of property "station".
-	 *
+	 * Returns the value of property "stationKey".
+	 * Station Key [Mapped To Codes Table:-cad.jurisdiction.station]
 	 */
-	public Lookup getStation() {
-		return station;
+	public String getStationKey() {
+		return stationKey;
 	}
 
 	/**
-	 * Updates the value of property "station".
+	 * Updates the value of property "stationKey".
 	 */
-	public void setStation(Lookup station) {
-		this.station = station;
+	public void setStationKey(String stationKey) {
+		this.stationKey = stationKey;
 	}
 
 	/**

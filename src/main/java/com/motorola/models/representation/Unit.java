@@ -23,15 +23,19 @@ public class Unit implements Serializable {
 
 	private String key;
 
+	private String disciplineKey;
+
 	private String agency;
 
 	private String callSign;
 
-	private Lookup shiftId;
+	private String shiftId;
 
 	private String unitDescription;
 
 	private String status;
+
+	private String nextStatusKey;
 
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime whenStatusDeclared;
@@ -54,7 +58,7 @@ public class Unit implements Serializable {
 
 	private List<IncidentHandle> stackedIncidents = new ArrayList<IncidentHandle>();
 
-	private List<PersonnelHandle> assignedPersonnel = new ArrayList<PersonnelHandle>();
+	private List<Personnel> assignedPersonnel = new ArrayList<Personnel>();
 
 	private List<Capability> incidentQualification = new ArrayList<Capability>();
 
@@ -65,6 +69,14 @@ public class Unit implements Serializable {
 	private JurisdictionalAssignment jurisdictionalAssignment;
 
 	private Fleet fleetAssignment;
+
+	private Boolean isExpired;
+
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	private LocalDateTime whenCreated;
+
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	private LocalDateTime whenUpdated;
 
 	/**
 	 * Returns the value of property "customerId".
@@ -94,6 +106,21 @@ public class Unit implements Serializable {
 	 */
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	/**
+	 * Returns the value of property "disciplineKey".
+	 * Agency Type Key [Mapped To Codes Table:-cad.agencyType]
+	 */
+	public String getDisciplineKey() {
+		return disciplineKey;
+	}
+
+	/**
+	 * Updates the value of property "disciplineKey".
+	 */
+	public void setDisciplineKey(String disciplineKey) {
+		this.disciplineKey = disciplineKey;
 	}
 
 	/**
@@ -128,16 +155,16 @@ public class Unit implements Serializable {
 
 	/**
 	 * Returns the value of property "shiftId".
-	 *
+	 * Shift Id of Unit
 	 */
-	public Lookup getShiftId() {
+	public String getShiftId() {
 		return shiftId;
 	}
 
 	/**
 	 * Updates the value of property "shiftId".
 	 */
-	public void setShiftId(Lookup shiftId) {
+	public void setShiftId(String shiftId) {
 		this.shiftId = shiftId;
 	}
 
@@ -145,7 +172,7 @@ public class Unit implements Serializable {
 	 * Returns the value of property "unitDescription".
 	 * Unit description
 	 */
-	public java.lang.String getUnitDescription() {
+	public String getUnitDescription() {
 		return unitDescription;
 	}
 
@@ -169,6 +196,21 @@ public class Unit implements Serializable {
 	 */
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	/**
+	 * Returns the value of property "nextStatusKey".
+	 * The next Status in the workflow [Mapped To Codes Table:-cad.unit.status]
+	 */
+	public String getNextStatusKey() {
+		return nextStatusKey;
+	}
+
+	/**
+	 * Updates the value of property "nextStatusKey".
+	 */
+	public void setNextStatusKey(String nextStatusKey) {
+		this.nextStatusKey = nextStatusKey;
 	}
 
 	/**
@@ -326,14 +368,14 @@ public class Unit implements Serializable {
 	 * Returns the value of property "assignedPersonnel".
 	 * Personnel currently assigned to the Unit
 	 */
-	public List<PersonnelHandle> getAssignedPersonnel() {
+	public List<Personnel> getAssignedPersonnel() {
 		return assignedPersonnel;
 	}
 
 	/**
 	 * Updates the value of property "assignedPersonnel".
 	 */
-	public void setAssignedPersonnel(List<PersonnelHandle> assignedPersonnel) {
+	public void setAssignedPersonnel(List<Personnel> assignedPersonnel) {
 		this.assignedPersonnel = assignedPersonnel;
 	}
 
@@ -410,6 +452,51 @@ public class Unit implements Serializable {
 	 */
 	public void setFleetAssignment(Fleet fleetAssignment) {
 		this.fleetAssignment = fleetAssignment;
+	}
+
+	/**
+	 * Returns the value of property "isExpired".
+	 * Indicates if the unit status timer expired
+	 */
+	public Boolean getIsExpired() {
+		return isExpired;
+	}
+
+	/**
+	 * Updates the value of property "isExpired".
+	 */
+	public void setIsExpired(Boolean isExpired) {
+		this.isExpired = isExpired;
+	}
+
+	/**
+	 * Returns the value of property "whenCreated".
+	 * When this unit record was created
+	 */
+	public LocalDateTime getWhenCreated() {
+		return whenCreated;
+	}
+
+	/**
+	 * Updates the value of property "whenCreated".
+	 */
+	public void setWhenCreated(LocalDateTime whenCreated) {
+		this.whenCreated = whenCreated;
+	}
+
+	/**
+	 * Returns the value of property "whenUpdated".
+	 * Last time the Unit record was updated
+	 */
+	public LocalDateTime getWhenUpdated() {
+		return whenUpdated;
+	}
+
+	/**
+	 * Updates the value of property "whenUpdated".
+	 */
+	public void setWhenUpdated(LocalDateTime whenUpdated) {
+		this.whenUpdated = whenUpdated;
 	}
 
 }

@@ -19,6 +19,8 @@ public class DeviceHandle implements Serializable {
 
 	private String name;
 
+	private String deviceTypeKey;
+
 	/**
 	 * Returns the value of property "key".
 	 * Device Key
@@ -62,6 +64,21 @@ public class DeviceHandle implements Serializable {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * Returns the value of property "deviceTypeKey".
+	 * Optional Device Type Key. Required if the Device is not Provisioned In CAD
+	 */
+	public String getDeviceTypeKey() {
+		return deviceTypeKey;
+	}
+
+	/**
+	 * Updates the value of property "deviceTypeKey".
+	 */
+	public void setDeviceTypeKey(String deviceTypeKey) {
+		this.deviceTypeKey = deviceTypeKey;
 	}
 
 }

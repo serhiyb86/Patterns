@@ -32,6 +32,7 @@ public class BookOnTranslatorTest extends TranslatorTest {
 		Assert.assertEquals("Correlation id translation failed", "myCorrelationId", wrapper.getCorrelationId());
 		Assert.assertEquals("Customer id translation failed", "myCustomerId", model.getCustomerId());
 		Assert.assertEquals("Session id translation failed", "mySessionID", model.getSessionId());
+		Assert.assertEquals("Service id translation failed", "test_serviceId", model.getServiceId());
 		Assert.assertEquals("Api access list size translation failed", 1, model.getApiAccessList().size());
 		Assert.assertEquals("Wrong create date after translation", ZonedDateTime.parse("2019-01-30T12:26:23.771Z", format), model.getWhenSessionCreated());
 		Assert.assertEquals("Wrong update date after translation", ZonedDateTime.parse("2019-01-30T12:26:23.771Z", format), model.getWhenSessionUpdated());

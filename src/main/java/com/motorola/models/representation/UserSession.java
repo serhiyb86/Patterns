@@ -21,6 +21,8 @@ public class UserSession implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
+	private String serviceId;
+
 	private String customerId;
 
 	private String sessionId;
@@ -42,6 +44,22 @@ public class UserSession implements Serializable {
 
 	@JsonSerialize(using = ZonedDateTimeSerializer.class)
 	private ZonedDateTime whenSessionUpdated;
+
+	/**
+	 * Returns the value of property "serviceId".
+	 * Indicates the source of the book on request (Mobile Gateway or other Gateway)
+	 */
+	public String getServiceId() {
+		return serviceId;
+	}
+
+	/**
+	 * Updates the value of property "serviceId".
+	 */
+	public void setServiceId(String serviceId) {
+		this.serviceId = serviceId;
+	}
+
 
 	/**
 	 * Returns the value of property "customerId".
