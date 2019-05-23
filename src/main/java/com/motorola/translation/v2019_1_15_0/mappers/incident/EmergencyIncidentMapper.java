@@ -102,12 +102,14 @@ public class EmergencyIncidentMapper {
 	private void appendAlerts(List<DispatchableIncident> dispatches, Map<String, Address> emergencyAlertLocationAddress) {
 		for (DispatchableIncident dispatchableIncident : dispatches) {
 			Address address = dispatchableIncident.getLocation().getAddress();
-			String addressId = address.getKey();
-			// check if address is emergency address (id is one of the keys in map)
-			if (emergencyAlertLocationAddress.containsKey(addressId)) {
-				List<Alert> emergencyAlerts = emergencyAlertLocationAddress.get(addressId).getAlerts();
-				// append alerts
-				address.setAlerts(emergencyAlerts);
+			if (address != null) {
+				String addressId = address.getKey();
+				// check if address is emergency address (id is one of the keys in map)
+				if (emergencyAlertLocationAddress.containsKey(addressId)) {
+					List<Alert> emergencyAlerts = emergencyAlertLocationAddress.get(addressId).getAlerts();
+					// append alerts
+					address.setAlerts(emergencyAlerts);
+				}
 			}
 		}
 	}
