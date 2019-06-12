@@ -41,7 +41,7 @@ public class UserSession implements Serializable {
 
 	private MonitorAreas monitorAreas;
 
-	private List<AccessScope> apiAccessScope = new ArrayList<AccessScope>();
+	private List<AccessScope> apiAccessScope = new ArrayList<>();
 
 	private UnitHandle unit;
 

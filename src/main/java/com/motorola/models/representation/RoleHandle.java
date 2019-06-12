@@ -54,14 +54,14 @@ public class RoleHandle implements Serializable {
 	 * Returns the value of property "alias".
 	 * Role Name
 	 */
-	public java.lang.String getAlias() {
+	public String getAlias() {
 		return alias;
 	}
 
 	/**
 	 * Updates the value of property "alias".
 	 */
-	public void setAlias(java.lang.String alias) {
+	public void setAlias(String alias) {
 		this.alias = alias;
 	}
 }
