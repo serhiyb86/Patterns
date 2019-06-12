@@ -44,9 +44,8 @@ public class Translator implements BaseTranslator {
 		result.setCorrelationId(correlationId);
 		UserSession userSession = new UserSessionMapper().createAndMapToUserSession(payload);
 		result.setModel(userSession);
-		validateRequiredObjectField(userSession.getApiAccessList(), InterfaceConstants.BookOnProperties.API_ACCESS_LIST);
+		validateRequiredObjectField(userSession.getApiAccessScope(), InterfaceConstants.BookOnProperties.API_ACCESS_LIST);
 		validateRequiredObjectField(userSession.getMonitorAreas(), InterfaceConstants.BookOnProperties.MONITOR_AREAS);
-		validateRequiredObjectField(userSession.getAdditionalInfo(), InterfaceConstants.BookOnProperties.ADDITIONAL_INFO_JSON_KEY);
 
 		return result;
 	}

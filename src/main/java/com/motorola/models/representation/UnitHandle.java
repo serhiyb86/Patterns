@@ -15,7 +15,7 @@ public class UnitHandle implements Serializable {
 
     private String key;
 
-    private String agency;
+    private String agencyAlias;
 
     private String callSign;
 
@@ -37,18 +37,18 @@ public class UnitHandle implements Serializable {
     }
 
     /**
-     * Returns the value of property "agency". 
-     * Unit Agency Id
+     * Returns the value of property "agencyAlias".
+     * Unit Agency Name
      */
-    public String getAgency() {
-        return agency;
+    public String getAgencyAlias() {
+        return agencyAlias;
     }
 
     /**
-     * Updates the value of property "agency". 
+     * Updates the value of property "agencyAlias".
      */
-    public void setAgency(String agency) {
-        this.agency = agency;
+    public void setAgencyAlias(String agencyAlias) {
+        this.agencyAlias = agencyAlias;
     }
 
     /**

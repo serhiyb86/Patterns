@@ -27,17 +27,25 @@ public class UserSession implements Serializable {
 
 	private String sessionId;
 
-	private PersonnelHandle user;
+	private PersonnelHandle cadUser;
+
+	private String cadUserAgencyKey;
 
 	private DeviceHandle device;
 
+	private String deviceAgencyKey;
+
 	private RoleHandle role;
 
-	private List<String> apiAccessList = new ArrayList<>();
+	private JurisdictionalAssignment assignments;
 
 	private MonitorAreas monitorAreas;
 
-	private AdditionalInfo additionalInfo;
+	private List<AccessScope> apiAccessScope = new ArrayList<AccessScope>();
+
+	private UnitHandle unit;
+
+	private String vehicleId;
 
 	@JsonSerialize(using = ZonedDateTimeSerializer.class)
 	private ZonedDateTime whenSessionCreated;
@@ -92,21 +100,6 @@ public class UserSession implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "user".
-	 *
-	 */
-	public PersonnelHandle getUser() {
-		return user;
-	}
-
-	/**
-	 * Updates the value of property "user".
-	 */
-	public void setUser(PersonnelHandle user) {
-		this.user = user;
-	}
-
-	/**
 	 * Returns the value of property "device".
 	 *
 	 */
@@ -137,18 +130,18 @@ public class UserSession implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "apiAccessList".
-	 * List of security scopes defined in SecurityDefinitions in Cloud Client API to indicate the access rights to these API calls.
+	 * Returns the value of property "apiAccessScope".
+	 * List of API access scopes defined in Security Definitions based on agencies within a customer in Cloud Client API to indicate the access rights to these API calls.
 	 */
-	public List<String> getApiAccessList() {
-		return apiAccessList;
+	public List<AccessScope> getApiAccessScope() {
+		return apiAccessScope;
 	}
 
 	/**
-	 * Updates the value of property "apiAccessList".
+	 * Updates the value of property "apiAccessScope".
 	 */
-	public void setApiAccessList(List<String> apiAccessList) {
-		this.apiAccessList = apiAccessList;
+	public void setApiAccessScope(List<AccessScope> apiAccessScope) {
+		this.apiAccessScope = apiAccessScope;
 	}
 
 	/**
@@ -164,21 +157,6 @@ public class UserSession implements Serializable {
 	 */
 	public void setMonitorAreas(MonitorAreas monitorAreas) {
 		this.monitorAreas = monitorAreas;
-	}
-
-	/**
-	 * Returns the value of property "additionalInfo".
-	 *
-	 */
-	public AdditionalInfo getAdditionalInfo() {
-		return additionalInfo;
-	}
-
-	/**
-	 * Updates the value of property "additionalInfo".
-	 */
-	public void setAdditionalInfo(AdditionalInfo additionalInfo) {
-		this.additionalInfo = additionalInfo;
 	}
 
 	/**
@@ -211,4 +189,93 @@ public class UserSession implements Serializable {
 		this.whenSessionUpdated = whenSessionUpdated;
 	}
 
+	/**
+	 * Returns the value of property "cadUser".
+	 *
+	 */
+	public PersonnelHandle getCadUser() {
+		return cadUser;
+	}
+
+	/**
+	 * Updates the value of property "cadUser".
+	 */
+	public void setCadUser(PersonnelHandle cadUser) {
+		this.cadUser = cadUser;
+	}
+
+	/**
+	 * Returns the value of property "cadUserAgencyKey".
+	 * CAD User agency key - [Mapped To Codes Table:-cad.agencies]
+	 */
+	public String getCadUserAgencyKey() {
+		return cadUserAgencyKey;
+	}
+
+	/**
+	 * Updates the value of property "cadUserAgencyKey".
+	 */
+	public void setCadUserAgencyKey(String cadUserAgencyKey) {
+		this.cadUserAgencyKey = cadUserAgencyKey;
+	}
+
+	/**
+	 * Returns the value of property "deviceAgencyKey".
+	 * Device agency key - [Mapped To Codes Table:-cad.agencies]
+	 */
+	public String getDeviceAgencyKey() {
+		return deviceAgencyKey;
+	}
+
+	/**
+	 * Updates the value of property "deviceAgencyKey".
+	 */
+	public void setDeviceAgencyKey(String deviceAgencyKey) {
+		this.deviceAgencyKey = deviceAgencyKey;
+	}
+
+	/**
+	 * Returns the value of property "assignments".
+	 *
+	 */
+	public JurisdictionalAssignment getAssignments() {
+		return assignments;
+	}
+
+	/**
+	 * Updates the value of property "assignments".
+	 */
+	public void setAssignments(JurisdictionalAssignment assignments) {
+		this.assignments = assignments;
+	}
+
+	/**
+	 * Returns the value of property "unit".
+	 *
+	 */
+	public UnitHandle getUnit() {
+		return unit;
+	}
+
+	/**
+	 * Updates the value of property "unit".
+	 */
+	public void setUnit(UnitHandle unit) {
+		this.unit = unit;
+	}
+
+	/**
+	 * Returns the value of property "vehicleId".
+	 * Optional if the unit is not assiged to a vehicle ID
+	 */
+	public String getVehicleId() {
+		return vehicleId;
+	}
+
+	/**
+	 * Updates the value of property "vehicleId".
+	 */
+	public void setVehicleId(String vehicleId) {
+		this.vehicleId = vehicleId;
+	}
 }

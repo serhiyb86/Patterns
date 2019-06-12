@@ -46,7 +46,7 @@ public class IncidentCommentMapper {
 			JsonObject jsonObject = ((JsonElement) value).getAsJsonObject();
 			JsonElement userName = jsonObject.get(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_USER_SNAME);
 			PersonnelHandle user = new PersonnelHandle();
-			user.setNameCode(userName.getAsString());
+			user.setAslias(userName.getAsString());
 			model.setOnBehalfOfUser(user);
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.ENTERED_BY, (model, value) ->

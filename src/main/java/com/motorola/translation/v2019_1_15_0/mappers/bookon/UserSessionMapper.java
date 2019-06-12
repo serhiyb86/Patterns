@@ -8,6 +8,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.Config;
+import com.motorola.models.representation.AccessScope;
+import com.motorola.models.representation.MonitorAreas;
 import com.motorola.models.representation.RoleHandle;
 import com.motorola.models.representation.UserSession;
 import com.motorola.translation.setter.Setter;
@@ -16,6 +18,7 @@ import com.motorola.translation.setter.ZonedDateTimeSetter;
 import com.motorola.utils.CadCloudUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,11 +37,16 @@ public class UserSessionMapper {
 		setters.put(InterfaceConstants.BookOnProperties.DEVICE, (model, value) ->
 			model.setDevice(new DeviceHandleMapper().createAndMapDeviceHandle((JsonObject) value))
 		);
-		setters.put(InterfaceConstants.BookOnProperties.USER, (model, value) ->
-			model.setUser(new PersonnelHandleMapper().createAndMapPersonnelHandle((JsonObject) value))
+		setters.put(InterfaceConstants.BookOnProperties.CAD_USER_AGENCY_KEY, new StringSetter<>(UserSession::setCadUserAgencyKey));
+		setters.put(InterfaceConstants.BookOnProperties.DEVICE_AGENCY_KEY, new StringSetter<>(UserSession::setDeviceAgencyKey));
+		setters.put(InterfaceConstants.BookOnProperties.CAD_USER, (model, value) ->
+			model.setCadUser(new PersonnelHandleMapper().createAndMapPersonnelHandle((JsonObject) value))
+		);
+		setters.put(InterfaceConstants.BookOnProperties.UNIT_JSON_KEY, (model, value) ->
+			model.setUnit(new UnitHandleMapper().createAndMapUnitHandle((JsonObject) value))
 		);
 		setters.put(InterfaceConstants.BookOnProperties.ROLE, (model, value) -> {
-			RoleHandle role = new RoleHandleMapper().createAndMapRoleHandle((JsonObject) value);
+			RoleHandle role = new RoleHandle();
 			role.setKey(InterfaceConstants.BookOnProperties.ROLE_KEY_VAL);
 			model.setRole(role);
 		});
@@ -47,22 +55,32 @@ public class UserSessionMapper {
 		setters.put(InterfaceConstants.BookOnProperties.WHEN_SESSION_UPDATED,
 			new ZonedDateTimeSetter<>(UserSession::setWhenSessionUpdated, Config.DATETIME_FORMAT));
 		//	will be changed after clarifications of the onPrem permission model.
-		setters.put(InterfaceConstants.BookOnProperties.API_ACCESS_LIST, (model, value) -> {
-			List<String> result = new ArrayList<>();
+		setters.put(InterfaceConstants.BookOnProperties.API_ACCESS_SCOPE, (model, value) -> {
 			if (value != null) {
+				List<AccessScope> result = new ArrayList<>();
 				for (JsonElement element : (JsonArray) value) {
 					JsonObject permissionJSON = element.getAsJsonObject();
-					result.add(CadCloudUtils.getStringByKey(permissionJSON, InterfaceConstants.BookOnProperties.PERMISSION_ID));
+					AccessScope accessScope = new AccessScope();
+					accessScope.setAgencyKey(CadCloudUtils.getStringByKey(permissionJSON, InterfaceConstants.BookOnProperties.AGENCY_KEY));
+					List<String> permissions = new ArrayList<>();
+					for (JsonElement permission : permissionJSON.getAsJsonArray(InterfaceConstants.BookOnProperties.API_ACCESS_LIST)) {
+						permissions.add(permission.getAsString());
+					}
+					accessScope.setApiAccessList(permissions);
+					result.add(accessScope);
+				}
+				model.setApiAccessScope(result);
+			}
+		});
+		setters.put(InterfaceConstants.BookOnProperties.MONITOR_AREAS, (model, value) -> {
+				if (value != null) {
+					MonitorAreas monitorAreas = new MonitorAreas();
+					monitorAreas.setAreaKeys(Collections.singletonList(((JsonElement) value).getAsString()));
+					model.setMonitorAreas(monitorAreas);
 				}
 			}
-			model.setApiAccessList(result);
-		});
-		setters.put(InterfaceConstants.BookOnProperties.MONITOR_AREAS, (model, value) ->
-			model.setMonitorAreas(new MonitorAreasMapper().createAndMapToMonitorAreas((JsonObject) value))
 		);
-		setters.put(InterfaceConstants.BookOnProperties.ADDITIONAL_INFO_JSON_KEY, (model, value) ->
-			model.setAdditionalInfo(new AdditionalInfoMapper().createAndMapToAdditionalInfo((JsonObject) value))
-		);
+
 	}
 
 	/**
@@ -73,6 +91,9 @@ public class UserSessionMapper {
 	 */
 	public UserSession createAndMapToUserSession(JsonObject data) {
 		UserSession userSession = new UserSession();
+		RoleHandle role = new RoleHandle();
+		role.setKey(InterfaceConstants.BookOnProperties.ROLE_KEY_VAL);
+		userSession.setRole(role);
 		return mapToUserSession(data, userSession);
 	}
 

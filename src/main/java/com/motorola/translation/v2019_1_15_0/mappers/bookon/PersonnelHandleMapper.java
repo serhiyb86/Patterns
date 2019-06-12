@@ -20,9 +20,9 @@ public class PersonnelHandleMapper {
 	private static final Map<String, Setter<PersonnelHandle>> setters = new HashMap<>();
 
 	static {
-		setters.put(InterfaceConstants.BookOnProperties.USER_KEY, new StringSetter<>(PersonnelHandle::setKey));
-		setters.put(InterfaceConstants.BookOnProperties.USER_NAME, new StringSetter<>(PersonnelHandle::setNameCode));
-		setters.put(InterfaceConstants.BookOnProperties.USER_AGENCY_ALIAS, new StringSetter<>(PersonnelHandle::setAgencyAlias));
+		setters.put(InterfaceConstants.BookOnProperties.CAD_USER_KEY, new StringSetter<>(PersonnelHandle::setKey));
+		setters.put(InterfaceConstants.BookOnProperties.CAD_USER_ALIAS, new StringSetter<>(PersonnelHandle::setAslias));
+		setters.put(InterfaceConstants.BookOnProperties.CAD_USER_AGENCY_ALIAS, new StringSetter<>(PersonnelHandle::setAgencyAlias));
 	}
 
 	/**

@@ -21,7 +21,7 @@ public class PersonnelHandleMapper {
 
 	static {
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.ABBR, new StringSetter<>(PersonnelHandle::setKey));
-		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.SNAME, new StringSetter<>(PersonnelHandle::setNameCode));
+		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.SNAME, new StringSetter<>(PersonnelHandle::setAslias));
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.AGENCY, new StringSetter<>(PersonnelHandle::setAgencyAlias));
 	}
 

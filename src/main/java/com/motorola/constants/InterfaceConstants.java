@@ -41,31 +41,31 @@ public final class InterfaceConstants {
 
 		public static final String BOOK_ON_REQUEST_TYPE = "BookOnRequest";
 		public static final String DEVICE = "device";
-		public static final String DEVICE_KEY = "deviceKey";
-		public static final String DEVICE_AGENCY_ALIAS = "deviceAgencyAlias";
+		public static final String DEVICE_KEY = "key";
+		public static final String DEVICE_AGENCY_ALIAS = "agencyAlias";
 		public static final String DEVICE_NAME = "deviceName";
-		public static final String USER = "user";
-		public static final String USER_KEY = "userKey";
-		public static final String USER_NAME = "userNameCode";
-		public static final String USER_AGENCY_ALIAS = "userAgencyAlias";
+		public static final String CAD_USER = "cadUser";
+		public static final String CAD_USER_KEY = "key";
+		public static final String CAD_USER_ALIAS = "alias";
+		public static final String CAD_USER_AGENCY_ALIAS = "agencyAlias";
 		public static final String ROLE = "role";
-		public static final String ROLE_NAME = "roleNameCode";
-		public static final String ROLE_AGENCY_ALIAS = "roleAgencyAlias";
 		public static final String WHEN_SESSION_CREATED = "whenSessionCreated";
 		public static final String WHEN_SESSION_UPDATED = "whenSessionUpdated";
+		public static final String API_ACCESS_SCOPE = "apiAccessScope";
 		public static final String API_ACCESS_LIST = "apiAccessList";
-		public static final String PERMISSION_ID = "permissionId";
-		public static final String MONITOR_AREAS = "monitorAreas";
-		public static final String AREAS = "areas";
+		public static final String AGENCY_KEY = "agencyKey";
+		public static final String MONITOR_AREAS = "monitoringArea";
 		public static final String CORRELATION_ID = "correlationId";
 		public static final String CUSTOMER_ID = "customerId";
 		public static final String SESSION_ID = "sessionId";
 		public static final String SERVICE_ID = "serviceId";
 		public static final String ROLE_KEY_VAL = "user";
-		public static final String ADDITIONAL_INFO_JSON_KEY = "additionalInfo";
 		public static final String UNIT_JSON_KEY = "unit";
-		public static final String AGENCY_JSON_KEY = "agency";
-		public static final String KEY_JSON_KEY = "key";
+		public static final String UNIT_AGENCY_ALIAS = "agency";
+		public static final String UNIT_KEY = "key";
+		public static final String UNIT_CALLSIGN = "callSign";
+		public static final String CAD_USER_AGENCY_KEY = "cadUserAgencyKey";
+		public static final String DEVICE_AGENCY_KEY = "deviceAgencyKey";
 	}
 
 	/**
