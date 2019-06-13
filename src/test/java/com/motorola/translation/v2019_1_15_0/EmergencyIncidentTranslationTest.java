@@ -218,9 +218,9 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertNotNull(comment.getOnBehalfOfUnit());
 		Assert.assertEquals("101", comment.getOnBehalfOfUnit().getKey());
 		Assert.assertNotNull(comment.getOnBehalfOfUser());
-		Assert.assertEquals("XML User", comment.getOnBehalfOfUser().getAslias());
+		Assert.assertEquals("XML User", comment.getOnBehalfOfUser().getAlias());
 		Assert.assertNotNull(comment.getEnteredBy());
-		Assert.assertEquals("Spillman", comment.getEnteredBy().getAslias());
+		Assert.assertEquals("Spillman", comment.getEnteredBy().getAlias());
 		Assert.assertNull(comment.getDevice());
 		Assert.assertEquals("urgent", comment.getIsPriority());
 		// Dispatch - ReportNumbers

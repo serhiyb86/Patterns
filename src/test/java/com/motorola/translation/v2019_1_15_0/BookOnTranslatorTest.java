@@ -61,7 +61,7 @@ public class BookOnTranslatorTest extends TranslatorTest {
 		Assert.assertNotNull(cadUser);
 		Assert.assertEquals("cadUser.key translation failed", "SDS", cadUser.getKey());
 		Assert.assertEquals("cadUser.agencyAlias translation failed", "SPD", cadUser.getAgencyAlias());
-		Assert.assertEquals("cadUser.aslias translation failed", "sds", cadUser.getAslias());
+		Assert.assertEquals("cadUser.alias translation failed", "sds", cadUser.getAlias());
 
 		UnitHandle unit = model.getUnit();
 		Assert.assertNotNull(unit);

@@ -15,7 +15,7 @@ public class PersonnelHandle implements Serializable {
 
 	private String key;
 
-	private String aslias;
+	private String alias;
 
 	private String agencyAlias;
 
@@ -50,17 +50,17 @@ public class PersonnelHandle implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "aslias".
+	 * Returns the value of property "alias".
 	 * User Name
 	 */
-	public String getAslias() {
-		return aslias;
+	public String getAlias() {
+		return alias;
 	}
 
 	/**
-	 * Updates the value of property "aslias".
+	 * Updates the value of property "alias".
 	 */
-	public void setAslias(String aslias) {
-		this.aslias = aslias;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 }

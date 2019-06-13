@@ -10,7 +10,6 @@ import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.IncidentComment;
 import com.motorola.models.representation.PersonnelHandle;
 import com.motorola.models.representation.UnitHandle;
-import com.motorola.translation.setter.LocalDateTimeSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.setter.ZonedDateTimeSetter;
@@ -46,7 +45,7 @@ public class IncidentCommentMapper {
 			JsonObject jsonObject = ((JsonElement) value).getAsJsonObject();
 			JsonElement userName = jsonObject.get(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_USER_SNAME);
 			PersonnelHandle user = new PersonnelHandle();
-			user.setAslias(userName.getAsString());
+			user.setAlias(userName.getAsString());
 			model.setOnBehalfOfUser(user);
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.ENTERED_BY, (model, value) ->
