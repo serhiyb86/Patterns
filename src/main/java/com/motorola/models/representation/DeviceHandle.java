@@ -17,9 +17,7 @@ public class DeviceHandle implements Serializable {
 
 	private String agencyAlias;
 
-	private String name;
-
-	private String deviceTypeKey;
+	private String alias;
 
 	/**
 	 * Returns the value of property "key".
@@ -52,33 +50,18 @@ public class DeviceHandle implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "name".
+	 * Returns the value of property "alias".
 	 * Device Name
 	 */
-	public String getName() {
-		return name;
+	public String getAlias() {
+		return alias;
 	}
 
 	/**
-	 * Updates the value of property "name".
+	 * Updates the value of property "alias".
 	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * Returns the value of property "deviceTypeKey".
-	 * Optional Device Type Key. Required if the Device is not Provisioned In CAD
-	 */
-	public String getDeviceTypeKey() {
-		return deviceTypeKey;
-	}
-
-	/**
-	 * Updates the value of property "deviceTypeKey".
-	 */
-	public void setDeviceTypeKey(String deviceTypeKey) {
-		this.deviceTypeKey = deviceTypeKey;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 
 }

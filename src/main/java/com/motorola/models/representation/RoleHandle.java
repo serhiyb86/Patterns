@@ -16,7 +16,7 @@ public class RoleHandle implements Serializable {
 
 	private String key;
 
-	private String nameCode;
+	private String alias;
 
 	private String agencyAlias;
 
@@ -36,21 +36,6 @@ public class RoleHandle implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "nameCode".
-	 * Role Name
-	 */
-	public String getNameCode() {
-		return nameCode;
-	}
-
-	/**
-	 * Updates the value of property "nameCode".
-	 */
-	public void setNameCode(String nameCode) {
-		this.nameCode = nameCode;
-	}
-
-	/**
 	 * Returns the value of property "agencyAlias".
 	 * Role's Agency Id
 	 */
@@ -63,6 +48,21 @@ public class RoleHandle implements Serializable {
 	 */
 	public void setAgencyAlias(String agencyAlias) {
 		this.agencyAlias = agencyAlias;
+	}
+
+	/**
+	 * Returns the value of property "alias".
+	 * Role Name
+	 */
+	public String getAlias() {
+		return alias;
+	}
+
+	/**
+	 * Updates the value of property "alias".
+	 */
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 }
 

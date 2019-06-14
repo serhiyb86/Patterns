@@ -29,10 +29,11 @@ abstract class BaseHttpServlet extends HttpServlet {
 	 * @param responseString additional string with data to respond.
 	 */
 	protected void respondWithTranslatedModel(HttpServletResponse response, String responseString) {
-		StringBuilder responseMessage = new StringBuilder("Translated Data: ");
+		StringBuilder responseMessage = new StringBuilder("{ \"TranslatedData\": ");
 		if (!StringUtils.isNullOrEmpty(responseString)) {
 			responseMessage.append(responseString);
 		}
+		responseMessage.append("}");
 		try (ServletOutputStream outputStream = response.getOutputStream()) {
 			outputStream.write(responseMessage.toString().getBytes());
 		}

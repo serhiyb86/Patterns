@@ -21,7 +21,7 @@ public class DeviceHandleMapper {
 
 	static {
 		setters.put(InterfaceConstants.BookOnProperties.DEVICE_KEY, new StringSetter<>(DeviceHandle::setKey));
-		setters.put(InterfaceConstants.BookOnProperties.DEVICE_NAME, new StringSetter<>(DeviceHandle::setName));
+		setters.put(InterfaceConstants.BookOnProperties.DEVICE_NAME, new StringSetter<>(DeviceHandle::setAlias));
 		setters.put(InterfaceConstants.BookOnProperties.DEVICE_AGENCY_ALIAS, new StringSetter<>(DeviceHandle::setAgencyAlias));
 	}
 

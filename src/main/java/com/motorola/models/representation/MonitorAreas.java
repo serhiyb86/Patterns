@@ -21,11 +21,10 @@ public class MonitorAreas implements Serializable {
 
 	private List<String> areaKeys = new ArrayList<>();
 
-	private List<StationUnits> stationUnits = new ArrayList<>();
 
 	/**
 	 * Returns the value of property "areaKeys".
-	 *
+	 * Areas Key [Mapped To Codes Table:-cad.jurisdiction.areas]
 	 */
 	public List<String> getAreaKeys() {
 		return areaKeys;
@@ -38,19 +37,6 @@ public class MonitorAreas implements Serializable {
 		this.areaKeys = areaKeys;
 	}
 
-	/**
-	 * Returns the value of property "stationUnits".
-	 *
-	 */
-	public List<StationUnits> getStationUnits() {
-		return stationUnits;
-	}
 
-	/**
-	 * Updates the value of property "stationUnits".
-	 */
-	public void setStationUnits(List<StationUnits> stationUnits) {
-		this.stationUnits = stationUnits;
-	}
 
 }

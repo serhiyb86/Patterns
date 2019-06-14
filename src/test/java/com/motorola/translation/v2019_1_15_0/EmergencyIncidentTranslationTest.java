@@ -218,9 +218,9 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertNotNull(comment.getOnBehalfOfUnit());
 		Assert.assertEquals("101", comment.getOnBehalfOfUnit().getKey());
 		Assert.assertNotNull(comment.getOnBehalfOfUser());
-		Assert.assertEquals("XML User", comment.getOnBehalfOfUser().getNameCode());
+		Assert.assertEquals("XML User", comment.getOnBehalfOfUser().getAlias());
 		Assert.assertNotNull(comment.getEnteredBy());
-		Assert.assertEquals("Spillman", comment.getEnteredBy().getNameCode());
+		Assert.assertEquals("Spillman", comment.getEnteredBy().getAlias());
 		Assert.assertNull(comment.getDevice());
 		Assert.assertEquals("urgent", comment.getIsPriority());
 		// Dispatch - ReportNumbers
@@ -259,14 +259,14 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		UnitHandle assignedUnit1 = assignedUnits.get(0);
 		Assert.assertNotNull(assignedUnit1);
 		Assert.assertEquals("F14", assignedUnit1.getKey( ));
-		Assert.assertNull(assignedUnit1.getAgency( ));
+		Assert.assertNull(assignedUnit1.getAgencyAlias());
 		Assert.assertNull(assignedUnit1.getCallSign( ));
 		Assert.assertNull(assignedUnit1.getShiftId( ));
 
 		UnitHandle assignedUnit2 = assignedUnits.get(1);
 		Assert.assertNotNull(assignedUnit2);
 		Assert.assertEquals("F16", assignedUnit2.getKey( ));
-		Assert.assertNull(assignedUnit2.getAgency( ));
+		Assert.assertNull(assignedUnit2.getAgencyAlias());
 		Assert.assertNull(assignedUnit2.getCallSign( ));
 		Assert.assertNull(assignedUnit2.getShiftId( ));
 

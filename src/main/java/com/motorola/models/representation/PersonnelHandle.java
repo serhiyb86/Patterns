@@ -15,11 +15,9 @@ public class PersonnelHandle implements Serializable {
 
 	private String key;
 
-	private String nameCode;
+	private String alias;
 
 	private String agencyAlias;
-
-	private String idmId;
 
 	/**
 	 * Returns the value of property "key".
@@ -34,21 +32,6 @@ public class PersonnelHandle implements Serializable {
 	 */
 	public void setKey(String key) {
 		this.key = key;
-	}
-
-	/**
-	 * Returns the value of property "nameCode".
-	 * User Name
-	 */
-	public String getNameCode() {
-		return nameCode;
-	}
-
-	/**
-	 * Updates the value of property "nameCode".
-	 */
-	public void setNameCode(String nameCode) {
-		this.nameCode = nameCode;
 	}
 
 	/**
@@ -67,18 +50,17 @@ public class PersonnelHandle implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "idmId".
-	 * User's Command Central Id - IdM user ID in email format
+	 * Returns the value of property "alias".
+	 * User Name
 	 */
-	public String getIdmId() {
-		return idmId;
+	public String getAlias() {
+		return alias;
 	}
 
 	/**
-	 * Updates the value of property "idmId".
+	 * Updates the value of property "alias".
 	 */
-	public void setIdmId(String idmId) {
-		this.idmId = idmId;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
-
 }

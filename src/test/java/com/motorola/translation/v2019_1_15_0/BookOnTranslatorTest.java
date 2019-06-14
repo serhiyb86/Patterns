@@ -5,9 +5,11 @@ package com.motorola.translation.v2019_1_15_0;
 
 import com.google.gson.JsonObject;
 import com.motorola.models.Config;
+import com.motorola.models.representation.AccessScope;
 import com.motorola.models.representation.DeviceHandle;
 import com.motorola.models.representation.PersonnelHandle;
 import com.motorola.models.representation.RoleHandle;
+import com.motorola.models.representation.UnitHandle;
 import com.motorola.models.representation.UserSession;
 import com.motorola.models.representation.UserSessionWrapper;
 import org.junit.Assert;
@@ -16,6 +18,7 @@ import org.junit.Test;
 import java.text.ParseException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * Contains unit tests related to the BookOn translation.
@@ -29,27 +32,41 @@ public class BookOnTranslatorTest extends TranslatorTest {
 		JsonObject bookOnJson = initInputPayload("bookOnInput.json");
 		UserSessionWrapper wrapper = getTranslator().translateBookOn(bookOnJson);
 		UserSession model = wrapper.getModel();
-		Assert.assertEquals("Correlation id translation failed", "myCorrelationId", wrapper.getCorrelationId());
-		Assert.assertEquals("Customer id translation failed", "myCustomerId", model.getCustomerId());
-		Assert.assertEquals("Session id translation failed", "mySessionID", model.getSessionId());
-		Assert.assertEquals("Service id translation failed", "test_serviceId", model.getServiceId());
-		Assert.assertEquals("Api access list size translation failed", 1, model.getApiAccessList().size());
+		Assert.assertEquals("Correlation id translation failed", "correlation_id", wrapper.getCorrelationId());
+		Assert.assertEquals("Customer id translation failed", "customer_id", model.getCustomerId());
+		Assert.assertEquals("Session id translation failed", "97e11e0c-0e23-4a69-928c-a92ffe33b9f1", model.getSessionId());
+		Assert.assertEquals("Service id translation failed", "serviceId_value", model.getServiceId());
+		Assert.assertEquals("CadUserAgencyKey translation failed", "SPD", model.getCadUserAgencyKey());
+		Assert.assertEquals("DeviceAgencyKey translation failed", "DDD", model.getDeviceAgencyKey());
+		Assert.assertEquals("AreaKeys translation failed", "LSW", model.getMonitorAreas().getAreaKeys().get(0));
+
+		List<AccessScope> apiAccessScopeList = model.getApiAccessScope();
+		Assert.assertEquals("ApiAccessScope list size translation failed", 1, apiAccessScopeList.size());
+		Assert.assertEquals("AgencyKey translation failed", "SPD", apiAccessScopeList.get(0).getAgencyKey());
+		Assert.assertEquals("ApiAccessList size translation failed", 2, apiAccessScopeList.get(0).getApiAccessList().size());
+
 		Assert.assertEquals("Wrong create date after translation", ZonedDateTime.parse("2019-01-30T12:26:23.771Z", format), model.getWhenSessionCreated());
 		Assert.assertEquals("Wrong update date after translation", ZonedDateTime.parse("2019-01-30T12:26:23.771Z", format), model.getWhenSessionUpdated());
+
 		RoleHandle role = model.getRole();
 		Assert.assertNotNull(role);
 		Assert.assertEquals("role.key translation failed", "user", role.getKey());
-		Assert.assertEquals("role.agencyAlias translation failed", "roleAgency", role.getAgencyAlias());
-		Assert.assertEquals("role.nameCode translation failed", "roleNameCode", role.getNameCode());
+
 		DeviceHandle device = model.getDevice();
 		Assert.assertNotNull(device);
-		Assert.assertEquals("device.key translation failed", "deviceKey", device.getKey());
-		Assert.assertEquals("device.agencyAlias translation failed", "deviceAgency", device.getAgencyAlias());
-		Assert.assertEquals("device.nameCode translation failed", "deviceName", device.getName());
-		PersonnelHandle user = model.getUser();
-		Assert.assertNotNull(user);
-		Assert.assertEquals("user.key translation failed", "userKey", user.getKey());
-		Assert.assertEquals("user.agencyAlias translation failed", "userAgency", user.getAgencyAlias());
-		Assert.assertEquals("user.nameCode translation failed", "userNameCode", user.getNameCode());
+		Assert.assertEquals("device.key translation failed", "104", device.getKey());
+		Assert.assertEquals("device.agencyAlias translation failed", "DDD", device.getAgencyAlias());
+
+		PersonnelHandle cadUser = model.getCadUser();
+		Assert.assertNotNull(cadUser);
+		Assert.assertEquals("cadUser.key translation failed", "SDS", cadUser.getKey());
+		Assert.assertEquals("cadUser.agencyAlias translation failed", "SPD", cadUser.getAgencyAlias());
+		Assert.assertEquals("cadUser.alias translation failed", "sds", cadUser.getAlias());
+
+		UnitHandle unit = model.getUnit();
+		Assert.assertNotNull(unit);
+		Assert.assertEquals("unit.key translation failed", "104", unit.getKey());
+		Assert.assertEquals("unit.agencyAlias translation failed", "PPD", unit.getAgencyAlias());
+		Assert.assertEquals("unit.callSign translation failed", "104", unit.getCallSign());
 	}
 }

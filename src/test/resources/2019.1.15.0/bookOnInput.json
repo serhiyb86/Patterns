@@ -1,48 +1,35 @@
 {
-  "customerId": "myCustomerId",
-  "apiAccessList": [
+  "cadUser": {
+    "alias": "sds",
+    "key": "SDS",
+    "agencyAlias": "SPD"
+  },
+  "device": {
+    "key": "104",
+    "agencyAlias": "DDD"
+  },
+  "apiAccessScope": [
     {
-      "permissionId": "Record.All",
-      "permissionLevels": [
+      "agencyKey": "SPD",
+      "apiAccessList": [
         "READ",
         "ADD"
       ]
     }
   ],
-  "monitorAreas": {
-    "areas": [
-      {
-        "uid": "LSW"
-      }
-    ]
+  "unit": {
+    "key": "104",
+    "agency": "PPD",
+    "callSign": "104"
   },
-  "additionalInfo": {
-    "unit": {
-      "key": "104",
-      "agency": "SPD"
-    }
-  },
+  "monitoringArea": "LSW",
   "whenSessionCreated": "2019-01-30T12:26:23.771Z",
   "whenSessionUpdated": "2019-01-30T12:26:23.771Z",
-  "user": {
-    "userKey": "userKey",
-    "userNameCode": "userNameCode",
-    "userAgencyAlias": "userAgency"
-  },
-  "device": {
-    "deviceKey": "deviceKey",
-    "deviceName": "deviceName",
-    "deviceAgencyAlias": "deviceAgency"
-  },
-  "role": {
-    "roleKey": "roleKey",
-    "roleNameCode": "roleNameCode",
-    "roleAgencyAlias": "roleAgency"
-  },
+  "cadUserAgencyKey": "SPD",
+  "deviceAgencyKey": "DDD",
+  "serviceId": "serviceId_value",
+  "customerId": "customer_id",
   "requestType": "BookOnRequest",
-  "correlationId": "myCorrelationId",
-  "serviceId": "test_serviceId",
-  "sessionId": "mySessionID"
+  "correlationId": "correlation_id",
+  "sessionId": "97e11e0c-0e23-4a69-928c-a92ffe33b9f1"
 }
-
-
