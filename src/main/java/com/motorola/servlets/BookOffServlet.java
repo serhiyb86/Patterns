@@ -37,7 +37,7 @@ public class BookOffServlet extends BaseHttpServlet {
 				try {
 					ApiResponse apiResponse = requestManager.getApiClient().responseNotification().responseNotification(responseNotification);
 					outputStream = response.getOutputStream();
-					outputStream.write(apiResponse.toString().getBytes());
+					outputStream.write(CadCloudUtils.convertObjectToJsonString(apiResponse).getBytes());
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send responseNotification data.", e);
