@@ -25,9 +25,11 @@ public class LongSetter<T> implements Setter<T> {
 	@Override
 	public void accept(T model, Object value) {
 		String stringValue = CadCloudUtils.getStringFromJsonElement((JsonElement) value);
+		if (stringValue.contains(".")) { // "70.0" incoming value
+			stringValue = stringValue.substring(0, stringValue.indexOf('.'));
+		}
 		if (StringUtils.isNumeric(stringValue)) {
 			setFunction.accept(model, Long.valueOf(stringValue));
 		}
 	}
-
 }
