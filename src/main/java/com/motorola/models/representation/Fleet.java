@@ -22,6 +22,9 @@ public class Fleet implements Serializable {
 
 	private List<Equipment> equipment = new ArrayList<Equipment>();
 
+	private List<Capability> capabilities = new ArrayList<>();
+
+
 	/**
 	 * Returns the value of property "agencyKey".
 	 * Agency Key [Mapped To Codes Table:-cad.agency]
@@ -67,4 +70,18 @@ public class Fleet implements Serializable {
 		this.equipment = equipment;
 	}
 
+	/**
+	 * Returns the value of property "capabilities".
+	 * Capabilities assigned to the Unit
+	 */
+	public List<Capability> getCapabilities() {
+		return capabilities;
+	}
+
+	/**
+	 * Updates the value of property "capabilities".
+	 */
+	public void setCapabilities(List<Capability> capabilities) {
+		this.capabilities = capabilities;
+	}
 }
