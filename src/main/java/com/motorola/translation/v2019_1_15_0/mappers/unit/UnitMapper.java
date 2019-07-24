@@ -33,8 +33,8 @@ public class UnitMapper {
 			model.setCallSign(id);
 		});
 		setters.put(InterfaceConstants.Unit.GeneralProperties.CUSTOMER_ID, new StringSetter<>(Unit::setCustomerId));
-		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_AGENCY, new StringSetter<>(Unit::setAgency));
-		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_STATUS_CODE, new StringSetter<>(Unit::setStatus));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_AGENCY, new StringSetter<>(Unit::setAgencyKey));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_STATUS_CODE, new StringSetter<>(Unit::setStatusKey));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_TYPE_CODE, new StringSetter<>(Unit::setDisciplineKey));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_STATUS_DECLARED,
 			new LocalDateTimeSetter<>(Unit::setWhenStatusDeclared, InterfaceConstants.GeneralProperties.AVL_DATE_TIME_FORMAT));
@@ -46,7 +46,7 @@ public class UnitMapper {
 			List<String> beats = new ArrayList<>();
 			beats.add(assignmentData);
 			JurisdictionalAssignment jurisdictionalAssignment = new JurisdictionalAssignment();
-			jurisdictionalAssignment.setBeatsKeys(beats);
+			jurisdictionalAssignment.setBeatKeys(beats);
 			model.setJurisdictionalAssignment(jurisdictionalAssignment);
 		});
 	}

@@ -25,7 +25,7 @@ public class Unit implements Serializable {
 
 	private String disciplineKey;
 
-	private String agency;
+	private String agencyKey;
 
 	private String callSign;
 
@@ -33,7 +33,7 @@ public class Unit implements Serializable {
 
 	private String unitDescription;
 
-	private String status;
+	private String statusKey;
 
 	private String nextStatusKey;
 
@@ -70,7 +70,8 @@ public class Unit implements Serializable {
 
 	private Fleet fleetAssignment;
 
-	private Boolean isExpired;
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	private LocalDateTime whenStatusExpires;
 
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime whenCreated;
@@ -124,18 +125,18 @@ public class Unit implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "agency".
+	 * Returns the value of property "agencyKey".
 	 * Agency Id of Unit
 	 */
-	public String getAgency() {
-		return agency;
+	public String getAgencyKey() {
+		return agencyKey;
 	}
 
 	/**
-	 * Updates the value of property "agency".
+	 * Updates the value of property "agencyKey".
 	 */
-	public void setAgency(String agency) {
-		this.agency = agency;
+	public void setAgencyKey(String agencyKey) {
+		this.agencyKey = agencyKey;
 	}
 
 	/**
@@ -184,18 +185,18 @@ public class Unit implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "status".
+	 * Returns the value of property "statusKey".
 	 * Current Status Key
 	 */
-	public String getStatus() {
-		return status;
+	public String getStatusKey() {
+		return statusKey;
 	}
 
 	/**
-	 * Updates the value of property "status".
+	 * Updates the value of property "statusKey".
 	 */
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatusKey(String statusKey) {
+		this.statusKey = statusKey;
 	}
 
 	/**
@@ -455,18 +456,18 @@ public class Unit implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "isExpired".
-	 * Indicates if the unit status timer expired
+	 * Returns the value of property "whenStatusExpires".
+	 * Indicates time when status expires
 	 */
-	public Boolean getIsExpired() {
-		return isExpired;
+	public LocalDateTime getWhenStatusExpires() {
+		return whenStatusExpires;
 	}
 
 	/**
-	 * Updates the value of property "isExpired".
+	 * Updates the value of property "whenStatusExpires".
 	 */
-	public void setIsExpired(Boolean isExpired) {
-		this.isExpired = isExpired;
+	public void setWhenStatusExpires(LocalDateTime whenStatusExpires) {
+		this.whenStatusExpires = whenStatusExpires;
 	}
 
 	/**

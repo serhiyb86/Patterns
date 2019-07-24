@@ -50,6 +50,8 @@ public class Address implements Serializable {
 
 	private String geoverificationLevel;
 
+	private String name;
+
 	/**
 	 * Returns the value of property "key".
 	 * Unique identifier of the address, currently used for finding Dispatches with the same address
@@ -303,6 +305,20 @@ public class Address implements Serializable {
 	 */
 	public void setGeoverificationLevel(String geoverificationLevel) {
 		this.geoverificationLevel = geoverificationLevel;
+	}
+
+	/**
+	 * Returns the value of property "name".
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Updates the value of property "name".
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

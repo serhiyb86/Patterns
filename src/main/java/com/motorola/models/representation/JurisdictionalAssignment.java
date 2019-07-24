@@ -16,60 +16,60 @@ public class JurisdictionalAssignment implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private List<String> areasKeys = new ArrayList<>();
+	private List<String> areaKeys = new ArrayList<>();
 
-	private List<String> sectorsKeys = new ArrayList<>();
+	private List<String> sectorKeys = new ArrayList<>();
 
-	private List<String> beatsKeys = new ArrayList<>();
+	private List<String> beatKeys = new ArrayList<>();
 
 	private String homeStationKey;
 
 	private String assignedStationKey;
 
 	/**
-	 * Returns the value of property "areasKeys".
+	 * Returns the value of property "areaKeys".
 	 * Areas [Mapped To Codes Table:-cad.jurisdiction.area]
 	 */
-	public List<String> getAreasKeys() {
-		return areasKeys;
+	public List<String> getAreaKeys() {
+		return areaKeys;
 	}
 
 	/**
-	 * Updates the value of property "areasKeys".
+	 * Updates the value of property "areaKeys".
 	 */
-	public void setAreasKeys(List<String> areasKeys) {
-		this.areasKeys = areasKeys;
+	public void setAreaKeys(List<String> areaKeys) {
+		this.areaKeys = areaKeys;
 	}
 
 	/**
-	 * Returns the value of property "sectorsKeys".
+	 * Returns the value of property "sectorKeys".
 	 * Sectors [Mapped To Codes Table:-cad.jurisdiction.sector]
 	 */
-	public List<String> getSectorsKeys() {
-		return sectorsKeys;
+	public List<String> getSectorKeys() {
+		return sectorKeys;
 	}
 
 
 	/**
-	 * Updates the value of property "sectorsKeys".
+	 * Updates the value of property "sectorKeys".
 	 */
-	public void setSectorsKeys(List<String> sectorsKeys) {
-		this.sectorsKeys = sectorsKeys;
+	public void setSectorKeys(List<String> sectorKeys) {
+		this.sectorKeys = sectorKeys;
 	}
 
 	/**
-	 * Returns the value of property "beatsKeys".
+	 * Returns the value of property "beatKeys".
 	 * Beats/zones [Mapped To Codes Table:-cad.jurisdiction.beat]
 	 */
-	public List<String> getBeatsKeys() {
-		return beatsKeys;
+	public List<String> getBeatKeys() {
+		return beatKeys;
 	}
 
 	/**
-	 * Updates the value of property "beatsKeys".
+	 * Updates the value of property "beatKeys".
 	 */
-	public void setBeatsKeys(List<String> beatsKeys) {
-		this.beatsKeys = beatsKeys;
+	public void setBeatKeys(List<String> beatKeys) {
+		this.beatKeys = beatKeys;
 	}
 
 	/**
