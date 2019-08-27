@@ -55,10 +55,10 @@ public class IncidentCommentMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.URGENCY, (model, value) -> model.setIsPriority(parseUrgency((JsonElement) value)));
 	}
 
-	private static String parseUrgency(JsonElement value) {
-		String parsedValue = "regular";
+	private static boolean parseUrgency(JsonElement value) {
+		boolean parsedValue = false;
 		if (value != null && value.getAsString().toLowerCase().equals("critical")) {
-			parsedValue = "urgent";
+			parsedValue = true;
 		}
 		return parsedValue;
 	}

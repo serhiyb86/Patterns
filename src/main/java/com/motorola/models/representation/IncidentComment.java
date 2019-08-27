@@ -39,7 +39,7 @@ public class IncidentComment implements Serializable {
 
 	private DeviceHandle device;
 
-	private String isPriority;
+	private boolean isPriority;
 	/**
 	 * Returns the value of property "key".
 	 * Comment text
@@ -179,14 +179,14 @@ public class IncidentComment implements Serializable {
 	 * Returns the value of property "isPriority".
 	 * Indicates whether the comment is regular (false) or urgent (true)
 	 */
-	public String getIsPriority() {
+	public boolean getIsPriority() {
 		return isPriority;
 	}
 
 	/**
 	 * Updates the value of property "isPriority".
 	 */
-	public void setIsPriority(String isPriority) {
+	public void setIsPriority(boolean isPriority) {
 		this.isPriority = isPriority;
 	}
 

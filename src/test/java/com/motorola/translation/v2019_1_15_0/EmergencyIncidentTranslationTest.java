@@ -222,7 +222,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertNotNull(comment.getEnteredBy());
 		Assert.assertEquals("Spillman", comment.getEnteredBy().getAlias());
 		Assert.assertNull(comment.getDevice());
-		Assert.assertEquals("urgent", comment.getIsPriority());
+		Assert.assertTrue(comment.getIsPriority());
 		// Dispatch - ReportNumbers
 		ReportNumber reportNumber = dispatchIncident.getReportNumbers().get(0);
 		Assert.assertNotNull(reportNumber);
