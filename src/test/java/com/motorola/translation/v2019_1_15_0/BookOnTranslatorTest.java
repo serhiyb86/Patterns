@@ -38,8 +38,9 @@ public class BookOnTranslatorTest extends TranslatorTest {
 		Assert.assertEquals("Service id translation failed", "serviceId_value", model.getServiceId());
 		Assert.assertEquals("CadUserAgencyKey translation failed", "SPD", model.getCadUserAgencyKey());
 		Assert.assertEquals("DeviceAgencyKey translation failed", "DDD", model.getDeviceAgencyKey());
-		Assert.assertEquals("AreaKeys translation failed", "LSW", model.getMonitorAreas().getAreaKeys().get(0));
-
+		Assert.assertEquals("AreaKeys translation failed", "SPNLA", model.getMonitorAreas().getAreaKeys().get(0));
+		Assert.assertEquals("AreaKeys translation failed", "SPNLR", model.getMonitorAreas().getAreaKeys().get(1));
+		Assert.assertEquals("AreaKeys translation failed", 13, model.getMonitorAreas().getAreaKeys().size());
 		List<AccessScope> apiAccessScopeList = model.getApiAccessScope();
 		Assert.assertEquals("ApiAccessScope list size translation failed", 1, apiAccessScopeList.size());
 		Assert.assertEquals("AgencyKey translation failed", "SPD", apiAccessScopeList.get(0).getAgencyKey());
