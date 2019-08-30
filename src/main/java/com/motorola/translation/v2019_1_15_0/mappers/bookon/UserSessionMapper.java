@@ -75,7 +75,12 @@ public class UserSessionMapper {
 		setters.put(InterfaceConstants.BookOnProperties.MONITOR_AREAS, (model, value) -> {
 				if (value != null) {
 					MonitorAreas monitorAreas = new MonitorAreas();
-					monitorAreas.setAreaKeys(Collections.singletonList(((JsonElement) value).getAsString()));
+					List<String> areas = new ArrayList<>();
+					JsonArray array =((JsonElement) value).getAsJsonArray();
+					array.forEach(jsonElement -> {
+						areas.add(jsonElement.getAsString());
+					});
+					monitorAreas.setAreaKeys(areas);
 					model.setMonitorAreas(monitorAreas);
 				}
 			}
