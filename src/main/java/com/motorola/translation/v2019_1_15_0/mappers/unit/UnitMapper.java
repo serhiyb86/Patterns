@@ -43,10 +43,11 @@ public class UnitMapper {
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_ZONE, (model, value) -> {
 			String assignmentData = ((JsonElement) value).getAsString();
-			List<String> beats = new ArrayList<>();
-			beats.add(assignmentData);
+			List<String> monitoringAreas = new ArrayList<>();
+			monitoringAreas.add(assignmentData);
 			JurisdictionalAssignment jurisdictionalAssignment = new JurisdictionalAssignment();
-			jurisdictionalAssignment.setBeatKeys(beats);
+			jurisdictionalAssignment.setBeatKeys(monitoringAreas);
+			jurisdictionalAssignment.setAreaKeys(monitoringAreas);
 			model.setJurisdictionalAssignment(jurisdictionalAssignment);
 		});
 	}

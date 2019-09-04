@@ -45,7 +45,6 @@ public class Translator implements BaseTranslator {
 		UserSession userSession = new UserSessionMapper().createAndMapToUserSession(payload);
 		result.setModel(userSession);
 		validateRequiredObjectField(userSession.getApiAccessScope(), InterfaceConstants.BookOnProperties.API_ACCESS_SCOPE);
-		validateRequiredObjectField(userSession.getMonitorAreas(), InterfaceConstants.BookOnProperties.MONITOR_AREAS);
 
 		return result;
 	}
