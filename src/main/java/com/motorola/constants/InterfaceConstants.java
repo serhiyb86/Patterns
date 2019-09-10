@@ -157,6 +157,7 @@ public final class InterfaceConstants {
 			public static final String RELATED_RECORDS = "relatedRecords";
 			public static final String INCIDENT_LOCATION = "incidentLocation";
 			public static final String ZONE = "zone";
+			public static final String STATUS_CATEGORY = "statusCategory";
 
 			/**
 			 * Contains RelatedRecord properties
