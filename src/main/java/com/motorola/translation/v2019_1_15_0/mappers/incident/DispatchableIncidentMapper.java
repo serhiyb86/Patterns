@@ -41,6 +41,7 @@ public class DispatchableIncidentMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE_NATURE, (model, value) -> model.setNature(createNature((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.PRIORITY, new StringSetter<>(DispatchableIncident::setPriority));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.STATUS, new StringSetter<>(DispatchableIncident::setStatusKey));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.STATUS_CATEGORY, new StringSetter<>(DispatchableIncident::setStatusCategory));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.WHEN_STATUS_DECLARED, new StringSetter<>(DispatchableIncident::setWhenStatusDeclared));
 
 		//Use custom setter for nested disposition model

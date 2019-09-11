@@ -30,7 +30,11 @@ public class DispatchableIncident implements Serializable {
 
 	private String statusKey;
 
+	private String statusCategory;
+
 	private String whenStatusDeclared;
+
+	private String whenStatusExpires;
 
 	private Location location;
 
@@ -303,4 +307,21 @@ public class DispatchableIncident implements Serializable {
 	public void setReportNumbers(List<ReportNumber> reportNumbers) {
 		this.reportNumbers = reportNumbers;
 	}
+
+	public String getStatusCategory() {
+		return statusCategory;
+	}
+
+	public void setStatusCategory(String statusCategory) {
+		this.statusCategory = statusCategory;
+	}
+
+	public String getWhenStatusExpires() {
+		return whenStatusExpires;
+	}
+
+	public void setWhenStatusExpires(String whenStatusExpires) {
+		this.whenStatusExpires = whenStatusExpires;
+	}
+
 }
