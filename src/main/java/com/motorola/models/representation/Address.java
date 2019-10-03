@@ -46,8 +46,6 @@ public class Address implements Serializable {
 
 	private Boolean isVerified;
 
-	private List<Alert> alerts = new ArrayList<Alert>();
-
 	private String geoverificationLevel;
 
 	private String name;
@@ -275,21 +273,6 @@ public class Address implements Serializable {
 	 */
 	public void setIsVerified(Boolean isVerified) {
 		this.isVerified = isVerified;
-	}
-
-	/**
-	 * Returns the value of property "alerts".
-	 * Alerts
-	 */
-	public List<Alert> getAlerts() {
-		return alerts;
-	}
-
-	/**
-	 * Updates the value of property "alerts".
-	 */
-	public void setAlerts(List<Alert> alerts) {
-		this.alerts = alerts;
 	}
 
 	/**

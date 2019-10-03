@@ -63,11 +63,11 @@
                 "locations": [
                   {
                     "id": "3060-primary",
-                    "recordTitle": "Home - comp addr 11, Anderson, AF 75610",
+                    "recordTitle": "Home - comp addr 11_old, Anderson, AF 75610",
                     "type": "Home",
                     "address": {
-                      "recordTitle": "comp addr 11, Anderson, AF 75610",
-                      "streetFullText": "comp addr 11",
+                      "recordTitle": "comp addr 11_old, Anderson, AF 75610",
+                      "streetFullText": "comp addr 11_old",
                       "city": "Anderson",
                       "state": "AF",
                       "zip": "75610"
@@ -196,11 +196,11 @@
                 "locations": [
                   {
                     "id": "3060-primary",
-                    "recordTitle": "Home - comp addr 11, Anderson, AF 75610",
+                    "recordTitle": "Home - comp addr 11_new, Anderson, AF 75610",
                     "type": "Home",
                     "address": {
-                      "recordTitle": "comp addr 11, Anderson, AF 75610",
-                      "streetFullText": "comp addr 11",
+                      "recordTitle": "comp addr 11_new, Anderson, AF 75610",
+                      "streetFullText": "comp addr 11_new",
                       "city": "Anderson",
                       "state": "AF",
                       "zip": "75610"
@@ -210,9 +210,9 @@
                 "phones": [
                   {
                     "id": "3060-Home",
-                    "recordTitle": "Home - (234)555-4433",
+                    "recordTitle": "Home - (234)555-4444",
                     "type": "Home",
-                    "number": "(234)555-4433"
+                    "number": "(234)555-4444"
                   },
                   {
                     "id": "3060-Work",

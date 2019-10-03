@@ -34,8 +34,7 @@ public class EmergencyIncident implements Serializable {
 
 	private List<DispatchableIncident> dispatches = new ArrayList<DispatchableIncident>();
 
-	@JsonSerialize(using = ZonedDateTimeSerializer.class)
-	private ZonedDateTime whenCreated;
+	private String whenCreated;
 
 	@JsonSerialize(using = ZonedDateTimeSerializer.class)
 	private ZonedDateTime whenUpdated;
@@ -134,14 +133,14 @@ public class EmergencyIncident implements Serializable {
 	 * Returns the value of property "whenCreated".
 	 * Date and Time the Incident created
 	 */
-	public ZonedDateTime getWhenCreated() {
+	public String getWhenCreated() {
 		return whenCreated;
 	}
 
 	/**
 	 * Updates the value of property "whenCreated".
 	 */
-	public void setWhenCreated(ZonedDateTime whenCreated) {
+	public void setWhenCreated(String whenCreated) {
 		this.whenCreated = whenCreated;
 	}
 

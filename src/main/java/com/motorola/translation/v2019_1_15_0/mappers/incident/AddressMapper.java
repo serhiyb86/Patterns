@@ -46,11 +46,12 @@ public class AddressMapper {
 			} //otherwise - default values remain
 		});
 
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ALERTS, (model, value) -> {
+		//It can be used in the future during the implementation of PremiseHazards endpoint
+		/*setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ALERTS, (model, value) -> {
 			AlertMapper alertMapping = new AlertMapper();
 			JsonArray alerts = ((JsonElement) value).getAsJsonArray();
 			model.setAlerts(alertMapping.createAndMapToAlertList(alerts));
-		});
+		});*/
 	}
 
 	/**
@@ -59,23 +60,35 @@ public class AddressMapper {
 	 * @param data json data
 	 * @return {@link Address} object
 	 */
-	public Address createAndMapToAddress(JsonObject data, Jurisdiction jurisdiction) {
-		final Address address = new Address();
+    public Address createAndMapToAddress(JsonObject data) {
+        final Address address = new Address();
+        if (data != null) {
+            //Set default values
+            address.setIsVerified(false);
+            address.setGeoverificationLevel("0");
+            setters.forEach((key, consumer) -> {
+                if (data.get(key) != null) {
+                    consumer.accept(address, data.get(key));
+                }
+            });
+        }
+        return address;
+    }
 
-		//Set default values
-		address.setIsVerified(false);
-		address.setGeoverificationLevel("0");
+    /**
+     * Maps Json data into single {@link Address} object and sets jurisdiction value.
+     *
+     * @param data         json data
+     * @param jurisdiction {@link Jurisdiction} instance
+     * @return {@link Address} object
+     */
+    public Address createAndMapToAddress(JsonObject data, Jurisdiction jurisdiction) {
+        final Address address = createAndMapToAddress(data);
 
-		setters.forEach((key, consumer) -> {
-			if (data.get(key) != null) {
-				consumer.accept(address, data.get(key));
-			}
-		});
-
-		// Jurisdiction object consist of data that isn't contained in "Address" object in incoming json
-		// so it has to be received from parent object directly
-		address.setJurisdiction(jurisdiction);
-		return address;
-	}
+        // Jurisdiction object consist of data that isn't contained in "Address" object in incoming json
+        // so it has to be received from parent object directly
+        address.setJurisdiction(jurisdiction);
+        return address;
+    }
 
 }

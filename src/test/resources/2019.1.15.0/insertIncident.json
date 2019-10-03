@@ -132,7 +132,8 @@
           "secondaryColor": "BLU",
           "vin": "ABC111",
           "owner": "1",
-          "comment": "comment_data"
+          "comment": "comment_data",
+          "type": "PCAR"
         }
       }
       ],

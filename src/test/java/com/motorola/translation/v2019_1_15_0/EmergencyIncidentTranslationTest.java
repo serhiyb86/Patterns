@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Address;
-import com.motorola.models.representation.Alert;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.Disposition;
 import com.motorola.models.representation.EmergencyIncident;
@@ -45,6 +44,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
 		Assert.assertEquals("C6002", emergencyIncident.getAlias());
 		Assert.assertEquals("C6002", emergencyIncident.getKey());
+		Assert.assertEquals("2018-11-12T05:25:45-07:00", emergencyIncident.getWhenCreated());
 		Subject subject = emergencyIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", subject.getRole().get(0));
 		Person person = subject.getPerson();
@@ -64,6 +64,22 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("112qweqwe1", person.getDriverLicenseNumber());
 		Assert.assertEquals("AD", person.getDriverLicenseState());
 		Assert.assertEquals("customerId", emergencyIncident.getCustomerId());
+		Assert.assertEquals("(234)555-4433", person.getPhone());
+		//person's address
+		List<Location> personLocations = person.getAddress();
+		Assert.assertEquals(1, personLocations.size());
+		Location personLocation = personLocations.get(0);
+		Assert.assertEquals("3060-primary", personLocation.getKey());
+		Assert.assertEquals("Home", personLocation.getType());
+		Address personAddress = personLocation.getAddress();
+		Assert.assertNotNull(personAddress);
+		Assert.assertEquals("comp addr 11", personAddress.getFullText());
+		Assert.assertEquals("Anderson", personAddress.getCity());
+		Assert.assertEquals("AF", personAddress.getState());
+		Assert.assertEquals("75610", personAddress.getZip());
+		Assert.assertEquals("comp addr 11", personAddress.getDescription());
+		Assert.assertFalse(personAddress.getIsVerified());
+		Assert.assertEquals("0", personAddress.getGeoverificationLevel());
 		//Involved vehicle
 		List<InvolvedVehicle> involvedVehicleList = emergencyIncident.getVehicles();
 		Assert.assertEquals(1, involvedVehicleList.size());
@@ -85,11 +101,14 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("ABC111", vehicle.getVin());
 		Assert.assertEquals("1", vehicle.getOwner());
 		Assert.assertEquals("comment_data", vehicle.getComment());
+		Assert.assertEquals("PCAR", vehicle.getStyleKey());
 		// location address alerts test
 		List<DispatchableIncident> dispatches = emergencyIncident.getDispatches();
 		DispatchableIncident dispatchableIncident = dispatches.get(0);
 		Address address = dispatchableIncident.getLocation().getAddress();
-		Assert.assertEquals(2, address.getAlerts().size());
+
+		//it can be used in the future during the implementation of PremiseHazards endpoint
+		/*Assert.assertEquals(2, address.getAlerts().size());
 		// verification for alert fields
 		Alert alert = address.getAlerts().get(0);
 		Assert.assertEquals("Address", alert.getTypeKey());
@@ -98,7 +117,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("Possible Drugs on Premises", alert.getComment());
 		Assert.assertEquals("0", alert.getPriority());
 		Assert.assertEquals("2003-10-24", alert.getWhenExpired());
-		Assert.assertEquals(LocalDate.parse("2001-10-24", dateFormat), alert.getWhenCreated());
+		Assert.assertEquals(LocalDate.parse("2001-10-24", dateFormat), alert.getWhenCreated());*/
 	}
 
 	@Test
@@ -148,6 +167,22 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("BLN", newPersonValue.getHairColorKey());
 		Assert.assertEquals("112qweqwe1_new", newPersonValue.getDriverLicenseNumber());
 		Assert.assertEquals("AD", newPersonValue.getDriverLicenseState());
+		Assert.assertEquals("(234)555-4444", newPersonValue.getPhone());
+		//newPerson's address
+		List<Location> newPersonLocations = newPersonValue.getAddress();
+		Assert.assertEquals(1, newPersonLocations.size());
+		Location newPersonLocation = newPersonLocations.get(0);
+		Assert.assertEquals("3060-primary", newPersonLocation.getKey());
+		Assert.assertEquals("Home", newPersonLocation.getType());
+		Address newPersonAddress = newPersonLocation.getAddress();
+		Assert.assertNotNull(newPersonAddress);
+		Assert.assertEquals("comp addr 11_new", newPersonAddress.getFullText());
+		Assert.assertEquals("Anderson", newPersonAddress.getCity());
+		Assert.assertEquals("AF", newPersonAddress.getState());
+		Assert.assertEquals("75610", newPersonAddress.getZip());
+		Assert.assertEquals("comp addr 11_new", newPersonAddress.getDescription());
+		Assert.assertFalse(newPersonAddress.getIsVerified());
+		Assert.assertEquals("0", newPersonAddress.getGeoverificationLevel());
 
 		EmergencyIncident oldIncident = updateEmergencyIncident.getOld();
 		Assert.assertEquals("C6002", newIncident.getAlias());
@@ -170,6 +205,22 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("BLN", oldPersonValue.getHairColorKey());
 		Assert.assertEquals("112qweqwe1_old", oldPersonValue.getDriverLicenseNumber());
 		Assert.assertEquals("AD", oldPersonValue.getDriverLicenseState());
+		Assert.assertEquals("(234)555-4433", oldPersonValue.getPhone());
+		//oldPerson's address
+		List<Location> oldPersonLocations = oldPersonValue.getAddress();
+		Assert.assertEquals(1, oldPersonLocations.size());
+		Location oldPersonLocation = oldPersonLocations.get(0);
+		Assert.assertEquals("3060-primary", oldPersonLocation.getKey());
+		Assert.assertEquals("Home", oldPersonLocation.getType());
+		Address oldPersonAddress = oldPersonLocation.getAddress();
+		Assert.assertNotNull(oldPersonAddress);
+		Assert.assertEquals("comp addr 11_old", oldPersonAddress.getFullText());
+		Assert.assertEquals("Anderson", oldPersonAddress.getCity());
+		Assert.assertEquals("AF", oldPersonAddress.getState());
+		Assert.assertEquals("75610", oldPersonAddress.getZip());
+		Assert.assertEquals("comp addr 11_old", oldPersonAddress.getDescription());
+		Assert.assertFalse(oldPersonAddress.getIsVerified());
+		Assert.assertEquals("0", oldPersonAddress.getGeoverificationLevel());
 	}
 
 	@Test

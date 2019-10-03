@@ -8,7 +8,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Address;
-import com.motorola.models.representation.Alert;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.IncidentComment;
@@ -73,6 +72,7 @@ public class EmergencyIncidentMapper {
 			}
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.CUSTOMER_ID, new StringSetter<>(EmergencyIncident::setCustomerId));
+		setters.put(InterfaceConstants.EmergencyIncident.WHEN_CREATED, new StringSetter<>(EmergencyIncident::setWhenCreated));
 	}
 
 	public EmergencyIncident createAndMapToEmergencyIncident(JsonObject data) {
@@ -85,8 +85,9 @@ public class EmergencyIncidentMapper {
 				dispatchableIncident.setIncidentSourceKey(dispatchesMapper.mapIncidentSource(data));
 			}
 		});
+		//it can be used in the future during the implementation of PremiseHazards endpoint
 		//append alerts to the dispatches addresses
-		appendAlerts(dispatchableIncidents, emergencyAlertLocationAddress);
+		//appendAlerts(dispatchableIncidents, emergencyAlertLocationAddress);
 		return emergencyIncident;
 	}
 
@@ -106,9 +107,10 @@ public class EmergencyIncidentMapper {
 				String addressId = address.getKey();
 				// check if address is emergency address (id is one of the keys in map)
 				if (emergencyAlertLocationAddress.containsKey(addressId)) {
-					List<Alert> emergencyAlerts = emergencyAlertLocationAddress.get(addressId).getAlerts();
+					//it can be used in the future during the implementation of PremiseHazards endpoint
+					//List<Alert> emergencyAlerts = emergencyAlertLocationAddress.get(addressId).getAlerts();
 					// append alerts
-					address.setAlerts(emergencyAlerts);
+					//address.setAlerts(emergencyAlerts);
 				}
 			}
 		}
