@@ -85,6 +85,7 @@ public final class InterfaceConstants {
 		public static final String CORRELATION_ID = "correlationId";
 		public static final String CUSTOMER_ID = "customerId";
 		public static final String SESSION_ID = "sessionId";
+		public static final String RESPONSE_TYPE = "responseType";
 	}
 
 	/**

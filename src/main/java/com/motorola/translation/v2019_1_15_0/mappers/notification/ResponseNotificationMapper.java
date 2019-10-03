@@ -31,6 +31,7 @@ public class ResponseNotificationMapper {
 		setters.put(InterfaceConstants.NotificationProperties.WHEN_SUBMITTED, new ZonedDateTimeSetter<>(ResponseNotification::setWhenSubmitted, Config.DATETIME_FORMAT));
 		setters.put(InterfaceConstants.NotificationProperties.SESSION_ID, new StringSetter<>(ResponseNotification::setSessionId));
 		setters.put(InterfaceConstants.NotificationProperties.RESULT_NATURE, new StringSetter<>(ResponseNotification::setResultNature));
+		setters.put(InterfaceConstants.NotificationProperties.RESPONSE_TYPE, new StringSetter<>(ResponseNotification::setResponseType));
 		setters.put(InterfaceConstants.NotificationProperties.ERROR, (model, value) -> {
 			Map<String, Setter<ApiError>> setters = new HashMap<>();
 			setters.put(InterfaceConstants.NotificationProperties.ERROR_CODE, new StringSetter<>(ApiError::setErrorCode));
