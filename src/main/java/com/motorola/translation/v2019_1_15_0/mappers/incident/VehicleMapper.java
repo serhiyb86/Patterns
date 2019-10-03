@@ -35,6 +35,7 @@ public class VehicleMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.VIN, new StringSetter<>(Vehicle::setVin));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.OWNER, new StringSetter<>(Vehicle::setOwner));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.COMMENT, new StringSetter<>(Vehicle::setComment));
+		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.TYPE, new StringSetter<>(Vehicle::setStyleKey));
 	}
 
 	/**

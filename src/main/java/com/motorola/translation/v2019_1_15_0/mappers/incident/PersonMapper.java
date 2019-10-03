@@ -3,16 +3,22 @@
  */
 package com.motorola.translation.v2019_1_15_0.mappers.incident;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.representation.Location;
 import com.motorola.models.representation.Person;
 import com.motorola.translation.setter.LocalDateSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
+import com.motorola.utils.CadCloudUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,6 +49,25 @@ public class PersonMapper {
 				new GenericMapper<>(driverLicenceSetters).mapToModel((JsonObject) value, model);
 			}
 		);
+		setters.put(InterfaceConstants.EmergencyIncident.Person.PHONES, (model, value) -> {
+			JsonArray phonesJsonArray = ((JsonElement) value).getAsJsonArray();
+			for (JsonElement element : phonesJsonArray){
+				JsonObject phoneObject = element.getAsJsonObject();
+				JsonElement phoneNumber = phoneObject.get(InterfaceConstants.EmergencyIncident.Person.Phone.NUMBER);
+				String phoneNumberString = CadCloudUtils.getStringFromJsonElement(phoneNumber);
+				if (StringUtils.isNotBlank(phoneNumberString)){
+					model.setPhone(phoneNumberString);
+					break;
+				}
+			}
+		});
+
+		setters.put(InterfaceConstants.EmergencyIncident.Person.LOCATIONS, (model, value) -> {
+			JsonArray locationJsonArray = ((JsonElement) value).getAsJsonArray();
+			LocationMapper locationMapper = new LocationMapper();
+			List<Location> locations = locationMapper.createAndMakeLocationsList(locationJsonArray);
+			model.setAddress(locations);
+		});
 	}
 
 	/**

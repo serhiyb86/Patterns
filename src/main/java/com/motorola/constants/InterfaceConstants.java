@@ -93,6 +93,7 @@ public final class InterfaceConstants {
 	public final class EmergencyIncident {
 
 		public static final String CUSTOMER_ID = "customerId";
+		public static final String WHEN_CREATED = "whenCreated";
 		/**
 		 *  Contains EmergencyIncident Person properties.
 		 */
@@ -115,6 +116,12 @@ public final class InterfaceConstants {
 			public static final String DRIVER_LICENSE = "driverLicense";
 			public static final String NUMBER = "number";
 			public static final String STATE = "state";
+			public static final String LOCATIONS = "locations";
+			public static final String PHONES = "phones";
+
+			public final class Phone {
+				public static final String NUMBER = "number";
+			}
 		}
 
 		/**
@@ -173,6 +180,8 @@ public final class InterfaceConstants {
 
 				public static final String ADDRESS = "address";
 				public static final String TYPE = "type";
+				public static final String ID = "id";
+				public static final String ID_DEFAULT_VALUE = "UNKN";
 
 				public final class Address {
 
@@ -220,6 +229,7 @@ public final class InterfaceConstants {
 			public static final String VIN = "vin";
 			public static final String OWNER = "owner";
 			public static final String COMMENT = "comment";
+			public static final String TYPE = "type";
 		}
 
 		/**
