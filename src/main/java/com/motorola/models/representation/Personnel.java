@@ -1,3 +1,6 @@
+/*
+ * Copyright 2019 Motorola Solutions, Inc. ALL RIGHTS RESERVED
+ */
 package com.motorola.models.representation;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
@@ -23,7 +26,7 @@ public class Personnel implements Serializable {
 
 	private List<Capability> capabilities = new ArrayList<Capability>();
 
-	private List<Equipment> equipments = new ArrayList<Equipment>();
+	private List<Equipment> equipment = new ArrayList<Equipment>();
 
 	/**
 	 * Returns the value of property "personnelHandle".
@@ -56,18 +59,18 @@ public class Personnel implements Serializable {
 	}
 
 	/**
-	 * Returns the value of property "equipments".
+	 * Returns the value of property "equipment".
 	 * Equipments info
 	 */
-	public List<Equipment> getEquipments() {
-		return equipments;
+	public List<Equipment> getEquipment() {
+		return equipment;
 	}
 
 	/**
-	 * Updates the value of property "equipments".
+	 * Updates the value of property "equipment".
 	 */
-	public void setEquipments(List<Equipment> equipments) {
-		this.equipments = equipments;
+	public void setEquipment(List<Equipment> equipment) {
+		this.equipment = equipment;
 	}
 
 }

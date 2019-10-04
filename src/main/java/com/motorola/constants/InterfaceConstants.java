@@ -21,7 +21,6 @@ public final class InterfaceConstants {
 		public static final String ZONED_DATE_TIME_WITH_MS_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 		public static final String ZONED_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
 		public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
-		public static final String AVL_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.S";
 	}
 
 	/**
@@ -294,6 +293,10 @@ public final class InterfaceConstants {
 			public static final String OLD_JSON_KEY = "old";
 			public static final String NEW_JSON_KEY = "new";
 			public static final String UNIT_ZONE = "unitZone";
+			public static final String SHIFT_ID = "shiftId";
+			public static final String UNIT_DESCRIPTION = "unitDescription";
+			public static final String EQUIPMENT = "equipment";
+			public static final String ASSIGNED_PERSONNEL = "assignedPersonnel";
 		}
 
 		public final class AssignedIncident {
@@ -303,5 +306,38 @@ public final class InterfaceConstants {
 			public static final String DISPATCH_KEY = "dispatchKey";
 			public static final String DISPATCH_ALIAS = "dispatchAlias";
 		}
+
+		public final class Equipment {
+
+			private Equipment() {
+			}
+
+			public static final String AGENCY_KEY = "agencyKey";
+			public static final String TYPE_KEY = "typeKey";
+			public static final String EQUIPMENT_ITEM_NAME = "equipmentItemName";
+			public static final String KEY = "key";
+		}
+
+		public final class Personnel {
+
+			private Personnel() {
+			}
+
+			public static final String PERSONNEL_HANDLE = "personnelHandle";
+			public static final String EQUIPMENT = "equipment";
+			public static final String CAPABILITIES = "capabilities";
+		}
+
+		public final class PersonnelHandle {
+
+			private PersonnelHandle() {
+			}
+
+			public static final String KEY = "key";
+			public static final String ALIAS = "alias";
+			public static final String AGENCY_ALIAS = "agencyAlias";
+		}
+
 	}
+
 }

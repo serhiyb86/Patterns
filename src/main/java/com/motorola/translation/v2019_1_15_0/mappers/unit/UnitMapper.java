@@ -6,9 +6,12 @@ package com.motorola.translation.v2019_1_15_0.mappers.unit;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.representation.Equipment;
 import com.motorola.models.representation.JurisdictionalAssignment;
+import com.motorola.models.representation.Personnel;
 import com.motorola.models.representation.Unit;
 import com.motorola.translation.setter.BooleanSetter;
+import com.motorola.translation.setter.ListSetter;
 import com.motorola.translation.setter.LocalDateTimeSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
@@ -18,9 +21,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
- * Mapper for converting Json Object with Unit data to the {@link Unit} object.
+ * Mapper for converting Json Object with Unit data to the {@link Unit} object
+ * including nested objects and objects lists.
  */
 public class UnitMapper {
 
@@ -36,10 +41,16 @@ public class UnitMapper {
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_AGENCY, new StringSetter<>(Unit::setAgencyKey));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_STATUS_CODE, new StringSetter<>(Unit::setStatusKey));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_TYPE_CODE, new StringSetter<>(Unit::setDisciplineKey));
-		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_STATUS_DECLARED,
-			new LocalDateTimeSetter<>(Unit::setWhenStatusDeclared, InterfaceConstants.GeneralProperties.AVL_DATE_TIME_FORMAT));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_STATUS_DECLARED, new StringSetter<>(Unit::setWhenStatusDeclared));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.MINIMUM_STAFFING_LEVEL, new LongSetter<>(Unit::setMinimumStaffingLevel));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.IS_PERSONNEL_OUTSIDE_UNIT, new BooleanSetter<>(Unit::setIsPersonnelOutsideUnit));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.SHIFT_ID, new StringSetter<>(Unit::setShiftId));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_DESCRIPTION, new StringSetter<>(Unit::setUnitDescription));
+
+		setters.put(InterfaceConstants.Unit.GeneralProperties.EQUIPMENT,
+			new ListSetter<>(Unit::setEquipment, new EquipmentMapper(), Equipment::new));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.ASSIGNED_PERSONNEL,
+			new ListSetter<>(Unit::setAssignedPersonnel, new PersonnelMapper(), Personnel::new));
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_ZONE, (model, value) -> {
 			String assignmentData = ((JsonElement) value).getAsString();
