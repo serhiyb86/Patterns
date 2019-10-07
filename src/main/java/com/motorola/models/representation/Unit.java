@@ -37,8 +37,7 @@ public class Unit implements Serializable {
 
 	private String nextStatusKey;
 
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	private LocalDateTime whenStatusDeclared;
+	private String whenStatusDeclared;
 
 	private String lastKnownLocation;
 
@@ -218,14 +217,14 @@ public class Unit implements Serializable {
 	 * Returns the value of property "whenStatusDeclared".
 	 * Date and Time the Unit entered into the current status
 	 */
-	public LocalDateTime getWhenStatusDeclared() {
+	public String getWhenStatusDeclared() {
 		return whenStatusDeclared;
 	}
 
 	/**
 	 * Updates the value of property "whenStatusDeclared".
 	 */
-	public void setWhenStatusDeclared(LocalDateTime whenStatusDeclared) {
+	public void setWhenStatusDeclared(String whenStatusDeclared) {
 		this.whenStatusDeclared = whenStatusDeclared;
 	}
 
