@@ -297,6 +297,7 @@ public final class InterfaceConstants {
 			public static final String UNIT_DESCRIPTION = "unitDescription";
 			public static final String EQUIPMENT = "equipment";
 			public static final String ASSIGNED_PERSONNEL = "assignedPersonnel";
+			public static final String CURRENT_GPS_DATA = "currentGpsData";
 		}
 
 		public final class AssignedIncident {
@@ -338,6 +339,17 @@ public final class InterfaceConstants {
 			public static final String AGENCY_ALIAS = "agencyAlias";
 		}
 
+		public final class GpsData {
+
+			private GpsData() {
+			}
+
+			public static final String LATITUDE = "latitude";
+			public static final String LONGITUDE = "longitude";
+			public static final String HEADING = "heading";
+			public static final String SPEED = "speed";
+			public static final String WHEN_REPORTED = "whenReported";
+		}
 	}
 
 }

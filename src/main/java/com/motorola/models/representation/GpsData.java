@@ -5,10 +5,10 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.motorola.models.serializer.LocalDateTimeSerializer;
+import com.motorola.models.serializer.ZonedDateTimeSerializer;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -25,8 +25,8 @@ public class GpsData implements Serializable {
 
 	private String speed;
 
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	private LocalDateTime whenReported;
+	@JsonSerialize(using = ZonedDateTimeSerializer.class)
+	private ZonedDateTime whenReported;
 
 	/**
 	 * Returns the value of property "latitude".
@@ -92,14 +92,14 @@ public class GpsData implements Serializable {
 	 * Returns the value of property "whenReported".
 	 * Date and Time of the last update
 	 */
-	public LocalDateTime getWhenReported() {
+	public ZonedDateTime getWhenReported() {
 		return whenReported;
 	}
 
 	/**
 	 * Updates the value of property "whenReported".
 	 */
-	public void setWhenReported(LocalDateTime whenReported) {
+	public void setWhenReported(ZonedDateTime whenReported) {
 		this.whenReported = whenReported;
 	}
 
