@@ -23,7 +23,7 @@ public class GpsDataMapper extends GenericMapper<GpsData> {
 		setters.put(InterfaceConstants.Unit.GpsData.LONGITUDE, new DoubleSetter<>(GpsData::setLongitude));
 		setters.put(InterfaceConstants.Unit.GpsData.HEADING, new StringSetter<>(GpsData::setHeading));
 		setters.put(InterfaceConstants.Unit.GpsData.SPEED, new StringSetter<>(GpsData::setSpeed));
-		setters.put(InterfaceConstants.Unit.GpsData.WHEN_REPORTED, new ZonedDateTimeSetter<>(GpsData::setWhenReported, InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT));
+		setters.put(InterfaceConstants.Unit.GpsData.WHEN_REPORTED, new StringSetter<>(GpsData::setWhenReported));
 	}
 
 

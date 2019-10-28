@@ -25,8 +25,7 @@ public class GpsData implements Serializable {
 
 	private String speed;
 
-	@JsonSerialize(using = ZonedDateTimeSerializer.class)
-	private ZonedDateTime whenReported;
+	private String whenReported;
 
 	/**
 	 * Returns the value of property "latitude".
@@ -92,14 +91,14 @@ public class GpsData implements Serializable {
 	 * Returns the value of property "whenReported".
 	 * Date and Time of the last update
 	 */
-	public ZonedDateTime getWhenReported() {
+	public String getWhenReported() {
 		return whenReported;
 	}
 
 	/**
 	 * Updates the value of property "whenReported".
 	 */
-	public void setWhenReported(ZonedDateTime whenReported) {
+	public void setWhenReported(String whenReported) {
 		this.whenReported = whenReported;
 	}
 
