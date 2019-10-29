@@ -10,18 +10,18 @@ import com.motorola.models.representation.Equipment;
 import com.motorola.models.representation.JurisdictionalAssignment;
 import com.motorola.models.representation.Personnel;
 import com.motorola.models.representation.Unit;
+import com.motorola.models.representation.GpsData;
 import com.motorola.translation.setter.BooleanSetter;
 import com.motorola.translation.setter.ListSetter;
-import com.motorola.translation.setter.LocalDateTimeSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import com.motorola.translation.setter.ObjectSetter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * Mapper for converting Json Object with Unit data to the {@link Unit} object
@@ -61,6 +61,8 @@ public class UnitMapper {
 			jurisdictionalAssignment.setAreaKeys(monitoringAreas);
 			model.setJurisdictionalAssignment(jurisdictionalAssignment);
 		});
+
+		setters.put(InterfaceConstants.Unit.GeneralProperties.CURRENT_GPS_DATA, new ObjectSetter<>(Unit::setCurrentGpsData, new GpsDataMapper(), GpsData::new));
 	}
 
 	public Unit createAndMapToUnit(JsonObject unitData) {

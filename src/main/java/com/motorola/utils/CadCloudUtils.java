@@ -167,4 +167,17 @@ public class CadCloudUtils {
 		return result;
 	}
 
+	/**
+	 * Converts {@link JsonElement} object to the {@link Double} instance.
+	 *
+	 * @param element {@link JsonElement} object.
+	 * @return {@link Double} instance.
+	 */
+	public static Double getDoubleFromJsonElement(JsonElement element) {
+		Double result = null;
+		if (element != null) {
+			result = element.getAsDouble();
+		}
+		return result;
+	}
 }
