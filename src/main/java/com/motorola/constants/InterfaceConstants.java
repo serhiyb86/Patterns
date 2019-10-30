@@ -81,6 +81,7 @@ public final class InterfaceConstants {
 		public static final String NOTIFICATION_TYPE = "notificationType";
 		public static final String WHEN_SUBMITTED = "whenSubmitted";
 		public static final String RESULT_NATURE = "resultNature";
+		public static final String RESPONSE_DATA = "responseData";
 		public static final String CORRELATION_ID = "correlationId";
 		public static final String CUSTOMER_ID = "customerId";
 		public static final String SESSION_ID = "sessionId";

@@ -9,6 +9,8 @@ import com.motorola.models.serializer.ZonedDateTimeSerializer;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Response notification SB message
@@ -34,6 +36,8 @@ public class ResponseNotification implements Serializable {
 	private String sessionId;
 
 	private String resultNature;
+
+	private List<Alert> responseData = new ArrayList<>();
 
 	private String responseType;
 
@@ -104,6 +108,14 @@ public class ResponseNotification implements Serializable {
 
 	public void setResultNature(String resultNature) {
 		this.resultNature = resultNature;
+	}
+
+	public List<Alert> getResponseData() {
+		return responseData;
+	}
+
+	public void setResponseData(List<Alert> responseData) {
+		this.responseData = responseData;
 	}
 
 	public String getResponseType() {

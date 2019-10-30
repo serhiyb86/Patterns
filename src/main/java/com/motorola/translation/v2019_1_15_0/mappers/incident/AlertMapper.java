@@ -7,10 +7,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.representation.Address;
 import com.motorola.models.representation.Alert;
 import com.motorola.translation.setter.LocalDateSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import com.motorola.utils.CadCloudUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +38,8 @@ public class AlertMapper {
 		// the level field doesn't receive from API ( will be hardcoded for default value '0'
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.LEVEL, new StringSetter<>(Alert::setPriority));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.START_DATE, new LocalDateSetter<>(Alert::setWhenCreated, InterfaceConstants.GeneralProperties.DATE_FORMAT));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.END_DATE, new StringSetter<>(Alert::setWhenExpired));
+		// For now there is no such field in Alert model description (need further clarification)
+		// setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.END_DATE, new StringSetter<>(Alert::setWhenExpired));
 	}
 
 	private Alert mapToAlert(JsonObject data) {
@@ -53,14 +56,20 @@ public class AlertMapper {
 
 	/***
 	 * Create the list of alerts
-	 * @param alerts - json array objects with alerts information
+	 * @param addressAlerts - json object with address and alerts information
 	 * @returnlist of alerts
 	 */
-	public List<Alert> createAndMapToAlertList(JsonArray alerts) {
+	public List<Alert> createAndMapToAlertList(JsonObject addressAlerts) {
+		JsonArray alerts = CadCloudUtils.getJsonArrayByKey(addressAlerts, InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ALERTS);
 		List<Alert> involvements = new ArrayList<>();
 		for (JsonElement element : alerts) {
 			JsonObject jsonObject = element.getAsJsonObject();
-			involvements.add(mapToAlert(jsonObject));
+			Alert alert = mapToAlert(jsonObject);
+			// Map Address to Alert
+			AddressMapper addressMapper = new AddressMapper();
+			Address addressModel = addressMapper.createAndMapToAddress(addressAlerts);
+			alert.setAddress(addressModel);
+			involvements.add(alert);
 		}
 		return involvements;
 	}
