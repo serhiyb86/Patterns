@@ -42,10 +42,13 @@ public class ResponseNotificationMapper {
 			JsonParser jsonParser = new JsonParser();
 			JsonObject jsonObject = jsonParser.parse(((JsonPrimitive) value).getAsString()).getAsJsonObject();
 			JsonArray data = CadCloudUtils.getJsonArrayByKey(jsonObject, InterfaceConstants.GeneralProperties.DATA_JSON_KEY);
-			JsonObject addressAlerts = data.get(0).getAsJsonObject();
-			AlertMapper alertMapper = new AlertMapper();
-			List<Alert> alerts = alertMapper.createAndMapToAlertList(addressAlerts);
-			model.setResponseData(alerts);
+			if (data != null && data.get(0) != null) {
+				JsonObject addressAlerts = data.get(0).getAsJsonObject();
+				AlertMapper alertMapper = new AlertMapper();
+				List<Alert> alerts = alertMapper.createAndMapToAlertList(addressAlerts);
+				String alertsJsonString = CadCloudUtils.convertObjectToJsonString(alerts);
+				model.setResponseData(alertsJsonString);
+			}
 		}));
 		setters.put(InterfaceConstants.NotificationProperties.RESPONSE_TYPE, new StringSetter<>(ResponseNotification::setResponseType));
 		setters.put(InterfaceConstants.NotificationProperties.ERROR, (model, value) -> {

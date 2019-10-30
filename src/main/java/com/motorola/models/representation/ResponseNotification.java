@@ -37,7 +37,7 @@ public class ResponseNotification implements Serializable {
 
 	private String resultNature;
 
-	private List<Alert> responseData = new ArrayList<>();
+	private String responseData;
 
 	private String responseType;
 
@@ -110,11 +110,11 @@ public class ResponseNotification implements Serializable {
 		this.resultNature = resultNature;
 	}
 
-	public List<Alert> getResponseData() {
+	public String getResponseData() {
 		return responseData;
 	}
 
-	public void setResponseData(List<Alert> responseData) {
+	public void setResponseData(String responseData) {
 		this.responseData = responseData;
 	}
 
