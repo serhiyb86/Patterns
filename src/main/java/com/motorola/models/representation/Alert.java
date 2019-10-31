@@ -27,7 +27,8 @@ public class Alert implements Serializable {
 
 	private String comment;
 
-	private String whenExpired;
+	// For now there is no such field in Alert model description (need further clarification)
+	//private String whenExpired;
 
 	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate whenCreated;
@@ -35,6 +36,9 @@ public class Alert implements Serializable {
 	private Contact owner;
 
 	private Contact contact;
+
+	private Address address;
+
 	/**
 	 * Returns the value of property "typeKey".
 	 * Type of Alert (Key)[Mapped To Codes Table:-cad.alert.type]
@@ -114,16 +118,16 @@ public class Alert implements Serializable {
 	 * Returns the value of property "whenExpired".
 	 * Date and Time when the alert was expired
 	 */
-	public String getWhenExpired() {
+	/*public String getWhenExpired() {
 		return whenExpired;
-	}
+	}*/
 
 	/**
 	 * Updates the value of property "whenExpired".
 	 */
-	public void setWhenExpired(String whenExpired) {
+	/*public void setWhenExpired(String whenExpired) {
 		this.whenExpired = whenExpired;
-	}
+	}*/
 
 	/**
 	 * Returns the value of property "whenCreated".
@@ -168,6 +172,14 @@ public class Alert implements Serializable {
 	 */
 	public void setContact(Contact contact) {
 		this.contact = contact;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }
