@@ -246,9 +246,9 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals(1, dispatchIncident.getDispositions().size());
 		Disposition disposition = dispatchIncident.getDispositions().get(0);
 		Assert.assertNotNull(disposition.getCadDispositionKey());
-		Assert.assertEquals("NA", disposition.getCadDispositionKey());
+		Assert.assertEquals("ACT", disposition.getCadDispositionKey());
 		Assert.assertNotNull(disposition.getReportDispositionKey());
-		Assert.assertEquals("ACT", disposition.getReportDispositionKey());
+		Assert.assertEquals("NA", disposition.getReportDispositionKey());
 		Assert.assertNotNull(disposition.getObservedOffenseKey());
 		Assert.assertEquals("11", disposition.getObservedOffenseKey());
 		Assert.assertEquals("T", dispatchIncident.getIncidentSourceKey());
