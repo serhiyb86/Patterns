@@ -42,7 +42,7 @@ public final class InterfaceConstants {
 		public static final String DEVICE = "device";
 		public static final String DEVICE_KEY = "key";
 		public static final String DEVICE_AGENCY_ALIAS = "agencyAlias";
-		public static final String DEVICE_NAME = "deviceName";
+		public static final String DEVICE_ALIAS = "alias";
 		public static final String CAD_USER = "cadUser";
 		public static final String CAD_USER_KEY = "key";
 		public static final String CAD_USER_ALIAS = "alias";
@@ -270,6 +270,7 @@ public final class InterfaceConstants {
 			public final class EnteredBy {
 				public static final String ENTERED_BY = "enteredBy";
 				public static final String ABBR = "abbr";
+				public static final String DESC = "desc";
 				public static final String SNAME = "shortName";
 				public static final String AGENCY = "agency";
 			}
