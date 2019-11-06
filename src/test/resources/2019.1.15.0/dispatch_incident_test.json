@@ -104,7 +104,7 @@
           "recordTitle": "2dc19f42-590a-4d04-8481-573a21f4bdf7",
           "callNumber": "C6002",
           "enteredBy": {
-            "shortName": "Spillman"
+            "desc": "Spillman"
           },
           "whenEntered": "2018-03-12T08:00:51-06:00",
           "urgency": "Critical",

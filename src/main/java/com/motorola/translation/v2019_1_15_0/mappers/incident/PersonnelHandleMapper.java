@@ -9,6 +9,7 @@ import java.util.Map;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.PersonnelHandle;
+import com.motorola.translation.setter.MultipleFieldsStringSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 
@@ -20,8 +21,7 @@ public class PersonnelHandleMapper {
 	private static final Map<String, Setter<PersonnelHandle>> setters = new HashMap<>();
 
 	static {
-		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.ABBR, new StringSetter<>(PersonnelHandle::setKey));
-		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.SNAME, new StringSetter<>(PersonnelHandle::setAlias));
+		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.DESC, new MultipleFieldsStringSetter<>(PersonnelHandle::setAlias, PersonnelHandle::setKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.AGENCY, new StringSetter<>(PersonnelHandle::setAgencyAlias));
 	}
 
