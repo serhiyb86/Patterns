@@ -5,6 +5,7 @@ package com.motorola.servlets;
 
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
+import com.motorola.manager.IncidentRequestManager;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
@@ -25,13 +26,13 @@ public class IncidentCreateServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BaseRequestManager requestManager = new BaseRequestManager();
+		IncidentRequestManager requestManager = new IncidentRequestManager();
 		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.EmergencyIncident.GeneralProperties.CREATE_INCIDENT_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			EmergencyIncident bean = requestManager.getTranslator().translateCreateIncident(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				try {
-					requestManager.getApiClient().pushIncident().createIncident(bean);
+					requestManager.createIncident(bean);
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send createIncident data.", e);

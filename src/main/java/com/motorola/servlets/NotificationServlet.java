@@ -6,7 +6,9 @@ package com.motorola.servlets;
 
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
+import com.motorola.manager.BookOnOffRequestManager;
 import com.motorola.models.representation.ApiResponse;
+import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.utils.LoggerUtils;
@@ -32,7 +34,7 @@ public class NotificationServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BaseRequestManager requestManager = new BaseRequestManager();
+		BookOnOffRequestManager requestManager = new BookOnOffRequestManager();
 		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.NotificationProperties.ERROR_NOTIFICATION_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			ResponseNotification responseNotification = requestManager.getTranslator().translateResponseNotification(requestManager.getPayload());
@@ -41,7 +43,7 @@ public class NotificationServlet extends BaseHttpServlet {
 				LoggerUtils.printJsonLogs(responseNotification);
 				ServletOutputStream outputStream = null;
 				try {
-					ApiResponse apiResponse = requestManager.getApiClient().responseNotification().responseNotification(responseNotification);
+					ModelApiResponse apiResponse = requestManager.responseNotification(responseNotification);
 					outputStream = response.getOutputStream();
 					outputStream.write(CadCloudUtils.convertObjectToJsonString(apiResponse).getBytes());
 				}

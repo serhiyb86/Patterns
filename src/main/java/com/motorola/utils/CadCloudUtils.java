@@ -12,7 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.commons.io.IOUtils;
-import org.restlet.engine.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +45,7 @@ public class CadCloudUtils {
 		catch (IOException e) {
 			LOGGER.error("Error has happen during receiving the payload: {}. ", e);
 		}
-		return StringUtils.isNullOrEmpty(responseWriter.toString()) ? null : JSON_PARSER.parse(responseWriter.toString()).getAsJsonObject();
+		return StringUtils.isBlank(responseWriter.toString()) ? null : JSON_PARSER.parse(responseWriter.toString()).getAsJsonObject();
 	}
 
 	/**

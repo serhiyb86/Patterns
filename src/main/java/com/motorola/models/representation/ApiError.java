@@ -28,7 +28,7 @@ public class ApiError implements Serializable {
 
 	private String fieldPath;
 
-	private List<KeyValue> parsedResources = new ArrayList<KeyValue>();
+	private List<KeyValue> parsedResources = new ArrayList<>();
 
 	/**
 	 * Returns the value of property "errorCode".

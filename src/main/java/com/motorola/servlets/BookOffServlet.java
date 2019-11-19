@@ -5,7 +5,8 @@ package com.motorola.servlets;
 
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
-import com.motorola.models.representation.ApiResponse;
+import com.motorola.manager.BookOnOffRequestManager;
+import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
@@ -27,26 +28,19 @@ public class BookOffServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BaseRequestManager requestManager = new BaseRequestManager();
+		BookOnOffRequestManager requestManager = new BookOnOffRequestManager();
 		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.NotificationProperties.BOOK_OFF_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			ResponseNotification responseNotification = requestManager.getTranslator().translateResponseNotification(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);
-				ServletOutputStream outputStream = null;
-				try {
-					ApiResponse apiResponse = requestManager.getApiClient().responseNotification().responseNotification(responseNotification);
-					outputStream = response.getOutputStream();
+				try (ServletOutputStream outputStream = response.getOutputStream()) {
+					ModelApiResponse apiResponse = requestManager.bookOff(responseNotification);
 					outputStream.write(CadCloudUtils.convertObjectToJsonString(apiResponse).getBytes());
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send responseNotification data.", e);
 					respondWithTranslatedModel(response, outgoingModel);
-				}
-				finally {
-					if (outputStream != null) {
-						outputStream.close();
-					}
 				}
 			}
 			else {

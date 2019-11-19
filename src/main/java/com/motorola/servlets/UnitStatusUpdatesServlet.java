@@ -5,6 +5,7 @@ package com.motorola.servlets;
 
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
+import com.motorola.manager.UnitRequestManager;
 import com.motorola.models.representation.Unit;
 import com.motorola.models.representation.UpdateUnit;
 import com.motorola.utils.CadCloudUtils;
@@ -26,13 +27,13 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BaseRequestManager requestManager = new BaseRequestManager();
+		UnitRequestManager requestManager = new UnitRequestManager();
 		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.EmergencyIncident.GeneralProperties.UNIT_STATUS_CREATE_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			Unit unit = requestManager.getTranslator().translateUnitStatusCreate(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				try {
-					requestManager.getApiClient().pushUnit().onDutyUnit(unit);
+					requestManager.onDutyUnit(unit);
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send onDutyUnit data.", e);
@@ -50,13 +51,13 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) {
-		BaseRequestManager requestManager = new BaseRequestManager();
+		UnitRequestManager requestManager = new UnitRequestManager();
 		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.EmergencyIncident.GeneralProperties.UNIT_STATUS_UPDATE_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			UpdateUnit unitUpdates = requestManager.getTranslator().translateUnitStatusUpdates(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				try {
-					requestManager.getApiClient().pushUnit().unitStatusUpdates(unitUpdates);
+					requestManager.unitStatusUpdates(unitUpdates);
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send unitStatusUpdates data.", e);
