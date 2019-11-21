@@ -4,6 +4,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
 
@@ -31,7 +32,7 @@ public class PersonnelHandle implements Serializable {
 	 * Updates the value of property "key".
 	 */
 	public void setKey(String key) {
-		this.key = key;
+		this.key = OneRmsHashUtils.convertCodeToOneRmsFormat(key);
 	}
 
 	/**

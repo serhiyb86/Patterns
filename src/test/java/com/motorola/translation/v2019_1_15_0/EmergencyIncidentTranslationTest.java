@@ -20,6 +20,7 @@ import com.motorola.models.representation.Subject;
 import com.motorola.models.representation.UnitHandle;
 import com.motorola.models.representation.UpdateEmergencyIncident;
 import com.motorola.models.representation.Vehicle;
+import com.motorola.utils.OneRmsHashUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -54,13 +55,13 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("mm", person.getMiddleName());
 		Assert.assertEquals("ss", person.getSuffix());
 		Assert.assertEquals(Long.valueOf(68), person.getAge());
-		Assert.assertEquals("B", person.getRaceKey());
-		Assert.assertEquals("MAL", person.getGenderKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("B"), person.getRaceKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("MAL"), person.getGenderKey());
 		Assert.assertEquals(Long.valueOf(71), person.getHeight());
 		Assert.assertEquals(Long.valueOf(200), person.getWeight());
-		Assert.assertEquals("MCLR", person.getBuildKey());
-		Assert.assertEquals("TAN", person.getEyeColorKey());
-		Assert.assertEquals("BLN", person.getHairColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("MCLR"), person.getBuildKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("TAN"), person.getEyeColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLN"), person.getHairColorKey());
 		Assert.assertEquals("112qweqwe1", person.getDriverLicenseNumber());
 		Assert.assertEquals("AD", person.getDriverLicenseState());
 		Assert.assertEquals("customerId", emergencyIncident.getCustomerId());
@@ -91,17 +92,17 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertNotNull(vehicle);
 		Assert.assertEquals("ABC999", vehicle.getLicensePlate());
 		Assert.assertEquals("WV", vehicle.getLicenseState());
-		Assert.assertEquals("PC", vehicle.getLicenseTypeKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PC"), vehicle.getLicenseTypeKey());
 		Assert.assertEquals(LocalDate.parse("2018-11-30", dateFormat), vehicle.getLicenseExpirationDate());
 		Assert.assertEquals("2000", String.valueOf(vehicle.getYear()));
-		Assert.assertEquals("PONT", vehicle.getMakeKey());
-		Assert.assertEquals("6000", vehicle.getModelKey());
-		Assert.assertEquals("BLK", vehicle.getPrimaryColorKey());
-		Assert.assertEquals("BLU", vehicle.getSecondaryColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PONT"), vehicle.getMakeKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("6000"), vehicle.getModelKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLK"), vehicle.getPrimaryColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLU"), vehicle.getSecondaryColorKey());
 		Assert.assertEquals("ABC111", vehicle.getVin());
 		Assert.assertEquals("1", vehicle.getOwner());
 		Assert.assertEquals("comment_data", vehicle.getComment());
-		Assert.assertEquals("PCAR", vehicle.getStyleKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PCAR"), vehicle.getStyleKey());
 		// location address alerts test
 		List<DispatchableIncident> dispatches = emergencyIncident.getDispatches();
 		DispatchableIncident dispatchableIncident = dispatches.get(0);
@@ -158,13 +159,13 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("mm_new", newPersonValue.getMiddleName());
 		Assert.assertEquals("ss_new", newPersonValue.getSuffix());
 		Assert.assertEquals(Long.valueOf(68), newPersonValue.getAge());
-		Assert.assertEquals("B", newPersonValue.getRaceKey());
-		Assert.assertEquals("MAL", newPersonValue.getGenderKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("B"), newPersonValue.getRaceKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("MAL"), newPersonValue.getGenderKey());
 		Assert.assertEquals(Long.valueOf(71), newPersonValue.getHeight());
 		Assert.assertEquals(Long.valueOf(200), newPersonValue.getWeight());
-		Assert.assertEquals("MCLR", newPersonValue.getBuildKey());
-		Assert.assertEquals("TAN", newPersonValue.getEyeColorKey());
-		Assert.assertEquals("BLN", newPersonValue.getHairColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("MCLR"), newPersonValue.getBuildKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("TAN"), newPersonValue.getEyeColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLN"), newPersonValue.getHairColorKey());
 		Assert.assertEquals("112qweqwe1_new", newPersonValue.getDriverLicenseNumber());
 		Assert.assertEquals("AD", newPersonValue.getDriverLicenseState());
 		Assert.assertEquals("(234)555-4444", newPersonValue.getPhone());
@@ -196,13 +197,13 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("mm_old", oldPersonValue.getMiddleName());
 		Assert.assertEquals("ss_old", oldPersonValue.getSuffix());
 		Assert.assertEquals(Long.valueOf(68), oldPersonValue.getAge());
-		Assert.assertEquals("B", oldPersonValue.getRaceKey());
-		Assert.assertEquals("MAL", oldPersonValue.getGenderKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("B"), oldPersonValue.getRaceKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("MAL"), oldPersonValue.getGenderKey());
 		Assert.assertEquals(Long.valueOf(71), oldPersonValue.getHeight());
 		Assert.assertEquals(Long.valueOf(200), oldPersonValue.getWeight());
-		Assert.assertEquals("MCLR", oldPersonValue.getBuildKey());
-		Assert.assertEquals("TAN", oldPersonValue.getEyeColorKey());
-		Assert.assertEquals("BLN", oldPersonValue.getHairColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("MCLR"), oldPersonValue.getBuildKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("TAN"), oldPersonValue.getEyeColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLN"), oldPersonValue.getHairColorKey());
 		Assert.assertEquals("112qweqwe1_old", oldPersonValue.getDriverLicenseNumber());
 		Assert.assertEquals("AD", oldPersonValue.getDriverLicenseState());
 		Assert.assertEquals("(234)555-4433", oldPersonValue.getPhone());
@@ -233,25 +234,25 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertNotNull(dispatchIncident);
 		Assert.assertEquals("24e", dispatchIncident.getAlias());
 		// TODO:Key
-		Assert.assertEquals("e", dispatchIncident.getDisciplineKey());
-		Assert.assertEquals("Abdominal", dispatchIncident.getNature().getNatureKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("e"), dispatchIncident.getDisciplineKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("Abdominal"), dispatchIncident.getNature().getNatureKey());
 		Assert.assertEquals("1", dispatchIncident.getPriority());
-		Assert.assertEquals("SPD", dispatchIncident.getAgencyKey());
-		Assert.assertEquals("RCVD", dispatchIncident.getStatusKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("SPD"), dispatchIncident.getAgencyKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("RCVD"), dispatchIncident.getStatusKey());
 		Assert.assertEquals("2018-11-21T05:57:41-07:00", dispatchIncident.getWhenStatusDeclared());
-		Assert.assertEquals("01A01", dispatchIncident.getProqaDeterminantKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("01A01"), dispatchIncident.getProqaDeterminantKey());
 		//Disposition
 		Assert.assertNotNull(dispatchIncident.getDispositions());
 		Assert.assertFalse(dispatchIncident.getDispositions().isEmpty());
 		Assert.assertEquals(1, dispatchIncident.getDispositions().size());
 		Disposition disposition = dispatchIncident.getDispositions().get(0);
 		Assert.assertNotNull(disposition.getCadDispositionKey());
-		Assert.assertEquals("ACT", disposition.getCadDispositionKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("ACT"), disposition.getCadDispositionKey());
 		Assert.assertNotNull(disposition.getReportDispositionKey());
-		Assert.assertEquals("NA", disposition.getReportDispositionKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("NA"), disposition.getReportDispositionKey());
 		Assert.assertNotNull(disposition.getObservedOffenseKey());
-		Assert.assertEquals("11", disposition.getObservedOffenseKey());
-		Assert.assertEquals("T", dispatchIncident.getIncidentSourceKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("11"), disposition.getObservedOffenseKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("T"), dispatchIncident.getIncidentSourceKey());
 		Assert.assertEquals(true, dispatchIncident.getIsScheduled());
 		// TODO: check in json with key "responsibleUnitId"
 		Assert.assertEquals("007", dispatchIncident.getPrimaryUnit().getKey());
@@ -301,7 +302,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 
 		Jurisdiction jurisdiction = address.getJurisdiction();
 		Assert.assertNotNull(jurisdiction);
-		Assert.assertEquals("LSW", jurisdiction.getAreaKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("LSW"), jurisdiction.getAreaKey());
 		// Assigned Unit
 		List<UnitHandle> assignedUnits = dispatchIncident.getAssignedUnits( );
 		Assert.assertNotNull(assignedUnits);

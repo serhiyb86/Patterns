@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.motorola.models.serializer.ZonedDateTimeSerializer;
+import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -216,7 +217,7 @@ public class UserSession implements Serializable {
 	 * Updates the value of property "cadUserAgencyKey".
 	 */
 	public void setCadUserAgencyKey(String cadUserAgencyKey) {
-		this.cadUserAgencyKey = cadUserAgencyKey;
+		this.cadUserAgencyKey = OneRmsHashUtils.convertCodeToOneRmsFormat(cadUserAgencyKey);
 	}
 
 	/**
@@ -231,7 +232,7 @@ public class UserSession implements Serializable {
 	 * Updates the value of property "deviceAgencyKey".
 	 */
 	public void setDeviceAgencyKey(String deviceAgencyKey) {
-		this.deviceAgencyKey = deviceAgencyKey;
+		this.deviceAgencyKey = OneRmsHashUtils.convertCodeToOneRmsFormat(deviceAgencyKey);
 	}
 
 	/**

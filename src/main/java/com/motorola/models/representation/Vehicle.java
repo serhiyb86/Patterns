@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.motorola.models.serializer.LocalDateSerializer;
+import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -86,7 +87,7 @@ public class Vehicle implements Serializable {
 	 * Updates the value of property "licenseTypeKey".
 	 */
 	public void setLicenseTypeKey(String licenseTypeKey) {
-		this.licenseTypeKey = licenseTypeKey;
+		this.licenseTypeKey = OneRmsHashUtils.convertCodeToOneRmsFormat(licenseTypeKey);
 	}
 
 	/**
@@ -131,7 +132,7 @@ public class Vehicle implements Serializable {
 	 * Updates the value of property "makeKey".
 	 */
 	public void setMakeKey(String makeKey) {
-		this.makeKey = makeKey;
+		this.makeKey = OneRmsHashUtils.convertCodeToOneRmsFormat(makeKey);
 	}
 
 	/**
@@ -146,7 +147,7 @@ public class Vehicle implements Serializable {
 	 * Updates the value of property "modelKey".
 	 */
 	public void setModelKey(String modelKey) {
-		this.modelKey = modelKey;
+		this.modelKey = OneRmsHashUtils.convertCodeToOneRmsFormat(modelKey);
 	}
 
 	/**
@@ -161,7 +162,7 @@ public class Vehicle implements Serializable {
 	 * Updates the value of property "primaryColorKey".
 	 */
 	public void setPrimaryColorKey(String primaryColorKey) {
-		this.primaryColorKey = primaryColorKey;
+		this.primaryColorKey = OneRmsHashUtils.convertCodeToOneRmsFormat(primaryColorKey);
 	}
 
 	/**
@@ -176,7 +177,7 @@ public class Vehicle implements Serializable {
 	 * Updates the value of property "secondaryColorKey".
 	 */
 	public void setSecondaryColorKey(String secondaryColorKey) {
-		this.secondaryColorKey = secondaryColorKey;
+		this.secondaryColorKey = OneRmsHashUtils.convertCodeToOneRmsFormat(secondaryColorKey);
 	}
 
 	/**
@@ -191,7 +192,7 @@ public class Vehicle implements Serializable {
 	 * Updates the value of property "styleKey".
 	 */
 	public void setStyleKey(String styleKey) {
-		this.styleKey = styleKey;
+		this.styleKey = OneRmsHashUtils.convertCodeToOneRmsFormat(styleKey);
 	}
 
 	/**

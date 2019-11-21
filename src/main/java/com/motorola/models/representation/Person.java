@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.motorola.models.Config;
 import com.motorola.models.serializer.LocalDateSerializer;
+import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -166,7 +167,6 @@ public class Person implements Serializable {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-
 	/**
 	 * Returns the value of property "comment".
 	 * Narrative Text
@@ -194,7 +194,7 @@ public class Person implements Serializable {
 	 * Updates the value of property "raceKey".
 	 */
 	public void setRaceKey(String raceKey) {
-		this.raceKey = raceKey;
+		this.raceKey = OneRmsHashUtils.convertCodeToOneRmsFormat(raceKey);
 	}
 
 	/**
@@ -209,7 +209,7 @@ public class Person implements Serializable {
 	 * Updates the value of property "genderKey".
 	 */
 	public void setGenderKey(String genderKey) {
-		this.genderKey = genderKey;
+		this.genderKey = OneRmsHashUtils.convertCodeToOneRmsFormat(genderKey);
 	}
 
 	/**
@@ -269,7 +269,7 @@ public class Person implements Serializable {
 	 * Updates the value of property "buildKey".
 	 */
 	public void setBuildKey(String buildKey) {
-		this.buildKey = buildKey;
+		this.buildKey = OneRmsHashUtils.convertCodeToOneRmsFormat(buildKey);
 	}
 
 	/**
@@ -284,7 +284,7 @@ public class Person implements Serializable {
 	 * Updates the value of property "hairColorKey".
 	 */
 	public void setHairColorKey(String hairColorKey) {
-		this.hairColorKey = hairColorKey;
+		this.hairColorKey = OneRmsHashUtils.convertCodeToOneRmsFormat(hairColorKey);
 	}
 
 	/**
@@ -299,7 +299,7 @@ public class Person implements Serializable {
 	 * Updates the value of property "eyeColorKey".
 	 */
 	public void setEyeColorKey(String eyeColorKey) {
-		this.eyeColorKey = eyeColorKey;
+		this.eyeColorKey = OneRmsHashUtils.convertCodeToOneRmsFormat(eyeColorKey);
 	}
 
 	/**

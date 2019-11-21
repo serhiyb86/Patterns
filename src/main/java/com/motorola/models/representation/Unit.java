@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.motorola.models.serializer.LocalDateTimeSerializer;
+import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -120,7 +121,7 @@ public class Unit implements Serializable {
 	 * Updates the value of property "disciplineKey".
 	 */
 	public void setDisciplineKey(String disciplineKey) {
-		this.disciplineKey = disciplineKey;
+		this.disciplineKey = OneRmsHashUtils.convertCodeToOneRmsFormat(disciplineKey);
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class Unit implements Serializable {
 	 * Updates the value of property "agencyKey".
 	 */
 	public void setAgencyKey(String agencyKey) {
-		this.agencyKey = agencyKey;
+		this.agencyKey = OneRmsHashUtils.convertCodeToOneRmsFormat(agencyKey);
 	}
 
 	/**
@@ -165,7 +166,7 @@ public class Unit implements Serializable {
 	 * Updates the value of property "shiftId".
 	 */
 	public void setShiftId(String shiftId) {
-		this.shiftId = shiftId;
+		this.shiftId = OneRmsHashUtils.convertCodeToOneRmsFormat(shiftId);
 	}
 
 	/**
@@ -195,7 +196,7 @@ public class Unit implements Serializable {
 	 * Updates the value of property "statusKey".
 	 */
 	public void setStatusKey(String statusKey) {
-		this.statusKey = statusKey;
+		this.statusKey = OneRmsHashUtils.convertCodeToOneRmsFormat(statusKey);
 	}
 
 	/**
