@@ -18,7 +18,6 @@ import com.motorola.translation.setter.ZonedDateTimeSetter;
 import com.motorola.utils.CadCloudUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

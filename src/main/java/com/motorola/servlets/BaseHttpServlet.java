@@ -5,14 +5,13 @@ package com.motorola.servlets;
 
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
-import org.restlet.engine.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -30,7 +29,7 @@ abstract class BaseHttpServlet extends HttpServlet {
 	 */
 	protected void respondWithTranslatedModel(HttpServletResponse response, String responseString) {
 		StringBuilder responseMessage = new StringBuilder("{ \"TranslatedData\": ");
-		if (!StringUtils.isNullOrEmpty(responseString)) {
+		if (StringUtils.isNotBlank(responseString)) {
 			responseMessage.append(responseString);
 		}
 		responseMessage.append("}");
@@ -51,7 +50,7 @@ abstract class BaseHttpServlet extends HttpServlet {
 		StringBuilder responseMessage = new StringBuilder("Error happened during processing the request. See details below.");
 		String responseString = CadCloudUtils.convertObjectToJsonString(validationResults);
 		try (ServletOutputStream outputStream = response.getOutputStream()) {
-			if (!StringUtils.isNullOrEmpty(responseString)) {
+			if (!StringUtils.isBlank(responseString)) {
 				responseMessage.append(responseString);
 			}
 			outputStream.write(responseMessage.toString().getBytes());

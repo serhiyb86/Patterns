@@ -4,7 +4,6 @@
 package com.motorola.translation.v2019_1_15_0;
 
 import com.google.gson.JsonObject;
-import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.Config;
 import com.motorola.models.representation.ResponseNotification;
 import org.junit.Assert;

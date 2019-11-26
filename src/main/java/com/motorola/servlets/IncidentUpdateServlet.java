@@ -5,6 +5,7 @@ package com.motorola.servlets;
 
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
+import com.motorola.manager.IncidentRequestManager;
 import com.motorola.models.representation.UpdateEmergencyIncident;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
@@ -25,13 +26,13 @@ public class IncidentUpdateServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BaseRequestManager requestManager = new BaseRequestManager();
+		IncidentRequestManager requestManager = new IncidentRequestManager();
 		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.EmergencyIncident.GeneralProperties.UPDATE_INCIDENT_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			UpdateEmergencyIncident bean = requestManager.getTranslator().translateUpdateIncident(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				try {
-					requestManager.getApiClient().pushIncident().updateIncident(bean);
+					requestManager.updateIncident(bean);
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send updateIncident data.", e);

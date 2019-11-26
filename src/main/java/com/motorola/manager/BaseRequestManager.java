@@ -4,14 +4,14 @@
 package com.motorola.manager;
 
 import com.google.gson.JsonObject;
-import com.motorola.cloud.APIClient;
+import com.motorola.api.utils.ApiClient;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.translation.BaseTranslator;
 import com.motorola.translation.TranslatorsFactory;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationErrorType;
 import com.motorola.validation.ValidationResult;
-import org.restlet.engine.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -20,12 +20,14 @@ import java.util.List;
 /**
  * Provides manager for validation and translation of incoming HttpServletRequest request.
  */
-public class BaseRequestManager {
+public abstract class BaseRequestManager {
 
-	private final APIClient apiClient = new APIClient();
 	private TranslatorsFactory translatorsFactory = new TranslatorsFactory();
 	private BaseTranslator translator;
 	private JsonObject payload;
+
+	protected final ApiClient apiClient = new ApiClient();
+	protected String accessToken;
 
 	/**
 	 * Method that validates incoming request for all required data
@@ -34,7 +36,7 @@ public class BaseRequestManager {
 	 * @return list of validation results
 	 */
 	public List<ValidationResult> validateRequest(HttpServletRequest request, String expectedRequestType) {
-		String accessToken = request.getHeader(InterfaceConstants.HttpHeaderProperties.ACCESS_TOKEN);
+		accessToken = request.getHeader(InterfaceConstants.HttpHeaderProperties.ACCESS_TOKEN);
 		String apiURL = request.getHeader(InterfaceConstants.HttpHeaderProperties.API_URL);
 		String spillmanVersion = request.getHeader(InterfaceConstants.HttpHeaderProperties.SPILLMAN_VERSION);
 		payload = CadCloudUtils.extractPayloadFromHttpRequest(request);
@@ -46,7 +48,7 @@ public class BaseRequestManager {
 		else if (payload.get(InterfaceConstants.GeneralProperties.REQUEST_TYPE) == null) {
 			validationResults.add(new ValidationResult("Request type is missing.", ValidationErrorType.MISSING_DATA));
 		}
-		else if (StringUtils.isNullOrEmpty(payload.get(InterfaceConstants.GeneralProperties.REQUEST_TYPE).getAsString())) {
+		else if (StringUtils.isBlank(payload.get(InterfaceConstants.GeneralProperties.REQUEST_TYPE).getAsString())) {
 			validationResults.add(new ValidationResult("Request type is missing.", ValidationErrorType.MISSING_DATA));
 		}
 		else {
@@ -58,21 +60,21 @@ public class BaseRequestManager {
 			}
 		}
 
-		if (StringUtils.isNullOrEmpty(accessToken)) {
+		if (StringUtils.isBlank(accessToken)) {
 			validationResults.add(new ValidationResult("Access token is missing.", ValidationErrorType.MISSING_DATA));
 		}
 		else {
-			apiClient.getConfig().getSecurityConfig().configureAuthApi_key(accessToken);
+			apiClient.setAccessToken(accessToken);
 		}
 
-		if (StringUtils.isNullOrEmpty(apiURL)) {
+		if (StringUtils.isBlank(apiURL)) {
 			validationResults.add(new ValidationResult("Cloud API URL is missing.", ValidationErrorType.MISSING_DATA));
 		}
 		else {
-			apiClient.getConfig().setBasePath(apiURL);
+			apiClient.setBasePath(apiURL);
 		}
 
-		if (StringUtils.isNullOrEmpty(spillmanVersion)) {
+		if (StringUtils.isBlank(spillmanVersion)) {
 			validationResults.add(new ValidationResult("Spillman version is missing.", ValidationErrorType.MISSING_DATA));
 		}
 		else {
@@ -95,9 +97,4 @@ public class BaseRequestManager {
 	public BaseTranslator getTranslator() {
 		return translator;
 	}
-
-	public APIClient getApiClient() {
-		return apiClient;
-	}
-
 }
