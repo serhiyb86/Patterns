@@ -35,8 +35,10 @@ public class BookOnServlet extends BaseHttpServlet {
 			UserSessionWrapper wrapper = requestManager.getTranslator().translateBookOn(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				String outgoingModel = CadCloudUtils.convertObjectToJsonString(wrapper);
-				try (ServletOutputStream outputStream = response.getOutputStream()) {
+				ServletOutputStream outputStream = null;
+				try {
 					ModelApiResponse modelApiResponse = requestManager.bookOn(wrapper.getModel(), wrapper.getCorrelationId());
+					outputStream = response.getOutputStream();
 					outputStream.write(CadCloudUtils.convertObjectToJsonString(modelApiResponse).getBytes());
 				}
 				catch (ApiException e) {
@@ -45,6 +47,11 @@ public class BookOnServlet extends BaseHttpServlet {
 				catch (Exception e) {
 					LOGGER.error("Failed to send BookOn data.", e);
 					respondWithTranslatedModel(response, outgoingModel);
+				}
+				finally {
+					if (outputStream != null) {
+						outputStream.close();
+					}
 				}
 			}
 			else {
