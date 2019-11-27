@@ -3,10 +3,12 @@
  */
 package com.motorola.servlets;
 
+import com.motorola.api.utils.ApiException;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
 import com.motorola.manager.IncidentRequestManager;
 import com.motorola.models.representation.EmergencyIncident;
+import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
 import org.slf4j.Logger;
@@ -31,13 +33,18 @@ public class IncidentCreateServlet extends BaseHttpServlet {
 		if (validationResult.isEmpty()) {
 			EmergencyIncident bean = requestManager.getTranslator().translateCreateIncident(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
+				ModelApiResponse modelApiResponse = null;
 				try {
-					requestManager.createIncident(bean);
+					modelApiResponse = requestManager.createIncident(bean);
+				}
+				catch (ApiException e) {
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean), CadCloudUtils.convertObjectToJsonString(e));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send createIncident data.", e);
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean));
 				}
-				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean));
+				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean), CadCloudUtils.convertObjectToJsonString(modelApiResponse));
 			}
 			else {
 				respondFailure(response, requestManager.getTranslator().getValidationResults());
