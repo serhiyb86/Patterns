@@ -3,6 +3,7 @@
  */
 package com.motorola.servlets;
 
+import com.motorola.api.utils.ApiException;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
 import com.motorola.manager.BookOnOffRequestManager;
@@ -37,6 +38,9 @@ public class BookOffServlet extends BaseHttpServlet {
 				try (ServletOutputStream outputStream = response.getOutputStream()) {
 					ModelApiResponse apiResponse = requestManager.bookOff(responseNotification);
 					outputStream.write(CadCloudUtils.convertObjectToJsonString(apiResponse).getBytes());
+				}
+				catch (ApiException e) {
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(outgoingModel), CadCloudUtils.convertObjectToJsonString(e));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send responseNotification data.", e);

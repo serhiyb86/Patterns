@@ -3,9 +3,11 @@
  */
 package com.motorola.servlets;
 
+import com.motorola.api.utils.ApiException;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
 import com.motorola.manager.UnitRequestManager;
+import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.models.representation.Unit;
 import com.motorola.models.representation.UpdateUnit;
 import com.motorola.utils.CadCloudUtils;
@@ -32,13 +34,18 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 		if (validationResult.isEmpty()) {
 			Unit unit = requestManager.getTranslator().translateUnitStatusCreate(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
+				ModelApiResponse modelApiResponse = null;
 				try {
-					requestManager.onDutyUnit(unit);
+					modelApiResponse = requestManager.onDutyUnit(unit);
+				}
+				catch (ApiException e) {
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit), CadCloudUtils.convertObjectToJsonString(e));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send onDutyUnit data.", e);
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit));
 				}
-				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit));
+				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit), CadCloudUtils.convertObjectToJsonString(modelApiResponse));
 			}
 			else {
 				respondFailure(response, requestManager.getTranslator().getValidationResults());
@@ -56,13 +63,18 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 		if (validationResult.isEmpty()) {
 			UpdateUnit unitUpdates = requestManager.getTranslator().translateUnitStatusUpdates(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
+				ModelApiResponse modelApiResponse = null;
 				try {
-					requestManager.unitStatusUpdates(unitUpdates);
+					modelApiResponse = requestManager.unitStatusUpdates(unitUpdates);
+				}
+				catch (ApiException e) {
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unitUpdates), CadCloudUtils.convertObjectToJsonString(e));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send unitStatusUpdates data.", e);
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unitUpdates));
 				}
-				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unitUpdates));
+				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unitUpdates), CadCloudUtils.convertObjectToJsonString(modelApiResponse));
 			}
 			else {
 				respondFailure(response, requestManager.getTranslator().getValidationResults());

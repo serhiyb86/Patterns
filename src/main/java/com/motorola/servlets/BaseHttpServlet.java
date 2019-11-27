@@ -23,6 +23,29 @@ abstract class BaseHttpServlet extends HttpServlet {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BaseHttpServlet.class);
 
 	/**
+	 * Respond with translated model and CAD IngestApi response.
+	 * @param response to respond.
+	 * @param responseString additional string with data to respond.
+	 * @param ingestAPIResponse CAD Ingest API response.
+	 */
+	protected void respondWithTranslatedModel(HttpServletResponse response, String responseString, String ingestAPIResponse) {
+		StringBuilder responseMessage = new StringBuilder("{ \"TranslatedData\": ");
+		if (StringUtils.isNotBlank(responseString)) {
+			responseMessage.append(responseString);
+		}
+		responseMessage.append(",");
+		responseMessage.append("\"Response\": ");
+		responseMessage.append(ingestAPIResponse);
+		responseMessage.append("}");
+		try (ServletOutputStream outputStream = response.getOutputStream()) {
+			outputStream.write(responseMessage.toString().getBytes());
+		}
+		catch (IOException e) {
+			LOGGER.error("Error occurred when trying to send the response.");
+		}
+	}
+
+	/**
 	 * Respond with translated model.
 	 * @param response to respond.
 	 * @param responseString additional string with data to respond.
