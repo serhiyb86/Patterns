@@ -195,6 +195,7 @@ public final class InterfaceConstants {
 					public static final String LONGITUDE = "longitude";
 					public static final String ID = "id";
 					public static final String ALERTS = "alerts";
+					public static final String HOUSE_NUMBER = "houseNumber";
 
 					public final class Alert {
 
