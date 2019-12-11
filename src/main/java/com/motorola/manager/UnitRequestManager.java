@@ -29,4 +29,8 @@ public class UnitRequestManager extends BaseRequestManager {
 		return pushApi.unitStatusUpdates(body, accessToken);
 	}
 
+	public ModelApiResponse offDutyUnit(Unit body) throws ApiException {
+		return pushApi.offDutyUnit(accessToken, body.getCustomerId(), body.getKey());
+	}
+
 }

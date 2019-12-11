@@ -5,7 +5,6 @@ package com.motorola.servlets;
 
 import com.motorola.api.utils.ApiException;
 import com.motorola.constants.InterfaceConstants;
-import com.motorola.manager.BaseRequestManager;
 import com.motorola.manager.UnitRequestManager;
 import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.models.representation.Unit;
@@ -26,6 +25,7 @@ import java.util.List;
 public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UnitStatusUpdatesServlet.class);
+	private static final Long OFF_DUTY_UNIT_STATUS_ACTION = 16L;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -65,7 +65,13 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				ModelApiResponse modelApiResponse = null;
 				try {
-					modelApiResponse = requestManager.unitStatusUpdates(unitUpdates);
+					Long statusAction = unitUpdates.get__new().getStatusAction();
+					if (statusAction!=null && OFF_DUTY_UNIT_STATUS_ACTION.equals(Math.abs(statusAction))) {
+						modelApiResponse = requestManager.offDutyUnit(unitUpdates.get__new());
+					}
+					else {
+						modelApiResponse = requestManager.unitStatusUpdates(unitUpdates);
+					}
 				}
 				catch (ApiException e) {
 					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unitUpdates), CadCloudUtils.convertObjectToJsonString(e));
