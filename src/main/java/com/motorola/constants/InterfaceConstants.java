@@ -243,6 +243,8 @@ public final class InterfaceConstants {
 			public static final String UNIT_STATUS_CREATE_REQUEST_TYPE = "CreateUnitStatusRequest";
 			public static final String UNIT_STATUS_UPDATE_REQUEST_TYPE = "UpdateUnitStatusRequest";
 			public static final String UNIT_STATUS_DELETE_REQUEST_TYPE = "DeleteUnitStatusRequest";
+			public static final String BULK_UNITS_UPDATE_REQUEST_TYPE = "BulkUnitsUpdateRequest";
+			public static final String BULK_INCIDENTS_UPDATE_REQUEST_TYPE = "BulkIncidentsUpdateRequest";
 			public static final String ID_JSON_KEY = "id";
 			public static final String OLD_JSON_KEY = "old";
 			public static final String NEW_JSON_KEY = "new";
@@ -353,6 +355,20 @@ public final class InterfaceConstants {
 			public static final String SPEED = "speed";
 			public static final String WHEN_REPORTED = "whenReported";
 		}
+	}
+
+	public final class RefreshUnitData {
+
+		private RefreshUnitData() {}
+
+		public static final String UNIT_LIST = "unitList";
+	}
+
+	public final class RefreshIncidentData {
+
+		private RefreshIncidentData() {}
+
+		public static final String EMERGENCY_INCIDENT_LIST = "emergencyIncidentList";
 	}
 
 }
