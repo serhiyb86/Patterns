@@ -7,6 +7,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.EmergencyIncident;
+import com.motorola.models.representation.RefreshIncidentData;
+import com.motorola.models.representation.RefreshUnitData;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.models.representation.Unit;
 import com.motorola.models.representation.UpdateEmergencyIncident;
@@ -16,8 +18,10 @@ import com.motorola.models.representation.UserSessionWrapper;
 import com.motorola.translation.v2019_1_15_0.mappers.incident.EmergencyIncidentMapper;
 import com.motorola.translation.BaseTranslator;
 import com.motorola.translation.v2019_1_15_0.mappers.bookon.UserSessionMapper;
+import com.motorola.translation.v2019_1_15_0.mappers.incident.RefreshIncidentDataMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.notification.ResponseNotificationMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.unit.IncidentHandleMapper;
+import com.motorola.translation.v2019_1_15_0.mappers.unit.RefreshUnitsDataMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.unit.UnitMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.unit.UpdateUnitMapper;
 import com.motorola.utils.CadCloudUtils;
@@ -140,6 +144,33 @@ public class Translator implements BaseTranslator {
 	@Override
 	public String getVersion() {
 		return InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0;
+	}
+
+	@Override
+	 public RefreshUnitData translateRefreshUnitData(JsonObject payload) {
+		clearValidationResults();
+		RefreshUnitData refreshUnitData = null;
+		JsonArray data = CadCloudUtils.getJsonArrayByKey(payload, InterfaceConstants.GeneralProperties.DATA_JSON_KEY);
+		if (validateRequiredObjectField(data, InterfaceConstants.GeneralProperties.DATA_JSON_KEY)
+			&& validateRequiredObjectField(data.get(0), InterfaceConstants.GeneralProperties.DATA_JSON_KEY)) {
+			JsonObject refreshUnitDataJson = data.get(0).getAsJsonObject();
+			RefreshUnitsDataMapper mapper = new RefreshUnitsDataMapper();
+			refreshUnitData = mapper.createAndMapToRefreshUnitData(refreshUnitDataJson);
+		}
+		return refreshUnitData;
+	}
+
+	@Override public RefreshIncidentData translateRefreshIncidentData(JsonObject payload) {
+		clearValidationResults();
+		RefreshIncidentData refreshIncidentData = null;
+		JsonArray data = CadCloudUtils.getJsonArrayByKey(payload, InterfaceConstants.GeneralProperties.DATA_JSON_KEY);
+		if (validateRequiredObjectField(data, InterfaceConstants.GeneralProperties.DATA_JSON_KEY)
+			&& validateRequiredObjectField(data.get(0), InterfaceConstants.GeneralProperties.DATA_JSON_KEY)) {
+			JsonObject refreshIncidentDataJson = data.get(0).getAsJsonObject();
+			RefreshIncidentDataMapper mapper = new RefreshIncidentDataMapper();
+			refreshIncidentData = mapper.createAndMapToRefreshIncidentData(refreshIncidentDataJson);
+		}
+		return refreshIncidentData;
 	}
 
 	/**

@@ -15,6 +15,7 @@ import com.motorola.models.representation.InvolvedVehicle;
 import com.motorola.models.representation.Subject;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
 import com.motorola.utils.CadCloudUtils;
 
 import java.util.HashMap;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  * Mapper for converting Json Object with EmergencyIncident data to the {@link EmergencyIncident} object.
  */
-public class EmergencyIncidentMapper {
+public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 
 	private static final Map<String, Setter<EmergencyIncident>> setters = new LinkedHashMap<>();
 	private static DispatchableIncidentMapper dispatchesMapper = new DispatchableIncidentMapper();
@@ -73,6 +74,10 @@ public class EmergencyIncidentMapper {
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.CUSTOMER_ID, new StringSetter<>(EmergencyIncident::setCustomerId));
 		setters.put(InterfaceConstants.EmergencyIncident.WHEN_CREATED, new StringSetter<>(EmergencyIncident::setWhenCreated));
+	}
+
+	public EmergencyIncidentMapper() {
+		super(setters);
 	}
 
 	public EmergencyIncident createAndMapToEmergencyIncident(JsonObject data) {

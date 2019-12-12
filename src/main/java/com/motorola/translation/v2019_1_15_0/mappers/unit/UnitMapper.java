@@ -17,6 +17,7 @@ import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.setter.ObjectSetter;
+import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +28,7 @@ import java.util.Map;
  * Mapper for converting Json Object with Unit data to the {@link Unit} object
  * including nested objects and objects lists.
  */
-public class UnitMapper {
+public class UnitMapper extends GenericMapper<Unit> {
 
 	private static final Map<String, Setter<Unit>> setters = new HashMap<>();
 
@@ -64,6 +65,10 @@ public class UnitMapper {
 		});
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.CURRENT_GPS_DATA, new ObjectSetter<>(Unit::setCurrentGpsData, new GpsDataMapper(), GpsData::new));
+	}
+
+	public UnitMapper() {
+		super(setters);
 	}
 
 	public Unit createAndMapToUnit(JsonObject unitData) {
