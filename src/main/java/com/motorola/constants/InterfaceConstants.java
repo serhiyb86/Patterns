@@ -304,6 +304,7 @@ public final class InterfaceConstants {
 			public static final String EQUIPMENT = "equipment";
 			public static final String ASSIGNED_PERSONNEL = "assignedPersonnel";
 			public static final String CURRENT_GPS_DATA = "currentGpsData";
+			public static final String NEXT_STATUS_KEY = "nextStatusKey";
 		}
 
 		public final class AssignedIncident {
