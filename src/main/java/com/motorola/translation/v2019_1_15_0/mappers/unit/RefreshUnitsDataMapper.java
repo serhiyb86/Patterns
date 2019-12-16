@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.RefreshUnitData;
 import com.motorola.models.representation.Unit;
+import com.motorola.translation.setter.BooleanSetter;
 import com.motorola.translation.setter.ListSetter;
 import com.motorola.translation.setter.Setter;
 
@@ -23,6 +24,8 @@ public class RefreshUnitsDataMapper {
 	static {
 		setters.put(InterfaceConstants.RefreshUnitData.UNIT_LIST,
 			new ListSetter<>(com.motorola.models.representation.RefreshUnitData::setUnitList, new UnitMapper(), Unit::new));
+		setters.put(InterfaceConstants.RefreshUnitData.IS_FIRST_BATCH_UPDATE, new BooleanSetter<>(RefreshUnitData::setIsFirstBatchUpdate));
+		setters.put(InterfaceConstants.RefreshUnitData.IS_LAST_BATCH_UPDATE, new BooleanSetter<>(RefreshUnitData::setIsLastBatchUpdate));
 	}
 
 	public RefreshUnitData createAndMapToRefreshUnitData(JsonObject refreshUnitDataJson) {

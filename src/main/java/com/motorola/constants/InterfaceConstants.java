@@ -364,6 +364,8 @@ public final class InterfaceConstants {
 		private RefreshUnitData() {}
 
 		public static final String UNIT_LIST = "unitList";
+		public static final String IS_FIRST_BATCH_UPDATE = "isFirstBatchUpdate";
+		public static final String IS_LAST_BATCH_UPDATE = "isLastBatchUpdate";
 	}
 
 	public final class RefreshIncidentData {
