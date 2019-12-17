@@ -86,6 +86,8 @@ public final class InterfaceConstants {
 		public static final String CUSTOMER_ID = "customerId";
 		public static final String SESSION_ID = "sessionId";
 		public static final String RESPONSE_TYPE = "responseType";
+		public static final String KEY = "key";
+		public static final String KEY_TYPE = "keyType";
 	}
 
 	/**

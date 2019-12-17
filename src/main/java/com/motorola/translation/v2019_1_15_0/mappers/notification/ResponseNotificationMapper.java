@@ -57,6 +57,8 @@ public class ResponseNotificationMapper {
 			setters.put(InterfaceConstants.NotificationProperties.MESSAGE, new StringSetter<>(ApiError::setMessage));
 			model.setError(new GenericMapper<>(setters).mapToModel((JsonObject) value, new ApiError()));
 		});
+		setters.put(InterfaceConstants.NotificationProperties.KEY_TYPE, new StringSetter<>(ResponseNotification::setKeyType));
+		setters.put(InterfaceConstants.NotificationProperties.KEY, new StringSetter<>(ResponseNotification::setKey));
 
 	}
 
