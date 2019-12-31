@@ -17,6 +17,7 @@ import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.setter.ObjectSetter;
+import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +28,7 @@ import java.util.Map;
  * Mapper for converting Json Object with Unit data to the {@link Unit} object
  * including nested objects and objects lists.
  */
-public class UnitMapper {
+public class UnitMapper extends GenericMapper<Unit> {
 
 	private static final Map<String, Setter<Unit>> setters = new HashMap<>();
 
@@ -40,12 +41,14 @@ public class UnitMapper {
 		setters.put(InterfaceConstants.Unit.GeneralProperties.CUSTOMER_ID, new StringSetter<>(Unit::setCustomerId));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_AGENCY, new StringSetter<>(Unit::setAgencyKey));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_STATUS_CODE, new StringSetter<>(Unit::setStatusKey));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_STATUS_ACTION, new LongSetter<>(Unit::setStatusAction));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_TYPE_CODE, new StringSetter<>(Unit::setDisciplineKey));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_STATUS_DECLARED, new StringSetter<>(Unit::setWhenStatusDeclared));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.MINIMUM_STAFFING_LEVEL, new LongSetter<>(Unit::setMinimumStaffingLevel));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.IS_PERSONNEL_OUTSIDE_UNIT, new BooleanSetter<>(Unit::setIsPersonnelOutsideUnit));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.SHIFT_ID, new StringSetter<>(Unit::setShiftId));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_DESCRIPTION, new StringSetter<>(Unit::setUnitDescription));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.NEXT_STATUS_KEY, new StringSetter<>(Unit::setNextStatusKey));
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.EQUIPMENT,
 			new ListSetter<>(Unit::setEquipment, new EquipmentMapper(), Equipment::new));
@@ -63,6 +66,10 @@ public class UnitMapper {
 		});
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.CURRENT_GPS_DATA, new ObjectSetter<>(Unit::setCurrentGpsData, new GpsDataMapper(), GpsData::new));
+	}
+
+	public UnitMapper() {
+		super(setters);
 	}
 
 	public Unit createAndMapToUnit(JsonObject unitData) {

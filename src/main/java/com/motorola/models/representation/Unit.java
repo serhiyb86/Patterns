@@ -36,6 +36,8 @@ public class Unit implements Serializable {
 
 	private String statusKey;
 
+	private Long statusAction;
+
 	private String nextStatusKey;
 
 	private String whenStatusDeclared;
@@ -197,6 +199,21 @@ public class Unit implements Serializable {
 	 */
 	public void setStatusKey(String statusKey) {
 		this.statusKey = OneRmsHashUtils.convertCodeToOneRmsFormat(statusKey);
+	}
+
+	/**
+	 * Returns the value of property "statusAction".
+	 * Current Status Action
+	 */
+	public Long getStatusAction() {
+		return statusAction;
+	}
+
+	/**
+	 * Updates the value of property "statusAction".
+	 */
+	public void setStatusAction(Long statusAction) {
+		this.statusAction = statusAction;
 	}
 
 	/**
@@ -499,5 +516,4 @@ public class Unit implements Serializable {
 	public void setWhenUpdated(LocalDateTime whenUpdated) {
 		this.whenUpdated = whenUpdated;
 	}
-
 }

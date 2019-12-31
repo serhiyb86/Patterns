@@ -3,9 +3,12 @@
  */
 package com.motorola.servlets;
 
+import com.motorola.api.utils.ApiException;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
+import com.motorola.manager.IncidentRequestManager;
 import com.motorola.models.representation.EmergencyIncident;
+import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
 import org.slf4j.Logger;
@@ -25,18 +28,23 @@ public class IncidentCreateServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BaseRequestManager requestManager = new BaseRequestManager();
+		IncidentRequestManager requestManager = new IncidentRequestManager();
 		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.EmergencyIncident.GeneralProperties.CREATE_INCIDENT_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			EmergencyIncident bean = requestManager.getTranslator().translateCreateIncident(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
+				ModelApiResponse modelApiResponse = null;
 				try {
-					requestManager.getApiClient().pushIncident().createIncident(bean);
+					modelApiResponse = requestManager.createIncident(bean);
+				}
+				catch (ApiException e) {
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean), CadCloudUtils.convertObjectToJsonString(e));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send createIncident data.", e);
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean));
 				}
-				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean));
+				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean), CadCloudUtils.convertObjectToJsonString(modelApiResponse));
 			}
 			else {
 				respondFailure(response, requestManager.getTranslator().getValidationResults());

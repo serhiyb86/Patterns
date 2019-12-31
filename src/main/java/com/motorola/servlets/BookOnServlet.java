@@ -3,9 +3,11 @@
  */
 package com.motorola.servlets;
 
+import com.motorola.api.utils.ApiException;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BaseRequestManager;
-import com.motorola.models.representation.ApiResponse;
+import com.motorola.manager.BookOnOffRequestManager;
+import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.models.representation.UserSessionWrapper;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
@@ -27,7 +29,7 @@ public class BookOnServlet extends BaseHttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BaseRequestManager requestManager = new BaseRequestManager();
+		BookOnOffRequestManager requestManager = new BookOnOffRequestManager();
 		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.BookOnProperties.BOOK_ON_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			UserSessionWrapper wrapper = requestManager.getTranslator().translateBookOn(requestManager.getPayload());
@@ -35,9 +37,12 @@ public class BookOnServlet extends BaseHttpServlet {
 				String outgoingModel = CadCloudUtils.convertObjectToJsonString(wrapper);
 				ServletOutputStream outputStream = null;
 				try {
-					ApiResponse apiResponse = requestManager.getApiClient().responseUserSessionCorrelationId(wrapper.getCorrelationId()).bookOnResponse(wrapper.getModel());
+					ModelApiResponse modelApiResponse = requestManager.bookOn(wrapper.getModel(), wrapper.getCorrelationId());
 					outputStream = response.getOutputStream();
-					outputStream.write(CadCloudUtils.convertObjectToJsonString(apiResponse).getBytes());
+					outputStream.write(CadCloudUtils.convertObjectToJsonString(modelApiResponse).getBytes());
+				}
+				catch (ApiException e) {
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(outgoingModel), CadCloudUtils.convertObjectToJsonString(e));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send BookOn data.", e);
