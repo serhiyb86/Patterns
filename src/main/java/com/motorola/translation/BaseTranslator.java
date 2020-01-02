@@ -6,6 +6,7 @@ package com.motorola.translation;
 import com.google.gson.JsonObject;
 import com.motorola.models.representation.RefreshIncidentData;
 import com.motorola.models.representation.RefreshUnitData;
+import com.motorola.models.representation.ResponseData;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.Unit;
@@ -40,4 +41,6 @@ public interface BaseTranslator {
 	RefreshUnitData translateRefreshUnitData(JsonObject payload);
 
 	RefreshIncidentData translateRefreshIncidentData(JsonObject payload);
+
+	ResponseData translateResponseData(JsonObject payload);
 }

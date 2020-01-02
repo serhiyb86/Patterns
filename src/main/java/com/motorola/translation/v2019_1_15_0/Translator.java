@@ -9,6 +9,7 @@ import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.RefreshIncidentData;
 import com.motorola.models.representation.RefreshUnitData;
+import com.motorola.models.representation.ResponseData;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.models.representation.Unit;
 import com.motorola.models.representation.UpdateEmergencyIncident;
@@ -19,6 +20,7 @@ import com.motorola.translation.v2019_1_15_0.mappers.incident.EmergencyIncidentM
 import com.motorola.translation.BaseTranslator;
 import com.motorola.translation.v2019_1_15_0.mappers.bookon.UserSessionMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.incident.RefreshIncidentDataMapper;
+import com.motorola.translation.v2019_1_15_0.mappers.notification.ResponseDataMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.notification.ResponseNotificationMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.unit.IncidentHandleMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.unit.RefreshUnitsDataMapper;
@@ -59,6 +61,14 @@ public class Translator implements BaseTranslator {
 		ResponseNotification notification = new ResponseNotificationMapper().createAndMapToResponseNotification(payload);
 		validateRequiredStringField(notification.getCorrelationId(), InterfaceConstants.NotificationProperties.CORRELATION_ID);
 
+		return notification;
+	}
+
+	@Override
+	public ResponseData translateResponseData(JsonObject payload) {
+		clearValidationResults();
+		ResponseData notification = new ResponseDataMapper().createAndMapToResponseNotification(payload);
+		validateRequiredStringField(notification.getCorrelationId(), InterfaceConstants.NotificationProperties.CORRELATION_ID);
 		return notification;
 	}
 

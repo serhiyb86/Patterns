@@ -68,12 +68,13 @@ public final class InterfaceConstants {
 	}
 
 	/**
-	 * Contains constants related to the BookOff and Notification processing.
+	 * Contains constants related to the BookOff, Notification, ResponseData processing.
 	 */
 	public final class NotificationProperties {
 
 		public static final String ERROR_NOTIFICATION_REQUEST_TYPE = "ErrorNotificationRequest";
 		public static final String BOOK_OFF_REQUEST_TYPE = "BookOffRequest";
+		public static final String RESPONSE_DATA_REQUEST_TYPE = "ResponseDataRequest";
 		public static final String ERROR = "error";
 		public static final String ERROR_CODE = "errorCode";
 		public static final String MESSAGE = "message";
@@ -88,6 +89,7 @@ public final class InterfaceConstants {
 		public static final String RESPONSE_TYPE = "responseType";
 		public static final String KEY = "key";
 		public static final String KEY_TYPE = "keyType";
+		public static final String PAYLOAD = "payload";
 	}
 
 	/**

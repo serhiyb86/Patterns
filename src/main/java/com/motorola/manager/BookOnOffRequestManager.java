@@ -6,11 +6,12 @@ package com.motorola.manager;
 import com.motorola.api.ResponseApi;
 import com.motorola.api.utils.ApiException;
 import com.motorola.models.representation.ModelApiResponse;
+import com.motorola.models.representation.ResponseData;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.models.representation.UserSession;
 
 /**
- * Class for executing BookOn/BookOff/ResponseNotification related requests.
+ * Class for executing BookOn/BookOff/ResponseNotification/ResponseData related requests.
  */
 public class BookOnOffRequestManager extends BaseRequestManager {
 
@@ -30,6 +31,10 @@ public class BookOnOffRequestManager extends BaseRequestManager {
 
 	public ModelApiResponse responseNotification(ResponseNotification body) throws ApiException {
 		return responseApi.responseNotification(body, accessToken);
+	}
+
+	public ModelApiResponse responseData(ResponseData body) throws ApiException {
+		return responseApi.responseData(body, accessToken);
 	}
 
 }
