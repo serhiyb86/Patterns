@@ -4,10 +4,12 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -38,6 +40,11 @@ public class JurisdictionalAssignment implements Serializable {
 	 * Updates the value of property "areaKeys".
 	 */
 	public void setAreaKeys(List<String> areaKeys) {
+		if (areaKeys != null && !areaKeys.isEmpty()) {
+			areaKeys = areaKeys.stream()
+				.map(OneRmsHashUtils::convertCodeToOneRmsFormat)
+				.collect(Collectors.toList());
+		}
 		this.areaKeys = areaKeys;
 	}
 
@@ -48,7 +55,6 @@ public class JurisdictionalAssignment implements Serializable {
 	public List<String> getSectorKeys() {
 		return sectorKeys;
 	}
-
 
 	/**
 	 * Updates the value of property "sectorKeys".
@@ -69,6 +75,11 @@ public class JurisdictionalAssignment implements Serializable {
 	 * Updates the value of property "beatKeys".
 	 */
 	public void setBeatKeys(List<String> beatKeys) {
+		if (beatKeys != null && !beatKeys.isEmpty()) {
+			beatKeys = beatKeys.stream()
+				.map(OneRmsHashUtils::convertCodeToOneRmsFormat)
+				.collect(Collectors.toList());
+		}
 		this.beatKeys = beatKeys;
 	}
 

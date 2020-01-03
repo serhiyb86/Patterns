@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.motorola.models.serializer.LocalDateTimeSerializer;
+import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -62,7 +63,7 @@ public class Disposition implements Serializable {
 	 * Updates the value of property "cadDispositionKey".
 	 */
 	public void setCadDispositionKey(String cadDispositionKey) {
-		this.cadDispositionKey = cadDispositionKey;
+		this.cadDispositionKey = OneRmsHashUtils.convertCodeToOneRmsFormat(cadDispositionKey);
 	}
 
 	/**
@@ -77,7 +78,7 @@ public class Disposition implements Serializable {
 	 * Updates the value of property "reportDispositionKey".
 	 */
 	public void setReportDispositionKey(String reportDispositionKey) {
-		this.reportDispositionKey = reportDispositionKey;
+		this.reportDispositionKey = OneRmsHashUtils.convertCodeToOneRmsFormat(reportDispositionKey);
 	}
 
 	/**
@@ -92,7 +93,7 @@ public class Disposition implements Serializable {
 	 * Updates the value of property "observedOffenseKey".
 	 */
 	public void setObservedOffenseKey(String observedOffenseKey) {
-		this.observedOffenseKey = observedOffenseKey;
+		this.observedOffenseKey = OneRmsHashUtils.convertCodeToOneRmsFormat(observedOffenseKey);
 	}
 
 	/**
