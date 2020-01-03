@@ -16,28 +16,58 @@ import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
 import com.motorola.utils.CadCloudUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Mapper for converting Json Object with Person data to the {@link Person} object.
  */
 public class PersonMapper {
 
-	private static final Map<String, Setter<Person>> setters = new HashMap<>();
+	private static final Logger LOGGER = LoggerFactory.getLogger(PersonMapper.class);
+
+	private static final Map<String, Setter<Person>> setters = new LinkedHashMap<>();
 	private static final Map<String, Setter<Person>> driverLicenceSetters = new HashMap<>();
+
+	public static final String LAST_NAME_PATTERN = "lastName# (.*); firstName# (.*); DOB# (.*);";
 
 	static {
 		setters.put(InterfaceConstants.EmergencyIncident.Person.FIRST_NAME, new StringSetter<>(Person::setFirstName));
-		setters.put(InterfaceConstants.EmergencyIncident.Person.LAST_NAME, new StringSetter<>(Person::setLastName));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.SUFFIX, new StringSetter<>(Person::setSuffix));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.MIDDLE_NAME, new StringSetter<>(Person::setMiddleName));
+		setters.put(InterfaceConstants.EmergencyIncident.Person.BIRTH_DATE, new LocalDateSetter<>(Person::setDateOfBirth, InterfaceConstants.GeneralProperties.DATE_FORMAT));
+		setters.put(InterfaceConstants.EmergencyIncident.Person.LAST_NAME, ((model, value) -> {
+			String lastName = CadCloudUtils.getStringFromJsonElement((JsonElement) value);
+			if(lastName.matches(LAST_NAME_PATTERN)) {
+				Pattern pattern = Pattern.compile(LAST_NAME_PATTERN);
+				Matcher matcher = pattern.matcher(lastName);
+				if (matcher.find()) {
+					model.setLastName(matcher.group(1));
+					model.setFirstName(matcher.group(2));
+					String dateString = matcher.group(3);
+					try {
+						LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_WITH_MS_FORMAT));
+						model.setDateOfBirth(date);
+					} catch (Exception ex) {
+						LOGGER.error("Failed to parse incoming date {}", dateString, ex);
+					}
+				}
+			} else {
+				model.setLastName(lastName);
+			}
+		}));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.HEIGHT_IN_INCHES, new LongSetter<>(Person::setHeight));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.WEIGHT_IN_POUNDS, new LongSetter<>(Person::setWeight));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.AGE, new LongSetter<>(Person::setAge));
-		setters.put(InterfaceConstants.EmergencyIncident.Person.BIRTH_DATE, new LocalDateSetter<>(Person::setDateOfBirth, InterfaceConstants.GeneralProperties.DATE_FORMAT));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.HAIR_COLOR, new StringSetter<>(Person::setHairColorKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.RACE, new StringSetter<>(Person::setRaceKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.GENDER, new StringSetter<>(Person::setGenderKey));
@@ -89,10 +119,9 @@ public class PersonMapper {
 	 * @return filled target object with mapped data.
 	 */
 	public Person mapToPerson(JsonObject data, Person person) {
-		data.entrySet().forEach(entry -> {
-			Setter<Person> consumer = setters.get(entry.getKey());
-			if (consumer != null) {
-				consumer.accept(person, entry.getValue());
+		setters.forEach((key, value) -> {
+			if (data.get(key) != null) {
+				value.accept(person, data.get(key));
 			}
 		});
 		return person;

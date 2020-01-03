@@ -321,9 +321,36 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertNull(assignedUnit2.getAgencyAlias());
 		Assert.assertNull(assignedUnit2.getCallSign( ));
 		Assert.assertNull(assignedUnit2.getShiftId( ));
+	}
 
-
-
+	@Test
+	public void translateUpdateIncident_validData_LastName_Validation_Test() throws ParseException {
+		String updateIncidentFileName = "updateIncident_LastNameValidation.json";
+		JsonObject updateIncidentObject = initInputPayload(updateIncidentFileName);
+		UpdateEmergencyIncident updateEmergencyIncident = getTranslator().translateUpdateIncident(updateIncidentObject);
+		EmergencyIncident newIncident = updateEmergencyIncident.get__new();
+		Assert.assertEquals("C6002", newIncident.getAlias());
+		Assert.assertEquals("C6002", newIncident.getKey());
+		Assert.assertEquals("customerId", newIncident.getCustomerId());
+		Subject newSubject = newIncident.getSubjects().get(0);
+		Assert.assertEquals("Complainant", newSubject.getRole().get(0));
+		Person newPersonValue = newSubject.getPerson();
+		Assert.assertEquals("first name2", newPersonValue.getFirstName());
+		Assert.assertEquals(LocalDate.parse("2019-12-30", dateFormat), newPersonValue.getDateOfBirth());
+		Assert.assertEquals("last name 1", newPersonValue.getLastName());
+		Assert.assertEquals("mm_new", newPersonValue.getMiddleName());
+		Assert.assertEquals("ss_new", newPersonValue.getSuffix());
+		Assert.assertEquals(Long.valueOf(68), newPersonValue.getAge());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("B"), newPersonValue.getRaceKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("MAL"), newPersonValue.getGenderKey());
+		Assert.assertEquals(Long.valueOf(71), newPersonValue.getHeight());
+		Assert.assertEquals(Long.valueOf(200), newPersonValue.getWeight());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("MCLR"), newPersonValue.getBuildKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("TAN"), newPersonValue.getEyeColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLN"), newPersonValue.getHairColorKey());
+		Assert.assertEquals("112qweqwe1_new", newPersonValue.getDriverLicenseNumber());
+		Assert.assertEquals("AD", newPersonValue.getDriverLicenseState());
+		Assert.assertEquals("(234)555-4444", newPersonValue.getPhone());
 	}
 
 }
