@@ -228,7 +228,7 @@ public class Unit implements Serializable {
 	 * Updates the value of property "nextStatusKey".
 	 */
 	public void setNextStatusKey(String nextStatusKey) {
-		this.nextStatusKey = nextStatusKey;
+		this.nextStatusKey = OneRmsHashUtils.convertCodeToOneRmsFormat(nextStatusKey);
 	}
 
 	/**
