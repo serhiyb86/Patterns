@@ -43,7 +43,7 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send onDutyUnit data.", e);
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit));
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit), CadCloudUtils.convertObjectToJsonString(e));
 				}
 				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit), CadCloudUtils.convertObjectToJsonString(modelApiResponse));
 			}
@@ -91,8 +91,4 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 		}
 	}
 
-	@Override
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) {
-		//TODO: implement delete endpoint when needed
-	}
 }

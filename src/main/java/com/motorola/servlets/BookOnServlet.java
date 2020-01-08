@@ -5,7 +5,6 @@ package com.motorola.servlets;
 
 import com.motorola.api.utils.ApiException;
 import com.motorola.constants.InterfaceConstants;
-import com.motorola.manager.BaseRequestManager;
 import com.motorola.manager.BookOnOffRequestManager;
 import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.models.representation.UserSessionWrapper;
@@ -42,11 +41,11 @@ public class BookOnServlet extends BaseHttpServlet {
 					outputStream.write(CadCloudUtils.convertObjectToJsonString(modelApiResponse).getBytes());
 				}
 				catch (ApiException e) {
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(outgoingModel), CadCloudUtils.convertObjectToJsonString(e));
+					respondWithTranslatedModel(response, outgoingModel, CadCloudUtils.convertObjectToJsonString(e));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send BookOn data.", e);
-					respondWithTranslatedModel(response, outgoingModel);
+					respondWithTranslatedModel(response, outgoingModel, CadCloudUtils.convertObjectToJsonString(e));
 				}
 				finally {
 					if (outputStream != null) {
