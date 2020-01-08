@@ -5,7 +5,6 @@ package com.motorola.servlets;
 
 import com.motorola.api.utils.ApiException;
 import com.motorola.constants.InterfaceConstants;
-import com.motorola.manager.BaseRequestManager;
 import com.motorola.manager.IncidentRequestManager;
 import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.models.representation.UpdateEmergencyIncident;
@@ -42,7 +41,7 @@ public class IncidentUpdateServlet extends BaseHttpServlet {
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send updateIncident data.", e);
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean));
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean), CadCloudUtils.convertObjectToJsonString(e));
 				}
 				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean), CadCloudUtils.convertObjectToJsonString(modelApiResponse));
 			}

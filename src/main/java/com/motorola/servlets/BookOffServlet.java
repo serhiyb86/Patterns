@@ -5,7 +5,6 @@ package com.motorola.servlets;
 
 import com.motorola.api.utils.ApiException;
 import com.motorola.constants.InterfaceConstants;
-import com.motorola.manager.BaseRequestManager;
 import com.motorola.manager.BookOnOffRequestManager;
 import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.models.representation.ResponseNotification;
@@ -15,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,23 +33,16 @@ public class BookOffServlet extends BaseHttpServlet {
 			ResponseNotification responseNotification = requestManager.getTranslator().translateResponseNotification(requestManager.getPayload());
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseNotification);
-				ServletOutputStream outputStream = null;
 				try {
 					ModelApiResponse apiResponse = requestManager.bookOff(responseNotification);
-					outputStream = response.getOutputStream();
-					outputStream.write(CadCloudUtils.convertObjectToJsonString(apiResponse).getBytes());
+					respondWithTranslatedModel(response, outgoingModel, CadCloudUtils.convertObjectToJsonString(apiResponse));
 				}
 				catch (ApiException e) {
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(outgoingModel), CadCloudUtils.convertObjectToJsonString(e));
+					respondWithTranslatedModel(response, outgoingModel, CadCloudUtils.convertObjectToJsonString(e));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send responseNotification data.", e);
-					respondWithTranslatedModel(response, outgoingModel);
-				}
-				finally {
-					if (outputStream != null) {
-						outputStream.close();
-					}
+					respondWithTranslatedModel(response, outgoingModel, CadCloudUtils.convertObjectToJsonString(e));
 				}
 			}
 			else {

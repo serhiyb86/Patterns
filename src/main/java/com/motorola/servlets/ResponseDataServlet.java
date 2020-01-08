@@ -14,7 +14,6 @@ import com.motorola.validation.ValidationResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,20 +37,13 @@ public class ResponseDataServlet extends BaseHttpServlet {
 			String outgoingModel = CadCloudUtils.convertObjectToJsonString(responseData);
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				LoggerUtils.printJsonLogs(responseData);
-				ServletOutputStream outputStream = null;
 				try {
 					ModelApiResponse apiResponse = requestManager.responseData(responseData);
-					outputStream = response.getOutputStream();
-					outputStream.write(CadCloudUtils.convertObjectToJsonString(apiResponse).getBytes());
+					respondWithTranslatedModel(response, outgoingModel, CadCloudUtils.convertObjectToJsonString(apiResponse));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send ResponseData.", e);
-					respondWithTranslatedModel(response, outgoingModel);
-				}
-				finally {
-					if (outputStream != null) {
-						outputStream.close();
-					}
+					respondWithTranslatedModel(response, outgoingModel, CadCloudUtils.convertObjectToJsonString(e));
 				}
 			}
 			else {
