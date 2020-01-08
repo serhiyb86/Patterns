@@ -79,7 +79,7 @@ abstract class BaseHttpServlet extends HttpServlet {
 			outputStream.write(responseMessage.toString().getBytes());
 		}
 		catch (IOException e) {
-			LOGGER.error("Error occured when trying to send the response.");
+			LOGGER.error("Error occurred when trying to send the response.");
 		}
 	}
 
