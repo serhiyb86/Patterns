@@ -4,6 +4,8 @@
 package com.motorola.servlets;
 
 import com.motorola.api.utils.ApiException;
+import com.motorola.api.utils.ApiExceptionModel;
+import com.motorola.api.utils.ExceptionModel;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.IncidentRequestManager;
 import com.motorola.models.representation.EmergencyIncident;
@@ -37,11 +39,11 @@ public class IncidentCreateServlet extends BaseHttpServlet {
 					modelApiResponse = requestManager.createIncident(bean);
 				}
 				catch (ApiException e) {
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean), CadCloudUtils.convertObjectToJsonString(e));
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(e)));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send createIncident data.", e);
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean), CadCloudUtils.convertObjectToJsonString(e));
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean), CadCloudUtils.convertObjectToJsonString(new ExceptionModel(e.getMessage())));
 				}
 				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(bean), CadCloudUtils.convertObjectToJsonString(modelApiResponse));
 			}

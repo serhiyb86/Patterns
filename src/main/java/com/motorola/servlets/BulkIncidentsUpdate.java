@@ -4,6 +4,7 @@
 package com.motorola.servlets;
 
 import com.motorola.api.utils.ApiException;
+import com.motorola.api.utils.ApiExceptionModel;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BulkUpdateManager;
 import com.motorola.models.representation.ModelApiResponse;
@@ -35,7 +36,7 @@ public class BulkIncidentsUpdate extends BaseHttpServlet{
 					modelApiResponse = requestManager.bulkIncidentUpdate(refreshIncidentData);
 				}
 				catch (ApiException e) {
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(e));
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(e)));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send bulk incidents update data.", e);

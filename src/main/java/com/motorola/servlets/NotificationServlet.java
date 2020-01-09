@@ -4,6 +4,9 @@
 
 package com.motorola.servlets;
 
+import com.motorola.api.utils.ApiException;
+import com.motorola.api.utils.ApiExceptionModel;
+import com.motorola.api.utils.ExceptionModel;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BookOnOffRequestManager;
 import com.motorola.models.representation.ModelApiResponse;
@@ -42,9 +45,12 @@ public class NotificationServlet extends BaseHttpServlet {
 					ModelApiResponse apiResponse = requestManager.responseNotification(responseNotification);
 					respondWithTranslatedModel(response, outgoingModel, CadCloudUtils.convertObjectToJsonString(apiResponse));
 				}
+				catch (ApiException e) {
+					respondWithTranslatedModel(response, outgoingModel, CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(e)));
+				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send Notification data.", e);
-					respondWithTranslatedModel(response, outgoingModel, CadCloudUtils.convertObjectToJsonString(e));
+					respondWithTranslatedModel(response, outgoingModel, CadCloudUtils.convertObjectToJsonString(new ExceptionModel(e.getMessage())));
 				}
 			}
 			else {

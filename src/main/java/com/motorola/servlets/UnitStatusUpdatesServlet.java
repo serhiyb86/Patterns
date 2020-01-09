@@ -4,6 +4,8 @@
 package com.motorola.servlets;
 
 import com.motorola.api.utils.ApiException;
+import com.motorola.api.utils.ApiExceptionModel;
+import com.motorola.api.utils.ExceptionModel;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.UnitRequestManager;
 import com.motorola.models.representation.ModelApiResponse;
@@ -39,11 +41,11 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 					modelApiResponse = requestManager.onDutyUnit(unit);
 				}
 				catch (ApiException e) {
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit), CadCloudUtils.convertObjectToJsonString(e));
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(e)));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send onDutyUnit data.", e);
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit), CadCloudUtils.convertObjectToJsonString(e));
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit), CadCloudUtils.convertObjectToJsonString(new ExceptionModel(e.getMessage())));
 				}
 				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit), CadCloudUtils.convertObjectToJsonString(modelApiResponse));
 			}
@@ -74,11 +76,11 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 					}
 				}
 				catch (ApiException e) {
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unitUpdates), CadCloudUtils.convertObjectToJsonString(e));
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unitUpdates), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(e)));
 				}
 				catch (Exception e) {
 					LOGGER.error("Failed to send unitStatusUpdates data.", e);
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unitUpdates));
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unitUpdates), CadCloudUtils.convertObjectToJsonString(new ExceptionModel(e.getMessage())));
 				}
 				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unitUpdates), CadCloudUtils.convertObjectToJsonString(modelApiResponse));
 			}
