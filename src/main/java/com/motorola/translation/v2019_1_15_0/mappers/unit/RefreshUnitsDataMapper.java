@@ -3,15 +3,18 @@
  */
 package com.motorola.translation.v2019_1_15_0.mappers.unit;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.RefreshUnitData;
 import com.motorola.models.representation.Unit;
 import com.motorola.translation.setter.BooleanSetter;
-import com.motorola.translation.setter.ListSetter;
 import com.motorola.translation.setter.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,8 +25,16 @@ public class RefreshUnitsDataMapper {
 	private static final Map<String, Setter<RefreshUnitData>> setters = new HashMap<>();
 
 	static {
-		setters.put(InterfaceConstants.RefreshUnitData.UNIT_LIST,
-			new ListSetter<>(com.motorola.models.representation.RefreshUnitData::setUnitList, new UnitMapper(), Unit::new));
+		setters.put(InterfaceConstants.RefreshUnitData.UNIT_LIST, ((model, value) -> {
+			List<Unit> units = new ArrayList<>();
+			JsonArray jsonArray = ((JsonElement) value).getAsJsonArray();
+			for(JsonElement element : jsonArray) {
+				Unit unit = new UnitMapper().createAndMapToUnit(element.getAsJsonObject());
+				unit.setAssignedIncident(new IncidentHandleMapper().createAndMapToIncidentHandle(element.getAsJsonObject()));
+				units.add(unit);
+			}
+			model.setUnitList(units);
+		}));
 		setters.put(InterfaceConstants.RefreshUnitData.IS_FIRST_BATCH_UPDATE, new BooleanSetter<>(RefreshUnitData::setIsFirstBatchUpdate));
 		setters.put(InterfaceConstants.RefreshUnitData.IS_LAST_BATCH_UPDATE, new BooleanSetter<>(RefreshUnitData::setIsLastBatchUpdate));
 	}
