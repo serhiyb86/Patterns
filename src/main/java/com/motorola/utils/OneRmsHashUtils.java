@@ -3,6 +3,7 @@
  */
 package com.motorola.utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,13 +29,15 @@ public class OneRmsHashUtils {
 	 * @return id of the OneRms entry
 	 */
 	public static String convertCodeToOneRmsFormat(String code) {
-		try {
-			MessageDigest digest = MessageDigest.getInstance(ALGORITHM_SHA_256);
-			byte[] encodedHash = digest.digest(code.getBytes(StandardCharsets.UTF_8));
-			return Base64.getEncoder().encodeToString(encodedHash).replace("-", "");
-		}
-		catch (Exception e) {
-			LOGGER.error("Error during code converting", e);
+		if (StringUtils.isNotBlank(code)) {
+			try {
+				MessageDigest digest = MessageDigest.getInstance(ALGORITHM_SHA_256);
+				byte[] encodedHash = digest.digest(code.getBytes(StandardCharsets.UTF_8));
+				return Base64.getEncoder().encodeToString(encodedHash).replace("-", "");
+			}
+			catch (Exception e) {
+				LOGGER.error("Error during code converting", e);
+			}
 		}
 		return "";
 	}

@@ -234,7 +234,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertNotNull(dispatchIncident);
 		Assert.assertEquals("24e", dispatchIncident.getAlias());
 		// TODO:Key
-		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("e"), dispatchIncident.getDisciplineKey());
+		Assert.assertEquals("e", dispatchIncident.getDisciplineKey());
 		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("Abdominal"), dispatchIncident.getNature().getNatureKey());
 		Assert.assertEquals("1", dispatchIncident.getPriority());
 		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("SPD"), dispatchIncident.getAgencyKey());
