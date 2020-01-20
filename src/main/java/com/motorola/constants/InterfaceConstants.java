@@ -363,16 +363,22 @@ public final class InterfaceConstants {
 		}
 	}
 
-	public final class RefreshUnitData {
+	public class BulkUpdateData {
 
-		private RefreshUnitData() {}
+		private BulkUpdateData() {}
 
-		public static final String UNIT_LIST = "unitList";
 		public static final String IS_FIRST_BATCH_UPDATE = "isFirstBatchUpdate";
 		public static final String IS_LAST_BATCH_UPDATE = "isLastBatchUpdate";
 	}
 
-	public final class RefreshIncidentData {
+	public final class RefreshUnitData extends BulkUpdateData {
+
+		private RefreshUnitData() {}
+
+		public static final String UNIT_LIST = "unitList";
+	}
+
+	public final class RefreshIncidentData extends BulkUpdateData {
 
 		private RefreshIncidentData() {}
 

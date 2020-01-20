@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.RefreshIncidentData;
+import com.motorola.translation.setter.BooleanSetter;
 import com.motorola.translation.setter.ListSetter;
 import com.motorola.translation.setter.Setter;
 
@@ -23,6 +24,8 @@ public class RefreshIncidentDataMapper {
 	static {
 		setters.put(InterfaceConstants.RefreshIncidentData.EMERGENCY_INCIDENT_LIST,
 			new ListSetter<>(RefreshIncidentData::setEmergencyIncidentList, new EmergencyIncidentMapper(), EmergencyIncident::new));
+		setters.put(InterfaceConstants.RefreshIncidentData.IS_FIRST_BATCH_UPDATE, new BooleanSetter<>(RefreshIncidentData::setIsFirstBatchUpdate));
+		setters.put(InterfaceConstants.RefreshIncidentData.IS_LAST_BATCH_UPDATE, new BooleanSetter<>(RefreshIncidentData::setIsLastBatchUpdate));
 	}
 
 	public RefreshIncidentData createAndMapToRefreshIncidentData(JsonObject refreshUnitDataJson) {
