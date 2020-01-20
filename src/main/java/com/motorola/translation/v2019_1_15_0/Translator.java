@@ -166,8 +166,6 @@ public class Translator implements BaseTranslator {
 			JsonObject refreshUnitDataJson = data.get(0).getAsJsonObject();
 			RefreshUnitsDataMapper mapper = new RefreshUnitsDataMapper();
 			refreshUnitData = mapper.createAndMapToRefreshUnitData(refreshUnitDataJson);
-			refreshUnitData.setIsFirstBatchUpdate(true);
-			refreshUnitData.setIsLastBatchUpdate(true);
 		}
 		return refreshUnitData;
 	}
