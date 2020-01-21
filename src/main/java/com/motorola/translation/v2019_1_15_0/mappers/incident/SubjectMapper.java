@@ -61,10 +61,7 @@ public class SubjectMapper {
 	public List<Subject> createAndMapToSubjectList(JsonArray array) {
 		List<Subject> subjects = new ArrayList<>();
 		for (JsonElement element : array) {
-			JsonObject jsonObject = element.getAsJsonObject();
-			Subject subject = new Subject();
-			subject.setContactRequested("No");
-			mapToSubject(jsonObject, subject);
+			Subject subject = createAndMapToSubject(element);
 			List<String> role = subject.getRole();
 			// add subjects only with particular role.
 			if (!role.isEmpty() && "Complainant".equals(role.get(0)) || "ReportingParty".equals(role.get(0))) {
@@ -72,6 +69,17 @@ public class SubjectMapper {
 			}
 		}
 		return subjects;
+	}
+
+	/**
+	 * Creates {@link Subject} instance from the incoming {@link JsonElement} object.
+	 */
+	public Subject createAndMapToSubject(JsonElement element) {
+		JsonObject jsonObject = element.getAsJsonObject();
+		Subject subject = new Subject();
+		subject.setContactRequested("No");
+		mapToSubject(jsonObject, subject);
+		return subject;
 	}
 
 }
