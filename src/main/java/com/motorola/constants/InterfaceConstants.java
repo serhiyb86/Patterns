@@ -385,4 +385,15 @@ public final class InterfaceConstants {
 		public static final String EMERGENCY_INCIDENT_LIST = "emergencyIncidentList";
 	}
 
+	public static final class AuxiliaryDataMarkers {
+
+		private AuxiliaryDataMarkers() {
+		}
+
+		public static final String CALL_COMMENT_PREFIX = "CADCLOUD_INTERNAL";
+		public static final String DELIMITER = " ";
+		public static final String IDENTIFIER_SUBJECT = "SUBJECT";
+
+	}
+
 }
