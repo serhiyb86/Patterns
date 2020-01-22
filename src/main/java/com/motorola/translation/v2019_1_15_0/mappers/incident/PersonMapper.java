@@ -120,8 +120,10 @@ public class PersonMapper {
 	 */
 	public Person mapToPerson(JsonObject data, Person person) {
 		setters.forEach((key, value) -> {
-			if (data.get(key) != null) {
-				value.accept(person, data.get(key));
+			JsonElement jsonElement = data.get(key);
+			if (jsonElement != null
+				&& !jsonElement.isJsonNull()) {
+				value.accept(person, jsonElement);
 			}
 		});
 		return person;

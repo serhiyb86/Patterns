@@ -41,6 +41,15 @@ public class SubjectMapper {
 				model.setPerson(person);
 			}
 		});
+		setters.put(InterfaceConstants.EmergencyIncident.Person.PERSON, (model, value) -> {
+			JsonObject jsonPerson = ((JsonElement) value).getAsJsonObject();
+			if (jsonPerson != null) {
+				Person person = new PersonMapper().createAndMapToPerson(jsonPerson);
+				if (StringUtils.isNotBlank(person.getLastName())) {
+					model.setPerson(person);
+				}
+			}
+		});
 	}
 
 	private void mapToSubject(JsonObject data, Subject subject) {
