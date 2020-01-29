@@ -3,6 +3,7 @@
  */
 package com.motorola.translation.v2019_1_15_0.mappers.incident;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,7 +19,10 @@ import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
 import com.motorola.utils.CadCloudUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,6 +31,7 @@ import java.util.stream.Collectors;
 
 import static com.motorola.constants.InterfaceConstants.AuxiliaryDataMarkers.CALL_COMMENT_PREFIX;
 import static com.motorola.constants.InterfaceConstants.AuxiliaryDataMarkers.DELIMITER;
+import static com.motorola.constants.InterfaceConstants.AuxiliaryDataMarkers.IDENTIFIER_INVOLVED_VEHICLE;
 import static com.motorola.constants.InterfaceConstants.AuxiliaryDataMarkers.IDENTIFIER_SUBJECT;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
@@ -35,11 +40,17 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
  */
 public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(EmergencyIncidentMapper.class);
 	private static final Map<String, Setter<EmergencyIncident>> setters = new LinkedHashMap<>();
 	private static DispatchableIncidentMapper dispatchesMapper = new DispatchableIncidentMapper();
 	private static Map<String, Address> emergencyAlertLocationAddress = new HashMap<>();
 	private static final String COMMENT_SUBJECT_PREFIX = CALL_COMMENT_PREFIX + DELIMITER + IDENTIFIER_SUBJECT + DELIMITER;
+	private static final String COMMENT_INVOLVED_VEHICLE_PREFIX = CALL_COMMENT_PREFIX + DELIMITER + IDENTIFIER_INVOLVED_VEHICLE + DELIMITER;
+	private static final String JSON_PAYLOAD_BEGINNING = "{";
+	private static final boolean INTERNAL_COMMENTS_KEY = true;
+	private static final boolean NOT_INTERNAL_COMMENTS_KEY = false;
 	private static final JsonParser JSON_PARSER = new JsonParser();
+	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	static {
 		//map address with alerts
@@ -76,24 +87,48 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 			JsonArray incidentCommentsJSON = ((JsonElement) value).getAsJsonArray();
 			IncidentCommentMapper incidentCommentMapper = new IncidentCommentMapper();
 			List<IncidentComment> incidentComments = incidentCommentMapper.createAndMapToIncidentCommentList(incidentCommentsJSON);
-			List<IncidentComment> comments = incidentComments.stream()
-				.filter(comment -> !comment.getComments().startsWith(CALL_COMMENT_PREFIX))
-				.collect(Collectors.toList());
-			if (model.getDispatches() != null && !model.getDispatches().isEmpty()) {
-				model.getDispatches().forEach(d -> d.setComments(comments));
+			Map<Boolean, List<IncidentComment>> commentsMap = incidentComments.stream()
+				.collect(Collectors.groupingBy(comment -> comment.getComments().startsWith(CALL_COMMENT_PREFIX)));
+
+			if (commentsMap.get(NOT_INTERNAL_COMMENTS_KEY) != null
+				&& model.getDispatches() != null
+				&& !model.getDispatches().isEmpty()) {
+				model.getDispatches().forEach(d -> d.setComments(commentsMap.get(NOT_INTERNAL_COMMENTS_KEY)));
 			}
 
-			List<IncidentComment> internalComments = incidentComments.stream()
-				.filter(comment -> comment.getComments().startsWith(CALL_COMMENT_PREFIX))
-				.collect(Collectors.toList());
-			internalComments.forEach(comment -> {
-				String commentText = comment.getComments();
-				String payload = commentText.replace(COMMENT_SUBJECT_PREFIX, EMPTY);
-				JsonObject subjectJson = JSON_PARSER.parse(payload).getAsJsonObject();
-				SubjectMapper subjectMapper = new SubjectMapper();
-				Subject subject = subjectMapper.createAndMapToSubject(subjectJson);
-				model.getSubjects().add(subject);
-			});
+			if (commentsMap.get(INTERNAL_COMMENTS_KEY) != null) {
+				Map<String, List<IncidentComment>> internalCommentsMap = commentsMap.get(INTERNAL_COMMENTS_KEY).stream()
+					.collect(Collectors.groupingBy(incidentComment -> {
+						String commentText = incidentComment.getComments();
+						return commentText.substring(0, commentText.indexOf(JSON_PAYLOAD_BEGINNING));
+					}));
+
+				if (internalCommentsMap.get(COMMENT_SUBJECT_PREFIX) != null) {
+					internalCommentsMap.get(COMMENT_SUBJECT_PREFIX).forEach(comment -> {
+						String commentText = comment.getComments();
+						String payload = commentText.replace(COMMENT_SUBJECT_PREFIX, EMPTY);
+						JsonObject subjectJson = JSON_PARSER.parse(payload).getAsJsonObject();
+						SubjectMapper subjectMapper = new SubjectMapper();
+						Subject subject = subjectMapper.createAndMapToSubject(subjectJson);
+						model.getSubjects().add(subject);
+					});
+				}
+
+				if (internalCommentsMap.get(COMMENT_INVOLVED_VEHICLE_PREFIX) != null) {
+					internalCommentsMap.get(COMMENT_INVOLVED_VEHICLE_PREFIX).forEach(comment -> {
+						String commentText = comment.getComments();
+						String payload = commentText.replace(COMMENT_INVOLVED_VEHICLE_PREFIX, EMPTY);
+						try {
+							InvolvedVehicle involvedVehicle = OBJECT_MAPPER.readValue(payload, InvolvedVehicle.class);
+							model.getVehicles().add(involvedVehicle);
+						}
+						catch (IOException e) {
+							LOGGER.error("Could not parse InvolvedVehicle from call comment {}.", payload, e);
+						}
+					});
+				}
+
+			}
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.CUSTOMER_ID, new StringSetter<>(EmergencyIncident::setCustomerId));
 		setters.put(InterfaceConstants.EmergencyIncident.WHEN_CREATED, new StringSetter<>(EmergencyIncident::setWhenCreated));
