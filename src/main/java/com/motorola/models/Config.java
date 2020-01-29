@@ -11,4 +11,9 @@ public class Config {
 	 * @see DateFormat
 	 */
 	public static final String DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+
+	/**
+	 * Pattern used for serialization and deserialization of values of type "LocalDate" in payloads and query parameters.
+	 */
+	public static final String LOCAL_DATE_FORMAT = "yyyy-MM-dd";
 }

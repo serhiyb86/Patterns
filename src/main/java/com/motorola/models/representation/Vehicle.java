@@ -4,7 +4,9 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.motorola.models.deserializer.LocalDateDeserializer;
 import com.motorola.models.serializer.LocalDateSerializer;
 import com.motorola.utils.OneRmsHashUtils;
 
@@ -25,6 +27,7 @@ public class Vehicle implements Serializable {
 	private String licenseTypeKey;
 
 	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate licenseExpirationDate;
 
 	private Long year;

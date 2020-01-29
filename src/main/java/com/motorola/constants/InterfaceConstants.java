@@ -393,6 +393,7 @@ public final class InterfaceConstants {
 		public static final String CALL_COMMENT_PREFIX = "CADCLOUD_INTERNAL";
 		public static final String DELIMITER = " ";
 		public static final String IDENTIFIER_SUBJECT = "SUBJECT";
+		public static final String IDENTIFIER_INVOLVED_VEHICLE = "INVOLVED_VEHICLE";
 
 	}
 
