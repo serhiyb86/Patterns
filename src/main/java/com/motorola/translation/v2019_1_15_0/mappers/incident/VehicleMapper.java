@@ -6,13 +6,11 @@ package com.motorola.translation.v2019_1_15_0.mappers.incident;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Vehicle;
-import com.motorola.translation.setter.LocalDateSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 
 import java.util.HashMap;
-
 import java.util.Map;
 
 /**
@@ -26,7 +24,7 @@ public class VehicleMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_PLATE, new StringSetter<>(Vehicle::setLicensePlate));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_STATE, new StringSetter<>(Vehicle::setLicenseState));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_TYPE, new StringSetter<>(Vehicle::setLicenseTypeKey));
-		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENSE_EXPIRATION, new LocalDateSetter<>(Vehicle::setLicenseExpirationDate, InterfaceConstants.GeneralProperties.DATE_FORMAT));
+		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENSE_EXPIRATION, new StringSetter<>(Vehicle::setLicenseExpirationDate));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.YEAR, new LongSetter<>(Vehicle::setYear));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.MAKE, new StringSetter<>(Vehicle::setMakeKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.MODEL, new StringSetter<>(Vehicle::setModelKey));

@@ -1,17 +1,12 @@
 package com.motorola.models.representation;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.motorola.models.deserializer.LocalDateDeserializer;
-import com.motorola.models.serializer.LocalDateSerializer;
 import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -26,9 +21,7 @@ public class Vehicle implements Serializable {
 
 	private String licenseTypeKey;
 
-	@JsonSerialize(using = LocalDateSerializer.class)
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	private LocalDate licenseExpirationDate;
+	private String licenseExpirationDate;
 
 	private Long year;
 
@@ -97,14 +90,14 @@ public class Vehicle implements Serializable {
 	 * Returns the value of property "licenseExpirationDate".
 	 * License Plate expiration date
 	 */
-	public LocalDate getLicenseExpirationDate() {
+	public String getLicenseExpirationDate() {
 		return licenseExpirationDate;
 	}
 
 	/**
 	 * Updates the value of property "licenseExpirationDate".
 	 */
-	public void setLicenseExpirationDate(LocalDate licenseExpirationDate) {
+	public void setLicenseExpirationDate(String licenseExpirationDate) {
 		this.licenseExpirationDate = licenseExpirationDate;
 	}
 
