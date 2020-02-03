@@ -50,7 +50,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("Complainant", subject.getRole().get(0));
 		Person person = subject.getPerson();
 		Assert.assertEquals("first_c", person.getFirstName());
-		Assert.assertEquals(LocalDate.parse("1950-01-01", dateFormat), person.getDateOfBirth());
+		Assert.assertEquals("1950-01-01", person.getDateOfBirth());
 		Assert.assertEquals("last11", person.getLastName());
 		Assert.assertEquals("mm", person.getMiddleName());
 		Assert.assertEquals("ss", person.getSuffix());
@@ -154,7 +154,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("Complainant", newSubject.getRole().get(0));
 		Person newPersonValue = newSubject.getPerson();
 		Assert.assertEquals("first_new", newPersonValue.getFirstName());
-		Assert.assertEquals(LocalDate.parse("1950-01-01", dateFormat), newPersonValue.getDateOfBirth());
+		Assert.assertEquals("1950-01-01", newPersonValue.getDateOfBirth());
 		Assert.assertEquals("last11_new", newPersonValue.getLastName());
 		Assert.assertEquals("mm_new", newPersonValue.getMiddleName());
 		Assert.assertEquals("ss_new", newPersonValue.getSuffix());
@@ -192,7 +192,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("Complainant", oldSubject.getRole().get(0));
 		Person oldPersonValue = oldSubject.getPerson();
 		Assert.assertEquals("first_old", oldPersonValue.getFirstName());
-		Assert.assertEquals(LocalDate.parse("1950-01-01"), oldPersonValue.getDateOfBirth());
+		Assert.assertEquals("1950-01-01", oldPersonValue.getDateOfBirth());
 		Assert.assertEquals("last11_old", oldPersonValue.getLastName());
 		Assert.assertEquals("mm_old", oldPersonValue.getMiddleName());
 		Assert.assertEquals("ss_old", oldPersonValue.getSuffix());
@@ -336,7 +336,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("Complainant", newSubject.getRole().get(0));
 		Person newPersonValue = newSubject.getPerson();
 		Assert.assertEquals("first name2", newPersonValue.getFirstName());
-		Assert.assertEquals(LocalDate.parse("2019-12-30", dateFormat), newPersonValue.getDateOfBirth());
+		Assert.assertEquals("2019-12-30", newPersonValue.getDateOfBirth());
 		Assert.assertEquals("last name 1", newPersonValue.getLastName());
 		Assert.assertEquals("mm_new", newPersonValue.getMiddleName());
 		Assert.assertEquals("ss_new", newPersonValue.getSuffix());

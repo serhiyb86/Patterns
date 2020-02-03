@@ -44,7 +44,7 @@ public class PersonMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Person.FIRST_NAME, new StringSetter<>(Person::setFirstName));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.SUFFIX, new StringSetter<>(Person::setSuffix));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.MIDDLE_NAME, new StringSetter<>(Person::setMiddleName));
-		setters.put(InterfaceConstants.EmergencyIncident.Person.BIRTH_DATE, new LocalDateSetter<>(Person::setDateOfBirth, InterfaceConstants.GeneralProperties.DATE_FORMAT));
+		setters.put(InterfaceConstants.EmergencyIncident.Person.BIRTH_DATE, new StringSetter<>(Person::setDateOfBirth));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.LAST_NAME, ((model, value) -> {
 			String lastName = CadCloudUtils.getStringFromJsonElement((JsonElement) value);
 			if(lastName.matches(LAST_NAME_PATTERN)) {
@@ -55,8 +55,7 @@ public class PersonMapper {
 					model.setFirstName(matcher.group(2));
 					String dateString = matcher.group(3);
 					try {
-						LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern(InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_WITH_MS_FORMAT));
-						model.setDateOfBirth(date);
+						model.setDateOfBirth(dateString);
 					} catch (Exception ex) {
 						LOGGER.error("Failed to parse incoming date {}", dateString, ex);
 					}

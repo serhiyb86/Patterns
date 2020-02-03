@@ -34,8 +34,7 @@ public class Person implements Serializable {
 
 	private String phone;
 
-	@JsonSerialize(using = LocalDateSerializer.class)
-	private LocalDate dateOfBirth;
+	private String dateOfBirth;
 
 	private String comment;
 
@@ -155,15 +154,14 @@ public class Person implements Serializable {
 	 * Returns the value of property "dateOfBirth".
 	 * Person's Date of Birth
 	 */
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Config.DATETIME_FORMAT)
-	public LocalDate getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
 	/**
 	 * Updates the value of property "dateOfBirth".
 	 */
-	public void setDateOfBirth(LocalDate dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
