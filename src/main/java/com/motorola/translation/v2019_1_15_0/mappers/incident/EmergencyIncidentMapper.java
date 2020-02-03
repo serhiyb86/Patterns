@@ -107,10 +107,13 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 					internalCommentsMap.get(COMMENT_SUBJECT_PREFIX).forEach(comment -> {
 						String commentText = comment.getComments();
 						String payload = commentText.replace(COMMENT_SUBJECT_PREFIX, EMPTY);
-						JsonObject subjectJson = JSON_PARSER.parse(payload).getAsJsonObject();
-						SubjectMapper subjectMapper = new SubjectMapper();
-						Subject subject = subjectMapper.createAndMapToSubject(subjectJson);
-						model.getSubjects().add(subject);
+						try {
+							Subject subject = OBJECT_MAPPER.readValue(payload, Subject.class);
+							model.getSubjects().add(subject);
+						}
+						catch (IOException e) {
+							LOGGER.error("Could not parse Subject from call comment {}.", payload, e);
+						}
 					});
 				}
 
