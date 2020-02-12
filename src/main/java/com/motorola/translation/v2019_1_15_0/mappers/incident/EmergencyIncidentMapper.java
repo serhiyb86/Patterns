@@ -109,6 +109,8 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 						String payload = commentText.replace(COMMENT_SUBJECT_PREFIX, EMPTY);
 						try {
 							Subject subject = OBJECT_MAPPER.readValue(payload, Subject.class);
+							String key = comment.getKey();
+							subject.setKey(key);
 							model.getSubjects().add(subject);
 						}
 						catch (IOException e) {
@@ -123,6 +125,8 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 						String payload = commentText.replace(COMMENT_INVOLVED_VEHICLE_PREFIX, EMPTY);
 						try {
 							InvolvedVehicle involvedVehicle = OBJECT_MAPPER.readValue(payload, InvolvedVehicle.class);
+							String key = comment.getKey();
+							involvedVehicle.setKey(key);
 							model.getVehicles().add(involvedVehicle);
 						}
 						catch (IOException e) {
