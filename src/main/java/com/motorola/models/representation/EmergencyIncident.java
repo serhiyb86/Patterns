@@ -4,11 +4,8 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.motorola.models.serializer.ZonedDateTimeSerializer;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +33,7 @@ public class EmergencyIncident implements Serializable {
 
 	private String whenCreated;
 
-	@JsonSerialize(using = ZonedDateTimeSerializer.class)
-	private ZonedDateTime whenUpdated;
+	private String whenUpdated;
 
 	/**
 	 * Returns the value of property "customerId".
@@ -148,14 +144,14 @@ public class EmergencyIncident implements Serializable {
 	 * Returns the value of property "whenUpdated".
 	 * Date and Time the Incident updated
 	 */
-	public ZonedDateTime getWhenUpdated() {
+	public String getWhenUpdated() {
 		return whenUpdated;
 	}
 
 	/**
 	 * Updates the value of property "whenUpdated".
 	 */
-	public void setWhenUpdated(ZonedDateTime whenUpdated) {
+	public void setWhenUpdated(String whenUpdated) {
 		this.whenUpdated = whenUpdated;
 	}
 

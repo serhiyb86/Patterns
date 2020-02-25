@@ -75,11 +75,9 @@ public class Unit implements Serializable {
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime whenStatusExpires;
 
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	private LocalDateTime whenCreated;
+	private String whenCreated;
 
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	private LocalDateTime whenUpdated;
+	private String whenUpdated;
 
 	/**
 	 * Returns the value of property "customerId".
@@ -491,14 +489,14 @@ public class Unit implements Serializable {
 	 * Returns the value of property "whenCreated".
 	 * When this unit record was created
 	 */
-	public LocalDateTime getWhenCreated() {
+	public String getWhenCreated() {
 		return whenCreated;
 	}
 
 	/**
 	 * Updates the value of property "whenCreated".
 	 */
-	public void setWhenCreated(LocalDateTime whenCreated) {
+	public void setWhenCreated(String whenCreated) {
 		this.whenCreated = whenCreated;
 	}
 
@@ -506,14 +504,14 @@ public class Unit implements Serializable {
 	 * Returns the value of property "whenUpdated".
 	 * Last time the Unit record was updated
 	 */
-	public LocalDateTime getWhenUpdated() {
+	public String getWhenUpdated() {
 		return whenUpdated;
 	}
 
 	/**
 	 * Updates the value of property "whenUpdated".
 	 */
-	public void setWhenUpdated(LocalDateTime whenUpdated) {
+	public void setWhenUpdated(String whenUpdated) {
 		this.whenUpdated = whenUpdated;
 	}
 }

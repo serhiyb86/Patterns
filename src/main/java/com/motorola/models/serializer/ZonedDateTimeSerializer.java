@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class ZonedDateTimeSerializer extends StdSerializer<ZonedDateTime> {
 
-	private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(Config.DATETIME_FORMAT);
+	public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(Config.DATETIME_FORMAT);
 
 	protected ZonedDateTimeSerializer() {
 		super(ZonedDateTime.class);
@@ -25,6 +25,6 @@ public class ZonedDateTimeSerializer extends StdSerializer<ZonedDateTime> {
 
 	@Override
 	public void serialize(ZonedDateTime zonedDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-		jsonGenerator.writeString(zonedDateTime.format(dateTimeFormatter));
+		jsonGenerator.writeString(zonedDateTime.format(DATE_TIME_FORMATTER));
 	}
 }

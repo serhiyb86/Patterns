@@ -16,6 +16,7 @@ import com.motorola.models.representation.UpdateEmergencyIncident;
 import com.motorola.models.representation.UpdateUnit;
 import com.motorola.models.representation.UserSession;
 import com.motorola.models.representation.UserSessionWrapper;
+import com.motorola.models.serializer.ZonedDateTimeSerializer;
 import com.motorola.translation.v2019_1_15_0.mappers.incident.EmergencyIncidentMapper;
 import com.motorola.translation.BaseTranslator;
 import com.motorola.translation.v2019_1_15_0.mappers.bookon.UserSessionMapper;
@@ -31,6 +32,7 @@ import com.motorola.validation.ValidationResult;
 import com.motorola.validation.ValidationErrorType;
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,6 +106,7 @@ public class Translator implements BaseTranslator {
 
 				EmergencyIncidentMapper mapper = new EmergencyIncidentMapper();
 				EmergencyIncident newModel = mapper.createAndMapToEmergencyIncident(__new);
+				newModel.setWhenUpdated(ZonedDateTimeSerializer.DATE_TIME_FORMATTER.format(ZonedDateTime.now()));
 				EmergencyIncident oldModel = mapper.createAndMapToEmergencyIncident(old);
 
 				updateIncident.set__new(newModel);
@@ -139,6 +142,7 @@ public class Translator implements BaseTranslator {
 			JsonObject updateUnitData = data.get(0).getAsJsonObject();
 			UpdateUnitMapper mapper = new UpdateUnitMapper();
 			updateUnit = mapper.createAndMapToUpdateUnit(updateUnitData);
+			updateUnit.get__new().setWhenUpdated(ZonedDateTimeSerializer.DATE_TIME_FORMATTER.format(ZonedDateTime.now()));
 		}
 		return updateUnit;
 	}
@@ -157,7 +161,7 @@ public class Translator implements BaseTranslator {
 	}
 
 	@Override
-	 public RefreshUnitData translateRefreshUnitData(JsonObject payload) {
+	public RefreshUnitData translateRefreshUnitData(JsonObject payload) {
 		clearValidationResults();
 		RefreshUnitData refreshUnitData = null;
 		JsonArray data = CadCloudUtils.getJsonArrayByKey(payload, InterfaceConstants.GeneralProperties.DATA_JSON_KEY);

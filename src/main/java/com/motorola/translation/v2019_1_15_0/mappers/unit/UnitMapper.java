@@ -66,6 +66,11 @@ public class UnitMapper extends GenericMapper<Unit> {
 		});
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.CURRENT_GPS_DATA, new ObjectSetter<>(Unit::setCurrentGpsData, new GpsDataMapper(), GpsData::new));
+
+		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_CREATED, (model, value) -> {
+			model.setWhenCreated(((JsonElement) value).getAsString());
+			model.setWhenUpdated(((JsonElement) value).getAsString());
+		});
 	}
 
 	public UnitMapper() {
