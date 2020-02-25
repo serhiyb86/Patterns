@@ -138,7 +138,10 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 			}
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.CUSTOMER_ID, new StringSetter<>(EmergencyIncident::setCustomerId));
-		setters.put(InterfaceConstants.EmergencyIncident.WHEN_CREATED, new StringSetter<>(EmergencyIncident::setWhenCreated));
+		setters.put(InterfaceConstants.EmergencyIncident.WHEN_CREATED, (model, value) -> {
+			model.setWhenCreated(((JsonElement) value).getAsString());
+			model.setWhenUpdated(((JsonElement) value).getAsString());
+		});
 	}
 
 	public EmergencyIncidentMapper() {
