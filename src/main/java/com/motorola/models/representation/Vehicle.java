@@ -143,7 +143,7 @@ public class Vehicle implements Serializable {
 	 * Updates the value of property "modelKey".
 	 */
 	public void setModelKey(String modelKey) {
-		this.modelKey = OneRmsHashUtils.convertCodeToOneRmsFormat(modelKey);
+		this.modelKey = modelKey;
 	}
 
 	/**
