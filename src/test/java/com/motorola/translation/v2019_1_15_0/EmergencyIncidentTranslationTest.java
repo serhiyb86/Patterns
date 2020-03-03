@@ -96,7 +96,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("2001-01-01T01:02:03.456Z", vehicle.getLicenseExpirationDate());
 		Assert.assertEquals("2000", String.valueOf(vehicle.getYear()));
 		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PONT"), vehicle.getMakeKey());
-		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("6000"), vehicle.getModelKey());
+		Assert.assertEquals("6000", vehicle.getModelKey());
 		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLK"), vehicle.getPrimaryColorKey());
 		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLU"), vehicle.getSecondaryColorKey());
 		Assert.assertEquals("ABC111", vehicle.getVin());
