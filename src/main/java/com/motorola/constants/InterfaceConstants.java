@@ -310,6 +310,7 @@ public final class InterfaceConstants {
 			public static final String CURRENT_GPS_DATA = "currentGpsData";
 			public static final String NEXT_STATUS_KEY = "nextStatusKey";
 			public static final String WHEN_CREATED = "whenCreated";
+			public static final String WHEN_STATUS_EXPIRES = "whenStatusExpires";
 		}
 
 		public final class AssignedIncident {

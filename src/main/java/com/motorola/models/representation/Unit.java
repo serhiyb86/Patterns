@@ -4,12 +4,9 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.motorola.models.serializer.LocalDateTimeSerializer;
 import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,8 +69,7 @@ public class Unit implements Serializable {
 
 	private Fleet fleetAssignment;
 
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	private LocalDateTime whenStatusExpires;
+	private String whenStatusExpires;
 
 	private String whenCreated;
 
@@ -474,14 +470,14 @@ public class Unit implements Serializable {
 	 * Returns the value of property "whenStatusExpires".
 	 * Indicates time when status expires
 	 */
-	public LocalDateTime getWhenStatusExpires() {
+	public String getWhenStatusExpires() {
 		return whenStatusExpires;
 	}
 
 	/**
 	 * Updates the value of property "whenStatusExpires".
 	 */
-	public void setWhenStatusExpires(LocalDateTime whenStatusExpires) {
+	public void setWhenStatusExpires(String whenStatusExpires) {
 		this.whenStatusExpires = whenStatusExpires;
 	}
 
