@@ -311,6 +311,7 @@ public final class InterfaceConstants {
 			public static final String NEXT_STATUS_KEY = "nextStatusKey";
 			public static final String WHEN_CREATED = "whenCreated";
 			public static final String WHEN_STATUS_EXPIRES = "whenStatusExpires";
+			public static final String IS_ON_DUTY = "isOnDuty";
 		}
 
 		public final class AssignedIncident {
