@@ -75,6 +75,8 @@ public class Unit implements Serializable {
 
 	private String whenUpdated;
 
+	private boolean isOnDuty;
+
 	/**
 	 * Returns the value of property "customerId".
 	 * Use for DB partition
@@ -509,5 +511,16 @@ public class Unit implements Serializable {
 	 */
 	public void setWhenUpdated(String whenUpdated) {
 		this.whenUpdated = whenUpdated;
+	}
+
+	/**
+	 * Indicates if the unit is either on-Duty or Off-Duty
+	 */
+	public boolean isOnDuty() {
+		return isOnDuty;
+	}
+
+	public void setOnDuty(boolean onDuty) {
+		isOnDuty = onDuty;
 	}
 }
