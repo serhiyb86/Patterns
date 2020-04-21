@@ -75,7 +75,7 @@ public class Unit implements Serializable {
 
 	private String whenUpdated;
 
-	private boolean isOnDuty;
+	private Boolean isOnDuty;
 
 	/**
 	 * Returns the value of property "customerId".
@@ -516,11 +516,11 @@ public class Unit implements Serializable {
 	/**
 	 * Indicates if the unit is either on-Duty or Off-Duty
 	 */
-	public boolean isOnDuty() {
+	public Boolean getIsOnDuty() {
 		return isOnDuty;
 	}
 
-	public void setOnDuty(boolean onDuty) {
-		isOnDuty = onDuty;
+	public void setIsOnDuty(Boolean isOnDuty) {
+		this.isOnDuty = isOnDuty;
 	}
 }
