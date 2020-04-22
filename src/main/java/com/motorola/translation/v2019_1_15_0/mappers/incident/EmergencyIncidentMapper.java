@@ -158,6 +158,8 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 				dispatchableIncident.setIncidentSourceKey(dispatchesMapper.mapIncidentSource(data));
 			}
 		});
+		mapAlertCount(dispatchableIncidents, emergencyAlertLocationAddress, data);
+
 		//it can be used in the future during the implementation of PremiseHazards endpoint
 		//append alerts to the dispatches addresses
 		//appendAlerts(dispatchableIncidents, emergencyAlertLocationAddress);
@@ -188,5 +190,31 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 			}
 		}
 	}
+
+	private void mapAlertCount(List<DispatchableIncident> dispatches, Map<String, Address> emergencyAlertLocationAddress,
+							   JsonObject data) {
+		for (DispatchableIncident dispatchableIncident : dispatches) {
+			Address address = dispatchableIncident.getLocation().getAddress();
+			if (address != null) {
+				String addressId = address.getKey();
+				// check if address is emergency address (id is one of the keys in map)
+				if (emergencyAlertLocationAddress.containsKey(addressId)) {
+					if (emergencyAlertLocationAddress.get(addressId).getIsVerified()) {
+						dispatchableIncident.setAlertCount(String.valueOf(
+								data.getAsJsonObject("reportedEmergencyLocation")
+										.getAsJsonObject("address")
+										.getAsJsonArray("alerts").size()));
+					} else {
+						dispatchableIncident.setAlertCount(String.valueOf(0));
+					}
+				} else {
+					dispatchableIncident.setAlertCount(String.valueOf(0));
+				}
+			}
+		}
+	}
+
+
+
 
 }

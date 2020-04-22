@@ -55,6 +55,17 @@ public class DispatchableIncident implements Serializable {
 
 	private List<ReportNumber> reportNumbers;
 
+	private String alertCount;
+	
+	
+	public String getAlertCount() {
+		return alertCount;
+	}
+
+	public void setAlertCount(String alertCount) {
+		this.alertCount = alertCount;
+	}
+
 	/**
 	 * Returns the value of property "key".
 	 * Dispatchable Incident Key
