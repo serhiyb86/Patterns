@@ -12,7 +12,7 @@
       "occurredBefore": "2018-11-12T05:25:28-07:00",
       "whenCreated": "2018-11-12T05:25:45-07:00",
       "reportedEmergencyLocation": {
-        "id": "240",
+        "id": "264",
         "recordTitle": "100 S MAIN ST, SFD, ND 35630",
         "address": {
           "id": "264",
@@ -150,10 +150,10 @@
           "discipline": "e",
           "priority": "1",
           "incidentLocation": {
-            "id": "240",
+            "id": "989",
             "recordTitle": "100 S MAIN ST, SFD, ND 35630",
             "address": {
-              "id": "240",
+              "id": "989",
               "recordTitle": "100 S MAIN ST, SFD, ND 35630",
               "streetFullText": "100 S MAIN ST",
               "houseNumber": "100",

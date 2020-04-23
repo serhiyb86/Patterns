@@ -10,6 +10,47 @@
       "occurredAfter": "2018-11-21T05:57:32-07:00",
       "occurredBefore": "2018-11-21T05:57:32-07:00",
       "whenCreated": "2018-11-21T05:57:32-07:00",
+      "reportedEmergencyLocation": {
+        "id": "240",
+        "recordTitle": "100 S MAIN ST, SFD, ND 35630",
+        "address": {
+          "id": "240",
+          "recordTitle": "100 S MAIN ST, SFD, ND 35630",
+          "streetFullText": "100 S MAIN ST",
+          "houseNumber": "100",
+          "street": "S MAIN ST",
+          "city": "SFD",
+          "state": "ND",
+          "zip": "35630",
+          "crossStreets": "Intersection of: S MAIN ST & S MAN ST & HUNTSVILLE RD",
+          "latitude": 34.810899,
+          "longitude": -87.6465,
+          "alerts": [
+            {
+              "id": "GBA-212-1",
+              "recordTitle": "DRUG",
+              "color": "Red",
+              "alert": "DRUG",
+              "isActive": true,
+              "type": "Address",
+              "startDate": "2001-10-24",
+              "endDate": "2003-10-24",
+              "comment": "Possible Drugs on Premises"
+            },
+            {
+              "id": "GBA-212-2",
+              "recordTitle": "ALAR",
+              "color": "Red",
+              "alert": "ALAR",
+              "isActive": true,
+              "type": "Address",
+              "startDate": "2001-10-24",
+              "endDate": "2003-10-24",
+              "comment": "Alarm System on Scene"
+            }
+          ]
+        }
+      },
       "involvedCADSubjects": [
         {
           "id": "C6028-cntct",
