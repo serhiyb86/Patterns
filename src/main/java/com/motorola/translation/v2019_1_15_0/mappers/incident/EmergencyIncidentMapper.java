@@ -33,6 +33,9 @@ import static com.motorola.constants.InterfaceConstants.AuxiliaryDataMarkers.CAL
 import static com.motorola.constants.InterfaceConstants.AuxiliaryDataMarkers.DELIMITER;
 import static com.motorola.constants.InterfaceConstants.AuxiliaryDataMarkers.IDENTIFIER_INVOLVED_VEHICLE;
 import static com.motorola.constants.InterfaceConstants.AuxiliaryDataMarkers.IDENTIFIER_SUBJECT;
+import static com.motorola.constants.InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.ADDRESS;
+import static com.motorola.constants.InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.ALERTS;
+import static com.motorola.constants.InterfaceConstants.EmergencyIncident.GeneralProperties.REPORTED_EMERGENCY_LOCATION_KEY;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 /**
@@ -54,8 +57,8 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 
 	static {
 		//map address with alerts
-		setters.put(InterfaceConstants.EmergencyIncident.GeneralProperties.REPORTED_EMERGENCY_LOCATION_KEY, (model, value) -> {
-			JsonObject addressObject = CadCloudUtils.getJsonByKey((JsonObject) value, InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.ADDRESS);
+		setters.put(REPORTED_EMERGENCY_LOCATION_KEY, (model, value) -> {
+			JsonObject addressObject = CadCloudUtils.getJsonByKey((JsonObject) value, ADDRESS);
 			AddressMapper addressMapper = new AddressMapper();
 			Address address = addressMapper.createAndMapToAddress(addressObject, null);
 			emergencyAlertLocationAddress.put(address.getKey(), address);
@@ -158,6 +161,8 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 				dispatchableIncident.setIncidentSourceKey(dispatchesMapper.mapIncidentSource(data));
 			}
 		});
+		mapAlertCount(dispatchableIncidents, emergencyAlertLocationAddress, data);
+
 		//it can be used in the future during the implementation of PremiseHazards endpoint
 		//append alerts to the dispatches addresses
 		//appendAlerts(dispatchableIncidents, emergencyAlertLocationAddress);
@@ -188,5 +193,32 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 			}
 		}
 	}
+
+	private void mapAlertCount(List<DispatchableIncident> dispatches, Map<String, Address> emergencyAlertLocationAddress,
+							   JsonObject data) {
+		for (DispatchableIncident dispatchableIncident : dispatches) {
+			Address address = dispatchableIncident.getLocation().getAddress();
+			if (address != null) {
+				String addressId = address.getKey();
+				// check if address is emergency address (id is one of the keys in map)
+				if (emergencyAlertLocationAddress.containsKey(addressId)) {
+
+					JsonArray alerts = data.getAsJsonObject(REPORTED_EMERGENCY_LOCATION_KEY)
+							.getAsJsonObject(ADDRESS)
+							.getAsJsonArray(ALERTS);
+					if (emergencyAlertLocationAddress.get(addressId).getIsVerified() && alerts !=null) {
+						dispatchableIncident.setAlertCount(alerts.size());
+					} else {
+						dispatchableIncident.setAlertCount(0);
+					}
+				} else {
+					dispatchableIncident.setAlertCount(0);
+				}
+			}
+		}
+	}
+
+
+
 
 }

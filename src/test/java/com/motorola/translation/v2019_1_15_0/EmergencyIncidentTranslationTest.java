@@ -39,6 +39,83 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 	private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(InterfaceConstants.GeneralProperties.DATE_FORMAT);
 
 	@Test
+	public void translateCreateIncident_With_Non_Matching_Address_Test() throws ParseException, JsonProcessingException {
+		String insertIncidentFileName = "insertIncidentWithoutGeoValidAddress.json";
+		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
+		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
+		DispatchableIncident dispatchIncident = emergencyIncident.getDispatches().get(0);
+		Assert.assertEquals("C6002", emergencyIncident.getAlias());
+		Assert.assertEquals("C6002", emergencyIncident.getKey());
+		Assert.assertEquals(0, dispatchIncident.getAlertCount());
+		Assert.assertEquals("2018-11-12T05:25:45-07:00", emergencyIncident.getWhenCreated());
+		Subject subject = emergencyIncident.getSubjects().get(0);
+		Assert.assertEquals("Complainant", subject.getRole().get(0));
+		Person person = subject.getPerson();
+		Assert.assertEquals("first_c", person.getFirstName());
+		Assert.assertEquals("1950-01-01", person.getDateOfBirth());
+		Assert.assertEquals("last11", person.getLastName());
+		Assert.assertEquals("mm", person.getMiddleName());
+		Assert.assertEquals("ss", person.getSuffix());
+		Assert.assertEquals(Long.valueOf(68), person.getAge());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("B"), person.getRaceKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("MAL"), person.getGenderKey());
+		Assert.assertEquals(Long.valueOf(71), person.getHeight());
+		Assert.assertEquals(Long.valueOf(200), person.getWeight());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("MCLR"), person.getBuildKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("TAN"), person.getEyeColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLN"), person.getHairColorKey());
+		Assert.assertEquals("112qweqwe1", person.getDriverLicenseNumber());
+		Assert.assertEquals("AD", person.getDriverLicenseState());
+		Assert.assertEquals("customerId", emergencyIncident.getCustomerId());
+		Assert.assertEquals("(234)555-4433", person.getPhone());
+		//person's address
+		List<Location> personLocations = person.getAddress();
+		Assert.assertEquals(1, personLocations.size());
+		Location personLocation = personLocations.get(0);
+		Assert.assertEquals("3060-primary", personLocation.getKey());
+		Assert.assertEquals("Home", personLocation.getType());
+		Address personAddress = personLocation.getAddress();
+		Assert.assertNotNull(personAddress);
+		Assert.assertEquals("comp addr 11", personAddress.getFullText());
+		Assert.assertEquals("Anderson", personAddress.getCity());
+		Assert.assertEquals("AF", personAddress.getState());
+		Assert.assertEquals("75610", personAddress.getZip());
+		Assert.assertEquals("comp addr 11", personAddress.getDescription());
+		Assert.assertFalse(personAddress.getIsVerified());
+		Assert.assertEquals("0", personAddress.getGeoverificationLevel());
+		//Involved vehicle
+		List<InvolvedVehicle> involvedVehicleList = emergencyIncident.getVehicles();
+		Assert.assertEquals(1, involvedVehicleList.size());
+		InvolvedVehicle involvedVehicle = involvedVehicleList.get(0);
+		Assert.assertNotNull(involvedVehicle);
+		Assert.assertEquals("custom_relship-100", involvedVehicle.getKey());
+		Assert.assertEquals("custom_relship", involvedVehicle.getRoleKeys().get(0));
+		Vehicle vehicle = involvedVehicle.getVehicle();
+		Assert.assertNotNull(vehicle);
+		Assert.assertEquals("ABC999", vehicle.getLicensePlate());
+		Assert.assertEquals("WV", vehicle.getLicenseState());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PC"), vehicle.getLicenseTypeKey());
+		Assert.assertEquals("2001-01-01T01:02:03.456Z", vehicle.getLicenseExpirationDate());
+		Assert.assertEquals("2000", String.valueOf(vehicle.getYear()));
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PONT"), vehicle.getMakeKey());
+		Assert.assertEquals("6000", vehicle.getModelKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLK"), vehicle.getPrimaryColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLU"), vehicle.getSecondaryColorKey());
+		Assert.assertEquals("ABC111", vehicle.getVin());
+		Assert.assertEquals("1", vehicle.getOwner());
+		Assert.assertEquals("comment_data", vehicle.getComment());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PCAR"), vehicle.getStyleKey());
+		// location address alerts test
+		List<DispatchableIncident> dispatches = emergencyIncident.getDispatches();
+		DispatchableIncident dispatchableIncident = dispatches.get(0);
+		Address address = dispatchableIncident.getLocation().getAddress();
+
+	}
+
+
+
+
+	@Test
 	public void translateCreateIncident_validData_Test() throws ParseException, JsonProcessingException {
 		String insertIncidentFileName = "insertIncident.json";
 		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
@@ -352,5 +429,81 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("AD", newPersonValue.getDriverLicenseState());
 		Assert.assertEquals("(234)555-4444", newPersonValue.getPhone());
 	}
+
+	@Test
+	public void translateCreateIncident_WithAlertCount_Test() throws ParseException, JsonProcessingException {
+		String insertIncidentFileName = "insertIncident.json";
+		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
+		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
+		DispatchableIncident dispatchIncident = emergencyIncident.getDispatches().get(0);
+		Assert.assertEquals("C6002", emergencyIncident.getAlias());
+		Assert.assertEquals("C6002", emergencyIncident.getKey());
+		Assert.assertEquals(2, dispatchIncident.getAlertCount());
+		Assert.assertEquals("2018-11-12T05:25:45-07:00", emergencyIncident.getWhenCreated());
+		Subject subject = emergencyIncident.getSubjects().get(0);
+		Assert.assertEquals("Complainant", subject.getRole().get(0));
+		Person person = subject.getPerson();
+		Assert.assertEquals("first_c", person.getFirstName());
+		Assert.assertEquals("1950-01-01", person.getDateOfBirth());
+		Assert.assertEquals("last11", person.getLastName());
+		Assert.assertEquals("mm", person.getMiddleName());
+		Assert.assertEquals("ss", person.getSuffix());
+		Assert.assertEquals(Long.valueOf(68), person.getAge());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("B"), person.getRaceKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("MAL"), person.getGenderKey());
+		Assert.assertEquals(Long.valueOf(71), person.getHeight());
+		Assert.assertEquals(Long.valueOf(200), person.getWeight());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("MCLR"), person.getBuildKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("TAN"), person.getEyeColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLN"), person.getHairColorKey());
+		Assert.assertEquals("112qweqwe1", person.getDriverLicenseNumber());
+		Assert.assertEquals("AD", person.getDriverLicenseState());
+		Assert.assertEquals("customerId", emergencyIncident.getCustomerId());
+		Assert.assertEquals("(234)555-4433", person.getPhone());
+		//person's address
+		List<Location> personLocations = person.getAddress();
+		Assert.assertEquals(1, personLocations.size());
+		Location personLocation = personLocations.get(0);
+		Assert.assertEquals("3060-primary", personLocation.getKey());
+		Assert.assertEquals("Home", personLocation.getType());
+		Address personAddress = personLocation.getAddress();
+		Assert.assertNotNull(personAddress);
+		Assert.assertEquals("comp addr 11", personAddress.getFullText());
+		Assert.assertEquals("Anderson", personAddress.getCity());
+		Assert.assertEquals("AF", personAddress.getState());
+		Assert.assertEquals("75610", personAddress.getZip());
+		Assert.assertEquals("comp addr 11", personAddress.getDescription());
+		Assert.assertFalse(personAddress.getIsVerified());
+		Assert.assertEquals("0", personAddress.getGeoverificationLevel());
+		//Involved vehicle
+		List<InvolvedVehicle> involvedVehicleList = emergencyIncident.getVehicles();
+		Assert.assertEquals(1, involvedVehicleList.size());
+		InvolvedVehicle involvedVehicle = involvedVehicleList.get(0);
+		Assert.assertNotNull(involvedVehicle);
+		Assert.assertEquals("custom_relship-100", involvedVehicle.getKey());
+		Assert.assertEquals("custom_relship", involvedVehicle.getRoleKeys().get(0));
+		Vehicle vehicle = involvedVehicle.getVehicle();
+		Assert.assertNotNull(vehicle);
+		Assert.assertEquals("ABC999", vehicle.getLicensePlate());
+		Assert.assertEquals("WV", vehicle.getLicenseState());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PC"), vehicle.getLicenseTypeKey());
+		Assert.assertEquals("2001-01-01T01:02:03.456Z", vehicle.getLicenseExpirationDate());
+		Assert.assertEquals("2000", String.valueOf(vehicle.getYear()));
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PONT"), vehicle.getMakeKey());
+		Assert.assertEquals("6000", vehicle.getModelKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLK"), vehicle.getPrimaryColorKey());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("BLU"), vehicle.getSecondaryColorKey());
+		Assert.assertEquals("ABC111", vehicle.getVin());
+		Assert.assertEquals("1", vehicle.getOwner());
+		Assert.assertEquals("comment_data", vehicle.getComment());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PCAR"), vehicle.getStyleKey());
+		// location address alerts test
+		List<DispatchableIncident> dispatches = emergencyIncident.getDispatches();
+		DispatchableIncident dispatchableIncident = dispatches.get(0);
+		Address address = dispatchableIncident.getLocation().getAddress();
+
+	}
+
+
 
 }
