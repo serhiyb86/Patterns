@@ -55,14 +55,14 @@ public class DispatchableIncident implements Serializable {
 
 	private List<ReportNumber> reportNumbers;
 
-	private String alertCount;
+	private int alertCount;
 	
-	
-	public String getAlertCount() {
+
+	public int getAlertCount() {
 		return alertCount;
 	}
 
-	public void setAlertCount(String alertCount) {
+	public void setAlertCount(int alertCount) {
 		this.alertCount = alertCount;
 	}
 

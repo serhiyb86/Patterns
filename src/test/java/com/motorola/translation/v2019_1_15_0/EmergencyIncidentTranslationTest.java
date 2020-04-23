@@ -46,7 +46,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		DispatchableIncident dispatchIncident = emergencyIncident.getDispatches().get(0);
 		Assert.assertEquals("C6002", emergencyIncident.getAlias());
 		Assert.assertEquals("C6002", emergencyIncident.getKey());
-		Assert.assertEquals("0", dispatchIncident.getAlertCount());
+		Assert.assertEquals(0, dispatchIncident.getAlertCount());
 		Assert.assertEquals("2018-11-12T05:25:45-07:00", emergencyIncident.getWhenCreated());
 		Subject subject = emergencyIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", subject.getRole().get(0));
@@ -449,7 +449,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		DispatchableIncident dispatchIncident = emergencyIncident.getDispatches().get(0);
 		Assert.assertEquals("C6002", emergencyIncident.getAlias());
 		Assert.assertEquals("C6002", emergencyIncident.getKey());
-		Assert.assertEquals("2", dispatchIncident.getAlertCount());
+		Assert.assertEquals(2, dispatchIncident.getAlertCount());
 		Assert.assertEquals("2018-11-12T05:25:45-07:00", emergencyIncident.getWhenCreated());
 		Subject subject = emergencyIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", subject.getRole().get(0));
