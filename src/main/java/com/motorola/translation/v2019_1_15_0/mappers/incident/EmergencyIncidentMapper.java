@@ -207,10 +207,7 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 							.getAsJsonObject(ADDRESS)
 							.getAsJsonArray(ALERTS);
 					if (emergencyAlertLocationAddress.get(addressId).getIsVerified() && alerts !=null) {
-						dispatchableIncident.setAlertCount(String.valueOf(
-								data.getAsJsonObject(REPORTED_EMERGENCY_LOCATION_KEY)
-										.getAsJsonObject(ADDRESS)
-										.getAsJsonArray(ALERTS).size()));
+						dispatchableIncident.setAlertCount(String.valueOf(alerts.size()));
 					} else {
 						dispatchableIncident.setAlertCount(String.valueOf(0));
 					}
