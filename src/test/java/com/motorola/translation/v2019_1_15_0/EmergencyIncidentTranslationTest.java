@@ -110,17 +110,6 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		DispatchableIncident dispatchableIncident = dispatches.get(0);
 		Address address = dispatchableIncident.getLocation().getAddress();
 
-		//it can be used in the future during the implementation of PremiseHazards endpoint
-		/*Assert.assertEquals(2, address.getAlerts().size());
-		// verification for alert fields
-		Alert alert = address.getAlerts().get(0);
-		Assert.assertEquals("Address", alert.getTypeKey());
-		Assert.assertEquals("DRUG", alert.getCategoryKey());
-		Assert.assertEquals("Possible Drugs on Premises", alert.getTitle());
-		Assert.assertEquals("Possible Drugs on Premises", alert.getComment());
-		Assert.assertEquals("0", alert.getPriority());
-		Assert.assertEquals("2003-10-24", alert.getWhenExpired());
-		Assert.assertEquals(LocalDate.parse("2001-10-24", dateFormat), alert.getWhenCreated());*/
 	}
 
 
@@ -513,17 +502,6 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		DispatchableIncident dispatchableIncident = dispatches.get(0);
 		Address address = dispatchableIncident.getLocation().getAddress();
 
-		//it can be used in the future during the implementation of PremiseHazards endpoint
-		/*Assert.assertEquals(2, address.getAlerts().size());
-		// verification for alert fields
-		Alert alert = address.getAlerts().get(0);
-		Assert.assertEquals("Address", alert.getTypeKey());
-		Assert.assertEquals("DRUG", alert.getCategoryKey());
-		Assert.assertEquals("Possible Drugs on Premises", alert.getTitle());
-		Assert.assertEquals("Possible Drugs on Premises", alert.getComment());
-		Assert.assertEquals("0", alert.getPriority());
-		Assert.assertEquals("2003-10-24", alert.getWhenExpired());
-		Assert.assertEquals(LocalDate.parse("2001-10-24", dateFormat), alert.getWhenCreated());*/
 	}
 
 
