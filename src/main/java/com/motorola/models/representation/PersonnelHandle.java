@@ -20,6 +20,8 @@ public class PersonnelHandle implements Serializable {
 
 	private String agencyAlias;
 
+	private String cadUserKey;
+
 	/**
 	 * Returns the value of property "key".
 	 * Unique Identifier
@@ -63,5 +65,17 @@ public class PersonnelHandle implements Serializable {
 	 */
 	public void setAlias(String alias) {
 		this.alias = alias;
+	}
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public String getCadUserKey() {
+		return cadUserKey;
+	}
+
+	public void setCadUserKey(String cadUserKey) {
+		this.cadUserKey = cadUserKey;
 	}
 }

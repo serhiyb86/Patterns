@@ -9,6 +9,7 @@ import com.motorola.models.serializer.LocalDateSerializer;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -35,9 +36,11 @@ public class Alert implements Serializable {
 
 	private Contact owner;
 
-	private Contact contact;
+	private List<Contact> contacts;
 
 	private Address address;
+
+	private String proximity;
 
 	/**
 	 * Returns the value of property "typeKey".
@@ -159,21 +162,6 @@ public class Alert implements Serializable {
 		this.owner = owner;
 	}
 
-	/**
-	 * Returns the value of property "contact".
-	 *
-	 */
-	public Contact getContact() {
-		return contact;
-	}
-
-	/**
-	 * Updates the value of property "contact".
-	 */
-	public void setContact(Contact contact) {
-		this.contact = contact;
-	}
-
 	public Address getAddress() {
 		return address;
 	}
@@ -182,4 +170,19 @@ public class Alert implements Serializable {
 		this.address = address;
 	}
 
+	public List<Contact> getContacts() {
+		return contacts;
+	}
+
+	public void setContacts(List<Contact> contacts) {
+		this.contacts = contacts;
+	}
+
+	public String getProximity() {
+		return proximity;
+	}
+
+	public void setProximity(String proximity) {
+		this.proximity = proximity;
+	}
 }
