@@ -39,8 +39,8 @@ public class BookOnTranslatorTest extends TranslatorTest {
 		Assert.assertEquals("Service id translation failed", "serviceId_value", model.getServiceId());
 		Assert.assertEquals("CadUserAgencyKey translation failed", OneRmsHashUtils.convertCodeToOneRmsFormat("SPD"), model.getCadUserAgencyKey());
 		Assert.assertEquals("DeviceAgencyKey translation failed", OneRmsHashUtils.convertCodeToOneRmsFormat("DDD"), model.getDeviceAgencyKey());
-		Assert.assertEquals("AreaKeys translation failed", OneRmsHashUtils.convertCodeToOneRmsFormat("SPNLA"), model.getMonitorAreas().getAreaKeys().get(0));
-		Assert.assertEquals("AreaKeys translation failed", OneRmsHashUtils.convertCodeToOneRmsFormat("SPNLR"), model.getMonitorAreas().getAreaKeys().get(1));
+		Assert.assertTrue("AreaKeys translation failed", model.getMonitorAreas().getAreaKeys().contains(OneRmsHashUtils.convertCodeToOneRmsFormat("SPNLA")));
+		Assert.assertTrue("AreaKeys translation failed", model.getMonitorAreas().getAreaKeys().contains(OneRmsHashUtils.convertCodeToOneRmsFormat("SPNLR")));
 		Assert.assertEquals("AreaKeys translation failed", 13, model.getMonitorAreas().getAreaKeys().size());
 		List<AccessScope> apiAccessScopeList = model.getApiAccessScope();
 		Assert.assertEquals("ApiAccessScope list size translation failed", 1, apiAccessScopeList.size());

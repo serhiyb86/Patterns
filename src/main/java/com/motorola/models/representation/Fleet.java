@@ -1,13 +1,14 @@
 package com.motorola.models.representation;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -15,6 +16,8 @@ public class Fleet implements Serializable {
 
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
+
+	private String key;
 
 	private String agencyKey;
 
@@ -83,5 +86,13 @@ public class Fleet implements Serializable {
 	 */
 	public void setCapabilities(List<Capability> capabilities) {
 		this.capabilities = capabilities;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = OneRmsHashUtils.convertCodeToOneRmsFormat(key);
 	}
 }

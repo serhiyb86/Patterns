@@ -1,12 +1,11 @@
 package com.motorola.models.representation;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -15,11 +14,11 @@ public class Equipment implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private String agencyKey;
+	private String agencyAlias;
 
-	private String typeKey;
+	private String typeAlias;
 
-	private String equipmentItemName;
+	private String equipmentAlias;
 
 	private String key;
 
@@ -27,45 +26,45 @@ public class Equipment implements Serializable {
 	 * Returns the value of property "agencyKey".
 	 * Agency Key [Mapped To Codes Table:-cad.agency]
 	 */
-	public String getAgencyKey() {
-		return agencyKey;
+	public String getAgencyAlias() {
+		return agencyAlias;
 	}
 
 	/**
 	 * Updates the value of property "agencyKey".
 	 */
-	public void setAgencyKey(String agencyKey) {
-		this.agencyKey = OneRmsHashUtils.convertCodeToOneRmsFormat(agencyKey);
+	public void setAgencyAlias(String agencyAlias) {
+		this.agencyAlias = agencyAlias;
 	}
 
 	/**
 	 * Returns the value of property "typeKey".
 	 * Equipment type key [Mapped To Codes Table:-cad.equipment.type]
 	 */
-	public String getTypeKey() {
-		return typeKey;
+	public String getTypeAlias() {
+		return typeAlias;
 	}
 
 	/**
 	 * Updates the value of property "typeKey".
 	 */
-	public void setTypeKey(String typeKey) {
-		this.typeKey = OneRmsHashUtils.convertCodeToOneRmsFormat(typeKey);
+	public void setTypeAlias(String typeAlias) {
+		this.typeAlias = typeAlias;
 	}
 
 	/**
 	 * Returns the value of property "equipmentItemName".
 	 * Equipment item name
 	 */
-	public String getEquipmentItemName() {
-		return equipmentItemName;
+	public String getEquipmentAlias() {
+		return equipmentAlias;
 	}
 
 	/**
 	 * Updates the value of property "equipmentItemName".
 	 */
-	public void setEquipmentItemName(String equipmentItemName) {
-		this.equipmentItemName = equipmentItemName;
+	public void setEquipmentAlias(String equipmentAlias) {
+		this.equipmentAlias = equipmentAlias;
 	}
 
 	/**

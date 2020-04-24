@@ -327,9 +327,9 @@ public final class InterfaceConstants {
 			private Equipment() {
 			}
 
-			public static final String AGENCY_KEY = "agencyKey";
-			public static final String TYPE_KEY = "typeKey";
-			public static final String EQUIPMENT_ITEM_NAME = "equipmentItemName";
+			public static final String AGENCY_ALIAS = "agencyAlias";
+			public static final String TYPE_ALIAS = "typeAlias";
+			public static final String EQUIPMENT_ALIAS = "equipmentAlias";
 			public static final String KEY = "key";
 		}
 

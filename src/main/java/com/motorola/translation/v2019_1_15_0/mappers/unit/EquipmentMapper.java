@@ -20,10 +20,10 @@ class EquipmentMapper extends GenericMapper<Equipment> {
 	private static final Map<String, Setter<Equipment>> setters = new HashMap<>();
 
 	static {
-		setters.put(InterfaceConstants.Unit.Equipment.AGENCY_KEY, new StringSetter<>(Equipment::setAgencyKey));
-		setters.put(InterfaceConstants.Unit.Equipment.EQUIPMENT_ITEM_NAME, new StringSetter<>(Equipment::setEquipmentItemName));
+		setters.put(InterfaceConstants.Unit.Equipment.AGENCY_ALIAS, new StringSetter<>(Equipment::setAgencyAlias));
+		setters.put(InterfaceConstants.Unit.Equipment.EQUIPMENT_ALIAS, new StringSetter<>(Equipment::setEquipmentAlias));
 		setters.put(InterfaceConstants.Unit.Equipment.KEY, new StringSetter<>(Equipment::setKey));
-		setters.put(InterfaceConstants.Unit.Equipment.TYPE_KEY, new StringSetter<>(Equipment::setTypeKey));
+		setters.put(InterfaceConstants.Unit.Equipment.TYPE_ALIAS, new StringSetter<>(Equipment::setTypeAlias));
 	}
 
 	EquipmentMapper() {
