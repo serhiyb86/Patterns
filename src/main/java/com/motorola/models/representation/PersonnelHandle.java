@@ -76,6 +76,6 @@ public class PersonnelHandle implements Serializable {
 	}
 
 	public void setCadUserKey(String cadUserKey) {
-		this.cadUserKey = cadUserKey;
+		this.cadUserKey = OneRmsHashUtils.convertCodeToOneRmsFormat(cadUserKey);
 	}
 }

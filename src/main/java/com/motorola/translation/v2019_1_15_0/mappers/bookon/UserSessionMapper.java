@@ -19,8 +19,10 @@ import com.motorola.utils.CadCloudUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Mapper for converting Json Object with appropriate data to the {@link UserSession} object.
@@ -74,11 +76,9 @@ public class UserSessionMapper {
 		setters.put(InterfaceConstants.BookOnProperties.MONITOR_AREAS, (model, value) -> {
 				if (value != null) {
 					MonitorAreas monitorAreas = new MonitorAreas();
-					List<String> areas = new ArrayList<>();
+					Set<String> areas = new HashSet<>();
 					JsonArray array =((JsonElement) value).getAsJsonArray();
-					array.forEach(jsonElement -> {
-						areas.add(jsonElement.getAsString());
-					});
+					array.forEach(jsonElement -> areas.add(jsonElement.getAsString()));
 					monitorAreas.setAreaKeys(areas);
 					model.setMonitorAreas(monitorAreas);
 				}
