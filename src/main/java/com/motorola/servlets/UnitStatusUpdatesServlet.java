@@ -27,7 +27,6 @@ import java.util.List;
 public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UnitStatusUpdatesServlet.class);
-	private static final Long OFF_DUTY_UNIT_STATUS_ACTION = 16L;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,7 +37,9 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				ModelApiResponse modelApiResponse = null;
 				try {
-					modelApiResponse = requestManager.onDutyUnit(unit);
+					if (unit.getIsOnDuty()) {
+						modelApiResponse = requestManager.onDutyUnit(unit);
+					}
 				}
 				catch (ApiException e) {
 					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(unit), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(e)));
@@ -67,8 +68,7 @@ public class UnitStatusUpdatesServlet extends BaseHttpServlet {
 			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
 				ModelApiResponse modelApiResponse = null;
 				try {
-					Long statusAction = unitUpdates.get__new().getStatusAction();
-					if (statusAction!=null && OFF_DUTY_UNIT_STATUS_ACTION.equals(Math.abs(statusAction))) {
+					if (!unitUpdates.get__new().getIsOnDuty()) {
 						modelApiResponse = requestManager.offDutyUnit(unitUpdates.get__new());
 					}
 					else {
