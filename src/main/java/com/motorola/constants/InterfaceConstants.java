@@ -53,7 +53,8 @@ public final class InterfaceConstants {
 		public static final String API_ACCESS_SCOPE = "apiAccessScope";
 		public static final String API_ACCESS_LIST = "apiAccessList";
 		public static final String AGENCY_KEY = "agencyKey";
-		public static final String MONITOR_AREAS = "monitoringArea";
+		public static final String MONITOR_AREAS = "monitorAreas";
+		public static final String AREA_KEYS = "areaKeys";
 		public static final String CORRELATION_ID = "correlationId";
 		public static final String CUSTOMER_ID = "customerId";
 		public static final String SESSION_ID = "sessionId";
