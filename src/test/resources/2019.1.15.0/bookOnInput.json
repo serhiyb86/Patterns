@@ -22,7 +22,8 @@
     "agency": "PPD",
     "callSign": "104"
   },
-  "monitoringArea":[
+  "monitorAreas": {
+    "areaKeys": [
     "SPNLA",
     "SPNLR",
     "SPNLZ",
@@ -36,7 +37,8 @@
     "SPSMR",
     "SPSMZ",
     "LS"
-  ],
+    ]
+  },
   "whenSessionCreated": "2019-01-30T12:26:23.771Z",
   "whenSessionUpdated": "2019-01-30T12:26:23.771Z",
   "cadUserAgencyKey": "SPD",

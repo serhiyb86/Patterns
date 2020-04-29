@@ -3,7 +3,10 @@
  */
 package com.motorola.translation.v2019_1_15_0;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.motorola.constants.InterfaceConstants.BookOnProperties;
 import com.motorola.models.Config;
 import com.motorola.models.representation.AccessScope;
 import com.motorola.models.representation.DeviceHandle;
@@ -39,8 +42,11 @@ public class BookOnTranslatorTest extends TranslatorTest {
 		Assert.assertEquals("Service id translation failed", "serviceId_value", model.getServiceId());
 		Assert.assertEquals("CadUserAgencyKey translation failed", OneRmsHashUtils.convertCodeToOneRmsFormat("SPD"), model.getCadUserAgencyKey());
 		Assert.assertEquals("DeviceAgencyKey translation failed", OneRmsHashUtils.convertCodeToOneRmsFormat("DDD"), model.getDeviceAgencyKey());
-		Assert.assertTrue("AreaKeys translation failed", model.getMonitorAreas().getAreaKeys().contains(OneRmsHashUtils.convertCodeToOneRmsFormat("SPNLA")));
-		Assert.assertTrue("AreaKeys translation failed", model.getMonitorAreas().getAreaKeys().contains(OneRmsHashUtils.convertCodeToOneRmsFormat("SPNLR")));
+		JsonArray areaKeys = bookOnJson.getAsJsonObject(BookOnProperties.MONITOR_AREAS).getAsJsonArray(BookOnProperties.AREA_KEYS);
+		for (JsonElement areaKey : areaKeys) {
+			Assert.assertTrue("AreaKeys translation failed",
+				model.getMonitorAreas().getAreaKeys().contains(OneRmsHashUtils.convertCodeToOneRmsFormat(areaKey.getAsString())));
+		}
 		Assert.assertEquals("AreaKeys translation failed", 13, model.getMonitorAreas().getAreaKeys().size());
 		List<AccessScope> apiAccessScopeList = model.getApiAccessScope();
 		Assert.assertEquals("ApiAccessScope list size translation failed", 1, apiAccessScopeList.size());

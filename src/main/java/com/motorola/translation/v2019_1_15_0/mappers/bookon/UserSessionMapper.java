@@ -77,7 +77,7 @@ public class UserSessionMapper {
 				if (value != null) {
 					MonitorAreas monitorAreas = new MonitorAreas();
 					Set<String> areas = new HashSet<>();
-					JsonArray array =((JsonElement) value).getAsJsonArray();
+					JsonArray array =((JsonObject) value).getAsJsonArray(InterfaceConstants.BookOnProperties.AREA_KEYS);
 					array.forEach(jsonElement -> areas.add(jsonElement.getAsString()));
 					monitorAreas.setAreaKeys(areas);
 					model.setMonitorAreas(monitorAreas);
