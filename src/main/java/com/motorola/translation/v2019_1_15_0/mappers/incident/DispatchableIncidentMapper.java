@@ -15,12 +15,17 @@ import com.motorola.models.representation.Location;
 import com.motorola.models.representation.Nature;
 import com.motorola.models.representation.ReportNumber;
 import com.motorola.models.representation.UnitHandle;
-import com.motorola.translation.setter.custom.disposition.DispositionSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import com.motorola.translation.setter.custom.disposition.DispositionSetter;
 import com.motorola.utils.CadCloudUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +35,8 @@ import java.util.Map;
  * Mapper for converting Json Object with DispatchesIncident data to the {@link DispatchableIncident} object.
  */
 public class DispatchableIncidentMapper {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(DispatchableIncidentMapper.class);
 
 	private static final Map<String, Setter<DispatchableIncident>> setters = new HashMap<>();
 
@@ -68,8 +75,13 @@ public class DispatchableIncidentMapper {
 	private static Boolean checkSchedule(JsonElement value) {
 		boolean result = false;
 		if (value != null) {
-			String scheduledFor = value.getAsString();
-			result = !StringUtils.isEmpty(scheduledFor);
+			try {
+				LocalDateTime scheduledForDateTime = LocalDateTime.parse(value.getAsString(), DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+				result = LocalDateTime.now().isBefore(scheduledForDateTime);
+			}
+			catch (DateTimeParseException ex) {
+				LOGGER.error("Could not parse dateTime 'scheduledFor':{}.", value.getAsString(), ex);
+			}
 		}
 		return result;
 	}
