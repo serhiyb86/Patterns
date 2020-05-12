@@ -50,6 +50,9 @@ public class UnitMapper extends GenericMapper<Unit> {
 		setters.put(InterfaceConstants.Unit.GeneralProperties.NEXT_STATUS_KEY, new StringSetter<>(Unit::setNextStatusKey));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_STATUS_EXPIRES, new StringSetter<>(Unit::setWhenStatusExpires));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.IS_ON_DUTY, new BooleanSetter<>(Unit::setIsOnDuty));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_UPDATED, new StringSetter<>(Unit::setWhenUpdated));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_CREATED, new StringSetter<>(Unit::setWhenCreated));
+
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.EQUIPMENT,
 			new ListSetter<>(Unit::setEquipment, new EquipmentMapper(), Equipment::new));
@@ -68,10 +71,7 @@ public class UnitMapper extends GenericMapper<Unit> {
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.CURRENT_GPS_DATA, new ObjectSetter<>(Unit::setCurrentGpsData, new GpsDataMapper(), GpsData::new));
 
-		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_CREATED, (model, value) -> {
-			model.setWhenCreated(((JsonElement) value).getAsString());
-			model.setWhenUpdated(((JsonElement) value).getAsString());
-		});
+
 	}
 
 	public UnitMapper() {

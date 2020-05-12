@@ -33,7 +33,6 @@ public class RefreshUnitsDataMapper {
 			UnitMapper unitMapper = new UnitMapper();
 			for (JsonElement element : jsonArray) {
 				Unit unit = unitMapper.createAndMapToUnit(element.getAsJsonObject());
-				unit.setWhenUpdated(ZonedDateTimeSerializer.DATE_TIME_FORMATTER.format(ZonedDateTime.now()));
 				unit.setAssignedIncident(new IncidentHandleMapper().createAndMapToIncidentHandle(element.getAsJsonObject()));
 				units.add(unit);
 			}
