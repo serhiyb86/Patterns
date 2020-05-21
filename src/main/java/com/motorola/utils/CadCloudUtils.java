@@ -11,6 +11,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.motorola.models.representation.DispatchableIncident;
+import com.motorola.models.representation.EmergencyIncident;
+import com.motorola.models.representation.RefreshIncidentData;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -19,6 +22,9 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -179,5 +185,31 @@ public class CadCloudUtils {
 			result = element.getAsDouble();
 		}
 		return result;
+	}
+
+	/**
+	 * Returns true if incident is scheduled, otherwise - false
+	 *
+	 * @param emergencyIncident {@link EmergencyIncident} - emergencyIncident.
+	 * @return {@link Boolean} - returns true if incident is scheduled, otherwise - false.
+	 */
+	public static boolean isScheduled(EmergencyIncident emergencyIncident){
+		for(DispatchableIncident dispatchableIncident : emergencyIncident.getDispatches()){
+			if (dispatchableIncident.getIsScheduled()){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Removes scheduled incidents from refreshIncidentData
+	 *
+	 * @param refreshIncidentData {@link RefreshIncidentData} - data that will be send with BulkIncidentsUpdate.
+	 * @return {@link RefreshIncidentData} - returns refreshIncidentData without scheduled incidents
+	 */
+	public static RefreshIncidentData excludeScheduledIncidentsFromBulk(RefreshIncidentData refreshIncidentData){
+		refreshIncidentData.getEmergencyIncidentList().removeIf(CadCloudUtils::isScheduled);
+		return refreshIncidentData;
 	}
 }
