@@ -31,22 +31,26 @@ public class BulkIncidentsUpdate extends BaseHttpServlet{
 		List<ValidationResult> validationResult = requestManager.validateRequest(request, InterfaceConstants.EmergencyIncident.GeneralProperties.BULK_INCIDENTS_UPDATE_REQUEST_TYPE);
 		if (validationResult.isEmpty()) {
 			RefreshIncidentData refreshIncidentData = requestManager.getTranslator().translateRefreshIncidentData(requestManager.getPayload());
-			if (requestManager.getTranslator().getValidationResults().isEmpty()) {
-				ModelApiResponse modelApiResponse = null;
-				try {
-					modelApiResponse = requestManager.bulkIncidentUpdate(refreshIncidentData);
+			CadCloudUtils.excludeScheduledIncidentsFromBulk(refreshIncidentData);
+			if (!refreshIncidentData.getEmergencyIncidentList().isEmpty()) {
+				if (requestManager.getTranslator().getValidationResults().isEmpty()) {
+					ModelApiResponse modelApiResponse = null;
+					try {
+						modelApiResponse = requestManager.bulkIncidentUpdate(refreshIncidentData);
+					} catch (ApiException e) {
+						respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(e)));
+					} catch (Exception e) {
+						LOGGER.error("Failed to send bulk incidents update data.", e);
+						respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ExceptionModel(e.getMessage())));
+					}
+					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(modelApiResponse));
 				}
-				catch (ApiException e) {
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(e)));
+				else {
+					respondFailure(response, requestManager.getTranslator().getValidationResults());
 				}
-				catch (Exception e) {
-					LOGGER.error("Failed to send bulk incidents update data.", e);
-					respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ExceptionModel(e.getMessage())));
-				}
-				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(modelApiResponse));
 			}
 			else {
-				respondFailure(response, requestManager.getTranslator().getValidationResults());
+				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(new ApiException(400, "All incidents are scheduled and weren't sent to the cloud", null, "All incidents are scheduled and weren't sent to the cloud"))));
 			}
 		}
 		else {
