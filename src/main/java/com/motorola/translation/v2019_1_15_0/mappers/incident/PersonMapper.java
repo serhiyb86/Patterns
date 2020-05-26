@@ -9,18 +9,14 @@ import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Location;
 import com.motorola.models.representation.Person;
-import com.motorola.translation.setter.LocalDateSetter;
 import com.motorola.translation.setter.LongSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
 import com.motorola.utils.CadCloudUtils;
+import com.motorola.utils.DateValidator;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -32,8 +28,6 @@ import java.util.regex.Pattern;
  * Mapper for converting Json Object with Person data to the {@link Person} object.
  */
 public class PersonMapper {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(PersonMapper.class);
 
 	private static final Map<String, Setter<Person>> setters = new LinkedHashMap<>();
 	private static final Map<String, Setter<Person>> driverLicenceSetters = new HashMap<>();
@@ -54,10 +48,8 @@ public class PersonMapper {
 					model.setLastName(matcher.group(1));
 					model.setFirstName(matcher.group(2));
 					String dateString = matcher.group(3);
-					try {
+					if (DateValidator.validate(dateString)) {
 						model.setDateOfBirth(dateString);
-					} catch (Exception ex) {
-						LOGGER.error("Failed to parse incoming date {}", dateString, ex);
 					}
 				}
 			} else {
