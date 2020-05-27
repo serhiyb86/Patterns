@@ -52,6 +52,7 @@ public class UnitMapper extends GenericMapper<Unit> {
 		setters.put(InterfaceConstants.Unit.GeneralProperties.IS_ON_DUTY, new BooleanSetter<>(Unit::setIsOnDuty));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_UPDATED, new StringSetter<>(Unit::setWhenUpdated));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.WHEN_CREATED, new StringSetter<>(Unit::setWhenCreated));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.STATUS_CATEGORY_KEY, new StringSetter<>(Unit::setStatusCategoryKey));
 
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.EQUIPMENT,
