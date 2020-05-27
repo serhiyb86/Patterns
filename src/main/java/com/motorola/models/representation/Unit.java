@@ -75,6 +75,8 @@ public class Unit implements Serializable {
 
 	private Boolean isOnDuty;
 
+	private String statusCategoryKey;
+
 	/**
 	 * Returns the value of property "customerId".
 	 * Use for DB partition
@@ -505,5 +507,19 @@ public class Unit implements Serializable {
 
 	public void setIsOnDuty(Boolean isOnDuty) {
 		this.isOnDuty = isOnDuty;
+	}
+
+	/**
+	 * Returns the value of property "statusCategoryKey".
+	 */
+	public String getStatusCategoryKey() {
+		return statusCategoryKey;
+	}
+
+	/**
+	 * Updates the value of property "statusCategoryKey".
+	 */
+	public void setStatusCategoryKey(String statusCategoryKey) {
+		this.statusCategoryKey = statusCategoryKey;
 	}
 }
