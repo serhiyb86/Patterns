@@ -36,9 +36,11 @@ public class SubjectMapper {
 			model.setKey(CadCloudUtils.getStringByKey(subjectObject, InterfaceConstants.EmergencyIncident.Subject.NestedSubject.ID));
 			//Map Person
 			JsonObject jsonPerson = CadCloudUtils.getJsonByKey(subjectObject, InterfaceConstants.EmergencyIncident.Person.PERSON);
-			Person person = new PersonMapper().createAndMapToPerson(jsonPerson);
-			if (StringUtils.isNotBlank(person.getLastName())) {
-				model.setPerson(person);
+			if (jsonPerson != null) {
+				Person person = new PersonMapper().createAndMapToPerson(jsonPerson);
+				if (StringUtils.isNotBlank(person.getLastName())) {
+					model.setPerson(person);
+				}
 			}
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Person.PERSON, (model, value) -> {
