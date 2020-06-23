@@ -308,6 +308,7 @@ public final class InterfaceConstants {
 			public static final String UNIT_DESCRIPTION = "unitDescription";
 			public static final String EQUIPMENT = "equipment";
 			public static final String ASSIGNED_PERSONNEL = "assignedPersonnel";
+			public static final String STACKED_INCIDENTS = "stackedIncidents";
 			public static final String CURRENT_GPS_DATA = "currentGpsData";
 			public static final String NEXT_STATUS_KEY = "nextStatusKey";
 			public static final String WHEN_CREATED = "whenCreated";
@@ -321,6 +322,7 @@ public final class InterfaceConstants {
 			public static final String CALL_ID = "callId";
 			public static final String KEY = "key";
 			public static final String ID = "id";
+			public static final String ALIAS = "alias";
 			public static final String DISPATCH_KEY = "dispatchKey";
 			public static final String DISPATCH_ALIAS = "dispatchAlias";
 		}
