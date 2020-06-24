@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Equipment;
+import com.motorola.models.representation.IncidentHandle;
 import com.motorola.models.representation.JurisdictionalAssignment;
 import com.motorola.models.representation.Personnel;
 import com.motorola.models.representation.Unit;
@@ -59,6 +60,8 @@ public class UnitMapper extends GenericMapper<Unit> {
 			new ListSetter<>(Unit::setEquipment, new EquipmentMapper(), Equipment::new));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.ASSIGNED_PERSONNEL,
 			new ListSetter<>(Unit::setAssignedPersonnel, new PersonnelMapper(), Personnel::new));
+		setters.put(InterfaceConstants.Unit.GeneralProperties.STACKED_INCIDENTS,
+				new ListSetter<>(Unit::setStackedIncidents, new IncidentHandleMapper(), IncidentHandle::new));
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_ZONE, (model, value) -> {
 			String assignmentData = ((JsonElement) value).getAsString();

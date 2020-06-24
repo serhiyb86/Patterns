@@ -7,8 +7,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.IncidentHandle;
+import com.motorola.models.representation.Personnel;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -17,7 +19,7 @@ import java.util.Map;
 /**
  * Mapper for converting Json Object with IncidentHandle data to the {@link IncidentHandle} object.
  */
-public class IncidentHandleMapper {
+public class IncidentHandleMapper extends GenericMapper<IncidentHandle> {
 
 	private static final Map<String, Setter<IncidentHandle>> setters = new HashMap<>();
 
@@ -27,8 +29,14 @@ public class IncidentHandleMapper {
 			model.setKey(callId);
 			model.setAlias(callId);
 		});
+		setters.put(InterfaceConstants.Unit.AssignedIncident.KEY, new StringSetter<>(IncidentHandle::setKey));
+		setters.put(InterfaceConstants.Unit.AssignedIncident.ALIAS, new StringSetter<>(IncidentHandle::setAlias));
 		setters.put(InterfaceConstants.Unit.AssignedIncident.DISPATCH_KEY, new StringSetter<>(IncidentHandle::setDispatchKey));
 		setters.put(InterfaceConstants.Unit.AssignedIncident.DISPATCH_ALIAS, new StringSetter<>(IncidentHandle::setDispatchAlias));
+	}
+
+	public IncidentHandleMapper() {
+		super(setters);
 	}
 
 	public IncidentHandle createAndMapToIncidentHandle(JsonObject incidentHandleData) {
