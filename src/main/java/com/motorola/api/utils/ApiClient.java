@@ -7,6 +7,7 @@ import com.motorola.api.auth.ApiKeyAuth;
 import com.motorola.api.auth.Authentication;
 import com.motorola.api.auth.HttpBasicAuth;
 import com.motorola.api.auth.OAuth;
+import com.motorola.constants.InterfaceConstants;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.client.HttpUrlConnectorProvider;
@@ -218,6 +219,16 @@ public class ApiClient {
 	 */
 	public ApiClient setUserAgent(String userAgent) {
 		addDefaultHeader("User-Agent", userAgent);
+		return this;
+	}
+
+	/**
+	 * Set the customerId header's value (by adding to the default header map).
+	 * @param customerId customerId
+	 * @return API client
+	 */
+	public ApiClient setCustomerId(String customerId) {
+		addDefaultHeader(InterfaceConstants.HttpHeaderProperties.CUSTOMER_ID, customerId);
 		return this;
 	}
 
