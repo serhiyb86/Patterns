@@ -31,6 +31,7 @@ public final class InterfaceConstants {
 		public static final String ACCESS_TOKEN = "accessToken";
 		public static final String API_URL = "cloudApiUrl";
 		public static final String SPILLMAN_VERSION = "spillmanVersion";
+		public static final String CUSTOMER_ID = "customerId";
 	}
 
 	/**

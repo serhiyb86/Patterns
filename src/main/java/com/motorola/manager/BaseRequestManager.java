@@ -39,6 +39,7 @@ public abstract class BaseRequestManager {
 		accessToken = request.getHeader(InterfaceConstants.HttpHeaderProperties.ACCESS_TOKEN);
 		String apiURL = request.getHeader(InterfaceConstants.HttpHeaderProperties.API_URL);
 		String spillmanVersion = request.getHeader(InterfaceConstants.HttpHeaderProperties.SPILLMAN_VERSION);
+		String customerId = request.getHeader(InterfaceConstants.HttpHeaderProperties.CUSTOMER_ID);
 		payload = CadCloudUtils.extractPayloadFromHttpRequest(request);
 		List<ValidationResult> validationResults = new ArrayList<>();
 
@@ -85,6 +86,13 @@ public abstract class BaseRequestManager {
 						String.format("Error getting translator for Spillman version: %s.", spillmanVersion),
 						ValidationErrorType.UNEXPECTED_DATA));
 			}
+		}
+
+		if (StringUtils.isBlank(customerId)) {
+			validationResults.add(new ValidationResult("customerId is missing.", ValidationErrorType.MISSING_DATA));
+		}
+		else {
+			apiClient.setCustomerId(customerId);
 		}
 
 		return validationResults;
