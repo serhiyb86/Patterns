@@ -10,7 +10,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
 
-public class IncidentHandle implements Serializable {
+public class IncidentFeed implements Serializable {
 
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;

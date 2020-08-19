@@ -23,7 +23,7 @@ import com.motorola.translation.v2019_1_15_0.mappers.bookon.UserSessionMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.incident.RefreshIncidentDataMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.notification.ResponseDataMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.notification.ResponseNotificationMapper;
-import com.motorola.translation.v2019_1_15_0.mappers.unit.IncidentHandleMapper;
+import com.motorola.translation.v2019_1_15_0.mappers.unit.IncidentFeedMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.unit.RefreshUnitsDataMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.unit.UnitMapper;
 import com.motorola.translation.v2019_1_15_0.mappers.unit.UpdateUnitMapper;
@@ -124,9 +124,9 @@ public class Translator implements BaseTranslator {
 		if (validateRequiredObjectField(data, InterfaceConstants.GeneralProperties.DATA_JSON_KEY) && validateRequiredObjectField(data.get(0), InterfaceConstants.GeneralProperties.DATA_JSON_KEY)) {
 			JsonObject unitData = data.get(0).getAsJsonObject();
 			UnitMapper unitMapper = new UnitMapper();
-			IncidentHandleMapper incidentHandleMapper = new IncidentHandleMapper();
+			IncidentFeedMapper incidentFeedMapper = new IncidentFeedMapper();
 			unit = unitMapper.createAndMapToUnit(unitData);
-			unit.setAssignedIncident(incidentHandleMapper.createAndMapToIncidentHandle(unitData));
+			unit.setAssignedIncident(incidentFeedMapper.createAndMapToIncidentHandle(unitData));
 		}
 
 		return unit;
