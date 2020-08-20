@@ -1,15 +1,16 @@
 package com.motorola.models.representation;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.motorola.utils.OneRmsHashUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -27,6 +28,8 @@ public class JurisdictionalAssignment implements Serializable {
 	private String homeStationKey;
 
 	private String assignedStationKey;
+
+	private String homeAreaKey;
 
 	/**
 	 * Returns the value of property "areaKeys".
@@ -112,5 +115,22 @@ public class JurisdictionalAssignment implements Serializable {
 	public void setAssignedStationKey(String assignedStationKey) {
 		this.assignedStationKey = assignedStationKey;
 	}
+
+
+	/**
+	 * Returns the value of property "homeAreaKey".
+	 */
+	public String getHomeAreaKey() { return homeAreaKey; }
+
+	/**
+	 * Updates the value of property "homeAreaKey".
+	 */
+	public void setHomeAreaKey(String homeAreaKey) {
+		if (StringUtils.isNotBlank(homeAreaKey)) {
+			homeAreaKey = OneRmsHashUtils.convertCodeToOneRmsFormat(homeAreaKey);
+		}
+		this.homeAreaKey = homeAreaKey;
+	}
+
 
 }

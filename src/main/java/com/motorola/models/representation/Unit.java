@@ -51,9 +51,11 @@ public class Unit implements Serializable {
 
 	private Boolean isPersonnelOutsideUnit;
 
-	private IncidentHandle assignedIncident;
+	private IncidentFeed assignedIncident;
 
-	private List<IncidentHandle> stackedIncidents = new ArrayList<IncidentHandle>();
+	private List<String> cadCloudHistoryTransactions;
+
+	private List<IncidentFeed> stackedIncidents = new ArrayList<IncidentFeed>();
 
 	private List<Personnel> assignedPersonnel = new ArrayList<Personnel>();
 
@@ -337,14 +339,14 @@ public class Unit implements Serializable {
 	 * Returns the value of property "assignedIncident".
 	 *
 	 */
-	public IncidentHandle getAssignedIncident() {
+	public IncidentFeed getAssignedIncident() {
 		return assignedIncident;
 	}
 
 	/**
 	 * Updates the value of property "assignedIncident".
 	 */
-	public void setAssignedIncident(IncidentHandle assignedIncident) {
+	public void setAssignedIncident(IncidentFeed assignedIncident) {
 		this.assignedIncident = assignedIncident;
 	}
 
@@ -352,14 +354,14 @@ public class Unit implements Serializable {
 	 * Returns the value of property "stackedIncidents".
 	 * List of incident to which the unit is stacked
 	 */
-	public List<IncidentHandle> getStackedIncidents() {
+	public List<IncidentFeed> getStackedIncidents() {
 		return stackedIncidents;
 	}
 
 	/**
 	 * Updates the value of property "stackedIncidents".
 	 */
-	public void setStackedIncidents(List<IncidentHandle> stackedIncidents) {
+	public void setStackedIncidents(List<IncidentFeed> stackedIncidents) {
 		this.stackedIncidents = stackedIncidents;
 	}
 
@@ -522,4 +524,17 @@ public class Unit implements Serializable {
 	public void setStatusCategoryKey(String statusCategoryKey) {
 		this.statusCategoryKey = statusCategoryKey;
 	}
+
+
+	/**
+	 * Returns the value of property "cadCloudHistoryTransactions".
+	 */
+	public List<String> getCadCloudHistoryTransactions() { return cadCloudHistoryTransactions; }
+
+	/**
+	 * Updates the value of property "cadCloudHistoryTransactions".
+	 */
+	public void setCadCloudHistoryTransactions(List<String> cadCloudHistoryTransactions) { this.cadCloudHistoryTransactions = cadCloudHistoryTransactions; }
+
+
 }

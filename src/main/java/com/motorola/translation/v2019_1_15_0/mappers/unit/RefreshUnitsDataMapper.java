@@ -9,11 +9,9 @@ import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.RefreshUnitData;
 import com.motorola.models.representation.Unit;
-import com.motorola.models.serializer.ZonedDateTimeSerializer;
 import com.motorola.translation.setter.BooleanSetter;
 import com.motorola.translation.setter.Setter;
 
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +31,7 @@ public class RefreshUnitsDataMapper {
 			UnitMapper unitMapper = new UnitMapper();
 			for (JsonElement element : jsonArray) {
 				Unit unit = unitMapper.createAndMapToUnit(element.getAsJsonObject());
-				unit.setAssignedIncident(new IncidentHandleMapper().createAndMapToIncidentHandle(element.getAsJsonObject()));
+				unit.setAssignedIncident(new IncidentFeedMapper().createAndMapToIncidentHandle(element.getAsJsonObject()));
 				units.add(unit);
 			}
 			model.setUnitList(units);

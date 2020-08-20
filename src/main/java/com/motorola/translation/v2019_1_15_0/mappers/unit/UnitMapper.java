@@ -7,7 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Equipment;
-import com.motorola.models.representation.IncidentHandle;
+import com.motorola.models.representation.IncidentFeed;
 import com.motorola.models.representation.JurisdictionalAssignment;
 import com.motorola.models.representation.Personnel;
 import com.motorola.models.representation.Unit;
@@ -61,7 +61,7 @@ public class UnitMapper extends GenericMapper<Unit> {
 		setters.put(InterfaceConstants.Unit.GeneralProperties.ASSIGNED_PERSONNEL,
 			new ListSetter<>(Unit::setAssignedPersonnel, new PersonnelMapper(), Personnel::new));
 		setters.put(InterfaceConstants.Unit.GeneralProperties.STACKED_INCIDENTS,
-				new ListSetter<>(Unit::setStackedIncidents, new IncidentHandleMapper(), IncidentHandle::new));
+				new ListSetter<>(Unit::setStackedIncidents, new IncidentFeedMapper(), IncidentFeed::new));
 
 		setters.put(InterfaceConstants.Unit.GeneralProperties.UNIT_ZONE, (model, value) -> {
 			String assignmentData = ((JsonElement) value).getAsString();
@@ -70,6 +70,7 @@ public class UnitMapper extends GenericMapper<Unit> {
 			JurisdictionalAssignment jurisdictionalAssignment = new JurisdictionalAssignment();
 			jurisdictionalAssignment.setBeatKeys(monitoringAreas);
 			jurisdictionalAssignment.setAreaKeys(monitoringAreas);
+			jurisdictionalAssignment.setHomeAreaKey(assignmentData);
 			model.setJurisdictionalAssignment(jurisdictionalAssignment);
 		});
 
