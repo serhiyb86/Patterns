@@ -21,6 +21,9 @@ public class Nature implements Serializable {
 
 	private Long alarmlevel;
 
+	private String description;
+
+
 	/**
 	 * Returns the value of property "natureKey".
 	 * Incident Type Key [Mapped To Codes Table:-cad.dispatchIncident.nature]
@@ -65,5 +68,17 @@ public class Nature implements Serializable {
 	public void setAlarmlevel(Long alarmlevel) {
 		this.alarmlevel = alarmlevel;
 	}
+
+	/**
+	 * Returns the value of property "description".
+	 * Description
+	 */
+	public String getDescription() { return description; }
+
+	/**
+	 * Updates the value of property "description".
+	 */
+	public void setDescription(String description) { this.description = description; }
+
 
 }

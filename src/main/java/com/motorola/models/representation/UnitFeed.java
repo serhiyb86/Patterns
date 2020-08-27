@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
-public class UnitHandle implements Serializable {
+public class UnitFeed implements Serializable {
     /** Default serial version ID. */
     private static final long serialVersionUID = 1L;
 

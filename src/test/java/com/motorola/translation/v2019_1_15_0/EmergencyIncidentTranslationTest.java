@@ -17,7 +17,7 @@ import com.motorola.models.representation.Location;
 import com.motorola.models.representation.Person;
 import com.motorola.models.representation.ReportNumber;
 import com.motorola.models.representation.Subject;
-import com.motorola.models.representation.UnitHandle;
+import com.motorola.models.representation.UnitFeed;
 import com.motorola.models.representation.UpdateEmergencyIncident;
 import com.motorola.models.representation.Vehicle;
 import com.motorola.utils.OneRmsHashUtils;
@@ -25,7 +25,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -381,18 +380,18 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertNotNull(jurisdiction);
 		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("LSW"), jurisdiction.getAreaKey());
 		// Assigned Unit
-		List<UnitHandle> assignedUnits = dispatchIncident.getAssignedUnits( );
+		List<UnitFeed> assignedUnits = dispatchIncident.getAssignedUnits( );
 		Assert.assertNotNull(assignedUnits);
 		Assert.assertEquals(2, assignedUnits.size( ));
 
-		UnitHandle assignedUnit1 = assignedUnits.get(0);
+		UnitFeed assignedUnit1 = assignedUnits.get(0);
 		Assert.assertNotNull(assignedUnit1);
 		Assert.assertEquals("F14", assignedUnit1.getKey( ));
 		Assert.assertNull(assignedUnit1.getAgencyAlias());
 		Assert.assertNull(assignedUnit1.getCallSign( ));
 		Assert.assertNull(assignedUnit1.getShiftId( ));
 
-		UnitHandle assignedUnit2 = assignedUnits.get(1);
+		UnitFeed assignedUnit2 = assignedUnits.get(1);
 		Assert.assertNotNull(assignedUnit2);
 		Assert.assertEquals("F16", assignedUnit2.getKey( ));
 		Assert.assertNull(assignedUnit2.getAgencyAlias());

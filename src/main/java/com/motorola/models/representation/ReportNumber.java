@@ -18,9 +18,12 @@ public class ReportNumber implements Serializable {
 
 	private String alias;
 
-	private UnitHandle unitHandle;
+	private UnitFeed unitFeed;
 
 	private String agencyAlias;
+
+
+	private String whenReportNumberInserted;
 
 	/**
 	 * Returns the value of property "key".
@@ -56,15 +59,15 @@ public class ReportNumber implements Serializable {
 	 * Returns the value of property "unitHandle".
 	 *
 	 */
-	public UnitHandle getUnitHandle() {
-		return unitHandle;
+	public UnitFeed getUnitHandle() {
+		return unitFeed;
 	}
 
 	/**
 	 * Updates the value of property "unitHandle".
 	 */
-	public void setUnitHandle(UnitHandle unitHandle) {
-		this.unitHandle = unitHandle;
+	public void setUnitHandle(UnitFeed unitFeed) {
+		this.unitFeed = unitFeed;
 	}
 
 	/**
@@ -80,6 +83,18 @@ public class ReportNumber implements Serializable {
 	 */
 	public void setAgencyAlias(String agencyAlias) {
 		this.agencyAlias = agencyAlias;
+	}
+
+	/**
+	 * Returns the value of property "whenReportNumberInserted".
+	 */
+	public String getWhenReportNumberInserted() { return whenReportNumberInserted; }
+
+	/**
+	 * Updates the value of property "whenReportNumberInserted".
+	 */
+	public void setWhenReportNumberInserted(String whenReportNumberInserted) {
+		this.whenReportNumberInserted = whenReportNumberInserted;
 	}
 
 }

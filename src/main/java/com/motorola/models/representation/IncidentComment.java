@@ -31,7 +31,7 @@ public class IncidentComment implements Serializable {
 
 	private String audience;
 
-	private UnitHandle onBehalfOfUnit;
+	private UnitFeed onBehalfOfUnit;
 
 	private PersonnelHandle onBehalfOfUser;
 
@@ -119,14 +119,14 @@ public class IncidentComment implements Serializable {
 	 * Returns the value of property "onBehalfOfUnit".
 	 *
 	 */
-	public UnitHandle getOnBehalfOfUnit() {
+	public UnitFeed getOnBehalfOfUnit() {
 		return onBehalfOfUnit;
 	}
 
 	/**
 	 * Updates the value of property "onBehalfOfUnit".
 	 */
-	public void setOnBehalfOfUnit(UnitHandle onBehalfOfUnit) {
+	public void setOnBehalfOfUnit(UnitFeed onBehalfOfUnit) {
 		this.onBehalfOfUnit = onBehalfOfUnit;
 	}
 

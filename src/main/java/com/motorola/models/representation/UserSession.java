@@ -44,7 +44,7 @@ public class UserSession implements Serializable {
 
 	private List<AccessScope> apiAccessScope = new ArrayList<>();
 
-	private UnitHandle unit;
+	private UnitFeed unit;
 
 	private String vehicleId;
 
@@ -254,14 +254,14 @@ public class UserSession implements Serializable {
 	 * Returns the value of property "unit".
 	 *
 	 */
-	public UnitHandle getUnit() {
+	public UnitFeed getUnit() {
 		return unit;
 	}
 
 	/**
 	 * Updates the value of property "unit".
 	 */
-	public void setUnit(UnitHandle unit) {
+	public void setUnit(UnitFeed unit) {
 		this.unit = unit;
 	}
 

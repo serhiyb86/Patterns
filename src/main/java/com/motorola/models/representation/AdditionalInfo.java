@@ -19,7 +19,7 @@ public class AdditionalInfo implements Serializable {
 	/** Default serial version ID. */
 	private static final long serialVersionUID = 1L;
 
-	private UnitHandle unit;
+	private UnitFeed unit;
 
 	private JurisdictionalAssignment assignments;
 
@@ -31,14 +31,14 @@ public class AdditionalInfo implements Serializable {
 	 * Returns the value of property "unit".
 	 *
 	 */
-	public UnitHandle getUnit() {
+	public UnitFeed getUnit() {
 		return unit;
 	}
 
 	/**
 	 * Updates the value of property "unit".
 	 */
-	public void setUnit(UnitHandle unit) {
+	public void setUnit(UnitFeed unit) {
 		this.unit = unit;
 	}
 

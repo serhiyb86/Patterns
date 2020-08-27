@@ -49,14 +49,25 @@ public class DispatchableIncident implements Serializable {
 
 	private String incidentSourceKey;
 
-	private List<UnitHandle> assignedUnits = new ArrayList<UnitHandle>();
+	private List<UnitFeed> assignedUnits = new ArrayList<UnitFeed>();
 
-	private UnitHandle primaryUnit;
+	private UnitFeed primaryUnit;
 
 	private List<ReportNumber> reportNumbers;
 
 	private int alertCount;
-	
+
+	private String agencyAlias;
+
+	private String whenFirstUnitArrived;
+
+	private String whenFirstUnitEnrouted;
+
+	private String createdUserAlias;
+
+	private String createdUserAgencyAlias;
+
+	private List<String> reportingDistrictName;
 
 	public int getAlertCount() {
 		return alertCount;
@@ -280,14 +291,14 @@ public class DispatchableIncident implements Serializable {
 	 * Returns the value of property "assignedUnits".
 	 * Responding Units
 	 */
-	public List<UnitHandle> getAssignedUnits() {
+	public List<UnitFeed> getAssignedUnits() {
 		return assignedUnits;
 	}
 
 	/**
 	 * Updates the value of property "assignedUnits".
 	 */
-	public void setAssignedUnits(List<UnitHandle> assignedUnits) {
+	public void setAssignedUnits(List<UnitFeed> assignedUnits) {
 		this.assignedUnits = assignedUnits;
 	}
 
@@ -295,14 +306,14 @@ public class DispatchableIncident implements Serializable {
 	 * Returns the value of property "primaryUnit".
 	 *
 	 */
-	public UnitHandle getPrimaryUnit() {
+	public UnitFeed getPrimaryUnit() {
 		return primaryUnit;
 	}
 
 	/**
 	 * Updates the value of property "primaryUnit".
 	 */
-	public void setPrimaryUnit(UnitHandle primaryUnit) {
+	public void setPrimaryUnit(UnitFeed primaryUnit) {
 		this.primaryUnit = primaryUnit;
 	}
 
@@ -336,4 +347,69 @@ public class DispatchableIncident implements Serializable {
 		this.whenStatusExpires = whenStatusExpires;
 	}
 
+	/**
+	 * Returns the value of property "agencyAlias"
+	 */
+	public String getAgencyAlias() { return agencyAlias; }
+
+	/**
+	 * Updates the value of property "agencyAlias"
+	 */
+	public void setAgencyAlias(String agencyAlias) { this.agencyAlias = agencyAlias; }
+
+	/**
+	 * Returns the value of property "whenFirstUnitArrived"
+	 */
+	public String getWhenFirstUnitArrived() { return whenFirstUnitArrived; }
+
+	/**
+	 * Updates the value of property "whenFirstUnitArrived"
+	 */
+	public void setWhenFirstUnitArrived(String whenFirstUnitArrived) { this.whenFirstUnitArrived = whenFirstUnitArrived; }
+
+	/**
+	 * Returns the value of property "whenFirstUnitEnrouted"
+	 */
+	public String getWhenFirstUnitEnrouted() { return whenFirstUnitEnrouted; }
+
+	/**
+	 * Updates the value of property "whenFirstUnitEnrouted"
+	 */
+	public void setWhenFirstUnitEnrouted(String whenFirstUnitEnrouted) {
+		this.whenFirstUnitEnrouted = whenFirstUnitEnrouted;
+	}
+
+	/**
+	 * Returns the value of property "createdUserAlias"
+	 */
+	public String getCreatedUserAlias() { return createdUserAlias; }
+
+	/**
+	 * Updates the value of property "createdUserAlias"
+	 */
+	public void setCreatedUserAlias(String createdUserAlias) { this.createdUserAlias = createdUserAlias; }
+
+	/**
+	 * Returns the value of property "createdUserAgencyAlias"
+	 */
+	public String getCreatedUserAgencyAlias() { return createdUserAgencyAlias; }
+
+	/**
+	 * Updates the value of property "createdUserAgencyAlias"
+	 */
+	public void setCreatedUserAgencyAlias(String createdUserAgencyAlias) { this.createdUserAgencyAlias = createdUserAgencyAlias; }
+
+	/**
+	 * Returns the value of property "reportingDistrictName"
+	 */
+	public List<String> getReportingDistrictName() {
+		return reportingDistrictName;
+	}
+
+	/**
+	 * Updates the value of property "reportingDistrictName"
+	 */
+	public void setReportingDistrictName(List<String> reportingDistrictName) {
+		this.reportingDistrictName = reportingDistrictName;
+	}
 }

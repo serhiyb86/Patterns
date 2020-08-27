@@ -14,7 +14,7 @@ import com.motorola.models.representation.Jurisdiction;
 import com.motorola.models.representation.Location;
 import com.motorola.models.representation.Nature;
 import com.motorola.models.representation.ReportNumber;
-import com.motorola.models.representation.UnitHandle;
+import com.motorola.models.representation.UnitFeed;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.setter.custom.disposition.DispositionSetter;
@@ -132,16 +132,16 @@ public class DispatchableIncidentMapper {
 	}
 
 	/**
-	 * Creates the {@link UnitHandle}
+	 * Creates the {@link UnitFeed}
 	 * @param value json value
 	 * @return unit handler object
 	 */
-	private static UnitHandle createUnit(JsonElement value) {
-		UnitHandle unitHandle = new UnitHandle();
+	private static UnitFeed createUnit(JsonElement value) {
+		UnitFeed unitFeed = new UnitFeed();
 		if (value != null) {
-			unitHandle.setKey(value.getAsString());
+			unitFeed.setKey(value.getAsString());
 		}
-		return unitHandle;
+		return unitFeed;
 	}
 
 	/**
@@ -189,11 +189,11 @@ public class DispatchableIncidentMapper {
 		}
 	}
 
-	private static List<UnitHandle> createAndMapToUnitsList(JsonArray array) {
-		List<UnitHandle> unitHandles = new ArrayList<>();
+	private static List<UnitFeed> createAndMapToUnitsList(JsonArray array) {
+		List<UnitFeed> unitFeeds = new ArrayList<>();
 		for (JsonElement element : array) {
-			unitHandles.add(createUnit(element));
+			unitFeeds.add(createUnit(element));
 		}
-		return unitHandles;
+		return unitFeeds;
 	}
 }
