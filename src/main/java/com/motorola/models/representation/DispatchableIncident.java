@@ -67,7 +67,7 @@ public class DispatchableIncident implements Serializable {
 
 	private String createdUserAgencyAlias;
 
-	private List<String> reportingDistrictName;
+	private List<String> reportingDistrictNames;
 
 	public int getAlertCount() {
 		return alertCount;
@@ -403,13 +403,13 @@ public class DispatchableIncident implements Serializable {
 	 * Returns the value of property "reportingDistrictName"
 	 */
 	public List<String> getReportingDistrictName() {
-		return reportingDistrictName;
+		return reportingDistrictNames;
 	}
 
 	/**
 	 * Updates the value of property "reportingDistrictName"
 	 */
 	public void setReportingDistrictName(List<String> reportingDistrictName) {
-		this.reportingDistrictName = reportingDistrictName;
+		this.reportingDistrictNames = reportingDistrictName;
 	}
 }
