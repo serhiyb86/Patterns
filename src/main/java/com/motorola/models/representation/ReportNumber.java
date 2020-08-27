@@ -22,7 +22,6 @@ public class ReportNumber implements Serializable {
 
 	private String agencyAlias;
 
-
 	private String whenReportNumberInserted;
 
 	/**

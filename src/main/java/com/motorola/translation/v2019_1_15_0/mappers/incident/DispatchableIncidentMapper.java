@@ -3,6 +3,7 @@
  */
 package com.motorola.translation.v2019_1_15_0.mappers.incident;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -51,6 +52,12 @@ public class DispatchableIncidentMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.STATUS_CATEGORY, new StringSetter<>(DispatchableIncident::setStatusCategory));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.WHEN_STATUS_DECLARED, new StringSetter<>(DispatchableIncident::setWhenStatusDeclared));
 
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.AGENCY_ALIAS, new StringSetter<>(DispatchableIncident::setAgencyAlias));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.WHEN_FIRST_UNIT_ARRIVED, new StringSetter<>(DispatchableIncident::setWhenFirstUnitArrived));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.WHEN_FIRST_UNIT_ENROUTED, new StringSetter<>(DispatchableIncident::setWhenFirstUnitEnrouted));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CREATED_USER_ALIAS, new StringSetter<>(DispatchableIncident::setCreatedUserAlias));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CREATED_USER_AGENCY_ALIAS, new StringSetter<>(DispatchableIncident::setCreatedUserAgencyAlias));
+		setters.put(Dispatches.REPORTING_DISTRICT_NAMES, (model, value) -> { model.setReportingDistrictName(new Gson().fromJson((JsonArray)value, ArrayList.class)); });
 		//Use custom setter for nested disposition model
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISPOSITION, new DispositionSetter((disp, value) -> disp.setReportDispositionKey(extractValue(value))));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CLEARANCE, new DispositionSetter((disp, value) -> disp.setCadDispositionKey(extractValue(value))));
@@ -152,7 +159,12 @@ public class DispatchableIncidentMapper {
 	private static Nature createNature(JsonElement value) {
 		Nature nature = new Nature();
 		if (value != null) {
-			nature.setNatureKey(value.getAsString());
+			if(value.getAsJsonObject().has(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE_NATURE)){
+				nature.setNatureKey(value.getAsJsonObject().get(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE_NATURE).getAsString());
+			}
+			if(value.getAsJsonObject().has(InterfaceConstants.EmergencyIncident.Dispatches.DESCRIPTION)){
+				nature.setDescription(value.getAsJsonObject().get(InterfaceConstants.EmergencyIncident.Dispatches.DESCRIPTION).getAsString());
+			}
 		}
 		return nature;
 	}
