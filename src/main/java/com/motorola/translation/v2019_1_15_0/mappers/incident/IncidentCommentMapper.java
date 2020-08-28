@@ -9,7 +9,7 @@ import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.IncidentComment;
 import com.motorola.models.representation.PersonnelHandle;
-import com.motorola.models.representation.UnitHandle;
+import com.motorola.models.representation.UnitFeed;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.setter.ZonedDateTimeSetter;
@@ -37,7 +37,7 @@ public class IncidentCommentMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_UNIT, (model, value) -> {
 			JsonObject jsonObject = ((JsonElement) value).getAsJsonObject();
 			JsonElement unitNumber = jsonObject.get(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_UNIT_ID);
-			UnitHandle unit = new UnitHandle();
+			UnitFeed unit = new UnitFeed();
 			unit.setKey(unitNumber.getAsString());
 			model.setOnBehalfOfUnit(unit);
 		});

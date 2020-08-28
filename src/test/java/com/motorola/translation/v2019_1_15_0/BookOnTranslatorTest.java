@@ -12,7 +12,7 @@ import com.motorola.models.representation.AccessScope;
 import com.motorola.models.representation.DeviceHandle;
 import com.motorola.models.representation.PersonnelHandle;
 import com.motorola.models.representation.RoleHandle;
-import com.motorola.models.representation.UnitHandle;
+import com.motorola.models.representation.UnitFeed;
 import com.motorola.models.representation.UserSession;
 import com.motorola.models.representation.UserSessionWrapper;
 import com.motorola.utils.OneRmsHashUtils;
@@ -71,7 +71,7 @@ public class BookOnTranslatorTest extends TranslatorTest {
 		Assert.assertEquals("cadUser.agencyAlias translation failed", "SPD", cadUser.getAgencyAlias());
 		Assert.assertEquals("cadUser.alias translation failed", "sds", cadUser.getAlias());
 
-		UnitHandle unit = model.getUnit();
+		UnitFeed unit = model.getUnit();
 		Assert.assertNotNull(unit);
 		Assert.assertEquals("unit.key translation failed", "104", unit.getKey());
 		Assert.assertEquals("unit.agencyAlias translation failed", "PPD", unit.getAgencyAlias());

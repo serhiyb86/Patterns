@@ -172,6 +172,16 @@ public final class InterfaceConstants {
 			public static final String INCIDENT_LOCATION = "incidentLocation";
 			public static final String ZONE = "zone";
 			public static final String STATUS_CATEGORY = "statusCategory";
+			public static final String DESCRIPTION = "description";
+			public static final String NATURE = "nature";
+			public static final String AGENCY_ALIAS = "agencyAlias";
+			public static final String WHEN_FIRST_UNIT_ARRIVED = "whenFirstUnitArrived";
+			public static final String WHEN_FIRST_UNIT_ENROUTED = "whenFirstUnitEnrouted";
+			public static final String CREATED_USER_ALIAS = "createdUserAlias";
+			public static final String CREATED_USER_AGENCY_ALIAS = "createdUserAgencyAlias";
+			public static final String REPORTING_DISTRICT_NAMES = "reportingDistrictNames";
+			public static final String WHEN_REPORT_NUMBER_INSERTED = "whenReportNumberInserted";
+			public static final String REPORT_NUMBERS = "reportNumbers";
 
 			/**
 			 * Contains RelatedRecord properties
@@ -181,6 +191,7 @@ public final class InterfaceConstants {
 				public static final String REPORT_NUMBER = "reportNumber";
 				public static final String ID = "id";
 				public static final String AGENCY = "agency";
+				public static final String WHEN_REPORT_NUMBER_INSERTED = "whenReportNumberInserted";
 			}
 
 			public final class IncidentLocation {

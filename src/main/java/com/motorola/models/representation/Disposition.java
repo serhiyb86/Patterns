@@ -29,7 +29,7 @@ public class Disposition implements Serializable {
 
 	private String observedOffenseKey;
 
-	private UnitHandle unitHandle;
+	private UnitFeed unitFeed;
 
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime whenCadDispositionEntered;
@@ -100,15 +100,15 @@ public class Disposition implements Serializable {
 	 * Returns the value of property "unitHandle".
 	 *
 	 */
-	public UnitHandle getUnitHandle() {
-		return unitHandle;
+	public UnitFeed getUnitHandle() {
+		return unitFeed;
 	}
 
 	/**
 	 * Updates the value of property "unitHandle".
 	 */
-	public void setUnitHandle(UnitHandle unitHandle) {
-		this.unitHandle = unitHandle;
+	public void setUnitHandle(UnitFeed unitFeed) {
+		this.unitFeed = unitFeed;
 	}
 
 	/**

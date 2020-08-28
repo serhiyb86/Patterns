@@ -48,6 +48,9 @@ public class Address implements Serializable {
 
 	private String name;
 
+	private String intersection;
+
+
 	/**
 	 * Returns the value of property "key".
 	 * Unique identifier of the address, currently used for finding Dispatches with the same address
@@ -301,5 +304,15 @@ public class Address implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	/**
+	 * Returns the value of property "intersection".
+	 */
+	public String getIntersection() { return intersection; }
+
+	/**
+	 * Updates the value of property "intersection".
+	 */
+	public void setIntersection(String intersection) { this.intersection = intersection; }
 
 }

@@ -44,7 +44,7 @@ public class UserSessionMapper {
 			model.setCadUser(new PersonnelHandleMapper().createAndMapPersonnelHandle((JsonObject) value))
 		);
 		setters.put(InterfaceConstants.BookOnProperties.UNIT_JSON_KEY, (model, value) ->
-			model.setUnit(new UnitHandleMapper().createAndMapUnitHandle((JsonObject) value))
+			model.setUnit(new UnitFeedMapper().createAndMapUnitHandle((JsonObject) value))
 		);
 		setters.put(InterfaceConstants.BookOnProperties.ROLE, (model, value) -> {
 			RoleHandle role = new RoleHandle();

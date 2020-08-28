@@ -3,6 +3,7 @@
  */
 package com.motorola.translation.v2019_1_15_0.mappers.incident;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -14,7 +15,7 @@ import com.motorola.models.representation.Jurisdiction;
 import com.motorola.models.representation.Location;
 import com.motorola.models.representation.Nature;
 import com.motorola.models.representation.ReportNumber;
-import com.motorola.models.representation.UnitHandle;
+import com.motorola.models.representation.UnitFeed;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.setter.custom.disposition.DispositionSetter;
@@ -45,12 +46,18 @@ public class DispatchableIncidentMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.ID, new StringSetter<>(DispatchableIncident::setKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE, new StringSetter<>(DispatchableIncident::setDisciplineKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.AGENCY, new StringSetter<>(DispatchableIncident::setAgencyKey));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE_NATURE, (model, value) -> model.setNature(createNature((JsonElement) value)));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.NATURE, (model, value) -> model.setNature(createNature((JsonElement) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.PRIORITY, new StringSetter<>(DispatchableIncident::setPriority));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.STATUS, new StringSetter<>(DispatchableIncident::setStatusKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.STATUS_CATEGORY, new StringSetter<>(DispatchableIncident::setStatusCategory));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.WHEN_STATUS_DECLARED, new StringSetter<>(DispatchableIncident::setWhenStatusDeclared));
 
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.AGENCY_ALIAS, new StringSetter<>(DispatchableIncident::setAgencyAlias));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.WHEN_FIRST_UNIT_ARRIVED, new StringSetter<>(DispatchableIncident::setWhenFirstUnitArrived));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.WHEN_FIRST_UNIT_ENROUTED, new StringSetter<>(DispatchableIncident::setWhenFirstUnitEnrouted));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CREATED_USER_ALIAS, new StringSetter<>(DispatchableIncident::setCreatedUserAlias));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CREATED_USER_AGENCY_ALIAS, new StringSetter<>(DispatchableIncident::setCreatedUserAgencyAlias));
+		setters.put(Dispatches.REPORTING_DISTRICT_NAMES, (model, value) -> { model.setReportingDistrictName(new Gson().fromJson((JsonArray)value, ArrayList.class)); });
 		//Use custom setter for nested disposition model
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISPOSITION, new DispositionSetter((disp, value) -> disp.setReportDispositionKey(extractValue(value))));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CLEARANCE, new DispositionSetter((disp, value) -> disp.setCadDispositionKey(extractValue(value))));
@@ -132,16 +139,16 @@ public class DispatchableIncidentMapper {
 	}
 
 	/**
-	 * Creates the {@link UnitHandle}
+	 * Creates the {@link UnitFeed}
 	 * @param value json value
 	 * @return unit handler object
 	 */
-	private static UnitHandle createUnit(JsonElement value) {
-		UnitHandle unitHandle = new UnitHandle();
+	private static UnitFeed createUnit(JsonElement value) {
+		UnitFeed unitFeed = new UnitFeed();
 		if (value != null) {
-			unitHandle.setKey(value.getAsString());
+			unitFeed.setKey(value.getAsString());
 		}
-		return unitHandle;
+		return unitFeed;
 	}
 
 	/**
@@ -152,7 +159,12 @@ public class DispatchableIncidentMapper {
 	private static Nature createNature(JsonElement value) {
 		Nature nature = new Nature();
 		if (value != null) {
-			nature.setNatureKey(value.getAsString());
+			if(value.getAsJsonObject().has(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE_NATURE)){
+				nature.setNatureKey(value.getAsJsonObject().get(InterfaceConstants.EmergencyIncident.Dispatches.DISCIPLINE_NATURE).getAsString());
+			}
+			if(value.getAsJsonObject().has(InterfaceConstants.EmergencyIncident.Dispatches.DESCRIPTION)){
+				nature.setDescription(value.getAsJsonObject().get(InterfaceConstants.EmergencyIncident.Dispatches.DESCRIPTION).getAsString());
+			}
 		}
 		return nature;
 	}
@@ -189,11 +201,11 @@ public class DispatchableIncidentMapper {
 		}
 	}
 
-	private static List<UnitHandle> createAndMapToUnitsList(JsonArray array) {
-		List<UnitHandle> unitHandles = new ArrayList<>();
+	private static List<UnitFeed> createAndMapToUnitsList(JsonArray array) {
+		List<UnitFeed> unitFeeds = new ArrayList<>();
 		for (JsonElement element : array) {
-			unitHandles.add(createUnit(element));
+			unitFeeds.add(createUnit(element));
 		}
-		return unitHandles;
+		return unitFeeds;
 	}
 }

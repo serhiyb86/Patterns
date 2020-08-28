@@ -25,6 +25,7 @@ public class ReportNumberMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RelatedRecord.REPORT_NUMBER, new StringSetter<>(ReportNumber::setAlias));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RelatedRecord.ID, new StringSetter<>(ReportNumber::setKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RelatedRecord.AGENCY, new StringSetter<>(ReportNumber::setAgencyAlias));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RelatedRecord.WHEN_REPORT_NUMBER_INSERTED, new StringSetter<>(ReportNumber::setWhenReportNumberInserted));
 	}
 
 	/**
