@@ -103,7 +103,10 @@
             "key": "CAD-C6002e",
             "emergencyIncidentId": "C6002",
             "activeCallNumber": "5e",
-            "disciplineNature": "Abdominal",
+            "disciplineNature": {
+              "disciplineNature": "Abdominal",
+              "description": "Abdominal pain"
+            },
             "discipline": "e",
             "priority": "1",
             "incidentLocation": {
@@ -236,7 +239,10 @@
             "key": "CAD-C6002e",
             "emergencyIncidentId": "C6002",
             "activeCallNumber": "5e",
-            "disciplineNature": "Abdominal",
+            "disciplineNature": {
+              "disciplineNature": "Abdominal",
+              "description": "Abdominal pain"
+            },
             "discipline": "e",
             "priority": "1",
             "incidentLocation": {

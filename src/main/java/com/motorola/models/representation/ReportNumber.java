@@ -58,14 +58,14 @@ public class ReportNumber implements Serializable {
 	 * Returns the value of property "unitHandle".
 	 *
 	 */
-	public UnitFeed getUnitHandle() {
+	public UnitFeed getUnitFeed() {
 		return unitFeed;
 	}
 
 	/**
 	 * Updates the value of property "unitHandle".
 	 */
-	public void setUnitHandle(UnitFeed unitFeed) {
+	public void setUnitFeed(UnitFeed unitFeed) {
 		this.unitFeed = unitFeed;
 	}
 

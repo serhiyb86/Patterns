@@ -357,7 +357,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("1109-0013-SPDF", reportNumber.getKey());
 		Assert.assertEquals("1109-0013", reportNumber.getAlias());
 		Assert.assertEquals("SPDF", reportNumber.getAgencyAlias());
-		Assert.assertNull(reportNumber.getUnitHandle());
+		Assert.assertNull(reportNumber.getUnitFeed());
 		// Dispatch - Location
 		Location location = dispatchIncident.getLocation();
 		Assert.assertNotNull(location);
