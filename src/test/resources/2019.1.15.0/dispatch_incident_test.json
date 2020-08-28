@@ -89,7 +89,7 @@
           "key": "CAD-C6028e",
           "emergencyIncidentId": "C6028",
           "activeCallNumber": "24e",
-          "disciplineNature": {
+          "nature": {
             "disciplineNature": "Abdominal",
             "description": "Abdominal pain"
           },
