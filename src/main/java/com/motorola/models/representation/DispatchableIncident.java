@@ -69,7 +69,6 @@ public class DispatchableIncident implements Serializable {
 
 	private List<String> reportingDistrictNames;
 
-	private UnitFeed unitFeed;
 
 	public int getAlertCount() {
 		return alertCount;
@@ -409,11 +408,4 @@ public class DispatchableIncident implements Serializable {
 		this.reportingDistrictNames = reportingDistrictNames;
 	}
 
-	public UnitFeed getUnitFeed() {
-		return unitFeed;
-	}
-
-	public void setUnitFeed(UnitFeed unitFeed) {
-		this.unitFeed = unitFeed;
-	}
 }
