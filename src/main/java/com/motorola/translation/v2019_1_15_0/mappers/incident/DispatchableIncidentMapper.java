@@ -14,6 +14,7 @@ import com.motorola.models.representation.Disposition;
 import com.motorola.models.representation.Jurisdiction;
 import com.motorola.models.representation.Location;
 import com.motorola.models.representation.Nature;
+import com.motorola.models.representation.PersonnelHandle;
 import com.motorola.models.representation.ReportNumber;
 import com.motorola.models.representation.UnitFeed;
 import com.motorola.translation.setter.Setter;
@@ -57,7 +58,7 @@ public class DispatchableIncidentMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.WHEN_FIRST_UNIT_ENROUTED, new StringSetter<>(DispatchableIncident::setWhenFirstUnitEnrouted));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CREATED_USER_ALIAS, new StringSetter<>(DispatchableIncident::setCreatedUserAlias));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CREATED_USER_AGENCY_ALIAS, new StringSetter<>(DispatchableIncident::setCreatedUserAgencyAlias));
-		setters.put(Dispatches.REPORTING_DISTRICT_NAMES, (model, value) -> { model.setReportingDistrictName(new Gson().fromJson((JsonArray)value, ArrayList.class)); });
+		setters.put(Dispatches.REPORTING_DISTRICT_NAMES, (model, value) -> { model.setReportingDistrictNames(new Gson().fromJson((JsonArray)value, ArrayList.class)); });
 		//Use custom setter for nested disposition model
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISPOSITION, new DispositionSetter((disp, value) -> disp.setReportDispositionKey(extractValue(value))));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CLEARANCE, new DispositionSetter((disp, value) -> disp.setCadDispositionKey(extractValue(value))));
@@ -66,12 +67,15 @@ public class DispatchableIncidentMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DETERMINANT, (model, value) -> model.setProqaDeterminantKey(createProqaDeterminant((JsonElement) value)));
 		// if incoming value is present and not empty - result=true
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.SCHEDULED_FOR, (model, value) -> model.setIsScheduled(checkSchedule((JsonElement) value)));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RESPONSIBLE_UNIT_ID, (model, value) -> model.setPrimaryUnit(createUnit((JsonElement) value)));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RESPONSIBLE_UNIT_ID, (model, value) -> {
+			model.setPrimaryUnit(createUnit((JsonObject) value));
+		});
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RELATED_RECORDS, (model, value) -> {
 			ReportNumberMapper reportNumberMapper = new ReportNumberMapper();
 			List<ReportNumber> reportNumberList = reportNumberMapper.createAndMapToReportNumberList(((JsonElement) value).getAsJsonArray());
 			model.setReportNumbers(reportNumberList);
 		});
+
 		setters.put(Dispatches.RESPONDING_UNIT_IDS, (model, value) -> model.setAssignedUnits(createAndMapToUnitsList((JsonArray) value)));
 	}
 
@@ -140,14 +144,27 @@ public class DispatchableIncidentMapper {
 
 	/**
 	 * Creates the {@link UnitFeed}
-	 * @param value json value
+	 * @param object json object
 	 * @return unit handler object
 	 */
-	private static UnitFeed createUnit(JsonElement value) {
+	private static UnitFeed createUnit(JsonObject object) {
 		UnitFeed unitFeed = new UnitFeed();
-		if (value != null) {
-			unitFeed.setKey(value.getAsString());
-		}
+		unitFeed.setKey(object.get(InterfaceConstants.EmergencyIncident.Dispatches.KEY).getAsString());
+		unitFeed.setAgencyAlias(object.get(Dispatches.AGENCY_KEY).getAsString());
+		unitFeed.setAgencyKey(object.get(Dispatches.AGENCY_ALIAS).getAsString());
+		unitFeed.setShiftId(object.get(Dispatches.SHIFT_ID).getAsString());
+		unitFeed.setCallSign(object.get(Dispatches.CALL_SIGN).getAsString());
+		unitFeed.setHomeAreaKey(object.get(Dispatches.HOME_AREA_KEY).getAsString());
+		PersonnelHandle personnelHandle = new PersonnelHandle();
+		JsonObject jsonObject = object.get(Dispatches.ASSIGNED_PERSONAL).getAsJsonObject();
+		personnelHandle.setKey(jsonObject.get(Dispatches.KEY).getAsString());
+		personnelHandle.setAlias(jsonObject.get(Dispatches.ALIAS).getAsString());
+		personnelHandle.setCadUserKey(jsonObject.get(Dispatches.CAD_USER_KEY).getAsString());
+		personnelHandle.setAgencyAlias(jsonObject.get(Dispatches.AGENCY_ALIAS).getAsString());
+		unitFeed.setAssignedPersonnel(personnelHandle);
+		unitFeed.setStatusKey(object.get(Dispatches.STATUS_KEY).getAsString());
+		unitFeed.setWhenStatusDeclared(object.get(Dispatches.WHEN_STATUS_DECLARED).getAsString());
+		unitFeed.setStatusCategoryKey(object.get(Dispatches.STATUS_CATEGORY_KEY).getAsString());
 		return unitFeed;
 	}
 
@@ -204,8 +221,9 @@ public class DispatchableIncidentMapper {
 	private static List<UnitFeed> createAndMapToUnitsList(JsonArray array) {
 		List<UnitFeed> unitFeeds = new ArrayList<>();
 		for (JsonElement element : array) {
-			unitFeeds.add(createUnit(element));
+			unitFeeds.add(createUnit(element.getAsJsonObject()));
 		}
 		return unitFeeds;
 	}
+
 }
