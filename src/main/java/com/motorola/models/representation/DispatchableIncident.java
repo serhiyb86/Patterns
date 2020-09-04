@@ -399,17 +399,11 @@ public class DispatchableIncident implements Serializable {
 	 */
 	public void setCreatedUserAgencyAlias(String createdUserAgencyAlias) { this.createdUserAgencyAlias = createdUserAgencyAlias; }
 
-	/**
-	 * Returns the value of property "reportingDistrictName"
-	 */
-	public List<String> getReportingDistrictName() {
+	public List<String> getReportingDistrictNames() {
 		return reportingDistrictNames;
 	}
 
-	/**
-	 * Updates the value of property "reportingDistrictName"
-	 */
-	public void setReportingDistrictName(List<String> reportingDistrictName) {
-		this.reportingDistrictNames = reportingDistrictName;
+	public void setReportingDistrictNames(List<String> reportingDistrictNames) {
+		this.reportingDistrictNames = reportingDistrictNames;
 	}
 }

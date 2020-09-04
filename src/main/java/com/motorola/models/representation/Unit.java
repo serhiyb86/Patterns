@@ -121,7 +121,7 @@ public class Unit implements Serializable {
 	 * Updates the value of property "disciplineKey".
 	 */
 	public void setDisciplineKey(String disciplineKey) {
-		this.disciplineKey = OneRmsHashUtils.convertCodeToOneRmsFormat(disciplineKey);
+		this.disciplineKey = disciplineKey;
 	}
 
 	/**

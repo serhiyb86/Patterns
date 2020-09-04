@@ -20,7 +20,8 @@ public class AddressMapperTest {
 		+ "\t\"zip\":\"35630\",\n"
 		+ "\t\"crossStreets\":\"Intersection of: S MAIN ST & S MAN ST & HUNTSVILLE RD\",\n"
 		+ "\t\"latitude\":34.810899,\n"
-		+ "\t\"longitude\":-87.6465\n"
+		+ "\t\"longitude\":-87.6465,\n"
+		+ "\t\"intersection\":\"Intersection of: S MAIN ST & S MAN ST & HUNTSVILLE RD\"\n"
 		+ "}";
 
 	public static final String NO_GEO_VERIFIED_DATA_WITHOUT_BUILDING_NUMBER = "{\n"

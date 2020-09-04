@@ -22,6 +22,10 @@ public class PersonnelHandle implements Serializable {
 
 	private String cadUserKey;
 
+	private String firstName;
+
+	private String lastName;
+
 	/**
 	 * Returns the value of property "key".
 	 * Unique Identifier
@@ -78,4 +82,26 @@ public class PersonnelHandle implements Serializable {
 	public void setCadUserKey(String cadUserKey) {
 		this.cadUserKey = OneRmsHashUtils.convertCodeToOneRmsFormat(cadUserKey);
 	}
+
+	/**
+	 * Returns the value of property "firstName".
+	 * User firstName
+	 */
+	public String getFirstName() { return firstName; }
+
+	/**
+	 * Updates the value of property "firstName".
+	 */
+	public void setFirstName(String firstName) { this.firstName = firstName; }
+
+	/**
+	 * Returns the value of property "lastName".
+	 * User lastName
+	 */
+	public String getLastName() { return lastName; }
+
+	/**
+	 * Updates the value of property "lastName".
+	 */
+	public void setLastName(String lastName) { this.lastName = lastName; }
 }

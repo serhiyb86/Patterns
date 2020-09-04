@@ -387,16 +387,12 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		UnitFeed assignedUnit1 = assignedUnits.get(0);
 		Assert.assertNotNull(assignedUnit1);
 		Assert.assertEquals("F14", assignedUnit1.getKey( ));
-		Assert.assertNull(assignedUnit1.getAgencyAlias());
-		Assert.assertNull(assignedUnit1.getCallSign( ));
-		Assert.assertNull(assignedUnit1.getShiftId( ));
+		Assert.assertEquals("SPD", assignedUnit1.getAgencyAlias());
 
 		UnitFeed assignedUnit2 = assignedUnits.get(1);
 		Assert.assertNotNull(assignedUnit2);
 		Assert.assertEquals("F16", assignedUnit2.getKey( ));
-		Assert.assertNull(assignedUnit2.getAgencyAlias());
-		Assert.assertNull(assignedUnit2.getCallSign( ));
-		Assert.assertNull(assignedUnit2.getShiftId( ));
+		Assert.assertEquals("SPD", assignedUnit2.getAgencyAlias());
 	}
 
 	@Test
