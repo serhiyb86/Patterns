@@ -23,6 +23,7 @@ public class PersonnelHandleMapper {
 		setters.put(InterfaceConstants.BookOnProperties.CAD_USER_KEY, new StringSetter<>(PersonnelHandle::setKey));
 		setters.put(InterfaceConstants.BookOnProperties.CAD_USER_ALIAS, new StringSetter<>(PersonnelHandle::setAlias));
 		setters.put(InterfaceConstants.BookOnProperties.CAD_USER_AGENCY_ALIAS, new StringSetter<>(PersonnelHandle::setAgencyAlias));
+		setters.put(InterfaceConstants.BookOnProperties.CAD_USERS_KEY, new StringSetter<>(PersonnelHandle::setCadUserKey));
 	}
 
 	/**

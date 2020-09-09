@@ -46,6 +46,7 @@ public final class InterfaceConstants {
 		public static final String DEVICE_ALIAS = "alias";
 		public static final String CAD_USER = "cadUser";
 		public static final String CAD_USER_KEY = "key";
+		public static final String CAD_USERS_KEY = "cadUserKey";
 		public static final String CAD_USER_ALIAS = "alias";
 		public static final String CAD_USER_AGENCY_ALIAS = "agencyAlias";
 		public static final String ROLE = "role";
@@ -184,7 +185,7 @@ public final class InterfaceConstants {
 			public static final String ALIAS = "alias";
 			public static final String KEY = "key";
 			public static final String AGENCY_KEY = "agencyKey";
-			public static final String SHIFT_ID = "shiftID";
+			public static final String SHIFT_ID = "shiftId";
 			public static final String CALL_SIGN = "callSign";
 			public static final String HOME_AREA_KEY = "homeAreaKey";
 			public static final String ASSIGNED_PERSONAL = "assignedPersonnel";

@@ -130,7 +130,7 @@
             "agencyKey": "SPD",
             "agencyAlias": "SPD",
             "callSign": "007",
-            "shiftID": "Night",
+            "shiftId": "Night",
             "statusCategoryKey": "9",
             "homeAreaKey": "SPSFZ",
             "assignedPersonnel": {
@@ -148,7 +148,7 @@
               "agencyKey": "SPD",
               "agencyAlias": "SPD",
               "callSign": "007",
-              "shiftID": "Day",
+              "shiftId": "Day",
               "homeAreaKey": "SPSFZ",
               "assignedPersonnel": {
                 "key": "B Fife",
@@ -164,7 +164,7 @@
               "key": "F16",
               "agencyKey": "SPD",
               "agencyAlias": "SPD",
-              "shiftID": "Night",
+              "shiftId": "Night",
               "callSign": "F16",
               "statusCategoryKey": "9",
               "homeAreaKey": "SPSFZ",
