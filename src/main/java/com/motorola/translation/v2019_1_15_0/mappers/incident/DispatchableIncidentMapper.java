@@ -155,13 +155,15 @@ public class DispatchableIncidentMapper {
 		unitFeed.setShiftId(object.get(Dispatches.SHIFT_ID).getAsString());
 		unitFeed.setCallSign(object.get(Dispatches.CALL_SIGN).getAsString());
 		unitFeed.setHomeAreaKey(object.get(Dispatches.HOME_AREA_KEY).getAsString());
-		PersonnelHandle personnelHandle = new PersonnelHandle();
-		JsonObject jsonObject = object.get(Dispatches.ASSIGNED_PERSONAL).getAsJsonObject();
-		personnelHandle.setKey(jsonObject.get(Dispatches.KEY).getAsString());
-		personnelHandle.setAlias(jsonObject.get(Dispatches.ALIAS).getAsString());
-		personnelHandle.setCadUserKey(jsonObject.get(Dispatches.CAD_USER_KEY).getAsString());
-		personnelHandle.setAgencyAlias(jsonObject.get(Dispatches.AGENCY_ALIAS).getAsString());
-		unitFeed.setAssignedPersonnel(personnelHandle);
+		if (object.has(Dispatches.ASSIGNED_PERSONAL)) {
+			PersonnelHandle personnelHandle = new PersonnelHandle();
+			JsonObject jsonObject = object.get(Dispatches.ASSIGNED_PERSONAL).getAsJsonObject();
+			personnelHandle.setKey(jsonObject.get(Dispatches.KEY).getAsString());
+			personnelHandle.setAlias(jsonObject.get(Dispatches.ALIAS).getAsString());
+			personnelHandle.setCadUserKey(jsonObject.get(Dispatches.CAD_USER_KEY).getAsString());
+			personnelHandle.setAgencyAlias(jsonObject.get(Dispatches.AGENCY_ALIAS).getAsString());
+			unitFeed.setAssignedPersonnel(personnelHandle);
+		}
 		unitFeed.setStatusKey(object.get(Dispatches.STATUS_KEY).getAsString());
 		unitFeed.setWhenStatusDeclared(object.get(Dispatches.WHEN_STATUS_DECLARED).getAsString());
 		unitFeed.setStatusCategoryKey(object.get(Dispatches.STATUS_CATEGORY_KEY).getAsString());
