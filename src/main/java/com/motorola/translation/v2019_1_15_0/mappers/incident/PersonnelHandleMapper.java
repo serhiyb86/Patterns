@@ -23,6 +23,7 @@ public class PersonnelHandleMapper {
 	static {
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.DESC, new MultipleFieldsStringSetter<>(PersonnelHandle::setAlias, PersonnelHandle::setKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.AGENCY, new StringSetter<>(PersonnelHandle::setAgencyAlias));
+		setters.put(InterfaceConstants.BookOnProperties.CAD_USERS_KEY, new StringSetter<>(PersonnelHandle::setCadUserKey));
 	}
 
 	/**
