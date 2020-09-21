@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -28,7 +29,7 @@ public class UnitFeed implements Serializable {
 
     private String homeStationKey;
 
-    private PersonnelHandle assignedPersonnel;
+    private List<PersonnelHandle> assignedPersonnel;
 
     private String statusKey;
 
@@ -132,19 +133,19 @@ public class UnitFeed implements Serializable {
      * Updates the value of property "homeStationKey".
      */
     public void setHomeStationKey(String homeStationKey) {
-        this.homeStationKey = homeStationKey;
+        this.homeStationKey = OneRmsHashUtils.convertCodeToOneRmsFormat(homeStationKey);
     }
 
     /**
      * Returns the value of property "assignedPersonnel".
      * Unit assignedPersonnel
      */
-    public PersonnelHandle getAssignedPersonnel() { return assignedPersonnel; }
+    public List<PersonnelHandle> getAssignedPersonnel() { return assignedPersonnel; }
 
     /**
      * Updates the value of property "assignedPersonnel".
      */
-    public void setAssignedPersonnel(PersonnelHandle assignedPersonnel) {
+    public void setAssignedPersonnel(List<PersonnelHandle> assignedPersonnel) {
         this.assignedPersonnel = assignedPersonnel;
     }
 
