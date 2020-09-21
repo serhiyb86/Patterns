@@ -23,7 +23,7 @@ class PersonnelHandleMapper extends GenericMapper<PersonnelHandle> {
 		setters.put(InterfaceConstants.Unit.PersonnelHandle.KEY, new StringSetter<>(PersonnelHandle::setKey));
 		setters.put(InterfaceConstants.Unit.PersonnelHandle.ALIAS, new StringSetter<>(PersonnelHandle::setAlias));
 		setters.put(InterfaceConstants.Unit.PersonnelHandle.AGENCY_ALIAS, new StringSetter<>(PersonnelHandle::setAgencyAlias));
-		setters.put(InterfaceConstants.BookOnProperties.CAD_USERS_KEY, new StringSetter<>(PersonnelHandle::setCadUserKey));
+		setters.put(InterfaceConstants.Unit.PersonnelHandle.CAD_USER_KEY, new StringSetter<>(PersonnelHandle::setCadUserKey));
 	}
 
 	PersonnelHandleMapper() {

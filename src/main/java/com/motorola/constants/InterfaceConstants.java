@@ -181,16 +181,6 @@ public final class InterfaceConstants {
 			public static final String CREATED_USER_ALIAS = "createdUserAlias";
 			public static final String CREATED_USER_AGENCY_ALIAS = "createdUserAgencyAlias";
 			public static final String REPORTING_DISTRICT_NAMES = "reportingDistrictNames";
-			public static final String CAD_USER_KEY = "cadUserKey";
-			public static final String ALIAS = "alias";
-			public static final String KEY = "key";
-			public static final String AGENCY_KEY = "agencyKey";
-			public static final String SHIFT_ID = "shiftId";
-			public static final String CALL_SIGN = "callSign";
-			public static final String HOME_AREA_KEY = "homeAreaKey";
-			public static final String ASSIGNED_PERSONAL = "assignedPersonnel";
-			public static final String STATUS_KEY = "statusKey";
-			public static final String STATUS_CATEGORY_KEY = "statusCategoryKey";
 
 			/**
 			 * Contains RelatedRecord properties
@@ -201,6 +191,21 @@ public final class InterfaceConstants {
 				public static final String ID = "id";
 				public static final String AGENCY = "agency";
 				public static final String WHEN_REPORT_NUMBER_INSERTED = "whenReportNumberInserted";
+			}
+
+			public final class UnitFeed {
+
+				public static final String KEY = "key";
+				public static final String AGENCY_KEY = "agencyKey";
+				public static final String AGENCY_ALIAS = "agencyAlias";
+				public static final String SHIFT_ID = "shiftId";
+				public static final String CALL_SIGN = "callSign";
+				public static final String HOME_AREA_KEY = "homeAreaKey";
+				public static final String HOME_STATION_KEY = "homeStationKey";
+				public static final String ASSIGNED_PERSONNEL = "assignedPersonnel";
+				public static final String STATUS_KEY = "statusKey";
+				public static final String WHEN_STATUS_DECLARED = "whenStatusDeclared";
+				public static final String STATUS_CATEGORY_KEY = "statusCategoryKey";
 			}
 
 			public final class IncidentLocation {
@@ -378,6 +383,7 @@ public final class InterfaceConstants {
 			public static final String KEY = "key";
 			public static final String ALIAS = "alias";
 			public static final String AGENCY_ALIAS = "agencyAlias";
+			public static final String CAD_USER_KEY = "cadUserKey";
 		}
 
 		public final class GpsData {

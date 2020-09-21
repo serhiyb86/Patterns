@@ -3,27 +3,32 @@
  */
 package com.motorola.translation.v2019_1_15_0.mappers.incident;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.PersonnelHandle;
-import com.motorola.translation.setter.MultipleFieldsStringSetter;
 import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
+import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Mapper for converting Json Object with appropriate data to the {@link PersonnelHandle} object for EmergencyIncident model.
  */
-public class PersonnelHandleMapper {
+public class PersonnelHandleMapper extends GenericMapper<PersonnelHandle> {
 
 	private static final Map<String, Setter<PersonnelHandle>> setters = new HashMap<>();
 
 	static {
-		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.DESC, new MultipleFieldsStringSetter<>(PersonnelHandle::setAlias, PersonnelHandle::setKey));
-		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.AGENCY, new StringSetter<>(PersonnelHandle::setAgencyAlias));
-		setters.put(InterfaceConstants.BookOnProperties.CAD_USERS_KEY, new StringSetter<>(PersonnelHandle::setCadUserKey));
+		setters.put(InterfaceConstants.Unit.PersonnelHandle.KEY, new StringSetter<>(PersonnelHandle::setKey));
+		setters.put(InterfaceConstants.Unit.PersonnelHandle.ALIAS, new StringSetter<>(PersonnelHandle::setAlias));
+		setters.put(InterfaceConstants.Unit.PersonnelHandle.AGENCY_ALIAS, new StringSetter<>(PersonnelHandle::setAgencyAlias));
+		setters.put(InterfaceConstants.Unit.PersonnelHandle.CAD_USER_KEY, new StringSetter<>(PersonnelHandle::setCadUserKey));
+	}
+
+	PersonnelHandleMapper() {
+		super(setters);
 	}
 
 	/**
