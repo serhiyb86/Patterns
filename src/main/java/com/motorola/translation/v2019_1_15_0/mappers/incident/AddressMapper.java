@@ -47,6 +47,7 @@ public class AddressMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.LATITUDE, new StringSetter<>(Address::setLatitude));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.LONGITUDE, new StringSetter<>(Address::setLongitude));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.INTERSECTION, new StringSetter<>(Address::setIntersection));
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.LOCATION_DESCRIPTION, new StringSetter<>(Address::setCommonPlace));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.HOUSE_NUMBER, (model, value) -> {
 			String houseNumber = CadCloudUtils.getStringFromJsonElement((JsonElement) value);
 			if (StringUtils.isNotBlank(houseNumber)) {

@@ -50,6 +50,7 @@ public class Address implements Serializable {
 
 	private String intersection;
 
+	private String commonPlace;
 
 	/**
 	 * Returns the value of property "key".
@@ -314,5 +315,19 @@ public class Address implements Serializable {
 	 * Updates the value of property "intersection".
 	 */
 	public void setIntersection(String intersection) { this.intersection = intersection; }
+
+	/**
+	 * Returns the value of property "commonPlace".
+	 */
+	public String getCommonPlace() {
+		return commonPlace;
+	}
+
+	/**
+	 * Updates the value of property "commonPlace".
+	 */
+	public void setCommonPlace(String commonPlace) {
+		this.commonPlace = commonPlace;
+	}
 
 }
