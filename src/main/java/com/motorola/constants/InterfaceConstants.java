@@ -225,6 +225,7 @@ public final class InterfaceConstants {
 					public static final String LATITUDE = "latitude";
 					public static final String LONGITUDE = "longitude";
 					public static final String INTERSECTION = "intersection";
+					public static final String LOCATION_DESCRIPTION = "locationDescription";
 					public static final String ID = "id";
 					public static final String ALERTS = "alerts";
 					public static final String HOUSE_NUMBER = "houseNumber";
