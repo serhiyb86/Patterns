@@ -41,6 +41,12 @@ public class Vehicle implements Serializable {
 
 	private String comment;
 
+	private String modelAlias;
+
+	private String makeAlias;
+
+	private String licenseStateKey;
+
 	/**
 	 * Returns the value of property "licensePlate".
 	 * License Plate Number
@@ -236,4 +242,46 @@ public class Vehicle implements Serializable {
 		this.comment = comment;
 	}
 
+	/**
+	 * Returns the value of property "modelAlias".
+	 */
+	public String getModelAlias() {
+		return modelAlias;
+	}
+
+	/**
+	 * Updates the value of property "modelAlias".
+	 */
+	public void setModelAlias(String modelAlias) {
+		this.modelAlias = modelAlias;
+	}
+
+	/**
+	 * Returns the value of property "makeAlias".
+	 */
+	public String getMakeAlias() {
+		return makeAlias;
+	}
+
+	/**
+	 * Updates the value of property "makeAlias".
+	 */
+	public void setMakeAlias(String makeAlias) {
+		this.makeAlias = makeAlias;
+	}
+
+	/**
+	 * Returns the value of property "licenseStateKey".
+	 * licenseStateKey of Vehicle [Mapped To Codes Table:-states]
+	 */
+	public String getLicenseStateKey() {
+		return licenseStateKey;
+	}
+
+	/**
+	 * Updates the value of property "licenseStateKey".
+	 */
+	public void setLicenseStateKey(String licenseStateKey) {
+		this.licenseStateKey = OneRmsHashUtils.convertCodeToOneRmsFormat(licenseStateKey);
+	}
 }

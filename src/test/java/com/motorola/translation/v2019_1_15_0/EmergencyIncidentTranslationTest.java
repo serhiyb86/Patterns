@@ -49,6 +49,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("2018-11-12T05:25:45-07:00", emergencyIncident.getWhenCreated());
 		Subject subject = emergencyIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", subject.getRole().get(0));
+		Assert.assertEquals("Complainant", subject.getRoleKey().get(0));
 		Person person = subject.getPerson();
 		Assert.assertEquals("first_c", person.getFirstName());
 		Assert.assertEquals("1950-01-01", person.getDateOfBirth());
@@ -104,6 +105,9 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("1", vehicle.getOwner());
 		Assert.assertEquals("comment_data", vehicle.getComment());
 		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PCAR"), vehicle.getStyleKey());
+		Assert.assertEquals("PONT", vehicle.getMakeAlias());
+		Assert.assertEquals("6000", vehicle.getModelAlias());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("WV"), vehicle.getLicenseStateKey());
 		// location address alerts test
 		List<DispatchableIncident> dispatches = emergencyIncident.getDispatches();
 		DispatchableIncident dispatchableIncident = dispatches.get(0);
@@ -124,6 +128,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("2018-11-12T05:25:45-07:00", emergencyIncident.getWhenCreated());
 		Subject subject = emergencyIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", subject.getRole().get(0));
+		Assert.assertEquals("Complainant", subject.getRoleKey().get(0));
 		Person person = subject.getPerson();
 		Assert.assertEquals("first_c", person.getFirstName());
 		Assert.assertEquals("1950-01-01", person.getDateOfBirth());
@@ -179,6 +184,9 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("1", vehicle.getOwner());
 		Assert.assertEquals("comment_data", vehicle.getComment());
 		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PCAR"), vehicle.getStyleKey());
+		Assert.assertEquals("PONT", vehicle.getMakeAlias());
+		Assert.assertEquals("6000", vehicle.getModelAlias());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("WV"), vehicle.getLicenseStateKey());
 		// location address alerts test
 		List<DispatchableIncident> dispatches = emergencyIncident.getDispatches();
 		DispatchableIncident dispatchableIncident = dispatches.get(0);
@@ -228,6 +236,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("customerId", newIncident.getCustomerId());
 		Subject newSubject = newIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", newSubject.getRole().get(0));
+		Assert.assertEquals("Complainant", newSubject.getRoleKey().get(0));
 		Person newPersonValue = newSubject.getPerson();
 		Assert.assertEquals("first_new", newPersonValue.getFirstName());
 		Assert.assertEquals("1950-01-01", newPersonValue.getDateOfBirth());
@@ -266,6 +275,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("C6002", newIncident.getKey());
 		Subject oldSubject = oldIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", oldSubject.getRole().get(0));
+		Assert.assertEquals("Complainant", oldSubject.getRoleKey().get(0));
 		Person oldPersonValue = oldSubject.getPerson();
 		Assert.assertEquals("first_old", oldPersonValue.getFirstName());
 		Assert.assertEquals("1950-01-01", oldPersonValue.getDateOfBirth());
@@ -406,6 +416,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("customerId", newIncident.getCustomerId());
 		Subject newSubject = newIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", newSubject.getRole().get(0));
+		Assert.assertEquals("Complainant", newSubject.getRoleKey().get(0));
 		Person newPersonValue = newSubject.getPerson();
 		Assert.assertEquals("first name2", newPersonValue.getFirstName());
 		Assert.assertEquals("2019-12-30", newPersonValue.getDateOfBirth());
@@ -437,6 +448,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("2018-11-12T05:25:45-07:00", emergencyIncident.getWhenCreated());
 		Subject subject = emergencyIncident.getSubjects().get(0);
 		Assert.assertEquals("Complainant", subject.getRole().get(0));
+		Assert.assertEquals("Complainant", subject.getRoleKey().get(0));
 		Person person = subject.getPerson();
 		Assert.assertEquals("first_c", person.getFirstName());
 		Assert.assertEquals("1950-01-01", person.getDateOfBirth());
@@ -492,6 +504,9 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("1", vehicle.getOwner());
 		Assert.assertEquals("comment_data", vehicle.getComment());
 		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("PCAR"), vehicle.getStyleKey());
+		Assert.assertEquals("PONT", vehicle.getMakeAlias());
+		Assert.assertEquals("6000", vehicle.getModelAlias());
+		Assert.assertEquals(OneRmsHashUtils.convertCodeToOneRmsFormat("WV"), vehicle.getLicenseStateKey());
 		// location address alerts test
 		List<DispatchableIncident> dispatches = emergencyIncident.getDispatches();
 		DispatchableIncident dispatchableIncident = dispatches.get(0);

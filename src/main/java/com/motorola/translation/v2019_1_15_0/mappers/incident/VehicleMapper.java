@@ -3,6 +3,7 @@
  */
 package com.motorola.translation.v2019_1_15_0.mappers.incident;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Vehicle;
@@ -22,12 +23,24 @@ public class VehicleMapper {
 
 	static {
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_PLATE, new StringSetter<>(Vehicle::setLicensePlate));
-		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_STATE, new StringSetter<>(Vehicle::setLicenseState));
+		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_STATE, (vehicle, value) -> {
+			String licenseState = ((JsonElement) value).getAsString();
+			vehicle.setLicenseState(licenseState);
+			vehicle.setLicenseStateKey(licenseState);
+		});
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENCE_TYPE, new StringSetter<>(Vehicle::setLicenseTypeKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.LICENSE_EXPIRATION, new StringSetter<>(Vehicle::setLicenseExpirationDate));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.YEAR, new LongSetter<>(Vehicle::setYear));
-		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.MAKE, new StringSetter<>(Vehicle::setMakeKey));
-		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.MODEL, new StringSetter<>(Vehicle::setModelKey));
+		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.MAKE, ((vehicle, value) -> {
+			String make = ((JsonElement) value).getAsString();
+			vehicle.setMakeKey(make);
+			vehicle.setMakeAlias(make);
+		}));
+		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.MODEL, ((vehicle, value) -> {
+			String model = ((JsonElement) value).getAsString();
+			vehicle.setModelKey(model);
+			vehicle.setModelAlias(model);
+		}));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.PRIMARY_COLOR, new StringSetter<>(Vehicle::setPrimaryColorKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.SECONDARY_COLOR, new StringSetter<>(Vehicle::setSecondaryColorKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Vehicle.VIN, new StringSetter<>(Vehicle::setVin));
