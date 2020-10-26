@@ -24,6 +24,8 @@ public class Subject implements Serializable {
 
 	private Person person;
 
+	private List<String> roleKey;
+
 	/**
 	 * Returns the value of property "key".
 	 * The unique identifier for a Subject
@@ -84,4 +86,17 @@ public class Subject implements Serializable {
 		this.person = person;
 	}
 
+	/**
+	 * Returns the value of property "roleKey".
+	 */
+	public List<String> getRoleKey() {
+		return roleKey;
+	}
+
+	/**
+	 * Updates the value of property "roleKey".
+	 */
+	public void setRoleKey(List<String> roleKey) {
+		this.roleKey = roleKey;
+	}
 }
