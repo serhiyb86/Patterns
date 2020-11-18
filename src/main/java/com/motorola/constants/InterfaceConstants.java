@@ -278,6 +278,7 @@ public final class InterfaceConstants {
 			public static final String UNIT_STATUS_DELETE_REQUEST_TYPE = "DeleteUnitStatusRequest";
 			public static final String BULK_UNITS_UPDATE_REQUEST_TYPE = "BulkUnitsUpdateRequest";
 			public static final String BULK_INCIDENTS_UPDATE_REQUEST_TYPE = "BulkIncidentsUpdateRequest";
+			public static final String HISTORICAL_INCIDENT_BULK_UPLOAD_TYPE = "HistoricalIncidentBulkUploadRequest";
 			public static final String ID_JSON_KEY = "id";
 			public static final String OLD_JSON_KEY = "old";
 			public static final String NEW_JSON_KEY = "new";

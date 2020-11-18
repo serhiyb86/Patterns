@@ -24,6 +24,10 @@ public class BulkUpdateManager extends BaseRequestManager {
 		return refreshApi.refreshIncidents(body, accessToken);
 	}
 
+	public ModelApiResponse bulkHistoricalIncidentUpdate(RefreshIncidentData body) throws ApiException {
+		return refreshApi.refreshHistoricalIncidents(body, accessToken);
+	}
+
 	public ModelApiResponse bulkUnitUpdate(RefreshUnitData body) throws ApiException {
 		return refreshApi.refreshUnits(body, accessToken);
 	}

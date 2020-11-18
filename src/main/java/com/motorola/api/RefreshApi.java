@@ -129,4 +129,51 @@ public class RefreshApi {
 		};
 		return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
 	}
+
+	/**
+	 * Receives new list of historical incidents from back end CAD systems and updates it in cloud database
+	 * Receives new list of incident
+	 * @param body On Prem CAD system incident lists message (required)
+	 * @param authorization security token for authorization (required)
+	 * @return ModelApiResponse
+	 * @throws ApiException if fails to make API call
+	 */
+	public ModelApiResponse refreshHistoricalIncidents(RefreshIncidentData body, String authorization) throws ApiException {
+		Object localVarPostBody = body;
+		// verify the required parameter 'body' is set
+		if (body == null) {
+			throw new ApiException(400, "Missing the required parameter 'body' when calling refreshHistoricalIncidents");
+		}
+		// verify the required parameter 'authorization' is set
+		if (authorization == null) {
+			throw new ApiException(400, "Missing the required parameter 'authorization' when calling refreshHistoricalIncidents");
+		}
+		// create path and map variables
+		String localVarPath = "/incidents";
+
+		// query params
+		List<Pair> localVarQueryParams = new ArrayList<Pair>();
+		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+		if (authorization != null)
+			localVarHeaderParams.put("Authorization", apiClient.parameterToString(authorization));
+
+		final String[] localVarAccepts = {
+				"application/json"
+		};
+		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+		final String[] localVarContentTypes = {
+				"application/json"
+		};
+		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+		String[] localVarAuthNames = new String[] { "clientCredentialApi_auth" };
+
+		GenericType<ModelApiResponse> localVarReturnType = new GenericType<ModelApiResponse>() {
+
+		};
+		return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+	}
 }
