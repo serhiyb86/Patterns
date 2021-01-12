@@ -40,6 +40,7 @@
       "dispatches": [
         {
           "id": "C6002-SFEM",
+          "statusCategory": "Pending",
           "incidentLocation": {
             "id": "240",
             "address": {

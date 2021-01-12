@@ -101,6 +101,7 @@
           "key": "CAD-C6002e",
           "emergencyIncidentId": "C6002",
           "activeCallNumber": "5e",
+          "statusCategory": "Pending",
           "disciplineNature": {
             "disciplineNature": "Abdominal",
             "description": "Abdominal pain"

@@ -6,6 +6,7 @@ package com.motorola.translation.v2019_1_15_0;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
+import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.RefreshIncidentData;
 import com.motorola.models.representation.RefreshUnitData;
@@ -83,6 +84,16 @@ public class Translator implements BaseTranslator {
 			JsonObject incident = data.get(0).getAsJsonObject();
 			EmergencyIncidentMapper mapper = new EmergencyIncidentMapper();
 			emergencyIncident = mapper.createAndMapToEmergencyIncident(incident);
+
+			if (emergencyIncident.getDispatches() != null) {
+				List<DispatchableIncident> dispatchableIncidents = emergencyIncident.getDispatches();
+				for (DispatchableIncident dispatchableIncident : dispatchableIncidents) {
+					if (dispatchableIncident.getStatusCategory().equals("Closed")) {
+						emergencyIncident.setWhenUpdated(ZonedDateTimeSerializer.DATE_TIME_FORMATTER.format(ZonedDateTime.now()));
+						break;
+					}
+				}
+			}
 		}
 		return emergencyIncident;
 	}
