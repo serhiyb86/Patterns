@@ -59,7 +59,6 @@ public class AddressMapperTest {
 		Assert.assertEquals("240", address.getKey());
 		Assert.assertEquals("100 S MAIN ST", address.getFullText());
 		Assert.assertEquals("100 S MAIN ST", address.getDescription());
-		Assert.assertEquals("100", address.getBuilding());
 		Assert.assertEquals("Intersection of: S MAIN ST & S MAN ST & HUNTSVILLE RD", address.getCrossStreet());
 		Assert.assertEquals("SFD", address.getCity());
 		Assert.assertEquals("ND", address.getState());
