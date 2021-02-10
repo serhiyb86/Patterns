@@ -32,7 +32,7 @@
               ]
             }
           },
-          "role": "Complainant"
+          "roleKey": "Complainant"
         }
       ],
       "dispatchable": true,

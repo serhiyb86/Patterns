@@ -48,7 +48,6 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals(0, dispatchIncident.getAlertCount());
 		Assert.assertEquals("2018-11-12T05:25:45-07:00", emergencyIncident.getWhenCreated());
 		Subject subject = emergencyIncident.getSubjects().get(0);
-		Assert.assertEquals("Complainant", subject.getRole().get(0));
 		Assert.assertEquals("Complainant", subject.getRoleKey().get(0));
 		Person person = subject.getPerson();
 		Assert.assertEquals("first_c", person.getFirstName());
@@ -127,7 +126,6 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("C6002", emergencyIncident.getKey());
 		Assert.assertEquals("2018-11-12T05:25:45-07:00", emergencyIncident.getWhenCreated());
 		Subject subject = emergencyIncident.getSubjects().get(0);
-		Assert.assertEquals("Complainant", subject.getRole().get(0));
 		Assert.assertEquals("Complainant", subject.getRoleKey().get(0));
 		Person person = subject.getPerson();
 		Assert.assertEquals("first_c", person.getFirstName());
@@ -235,7 +233,6 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("C6002", newIncident.getKey());
 		Assert.assertEquals("customerId", newIncident.getCustomerId());
 		Subject newSubject = newIncident.getSubjects().get(0);
-		Assert.assertEquals("Complainant", newSubject.getRole().get(0));
 		Assert.assertEquals("Complainant", newSubject.getRoleKey().get(0));
 		Person newPersonValue = newSubject.getPerson();
 		Assert.assertEquals("first_new", newPersonValue.getFirstName());
@@ -274,7 +271,6 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("C6002", newIncident.getAlias());
 		Assert.assertEquals("C6002", newIncident.getKey());
 		Subject oldSubject = oldIncident.getSubjects().get(0);
-		Assert.assertEquals("Complainant", oldSubject.getRole().get(0));
 		Assert.assertEquals("Complainant", oldSubject.getRoleKey().get(0));
 		Person oldPersonValue = oldSubject.getPerson();
 		Assert.assertEquals("first_old", oldPersonValue.getFirstName());
@@ -415,7 +411,6 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals("C6002", newIncident.getKey());
 		Assert.assertEquals("customerId", newIncident.getCustomerId());
 		Subject newSubject = newIncident.getSubjects().get(0);
-		Assert.assertEquals("Complainant", newSubject.getRole().get(0));
 		Assert.assertEquals("Complainant", newSubject.getRoleKey().get(0));
 		Person newPersonValue = newSubject.getPerson();
 		Assert.assertEquals("first name2", newPersonValue.getFirstName());
@@ -447,7 +442,6 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 		Assert.assertEquals(2, dispatchIncident.getAlertCount());
 		Assert.assertEquals("2018-11-12T05:25:45-07:00", emergencyIncident.getWhenCreated());
 		Subject subject = emergencyIncident.getSubjects().get(0);
-		Assert.assertEquals("Complainant", subject.getRole().get(0));
 		Assert.assertEquals("Complainant", subject.getRoleKey().get(0));
 		Person person = subject.getPerson();
 		Assert.assertEquals("first_c", person.getFirstName());
