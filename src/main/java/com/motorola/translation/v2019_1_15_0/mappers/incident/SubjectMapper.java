@@ -28,7 +28,6 @@ public class SubjectMapper {
 
 	static {
 		setters.put(InterfaceConstants.EmergencyIncident.Subject.ROLE, (model, value) -> {
-			model.setRole(Collections.singletonList(CadCloudUtils.getStringFromJsonElement((JsonElement) value)));
 			model.setRoleKey(Collections.singletonList(CadCloudUtils.getStringFromJsonElement((JsonElement) value)));
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Subject.NestedSubject.NESTED_SUBJECT, (model, value) -> {
@@ -74,9 +73,9 @@ public class SubjectMapper {
 		List<Subject> subjects = new ArrayList<>();
 		for (JsonElement element : array) {
 			Subject subject = createAndMapToSubject(element);
-			List<String> role = subject.getRole();
+			List<String> roleKey = subject.getRoleKey();
 			// add subjects only with particular role.
-			if (!role.isEmpty() && "Complainant".equals(role.get(0)) || "ReportingParty".equals(role.get(0))) {
+			if (!roleKey.isEmpty() && "Complainant".equals(roleKey.get(0)) || "ReportingParty".equals(roleKey.get(0))) {
 				subjects.add(subject);
 			}
 		}

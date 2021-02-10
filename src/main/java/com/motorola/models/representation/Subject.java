@@ -20,8 +20,6 @@ public class Subject implements Serializable {
 
 	private String contactRequested;
 
-	private List<String> role = new ArrayList<>();
-
 	private Person person;
 
 	private List<String> roleKey;
@@ -54,21 +52,6 @@ public class Subject implements Serializable {
 	 */
 	public void setContactRequested(String contactRequested) {
 		this.contactRequested = contactRequested;
-	}
-
-	/**
-	 * Returns the value of property "role".
-	 * Subject's Role(s)
-	 */
-	public List<String> getRole() {
-		return role;
-	}
-
-	/**
-	 * Updates the value of property "role".
-	 */
-	public void setRole(List<String> role) {
-		this.role = role;
 	}
 
 	/**
