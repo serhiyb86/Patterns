@@ -77,7 +77,7 @@
               ]
             }
           },
-          "roleKey": "ReportingParty"
+          "role": "ReportingParty"
         }
       ],
       "dispatchable": true,

@@ -89,7 +89,7 @@
               "biometricData": {}
             }
           },
-          "roleKey": "NotValidRole"
+          "role": "NotValidRole"
         }
       ],
       "dispatchable": true,
