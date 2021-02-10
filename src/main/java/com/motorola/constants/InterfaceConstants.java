@@ -138,7 +138,7 @@ public final class InterfaceConstants {
 		public final class Subject {
 
 			public static final String INVOLVED_CAD_SUBJECTS = "involvedCADSubjects";
-			public static final String ROLE_KEY = "roleKey";
+			public static final String ROLE = "role";
 
 			public final class NestedSubject {
 
