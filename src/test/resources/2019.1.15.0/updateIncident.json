@@ -91,7 +91,7 @@
                 "biometricData": {}
               }
             },
-            "roleKey": "Complainant"
+            "role": "Complainant"
           }
         ],
         "dispatchable": true,
@@ -228,7 +228,7 @@
                 "biometricData": {}
               }
             },
-            "roleKey": "Complainant"
+            "role": "Complainant"
           }
         ],
         "dispatchable": true,
