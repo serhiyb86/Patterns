@@ -181,6 +181,7 @@ public final class InterfaceConstants {
 			public static final String CREATED_USER_ALIAS = "createdUserAlias";
 			public static final String CREATED_USER_AGENCY_ALIAS = "createdUserAgencyAlias";
 			public static final String REPORTING_DISTRICT_NAMES = "reportingDistrictNames";
+			public static final String CAD_CLOUD_HISTORY_TRANSACTIONS = "cadCloudHistoryTransactions";
 
 			/**
 			 * Contains RelatedRecord properties
@@ -240,6 +241,19 @@ public final class InterfaceConstants {
 						public static final String END_DATE = "endDate";
 					}
 				}
+			}
+
+			public final class CadCloudHistoryTransactions {
+
+				public static final String USER_ID = "userId";
+				public static final String DEVICE_ID = "deviceId";
+				public static final String INSERTED_DATE_TIME = "insertedDateTime";
+				public static final String TRANSACTION_TYPE = "transactionType";
+				public static final String DETAIL = "detail";
+				public static final String TRANSACTION_SUB_TYPE = "transactionSubType";
+				public static final String FIELDS = "fields";
+				public static final String KEY = "key";
+				public static final String VALUE = "value";
 			}
 		}
 

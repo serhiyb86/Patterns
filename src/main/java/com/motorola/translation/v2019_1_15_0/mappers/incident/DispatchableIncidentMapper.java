@@ -11,6 +11,7 @@ import com.motorola.constants.InterfaceConstants;
 import com.motorola.constants.InterfaceConstants.EmergencyIncident.Dispatches;
 import com.motorola.models.representation.DispatchableIncident;
 import com.motorola.models.representation.Disposition;
+import com.motorola.models.representation.HistoryTransaction;
 import com.motorola.models.representation.Jurisdiction;
 import com.motorola.models.representation.Location;
 import com.motorola.models.representation.ReportNumber;
@@ -75,6 +76,11 @@ public class DispatchableIncidentMapper {
 		});
 
 		setters.put(Dispatches.RESPONDING_UNIT_IDS, (model, value) -> model.setAssignedUnits(createAndMapToUnitFeedsList((JsonArray) value)));
+		setters.put(Dispatches.CAD_CLOUD_HISTORY_TRANSACTIONS, (model, value) -> {
+			HistoryTransactionMapper historyTransactionMapper = new HistoryTransactionMapper();
+			List<HistoryTransaction> cadCloudHistoryTransactions = historyTransactionMapper.createAndMapToCadCloudHistoryTransactions(((JsonElement) value).getAsJsonArray());
+			model.setCadCloudHistoryTransactions(cadCloudHistoryTransactions);
+		});
 	}
 
 	private static String extractValue(Object value) {

@@ -69,6 +69,8 @@ public class DispatchableIncident implements Serializable {
 
 	private List<String> reportingDistrictNames;
 
+	private List<HistoryTransaction> cadCloudHistoryTransactions;
+
 	public int getAlertCount() {
 		return alertCount;
 	}
@@ -405,5 +407,13 @@ public class DispatchableIncident implements Serializable {
 
 	public void setReportingDistrictNames(List<String> reportingDistrictNames) {
 		this.reportingDistrictNames = reportingDistrictNames;
+	}
+
+	public List<HistoryTransaction> getCadCloudHistoryTransactions() {
+		return cadCloudHistoryTransactions;
+	}
+
+	public void setCadCloudHistoryTransactions(List<HistoryTransaction> cadCloudHistoryTransactions) {
+		this.cadCloudHistoryTransactions = cadCloudHistoryTransactions;
 	}
 }
