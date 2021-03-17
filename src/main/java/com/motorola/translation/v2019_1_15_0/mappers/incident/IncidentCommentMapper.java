@@ -36,17 +36,21 @@ public class IncidentCommentMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.AUDIENCE, new StringSetter<>(IncidentComment::setAudience));
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_UNIT, (model, value) -> {
 			JsonObject jsonObject = ((JsonElement) value).getAsJsonObject();
-			JsonElement unitNumber = jsonObject.get(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_UNIT_ID);
-			UnitFeed unit = new UnitFeed();
-			unit.setKey(unitNumber.getAsString());
-			model.setOnBehalfOfUnit(unit);
+			if (jsonObject.has(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_UNIT_ID)) {
+				JsonElement unitNumber = jsonObject.get(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_UNIT_ID);
+				UnitFeed unit = new UnitFeed();
+				unit.setKey(unitNumber.getAsString());
+				model.setOnBehalfOfUnit(unit);
+			}
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_USER, (model, value) -> {
 			JsonObject jsonObject = ((JsonElement) value).getAsJsonObject();
-			JsonElement userName = jsonObject.get(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_USER_SNAME);
-			PersonnelHandle user = new PersonnelHandle();
-			user.setAlias(userName.getAsString());
-			model.setOnBehalfOfUser(user);
+			if (jsonObject.has(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_USER_SNAME)) {
+				JsonElement userName = jsonObject.get(InterfaceConstants.EmergencyIncident.Comment.ON_BEHALF_OF_USER_SNAME);
+				PersonnelHandle user = new PersonnelHandle();
+				user.setAlias(userName.getAsString());
+				model.setOnBehalfOfUser(user);
+			}
 		});
 		setters.put(InterfaceConstants.EmergencyIncident.Comment.EnteredBy.ENTERED_BY, (model, value) ->
 			model.setEnteredBy(new PersonnelHandleMapper().createAndMapPersonnelHandle((JsonObject) value))
