@@ -74,11 +74,14 @@ public class PersonMapper {
 			JsonArray phonesJsonArray = ((JsonElement) value).getAsJsonArray();
 			for (JsonElement element : phonesJsonArray){
 				JsonObject phoneObject = element.getAsJsonObject();
-				JsonElement phoneNumber = phoneObject.get(InterfaceConstants.EmergencyIncident.Person.Phone.NUMBER);
-				String phoneNumberString = CadCloudUtils.getStringFromJsonElement(phoneNumber);
-				if (StringUtils.isNotBlank(phoneNumberString)){
-					model.setPhone(phoneNumberString);
-					break;
+				if (phoneObject.has(InterfaceConstants.EmergencyIncident.Person.Phone.NUMBER)) {
+					JsonElement phoneNumber = phoneObject.get(InterfaceConstants.EmergencyIncident.Person.Phone.NUMBER);
+					String phoneNumberString = CadCloudUtils.getStringFromJsonElement(phoneNumber);
+
+					if (StringUtils.isNotBlank(phoneNumberString)) {
+						model.setPhone(phoneNumberString);
+						break;
+					}
 				}
 			}
 		});

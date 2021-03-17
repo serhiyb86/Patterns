@@ -203,10 +203,19 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 				// check if address is emergency address (id is one of the keys in map)
 				if (emergencyAlertLocationAddress.containsKey(addressId)) {
 
-					JsonArray alerts = data.getAsJsonObject(REPORTED_EMERGENCY_LOCATION_KEY)
-							.getAsJsonObject(ADDRESS)
-							.getAsJsonArray(ALERTS);
-					if (emergencyAlertLocationAddress.get(addressId).getIsVerified() && alerts !=null) {
+					JsonArray alerts = null;
+
+					if (data.has(REPORTED_EMERGENCY_LOCATION_KEY)) {
+						JsonObject reportedEmergencyLocationKey = data.getAsJsonObject(REPORTED_EMERGENCY_LOCATION_KEY);
+						if (reportedEmergencyLocationKey.has(ADDRESS)) {
+							JsonObject jsonAddress = reportedEmergencyLocationKey.getAsJsonObject(ADDRESS);
+							if (jsonAddress.has(ALERTS)) {
+								alerts = jsonAddress.getAsJsonArray(ALERTS);
+							}
+						}
+					}
+
+					if (emergencyAlertLocationAddress.get(addressId).getIsVerified() && alerts != null) {
 						dispatchableIncident.setAlertCount(alerts.size());
 					} else {
 						dispatchableIncident.setAlertCount(0);
