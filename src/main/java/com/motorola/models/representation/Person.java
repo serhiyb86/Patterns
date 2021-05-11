@@ -60,6 +60,8 @@ public class Person implements Serializable {
 
 	private List<ANIALI> aniali = new ArrayList<ANIALI>();
 
+	private String driverLicenseStateKey;
+
 	/**
 	 * Returns the value of property "firstName".
 	 * Person's First Name
@@ -345,4 +347,11 @@ public class Person implements Serializable {
 		this.aniali = aniali;
 	}
 
+	public String getDriverLicenseStateKey() {
+		return driverLicenseStateKey;
+	}
+
+	public void setDriverLicenseStateKey(String driverLicenseStateKey) {
+		this.driverLicenseStateKey = driverLicenseStateKey;
+	}
 }
