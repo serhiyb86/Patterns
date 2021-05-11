@@ -66,7 +66,11 @@ public class PersonMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Person.EYE_COLOR, new StringSetter<>(Person::setEyeColorKey));
 		setters.put(InterfaceConstants.EmergencyIncident.Person.DRIVER_LICENSE, (model, value) -> {
 				driverLicenceSetters.put(InterfaceConstants.EmergencyIncident.Person.NUMBER, new StringSetter<>(Person::setDriverLicenseNumber));
-				driverLicenceSetters.put(InterfaceConstants.EmergencyIncident.Person.STATE, new StringSetter<>(Person::setDriverLicenseState));
+				driverLicenceSetters.put(InterfaceConstants.EmergencyIncident.Person.STATE, (driverLicense, state) -> {
+					String driverLicenseState = ((JsonElement) state).getAsString();
+					driverLicense.setDriverLicenseState(driverLicenseState);
+					driverLicense.setDriverLicenseStateKey(driverLicenseState);
+				});
 				new GenericMapper<>(driverLicenceSetters).mapToModel((JsonObject) value, model);
 			}
 		);
