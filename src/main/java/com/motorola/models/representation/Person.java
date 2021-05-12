@@ -352,6 +352,6 @@ public class Person implements Serializable {
 	}
 
 	public void setDriverLicenseStateKey(String driverLicenseStateKey) {
-		this.driverLicenseStateKey = driverLicenseStateKey;
+		this.driverLicenseStateKey = OneRmsHashUtils.convertCodeToOneRmsFormat(driverLicenseStateKey);
 	}
 }
