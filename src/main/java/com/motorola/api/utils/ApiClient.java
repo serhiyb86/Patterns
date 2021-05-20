@@ -233,6 +233,16 @@ public class ApiClient {
 	}
 
 	/**
+	 * Set the correlationId header's value (by adding to the default header map).
+	 * @param correlationId correlationId
+	 * @return API client
+	 */
+	public ApiClient setCorrelationId(String correlationId) {
+		addDefaultHeader(InterfaceConstants.HttpHeaderProperties.CORRELATION_ID, correlationId);
+		return this;
+	}
+
+	/**
 	 * Add a default header.
 	 *
 	 * @param key The header's key
