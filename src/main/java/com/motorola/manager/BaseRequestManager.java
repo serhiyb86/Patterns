@@ -40,6 +40,7 @@ public abstract class BaseRequestManager {
 		String apiURL = request.getHeader(InterfaceConstants.HttpHeaderProperties.API_URL);
 		String spillmanVersion = request.getHeader(InterfaceConstants.HttpHeaderProperties.SPILLMAN_VERSION);
 		String customerId = request.getHeader(InterfaceConstants.HttpHeaderProperties.CUSTOMER_ID);
+		String correlationId = request.getHeader(InterfaceConstants.HttpHeaderProperties.CORRELATION_ID);
 		payload = CadCloudUtils.extractPayloadFromHttpRequest(request);
 		List<ValidationResult> validationResults = new ArrayList<>();
 
@@ -93,6 +94,10 @@ public abstract class BaseRequestManager {
 		}
 		else {
 			apiClient.setCustomerId(customerId);
+		}
+
+		if (StringUtils.isNotBlank(correlationId)) {
+			apiClient.setCorrelationId(correlationId);
 		}
 
 		return validationResults;

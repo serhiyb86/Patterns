@@ -67,7 +67,7 @@ public class PushApi {
 		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
 		if (authorization != null)
-			localVarHeaderParams.put("Authorization", apiClient.parameterToString(authorization));
+		localVarHeaderParams.put("Authorization", apiClient.parameterToString(authorization));
 
 		final String[] localVarAccepts = {
 			"application/json"
