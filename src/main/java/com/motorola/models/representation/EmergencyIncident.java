@@ -25,11 +25,11 @@ public class EmergencyIncident implements Serializable {
 
 	private String alias;
 
-	private List<Subject> subjects = new ArrayList<Subject>();
+	private List<Subject> subjects = new ArrayList<>();
 
-	private List<InvolvedVehicle> vehicles = new ArrayList<InvolvedVehicle>();
+	private List<InvolvedVehicle> vehicles = new ArrayList<>();
 
-	private List<DispatchableIncident> dispatches = new ArrayList<DispatchableIncident>();
+	private List<DispatchableIncident> dispatches = new ArrayList<>();
 
 	private String whenCreated;
 

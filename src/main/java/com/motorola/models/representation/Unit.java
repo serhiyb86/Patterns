@@ -55,15 +55,15 @@ public class Unit implements Serializable {
 
 	private List<String> cadCloudHistoryTransactions;
 
-	private List<IncidentFeed> stackedIncidents = new ArrayList<IncidentFeed>();
+	private List<IncidentFeed> stackedIncidents = new ArrayList<>();
 
-	private List<Personnel> assignedPersonnel = new ArrayList<Personnel>();
+	private List<Personnel> assignedPersonnel = new ArrayList<>();
 
-	private List<Capability> incidentQualification = new ArrayList<Capability>();
+	private List<Capability> incidentQualification = new ArrayList<>();
 
-	private List<Capability> capabilities = new ArrayList<Capability>();
+	private List<Capability> capabilities = new ArrayList<>();
 
-	private List<Equipment> equipment = new ArrayList<Equipment>();
+	private List<Equipment> equipment = new ArrayList<>();
 
 	private JurisdictionalAssignment jurisdictionalAssignment;
 

@@ -21,7 +21,7 @@ public class StationUnits implements Serializable {
 
 	private String stationKey;
 
-	private List<UnitFeed> units = new ArrayList<UnitFeed>();
+	private List<UnitFeed> units = new ArrayList<>();
 
 	/**
 	 * Returns the value of property "stationKey".

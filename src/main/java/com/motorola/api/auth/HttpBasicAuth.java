@@ -16,10 +16,9 @@ import com.motorola.api.utils.Pair;
 
 import com.migcomponents.migbase64.Base64;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.List;
-
-import java.io.UnsupportedEncodingException;
 
 public class HttpBasicAuth implements Authentication {
 
@@ -48,11 +47,6 @@ public class HttpBasicAuth implements Authentication {
 			return;
 		}
 		String str = (username == null ? "" : username) + ":" + (password == null ? "" : password);
-		try {
-			headerParams.put("Authorization", "Basic " + Base64.encodeToString(str.getBytes("UTF-8"), false));
-		}
-		catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
+		headerParams.put("Authorization", "Basic " + Base64.encodeToString(str.getBytes(StandardCharsets.UTF_8), false));
 	}
 }

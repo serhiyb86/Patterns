@@ -1,19 +1,14 @@
 package com.motorola.models.representation;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.motorola.models.Config;
-import com.motorola.models.serializer.LocalDateSerializer;
 import com.motorola.utils.OneRmsHashUtils;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
@@ -30,7 +25,7 @@ public class Person implements Serializable {
 
 	private String suffix;
 
-	private List<Location> address = new ArrayList<Location>();
+	private List<Location> address = new ArrayList<>();
 
 	private String phone;
 
@@ -58,7 +53,7 @@ public class Person implements Serializable {
 
 	private String driverLicenseState;
 
-	private List<ANIALI> aniali = new ArrayList<ANIALI>();
+	private List<ANIALI> aniali = new ArrayList<>();
 
 	private String driverLicenseStateKey;
 

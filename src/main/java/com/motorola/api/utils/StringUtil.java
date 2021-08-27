@@ -23,10 +23,12 @@ public class StringUtil {
 	 */
 	public static boolean containsIgnoreCase(String[] array, String value) {
 		for (String str : array) {
-			if (value == null && str == null)
+			if (value == null && str == null) {
 				return true;
-			if (value != null && value.equalsIgnoreCase(str))
+			}
+			if (value != null && value.equalsIgnoreCase(str)) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -44,8 +46,9 @@ public class StringUtil {
 	 */
 	public static String join(String[] array, String separator) {
 		int len = array.length;
-		if (len == 0)
+		if (len == 0) {
 			return "";
+		}
 
 		StringBuilder out = new StringBuilder();
 		out.append(array[0]);

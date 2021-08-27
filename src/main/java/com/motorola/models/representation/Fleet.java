@@ -23,7 +23,7 @@ public class Fleet implements Serializable {
 
 	private String vehicleId;
 
-	private List<Equipment> equipment = new ArrayList<Equipment>();
+	private List<Equipment> equipment = new ArrayList<>();
 
 	private List<Capability> capabilities = new ArrayList<>();
 

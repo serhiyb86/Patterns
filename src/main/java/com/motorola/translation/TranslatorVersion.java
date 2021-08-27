@@ -21,7 +21,7 @@ class TranslatorVersion {
 	private static final int LENGTH = 4;
 	private static final Integer DEFAULT_CHUNK = 0;
 
-	private List<Integer> versionChunks;
+	private final List<Integer> versionChunks;
 
 	TranslatorVersion(String version) {
 		List<Integer> ver = Stream.of(version.split(DELIMITER_REGEXP))
@@ -62,6 +62,6 @@ class TranslatorVersion {
 
 	@Override
 	public String toString() {
-		return String.join(DELIMITER, versionChunks.stream().map(Object::toString).collect(Collectors.toList()));
+		return versionChunks.stream().map(Object::toString).collect(Collectors.joining(DELIMITER));
 	}
 }

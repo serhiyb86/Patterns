@@ -20,7 +20,8 @@ import java.util.List;
 @WebServlet(urlPatterns = "/historicalIncidentBulkUpload")
 public class HistoricalIncidentBulkUploadServlet extends BaseHttpServlet{
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(BulkIncidentsUpdate.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HistoricalIncidentBulkUploadServlet.class);
+	private static final int BAD_REQUEST = 400;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
@@ -33,9 +34,11 @@ public class HistoricalIncidentBulkUploadServlet extends BaseHttpServlet{
 					ModelApiResponse modelApiResponse = null;
 					try {
 						modelApiResponse = requestManager.bulkHistoricalIncidentUpdate(refreshIncidentData);
-					} catch (ApiException e) {
+					}
+					catch (ApiException e) {
 						respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(e)));
-					} catch (Exception e) {
+					}
+					catch (Exception e) {
 						LOGGER.error("Failed to send bulk historical incidents update data.", e);
 						respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ExceptionModel(e.getMessage())));
 					}
@@ -46,7 +49,7 @@ public class HistoricalIncidentBulkUploadServlet extends BaseHttpServlet{
 				}
 			}
 			else {
-				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(new ApiException(400, "All incidents are scheduled and weren't sent to the cloud", null, "All incidents are scheduled and weren't sent to the cloud"))));
+				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(new ApiException(BAD_REQUEST, "All incidents are scheduled and weren't sent to the cloud", null, "All incidents are scheduled and weren't sent to the cloud"))));
 			}
 		}
 		else {

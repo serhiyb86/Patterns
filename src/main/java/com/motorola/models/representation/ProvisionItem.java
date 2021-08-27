@@ -44,7 +44,7 @@ public class ProvisionItem implements Serializable {
 
 	private String parentKey;
 
-	private List<KeyValue> attritues = new ArrayList<KeyValue>();
+	private List<KeyValue> attritues = new ArrayList<>();
 
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	private LocalDateTime whenUpdated;
