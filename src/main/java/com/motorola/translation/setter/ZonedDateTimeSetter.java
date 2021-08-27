@@ -21,7 +21,7 @@ public class ZonedDateTimeSetter<T> implements Setter<T> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ZonedDateTimeSetter.class);
 
 	private final BiConsumer<T, ZonedDateTime> setFunction;
-	private DateTimeFormatter dateTimeFormatter;
+	private final DateTimeFormatter dateTimeFormatter;
 
 	public ZonedDateTimeSetter(BiConsumer<T, ZonedDateTime> setFunction, String formatter) {
 		this.dateTimeFormatter = DateTimeFormatter.ofPattern(formatter);

@@ -52,7 +52,8 @@ public class PersonMapper {
 						model.setDateOfBirth(dateString);
 					}
 				}
-			} else {
+			}
+			else {
 				model.setLastName(lastName);
 			}
 		}));

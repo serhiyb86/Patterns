@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class GenericMapper<T> {
 
-	private Map<String, Setter<T>> setters;
+	private final Map<String, Setter<T>> setters;
 
 	public GenericMapper(Map<String, Setter<T>> setters) {
 		this.setters = setters;

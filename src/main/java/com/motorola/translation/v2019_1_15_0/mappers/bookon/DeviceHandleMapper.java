@@ -45,7 +45,7 @@ public class DeviceHandleMapper {
 	 * @param data json data.
 	 * @param deviceHandle target object.
 	 */
-	private void mapToDeviceHandle(JsonObject data, DeviceHandle deviceHandle) {
+	private static void mapToDeviceHandle(JsonObject data, DeviceHandle deviceHandle) {
 		setters.forEach((key, value) -> {
 			if (data.get(key) != null) {
 				value.accept(deviceHandle, data.get(key));

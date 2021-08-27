@@ -21,7 +21,7 @@ public class TranslatorTest {
 
 //	private static final Logger LOGGER = LoggerFactory.getLogger(TranslatorTest.class);
 
-	private BaseTranslator translator = new TranslatorsFactory().getTranslator(InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0);
+	private final BaseTranslator translator = new TranslatorsFactory().getTranslator(InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0);
 
 	public JsonObject initInputPayload(String inputName) {
 		JsonObject result = null;

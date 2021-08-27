@@ -16,12 +16,12 @@ import java.util.Base64;
  */
 public class OneRmsHashUtils {
 
-	private OneRmsHashUtils() {
-	}
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(OneRmsHashUtils.class);
 
 	private static final String ALGORITHM_SHA_256 = "SHA-256";
+
+	private OneRmsHashUtils() {
+	}
 
 	/**
 	 * Generates id for Flex code value

@@ -51,7 +51,7 @@ public class PersonnelHandleMapper extends GenericMapper<PersonnelHandle> {
 	 * @param data json data.
 	 * @param personnelHandle target object.
 	 */
-	private void mapToPersonnelHandle(JsonObject data, PersonnelHandle personnelHandle) {
+	private static void mapToPersonnelHandle(JsonObject data, PersonnelHandle personnelHandle) {
 		setters.forEach((key, value) -> {
 			if (data.get(key) != null) {
 				value.accept(personnelHandle, data.get(key));

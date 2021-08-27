@@ -5,7 +5,9 @@ package com.motorola.translation.v2019_1_15_0.mappers.unit;
 
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.GpsData;
-import com.motorola.translation.setter.*;
+import com.motorola.translation.setter.DoubleSetter;
+import com.motorola.translation.setter.Setter;
+import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
 
 import java.util.HashMap;

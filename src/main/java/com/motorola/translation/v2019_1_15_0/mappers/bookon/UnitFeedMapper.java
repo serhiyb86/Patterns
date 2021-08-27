@@ -45,7 +45,7 @@ public class UnitFeedMapper {
 	 * @param data json data.
 	 * @param unitFeed target object.
 	 */
-	private void mapToUnitHandle(JsonObject data, UnitFeed unitFeed) {
+	private static void mapToUnitHandle(JsonObject data, UnitFeed unitFeed) {
 		setters.forEach((key, value) -> {
 			if (data.get(key) != null) {
 				value.accept(unitFeed, data.get(key));

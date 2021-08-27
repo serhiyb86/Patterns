@@ -54,7 +54,7 @@ public class HistoryTransactionMapper {
      * @param data json data
      * @return {@link HistoryTransaction} object
      */
-    private HistoryTransaction mapToHistoryTransaction(Set<Map.Entry<String, JsonElement>> data) {
+    private static HistoryTransaction mapToHistoryTransaction(Set<Map.Entry<String, JsonElement>> data) {
         HistoryTransaction reportNumber = new HistoryTransaction();
 
         data.forEach(entry -> {

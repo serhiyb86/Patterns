@@ -25,6 +25,7 @@ import java.util.Set;
  */
 public class IncidentCommentMapper {
 
+	private static final String CRITICAL = "critical";
 	private static final Map<String, Setter<IncidentComment>> setters = new HashMap<>();
 
 	static {
@@ -61,7 +62,7 @@ public class IncidentCommentMapper {
 
 	private static boolean parseUrgency(JsonElement value) {
 		boolean parsedValue = false;
-		if (value != null && value.getAsString().toLowerCase().equals("critical")) {
+		if (value != null && CRITICAL.equalsIgnoreCase(value.getAsString())) {
 			parsedValue = true;
 		}
 		return parsedValue;
@@ -88,7 +89,7 @@ public class IncidentCommentMapper {
 	 * @param data json data
 	 * @return {@link IncidentComment} object
 	 */
-	private IncidentComment mapToIncidentComment(Set<Map.Entry<String, JsonElement>> data) {
+	private static IncidentComment mapToIncidentComment(Set<Map.Entry<String, JsonElement>> data) {
 		IncidentComment incidentComment = new IncidentComment();
 		data.forEach(entry -> {
 			Setter<IncidentComment> consumer = setters.get(entry.getKey());

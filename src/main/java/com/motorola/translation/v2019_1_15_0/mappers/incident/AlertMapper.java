@@ -42,7 +42,7 @@ public class AlertMapper {
 		// setters.put(InterfaceConstants.EmergencyIncident.Dispatches.IncidentLocation.Address.Alert.END_DATE, new StringSetter<>(Alert::setWhenExpired));
 	}
 
-	private Alert mapToAlert(JsonObject data) {
+	private static Alert mapToAlert(JsonObject data) {
 		Alert alert = new Alert();
 		setters.forEach((key, consumer)->{
 			if (data.get(key)!= null) {

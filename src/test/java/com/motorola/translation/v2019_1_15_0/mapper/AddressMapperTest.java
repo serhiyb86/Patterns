@@ -48,7 +48,7 @@ public class AddressMapperTest {
 		+ "\t\"crossStreets\":\"Intersection of: S MAIN ST & S MAN ST & HUNTSVILLE RD\"\n"
 		+ "}";
 
-	private AddressMapper addressMapper = new AddressMapper();
+	private final AddressMapper addressMapper = new AddressMapper();
 
 	private static final Gson GSON = new Gson();
 
@@ -65,7 +65,7 @@ public class AddressMapperTest {
 		Assert.assertEquals("35630", address.getZip());
 		Assert.assertEquals("34.810899", address.getLatitude());
 		Assert.assertEquals("-87.6465", address.getLongitude());
-		Assert.assertEquals(true, address.getIsVerified());
+		Assert.assertTrue(address.getIsVerified());
 		Assert.assertEquals("100", address.getGeoverificationLevel());
 	}
 
@@ -83,7 +83,7 @@ public class AddressMapperTest {
 		Assert.assertNull(address.getZip());
 		Assert.assertNull(address.getLatitude());
 		Assert.assertNull(address.getLongitude());
-		Assert.assertEquals(false, address.getIsVerified());
+		Assert.assertFalse(address.getIsVerified());
 		Assert.assertEquals("0", address.getGeoverificationLevel());
 	}
 
@@ -101,7 +101,7 @@ public class AddressMapperTest {
 		Assert.assertNull(address.getZip());
 		Assert.assertNull(address.getLatitude());
 		Assert.assertNull(address.getLongitude());
-		Assert.assertEquals(false, address.getIsVerified());
+		Assert.assertFalse(address.getIsVerified());
 		Assert.assertEquals("0", address.getGeoverificationLevel());
 	}
 
@@ -119,7 +119,7 @@ public class AddressMapperTest {
 		Assert.assertNull(address.getZip());
 		Assert.assertNull(address.getLatitude());
 		Assert.assertNull(address.getLongitude());
-		Assert.assertEquals(false, address.getIsVerified());
+		Assert.assertFalse(address.getIsVerified());
 		Assert.assertEquals("0", address.getGeoverificationLevel());
 	}
 

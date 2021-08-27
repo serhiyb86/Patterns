@@ -21,7 +21,7 @@ public class LocalDateSetter<T> implements Setter<T> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LocalDateSetter.class);
 
 	private final BiConsumer<T, LocalDate> setFunction;
-	private DateTimeFormatter dateFormat;
+	private final DateTimeFormatter dateFormat;
 
 	public LocalDateSetter(BiConsumer<T, LocalDate> setFunction, String dateFormatter) {
 		this.dateFormat = DateTimeFormatter.ofPattern(dateFormatter);

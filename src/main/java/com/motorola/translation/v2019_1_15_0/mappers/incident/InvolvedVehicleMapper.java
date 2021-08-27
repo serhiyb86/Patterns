@@ -38,7 +38,7 @@ public class InvolvedVehicleMapper {
 		});
 	}
 
-	private InvolvedVehicle mapToInvolvedVehicle(JsonObject data, String key) {
+	private static InvolvedVehicle mapToInvolvedVehicle(JsonObject data, String key) {
 		InvolvedVehicle involvedVehicle = new InvolvedVehicle();
 		data.entrySet().forEach(entry -> {
 			Setter<InvolvedVehicle> consumer = setters.get(entry.getKey());
@@ -56,7 +56,7 @@ public class InvolvedVehicleMapper {
 	 * @param jsonObject - payload json
 	 * @return unique key
 	 */
-	private String createKey(JsonObject jsonObject) {
+	private static String createKey(JsonObject jsonObject) {
 		String incomingRelation = CadCloudUtils.getStringByKey(jsonObject, InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_RELATION);
 		String incomingKey = CadCloudUtils.getStringByKey(jsonObject, InterfaceConstants.EmergencyIncident.Vehicle.INVOLVED_KEY);
 		return incomingRelation + "-" + incomingKey;

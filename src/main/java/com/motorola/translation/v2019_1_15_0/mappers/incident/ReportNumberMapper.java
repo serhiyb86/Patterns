@@ -50,7 +50,7 @@ public class ReportNumberMapper {
 	 * @param data json data
 	 * @return {@link ReportNumber} object
 	 */
-	private ReportNumber mapToReportNumber(Set<Map.Entry<String, JsonElement>> data) {
+	private static ReportNumber mapToReportNumber(Set<Map.Entry<String, JsonElement>> data) {
 		ReportNumber reportNumber = new ReportNumber();
 
 		data.forEach(entry -> {

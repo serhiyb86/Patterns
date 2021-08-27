@@ -44,7 +44,7 @@ public class NatureMapper {
 	 * @param data json data.
 	 * @param nature target object.
 	 */
-	private void mapToNature(JsonObject data, Nature nature) {
+	private static void mapToNature(JsonObject data, Nature nature) {
 		setters.forEach((key, value) -> {
 			if (data.get(key) != null) {
 				value.accept(nature, data.get(key));

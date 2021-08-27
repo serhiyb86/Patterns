@@ -3,6 +3,9 @@
  */
 package com.motorola.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -11,6 +14,9 @@ import java.time.ZonedDateTime;
  * Class for validation Date in string format
  */
 public class DateValidator {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(DateValidator.class);
+	private static final String ERROR_MESSAGE = "Exception occurred during validating date ";
 
 	/**
 	 * returns true if date string is in valid format
@@ -26,6 +32,7 @@ public class DateValidator {
 			isValid = true;
 		}
 		catch (Exception e) {
+			LOGGER.error(ERROR_MESSAGE, e);
 		}
 		return isValid;
 	}
@@ -37,6 +44,7 @@ public class DateValidator {
 			isValid = true;
 		}
 		catch (Exception e) {
+			LOGGER.error(ERROR_MESSAGE, e);
 		}
 		return isValid;
 	}
@@ -48,6 +56,7 @@ public class DateValidator {
 			isValid = true;
 		}
 		catch (Exception e) {
+			LOGGER.error(ERROR_MESSAGE, e);
 		}
 		return isValid;
 	}

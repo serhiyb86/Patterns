@@ -6,7 +6,6 @@ package com.motorola.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -22,9 +21,6 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -35,7 +31,6 @@ public class CadCloudUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CadCloudUtils.class);
 	private static final JsonParser JSON_PARSER = new JsonParser();
-	private static final Gson GSON = new Gson();
 	private static final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer();
 
 	/**
@@ -49,7 +44,7 @@ public class CadCloudUtils {
 			IOUtils.copy(request.getInputStream(), responseWriter, UTF_8);
 		}
 		catch (IOException e) {
-			LOGGER.error("Error has happen during receiving the payload: {}. ", e);
+			LOGGER.error("Error has happen during receiving the payload: ", e);
 		}
 		return StringUtils.isBlank(responseWriter.toString()) ? null : JSON_PARSER.parse(responseWriter.toString()).getAsJsonObject();
 	}
