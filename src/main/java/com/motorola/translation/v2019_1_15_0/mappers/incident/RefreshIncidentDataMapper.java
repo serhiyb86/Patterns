@@ -13,7 +13,6 @@ import com.motorola.models.serializer.ZonedDateTimeSerializer;
 import com.motorola.translation.setter.BooleanSetter;
 import com.motorola.translation.setter.Setter;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;

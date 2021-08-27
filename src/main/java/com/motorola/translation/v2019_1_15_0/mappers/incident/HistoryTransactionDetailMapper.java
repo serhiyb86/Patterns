@@ -52,7 +52,7 @@ public class HistoryTransactionDetailMapper {
      * @param data json data.
      * @param historyTransactionDetail target object.
      */
-    private void mapToHistoryTransactionDetail(JsonObject data, HistoryTransactionDetail historyTransactionDetail) {
+    private static void mapToHistoryTransactionDetail(JsonObject data, HistoryTransactionDetail historyTransactionDetail) {
         setters.forEach((key, value) -> {
             if (data.get(key) != null) {
                 value.accept(historyTransactionDetail, data.get(key));

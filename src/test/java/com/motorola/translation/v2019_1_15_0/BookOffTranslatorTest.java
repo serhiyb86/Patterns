@@ -9,7 +9,6 @@ import com.motorola.models.representation.ResponseNotification;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -21,7 +20,7 @@ public class BookOffTranslatorTest extends TranslatorTest {
 	private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(Config.DATETIME_FORMAT);
 
 	@Test
-	public void translateBookOff_validData_Test() throws ParseException {
+	public void translateBookOff_validData_Test() {
 		JsonObject bookOffJson = initInputPayload("bookOffInput.json");
 		ResponseNotification notification = getTranslator().translateResponseNotification(bookOffJson);
 		Assert.assertEquals("Service Id translation failed", "bookOFF_SERVICE_ID", notification.getServiceId());

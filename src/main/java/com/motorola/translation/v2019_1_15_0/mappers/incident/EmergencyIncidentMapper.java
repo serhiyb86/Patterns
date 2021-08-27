@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Address;
 import com.motorola.models.representation.DispatchableIncident;
@@ -45,14 +44,13 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmergencyIncidentMapper.class);
 	private static final Map<String, Setter<EmergencyIncident>> setters = new LinkedHashMap<>();
-	private static DispatchableIncidentMapper dispatchesMapper = new DispatchableIncidentMapper();
-	private static Map<String, Address> emergencyAlertLocationAddress = new HashMap<>();
+	private static final DispatchableIncidentMapper dispatchesMapper = new DispatchableIncidentMapper();
+	private static final Map<String, Address> emergencyAlertLocationAddress = new HashMap<>();
 	private static final String COMMENT_SUBJECT_PREFIX = CALL_COMMENT_PREFIX + DELIMITER + IDENTIFIER_SUBJECT + DELIMITER;
 	private static final String COMMENT_INVOLVED_VEHICLE_PREFIX = CALL_COMMENT_PREFIX + DELIMITER + IDENTIFIER_INVOLVED_VEHICLE + DELIMITER;
 	private static final String JSON_PAYLOAD_BEGINNING = "{";
 	private static final boolean INTERNAL_COMMENTS_KEY = true;
 	private static final boolean NOT_INTERNAL_COMMENTS_KEY = false;
-	private static final JsonParser JSON_PARSER = new JsonParser();
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	static {
@@ -169,7 +167,7 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 		return emergencyIncident;
 	}
 
-	private EmergencyIncident mapToEmergencyIncident(JsonObject data, EmergencyIncident incident) {
+	private static EmergencyIncident mapToEmergencyIncident(JsonObject data, EmergencyIncident incident) {
 		setters.forEach((key, value) -> {
 			if (data.get(key) != null) {
 				value.accept(incident, data.get(key));
@@ -178,7 +176,7 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 		return incident;
 	}
 
-	private void appendAlerts(List<DispatchableIncident> dispatches, Map<String, Address> emergencyAlertLocationAddress) {
+	private static void appendAlerts(List<DispatchableIncident> dispatches, Map<String, Address> emergencyAlertLocationAddress) {
 		for (DispatchableIncident dispatchableIncident : dispatches) {
 			Address address = dispatchableIncident.getLocation().getAddress();
 			if (address != null) {
@@ -194,7 +192,7 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 		}
 	}
 
-	private void mapAlertCount(List<DispatchableIncident> dispatches, Map<String, Address> emergencyAlertLocationAddress,
+	private static void mapAlertCount(List<DispatchableIncident> dispatches, Map<String, Address> emergencyAlertLocationAddress,
 							   JsonObject data) {
 		for (DispatchableIncident dispatchableIncident : dispatches) {
 			Address address = dispatchableIncident.getLocation().getAddress();
@@ -217,10 +215,12 @@ public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 
 					if (emergencyAlertLocationAddress.get(addressId).getIsVerified() && alerts != null) {
 						dispatchableIncident.setAlertCount(alerts.size());
-					} else {
+					}
+					else {
 						dispatchableIncident.setAlertCount(0);
 					}
-				} else {
+				}
+				else {
 					dispatchableIncident.setAlertCount(0);
 				}
 			}

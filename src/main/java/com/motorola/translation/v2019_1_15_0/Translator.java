@@ -42,6 +42,7 @@ import java.util.List;
  */
 public class Translator implements BaseTranslator {
 
+	private static final String CLOSED = "Closed";
 	private List<ValidationResult> validationResults = new ArrayList<>();
 
 	@Override
@@ -88,7 +89,7 @@ public class Translator implements BaseTranslator {
 			if (emergencyIncident.getDispatches() != null) {
 				List<DispatchableIncident> dispatchableIncidents = emergencyIncident.getDispatches();
 				for (DispatchableIncident dispatchableIncident : dispatchableIncidents) {
-					if (dispatchableIncident.getStatusCategory().equals("Closed")) {
+					if (CLOSED.equals(dispatchableIncident.getStatusCategory())) {
 						emergencyIncident.setWhenUpdated(ZonedDateTimeSerializer.DATE_TIME_FORMATTER.format(ZonedDateTime.now()));
 						break;
 					}

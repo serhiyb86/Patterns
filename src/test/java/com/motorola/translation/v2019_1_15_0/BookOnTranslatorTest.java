@@ -19,7 +19,6 @@ import com.motorola.utils.OneRmsHashUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -32,7 +31,7 @@ public class BookOnTranslatorTest extends TranslatorTest {
 	private final DateTimeFormatter format = DateTimeFormatter.ofPattern(Config.DATETIME_FORMAT);
 
 	@Test
-	public void translateBookOn_validData_Test() throws ParseException {
+	public void translateBookOn_validData_Test() {
 		JsonObject bookOnJson = initInputPayload("bookOnInput.json");
 		UserSessionWrapper wrapper = getTranslator().translateBookOn(bookOnJson);
 		UserSession model = wrapper.getModel();

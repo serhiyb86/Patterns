@@ -20,7 +20,7 @@ public abstract class AbstractNotificationMapper<T extends ResponseNotification>
 
 	private final Map<String, Setter<T>> setters = new HashMap<>();
 
-	public AbstractNotificationMapper(Map<String, Setter<T>> additionalSetters) {
+	protected AbstractNotificationMapper(Map<String, Setter<T>> additionalSetters) {
 		setters.put(InterfaceConstants.NotificationProperties.CORRELATION_ID, new StringSetter<>(T::setCorrelationId));
 		setters.put(InterfaceConstants.NotificationProperties.SERVICE_ID, new StringSetter<>(T::setServiceId));
 		setters.put(InterfaceConstants.NotificationProperties.CUSTOMER_ID, new StringSetter<>(T::setCustomerId));
@@ -31,10 +31,10 @@ public abstract class AbstractNotificationMapper<T extends ResponseNotification>
 		setters.put(InterfaceConstants.NotificationProperties.RESPONSE_TYPE, new StringSetter<>(T::setResponseType));
 		setters.put(InterfaceConstants.NotificationProperties.RESPONSE_DATA, new StringSetter<>(T::setResponseData));
 		setters.put(InterfaceConstants.NotificationProperties.ERROR, (model, value) -> {
-			Map<String, Setter<ApiError>> setters = new HashMap<>();
-			setters.put(InterfaceConstants.NotificationProperties.ERROR_CODE, new StringSetter<>(ApiError::setErrorCode));
-			setters.put(InterfaceConstants.NotificationProperties.MESSAGE, new StringSetter<>(ApiError::setMessage));
-			model.setError(new GenericMapper<>(setters).mapToModel((JsonObject) value, new ApiError()));
+			Map<String, Setter<ApiError>> errorSetters = new HashMap<>();
+			errorSetters.put(InterfaceConstants.NotificationProperties.ERROR_CODE, new StringSetter<>(ApiError::setErrorCode));
+			errorSetters.put(InterfaceConstants.NotificationProperties.MESSAGE, new StringSetter<>(ApiError::setMessage));
+			model.setError(new GenericMapper<>(errorSetters).mapToModel((JsonObject) value, new ApiError()));
 		});
 		setters.put(InterfaceConstants.NotificationProperties.KEY_TYPE, new StringSetter<>(T::setKeyType));
 		setters.put(InterfaceConstants.NotificationProperties.KEY, new StringSetter<>(T::setKey));

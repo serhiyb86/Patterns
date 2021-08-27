@@ -57,7 +57,7 @@ public class DispatchableIncidentMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.WHEN_FIRST_UNIT_ENROUTED, new StringSetter<>(DispatchableIncident::setWhenFirstUnitEnrouted));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CREATED_USER_ALIAS, new StringSetter<>(DispatchableIncident::setCreatedUserAlias));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CREATED_USER_AGENCY_ALIAS, new StringSetter<>(DispatchableIncident::setCreatedUserAgencyAlias));
-		setters.put(Dispatches.REPORTING_DISTRICT_NAMES, (model, value) -> { model.setReportingDistrictNames(new Gson().fromJson((JsonArray)value, ArrayList.class)); });
+		setters.put(Dispatches.REPORTING_DISTRICT_NAMES, (model, value) -> model.setReportingDistrictNames(new Gson().fromJson((JsonArray)value, ArrayList.class)));
 		//Use custom setter for nested disposition model
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DISPOSITION, new DispositionSetter((disp, value) -> disp.setReportDispositionKey(extractValue(value))));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.CLEARANCE, new DispositionSetter((disp, value) -> disp.setCadDispositionKey(extractValue(value))));
@@ -66,9 +66,7 @@ public class DispatchableIncidentMapper {
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.DETERMINANT, (model, value) -> model.setProqaDeterminantKey(createProqaDeterminant((JsonElement) value)));
 		// if incoming value is present and not empty - result=true
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.SCHEDULED_FOR, (model, value) -> model.setIsScheduled(checkSchedule((JsonElement) value)));
-		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RESPONSIBLE_UNIT_ID, (model, value) -> {
-			model.setPrimaryUnit(new UnitFeedMapper().createAndMapUnitFeed((JsonObject) value));
-		});
+		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RESPONSIBLE_UNIT_ID, (model, value) -> model.setPrimaryUnit(new UnitFeedMapper().createAndMapUnitFeed((JsonObject) value)));
 		setters.put(InterfaceConstants.EmergencyIncident.Dispatches.RELATED_RECORDS, (model, value) -> {
 			ReportNumberMapper reportNumberMapper = new ReportNumberMapper();
 			List<ReportNumber> reportNumberList = reportNumberMapper.createAndMapToReportNumberList(((JsonElement) value).getAsJsonArray());
@@ -153,7 +151,7 @@ public class DispatchableIncidentMapper {
 	/**
 	 * Creates {@link Jurisdiction} object
 	 */
-	private Jurisdiction createJurisdiction(String zone) {
+	private static Jurisdiction createJurisdiction(String zone) {
 		Jurisdiction jurisdiction = null;
 		if (StringUtils.isNotBlank(zone)) {
 			jurisdiction = new Jurisdiction();

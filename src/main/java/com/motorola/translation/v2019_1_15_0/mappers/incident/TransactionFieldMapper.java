@@ -51,7 +51,7 @@ public class TransactionFieldMapper {
      * @param data json data
      * @return {@link TransactionField} object
      */
-    private TransactionField mapToTransactionField(Set<Map.Entry<String, JsonElement>> data) {
+    private static TransactionField mapToTransactionField(Set<Map.Entry<String, JsonElement>> data) {
         TransactionField transactionField = new TransactionField();
 
         data.forEach(entry -> {

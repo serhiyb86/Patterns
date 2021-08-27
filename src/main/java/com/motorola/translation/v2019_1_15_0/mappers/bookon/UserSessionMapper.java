@@ -108,7 +108,7 @@ public class UserSessionMapper {
 	 * @param userSession target object.
 	 * @return filled target object with mapped data.
 	 */
-	private UserSession mapToUserSession(JsonObject data, UserSession userSession) {
+	private static UserSession mapToUserSession(JsonObject data, UserSession userSession) {
 		setters.forEach((key, value) -> {
 			if (data.get(key) != null) {
 				value.accept(userSession, data.get(key));

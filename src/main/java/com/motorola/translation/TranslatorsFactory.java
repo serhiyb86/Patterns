@@ -43,7 +43,7 @@ public class TranslatorsFactory {
 	/**
 	 * Parse version from request header and find the closest corresponding version from available.
 	 */
-	private String findLeastVersionFor(String versionFromRequest) {
+	private static String findLeastVersionFor(String versionFromRequest) {
 		TranslatorVersion requiredVersion = new TranslatorVersion(versionFromRequest);
 		return TRANSLATOR_VERSIONS.stream()
 			.filter(requiredVersion::notLessThan)

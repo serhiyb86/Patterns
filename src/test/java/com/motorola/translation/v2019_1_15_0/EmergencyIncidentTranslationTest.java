@@ -3,7 +3,6 @@
  */
 package com.motorola.translation.v2019_1_15_0;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.JsonObject;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.models.representation.Address;
@@ -24,7 +23,6 @@ import com.motorola.utils.OneRmsHashUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -35,10 +33,9 @@ import java.util.List;
 public class EmergencyIncidentTranslationTest extends TranslatorTest {
 
 	private final DateTimeFormatter zonedDateTimeFormat = DateTimeFormatter.ofPattern(InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT);
-	private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(InterfaceConstants.GeneralProperties.DATE_FORMAT);
 
 	@Test
-	public void translateCreateIncident_With_Non_Matching_Address_Test() throws ParseException, JsonProcessingException {
+	public void translateCreateIncident_With_Non_Matching_Address_Test() {
 		String insertIncidentFileName = "insertIncidentWithoutGeoValidAddress.json";
 		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
@@ -118,7 +115,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 
 
 	@Test
-	public void translateCreateIncident_validData_Test() throws ParseException, JsonProcessingException {
+	public void translateCreateIncident_validData_Test() {
 		String insertIncidentFileName = "insertIncident.json";
 		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
@@ -224,7 +221,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 	}
 
 	@Test
-	public void translateUpdateIncident_validData_Test() throws ParseException {
+	public void translateUpdateIncident_validData_Test() {
 		String updateIncidentFileName = "updateIncident.json";
 		JsonObject updateIncidentObject = initInputPayload(updateIncidentFileName);
 		UpdateEmergencyIncident updateEmergencyIncident = getTranslator().translateUpdateIncident(updateIncidentObject);
@@ -307,7 +304,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 	}
 
 	@Test
-	public void testDispatchIncidentDataTransformation() throws ParseException {
+	public void testDispatchIncidentDataTransformation() {
 		String insertIncidentFileName = "dispatch_incident_test.json";
 		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
@@ -402,7 +399,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 	}
 
 	@Test
-	public void translateUpdateIncident_validData_LastName_Validation_Test() throws ParseException {
+	public void translateUpdateIncident_validData_LastName_Validation_Test() {
 		String updateIncidentFileName = "updateIncident_LastNameValidation.json";
 		JsonObject updateIncidentObject = initInputPayload(updateIncidentFileName);
 		UpdateEmergencyIncident updateEmergencyIncident = getTranslator().translateUpdateIncident(updateIncidentObject);
@@ -432,7 +429,7 @@ public class EmergencyIncidentTranslationTest extends TranslatorTest {
 	}
 
 	@Test
-	public void translateCreateIncident_WithAlertCount_Test() throws ParseException, JsonProcessingException {
+	public void translateCreateIncident_WithAlertCount_Test() {
 		String insertIncidentFileName = "insertIncident.json";
 		JsonObject insertIncidentObject = initInputPayload(insertIncidentFileName);
 		EmergencyIncident emergencyIncident = getTranslator().translateCreateIncident(insertIncidentObject);
