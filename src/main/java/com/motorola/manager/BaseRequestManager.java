@@ -22,7 +22,7 @@ import java.util.List;
  */
 public abstract class BaseRequestManager {
 
-	private TranslatorsFactory translatorsFactory = new TranslatorsFactory();
+	private final TranslatorsFactory translatorsFactory = new TranslatorsFactory();
 	private BaseTranslator translator;
 	private JsonObject payload;
 

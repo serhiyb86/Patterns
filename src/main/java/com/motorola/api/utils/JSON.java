@@ -3,10 +3,14 @@
  */
 package com.motorola.api.utils;
 
-import org.threeten.bp.*;
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.threetenbp.ThreeTenModule;
+import org.threeten.bp.Instant;
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.ZonedDateTime;
 
 import java.text.DateFormat;
 
@@ -14,7 +18,7 @@ import javax.ws.rs.ext.ContextResolver;
 
 public class JSON implements ContextResolver<ObjectMapper> {
 
-	private ObjectMapper mapper;
+	private final ObjectMapper mapper;
 
 	public JSON() {
 		mapper = new ObjectMapper();

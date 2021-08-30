@@ -20,7 +20,7 @@ public class Contact implements Serializable {
 
 	private String address;
 
-	private List<String> phone = new ArrayList<String>();
+	private List<String> phone = new ArrayList<>();
 
 	/**
 	 * Returns the value of property "name".

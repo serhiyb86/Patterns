@@ -39,9 +39,9 @@ public class DispatchableIncident implements Serializable {
 
 	private Location location;
 
-	private List<IncidentComment> comments = new ArrayList<IncidentComment>();
+	private List<IncidentComment> comments = new ArrayList<>();
 
-	private List<Disposition> dispositions = new ArrayList<Disposition>();
+	private List<Disposition> dispositions = new ArrayList<>();
 
 	private String proqaDeterminantKey;
 
@@ -49,7 +49,7 @@ public class DispatchableIncident implements Serializable {
 
 	private String incidentSourceKey;
 
-	private List<UnitFeed> assignedUnits = new ArrayList<UnitFeed>();
+	private List<UnitFeed> assignedUnits = new ArrayList<>();
 
 	private UnitFeed primaryUnit;
 

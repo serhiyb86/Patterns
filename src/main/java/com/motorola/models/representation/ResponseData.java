@@ -15,7 +15,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @JsonInclude(NON_NULL)
 public class ResponseData extends ResponseNotification {
 
-	private String payload = null;
+	private String payload;
 
 	public String getPayload() {
 		return payload;

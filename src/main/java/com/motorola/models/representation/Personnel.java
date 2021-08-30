@@ -24,9 +24,9 @@ public class Personnel implements Serializable {
 
 	private PersonnelHandle personnelHandle;
 
-	private List<Capability> capabilities = new ArrayList<Capability>();
+	private List<Capability> capabilities = new ArrayList<>();
 
-	private List<Equipment> equipment = new ArrayList<Equipment>();
+	private List<Equipment> equipment = new ArrayList<>();
 
 	/**
 	 * Returns the value of property "personnelHandle".

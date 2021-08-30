@@ -32,13 +32,13 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 public class RefreshIncidentData implements Serializable {
 
 	@JsonProperty("emergencyIncidentList")
-	private List<EmergencyIncident> emergencyIncidentList = new ArrayList<EmergencyIncident>();
+	private List<EmergencyIncident> emergencyIncidentList = new ArrayList<>();
 
 	@JsonProperty("isFirstBatchUpdate")
-	private Boolean isFirstBatchUpdate = null;
+	private Boolean isFirstBatchUpdate;
 
 	@JsonProperty("isLastBatchUpdate")
-	private Boolean isLastBatchUpdate = null;
+	private Boolean isLastBatchUpdate;
 
 	public RefreshIncidentData emergencyIncidentList(List<EmergencyIncident> emergencyIncidentList) {
 		this.emergencyIncidentList = emergencyIncidentList;
@@ -131,7 +131,7 @@ public class RefreshIncidentData implements Serializable {
 	 * Convert the given object to string with each line indented by 4 spaces
 	 * (except the first line).
 	 */
-	private String toIndentedString(Object o) {
+	private static String toIndentedString(Object o) {
 		if (o == null) {
 			return "null";
 		}

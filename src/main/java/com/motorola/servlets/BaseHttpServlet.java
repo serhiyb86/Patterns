@@ -21,6 +21,7 @@ import java.util.List;
 abstract class BaseHttpServlet extends HttpServlet {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BaseHttpServlet.class);
+	private static final String ERROR_MESSAGE = "Error occurred when trying to send the response. ";
 
 	/**
 	 * Respond with translated model and CAD IngestApi response.
@@ -41,7 +42,7 @@ abstract class BaseHttpServlet extends HttpServlet {
 			outputStream.write(responseMessage.toString().getBytes());
 		}
 		catch (IOException e) {
-			LOGGER.error("Error occurred when trying to send the response.");
+			LOGGER.error(ERROR_MESSAGE, e);
 		}
 	}
 
@@ -60,7 +61,7 @@ abstract class BaseHttpServlet extends HttpServlet {
 			outputStream.write(responseMessage.toString().getBytes());
 		}
 		catch (IOException e) {
-			LOGGER.error("Error occurred when trying to send the response.");
+			LOGGER.error(ERROR_MESSAGE, e);
 		}
 	}
 
@@ -79,7 +80,7 @@ abstract class BaseHttpServlet extends HttpServlet {
 			outputStream.write(responseMessage.toString().getBytes());
 		}
 		catch (IOException e) {
-			LOGGER.error("Error occurred when trying to send the response.");
+			LOGGER.error(ERROR_MESSAGE, e);
 		}
 	}
 

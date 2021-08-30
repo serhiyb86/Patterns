@@ -49,7 +49,7 @@ import java.util.regex.Pattern;
 
 public class ApiClient {
 
-	protected Map<String, String> defaultHeaderMap = new HashMap<String, String>();
+	protected Map<String, String> defaultHeaderMap = new HashMap<>();
 	protected String basePath = "/v1/api";
 	protected boolean debugging = false;
 	protected int connectionTimeout = 0;
@@ -76,7 +76,7 @@ public class ApiClient {
 		setUserAgent("Swagger-Codegen/1.0.0/java");
 
 		// Setup authentications (key: authentication name, value: authentication).
-		authentications = new HashMap<String, Authentication>();
+		authentications = new HashMap<>();
 		authentications.put("clientCredentialApi_auth", new OAuth());
 		// Prevent the authentications from being modified.
 		authentications = Collections.unmodifiableMap(authentications);
@@ -416,11 +416,12 @@ public class ApiClient {
 	 * @return List of pairs
 	 */
 	public List<Pair> parameterToPairs(String collectionFormat, String name, Object value) {
-		List<Pair> params = new ArrayList<Pair>();
+		List<Pair> params = new ArrayList<>();
 
 		// preconditions
-		if (name == null || name.isEmpty() || value == null)
+		if (name == null || name.isEmpty() || value == null) {
 			return params;
+		}
 
 		Collection valueCollection;
 		if (value instanceof Collection) {
@@ -486,7 +487,7 @@ public class ApiClient {
 	 */
 	public boolean isJsonMime(String mime) {
 		String jsonMime = "(?i)^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$";
-		return mime != null && (mime.matches(jsonMime) || mime.equals("*/*"));
+		return mime != null && (mime.matches(jsonMime) || "*/*".equals(mime));
 	}
 
 	/**
@@ -606,16 +607,17 @@ public class ApiClient {
 		}
 		else if (returnType.getRawType() == File.class) {
 			// Handle file downloading.
-			T file = (T) downloadFileFromResponse(response);
-			return file;
+			return (T) downloadFileFromResponse(response);
 		}
 
 		String contentType = null;
 		List<Object> contentTypes = response.getHeaders().get("Content-Type");
-		if (contentTypes != null && !contentTypes.isEmpty())
+		if (contentTypes != null && !contentTypes.isEmpty()) {
 			contentType = String.valueOf(contentTypes.get(0));
-		if (contentType == null)
+		}
+		if (contentType == null) {
 			throw new ApiException(500, "missing Content-Type in response");
+		}
 
 		return response.readEntity(returnType);
 	}
@@ -644,8 +646,9 @@ public class ApiClient {
 			// Get filename from the Content-Disposition header.
 			Pattern pattern = Pattern.compile("filename=['\"]?([^'\"\\s]+)['\"]?");
 			Matcher matcher = pattern.matcher(contentDisposition);
-			if (matcher.find())
+			if (matcher.find()) {
 				filename = matcher.group(1);
+			}
 		}
 
 		String prefix;
@@ -664,14 +667,17 @@ public class ApiClient {
 				suffix = filename.substring(pos);
 			}
 			// File.createTempFile requires the prefix to be at least three characters long
-			if (prefix.length() < 3)
+			if (prefix.length() < 3) {
 				prefix = "download-";
+			}
 		}
 
-		if (tempFolderPath == null)
+		if (tempFolderPath == null) {
 			return File.createTempFile(prefix, suffix);
-		else
+		}
+		else {
 			return File.createTempFile(prefix, suffix, new File(tempFolderPath));
+		}
 	}
 
 	/**
@@ -764,10 +770,12 @@ public class ApiClient {
 				return null;
 			}
 			else if (response.getStatusInfo().getFamily() == Status.Family.SUCCESSFUL) {
-				if (returnType == null)
+				if (returnType == null) {
 					return null;
-				else
+				}
+				else {
 					return deserialize(response, returnType);
+				}
 			}
 			else {
 				String message = "error";
@@ -825,10 +833,10 @@ public class ApiClient {
 	}
 
 	protected Map<String, List<String>> buildResponseHeaders(Response response) {
-		Map<String, List<String>> responseHeaders = new HashMap<String, List<String>>();
+		Map<String, List<String>> responseHeaders = new HashMap<>();
 		for (Entry<String, List<Object>> entry : response.getHeaders().entrySet()) {
 			List<Object> values = entry.getValue();
-			List<String> headers = new ArrayList<String>();
+			List<String> headers = new ArrayList<>();
 			for (Object o : values) {
 				headers.add(String.valueOf(o));
 			}
@@ -845,8 +853,9 @@ public class ApiClient {
 	protected void updateParamsForAuth(String[] authNames, List<Pair> queryParams, Map<String, String> headerParams) {
 		for (String authName : authNames) {
 			Authentication auth = authentications.get(authName);
-			if (auth == null)
+			if (auth == null) {
 				throw new RuntimeException("Authentication undefined: " + authName);
+			}
 			auth.applyToParams(queryParams, headerParams);
 		}
 	}

@@ -24,6 +24,7 @@ import java.util.List;
 public class BulkIncidentsUpdate extends BaseHttpServlet{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BulkIncidentsUpdate.class);
+	private static final int BAD_REQUEST = 400;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
@@ -37,9 +38,11 @@ public class BulkIncidentsUpdate extends BaseHttpServlet{
 					ModelApiResponse modelApiResponse = null;
 					try {
 						modelApiResponse = requestManager.bulkIncidentUpdate(refreshIncidentData);
-					} catch (ApiException e) {
+					}
+					catch (ApiException e) {
 						respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(e)));
-					} catch (Exception e) {
+					}
+					catch (Exception e) {
 						LOGGER.error("Failed to send bulk incidents update data.", e);
 						respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ExceptionModel(e.getMessage())));
 					}
@@ -50,7 +53,7 @@ public class BulkIncidentsUpdate extends BaseHttpServlet{
 				}
 			}
 			else {
-				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(new ApiException(400, "All incidents are scheduled and weren't sent to the cloud", null, "All incidents are scheduled and weren't sent to the cloud"))));
+				respondWithTranslatedModel(response, CadCloudUtils.convertObjectToJsonString(refreshIncidentData), CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(new ApiException(BAD_REQUEST, "All incidents are scheduled and weren't sent to the cloud", null, "All incidents are scheduled and weren't sent to the cloud"))));
 			}
 		}
 		else {

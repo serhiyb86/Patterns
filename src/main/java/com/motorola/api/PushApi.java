@@ -22,6 +22,11 @@ import java.util.Map;
 
 public class PushApi {
 
+	private static final int BAD_REQUEST = 400;
+	private static final String CLIENT_CREDENTIALS = "clientCredentialApi_auth";
+	private static final String APPLICATION_JSON = "application/json";
+	private static final String AUTHORIZATION = "Authorization";
+
 	private ApiClient apiClient;
 
 	public PushApi() {
@@ -52,34 +57,33 @@ public class PushApi {
 		Object localVarPostBody = body;
 		// verify the required parameter 'body' is set
 		if (body == null) {
-			throw new ApiException(400, "Missing the required parameter 'body' when calling createIncident");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'body' when calling createIncident");
 		}
 		// verify the required parameter 'authorization' is set
 		if (authorization == null) {
-			throw new ApiException(400, "Missing the required parameter 'authorization' when calling createIncident");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'authorization' when calling createIncident");
 		}
 		// create path and map variables
 		String localVarPath = "/push/incident";
 
 		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		List<Pair> localVarQueryParams = new ArrayList<>();
+		Map<String, String> localVarHeaderParams = new HashMap<>();
+		Map<String, Object> localVarFormParams = new HashMap<>();
 
-		if (authorization != null)
-		localVarHeaderParams.put("Authorization", apiClient.parameterToString(authorization));
+		localVarHeaderParams.put(AUTHORIZATION, apiClient.parameterToString(authorization));
 
 		final String[] localVarAccepts = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
 		final String[] localVarContentTypes = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-		String[] localVarAuthNames = new String[] { "clientCredentialApi_auth" };
+		String[] localVarAuthNames = new String[] { CLIENT_CREDENTIALS };
 
 		GenericType<ModelApiResponse> localVarReturnType = new GenericType<ModelApiResponse>() {
 
@@ -100,32 +104,30 @@ public class PushApi {
 		Object localVarPostBody = null;
 		// verify the required parameter 'authorization' is set
 		if (authorization == null) {
-			throw new ApiException(400, "Missing the required parameter 'authorization' when calling offDutyUnit");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'authorization' when calling offDutyUnit");
 		}
 		// verify the required parameter 'customerId' is set
 		if (customerId == null) {
-			throw new ApiException(400, "Missing the required parameter 'customerId' when calling offDutyUnit");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'customerId' when calling offDutyUnit");
 		}
 		// verify the required parameter 'unitKey' is set
 		if (unitKey == null) {
-			throw new ApiException(400, "Missing the required parameter 'unitKey' when calling offDutyUnit");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'unitKey' when calling offDutyUnit");
 		}
 		// create path and map variables
 		String localVarPath = "/push/unit/{unitKey}"
-			.replaceAll("\\{" + "unitKey" + "\\}", apiClient.escapeString(unitKey.toString()));
+			.replaceAll("\\{" + "unitKey" + "\\}", apiClient.escapeString(unitKey));
 
 		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		List<Pair> localVarQueryParams = new ArrayList<>();
+		Map<String, String> localVarHeaderParams = new HashMap<>();
+		Map<String, Object> localVarFormParams = new HashMap<>();
 
-		if (authorization != null)
-			localVarHeaderParams.put("Authorization", apiClient.parameterToString(authorization));
-		if (customerId != null)
-			localVarHeaderParams.put("customerId", apiClient.parameterToString(customerId));
+		localVarHeaderParams.put(AUTHORIZATION, apiClient.parameterToString(authorization));
+		localVarHeaderParams.put("customerId", apiClient.parameterToString(customerId));
 
 		final String[] localVarAccepts = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
@@ -134,7 +136,7 @@ public class PushApi {
 		};
 		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-		String[] localVarAuthNames = new String[] { "clientCredentialApi_auth" };
+		String[] localVarAuthNames = new String[] { CLIENT_CREDENTIALS };
 
 		GenericType<ModelApiResponse> localVarReturnType = new GenericType<ModelApiResponse>() {
 
@@ -154,34 +156,33 @@ public class PushApi {
 		Object localVarPostBody = body;
 		// verify the required parameter 'body' is set
 		if (body == null) {
-			throw new ApiException(400, "Missing the required parameter 'body' when calling onDutyUnit");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'body' when calling onDutyUnit");
 		}
 		// verify the required parameter 'authorization' is set
 		if (authorization == null) {
-			throw new ApiException(400, "Missing the required parameter 'authorization' when calling onDutyUnit");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'authorization' when calling onDutyUnit");
 		}
 		// create path and map variables
 		String localVarPath = "/push/unit";
 
 		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		List<Pair> localVarQueryParams = new ArrayList<>();
+		Map<String, String> localVarHeaderParams = new HashMap<>();
+		Map<String, Object> localVarFormParams = new HashMap<>();
 
-		if (authorization != null)
-			localVarHeaderParams.put("Authorization", apiClient.parameterToString(authorization));
+		localVarHeaderParams.put(AUTHORIZATION, apiClient.parameterToString(authorization));
 
 		final String[] localVarAccepts = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
 		final String[] localVarContentTypes = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-		String[] localVarAuthNames = new String[] { "clientCredentialApi_auth" };
+		String[] localVarAuthNames = new String[] { CLIENT_CREDENTIALS };
 
 		GenericType<ModelApiResponse> localVarReturnType = new GenericType<ModelApiResponse>() {
 
@@ -201,34 +202,33 @@ public class PushApi {
 		Object localVarPostBody = body;
 		// verify the required parameter 'body' is set
 		if (body == null) {
-			throw new ApiException(400, "Missing the required parameter 'body' when calling unitStatusUpdates");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'body' when calling unitStatusUpdates");
 		}
 		// verify the required parameter 'authorization' is set
 		if (authorization == null) {
-			throw new ApiException(400, "Missing the required parameter 'authorization' when calling unitStatusUpdates");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'authorization' when calling unitStatusUpdates");
 		}
 		// create path and map variables
 		String localVarPath = "/push/unit";
 
 		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		List<Pair> localVarQueryParams = new ArrayList<>();
+		Map<String, String> localVarHeaderParams = new HashMap<>();
+		Map<String, Object> localVarFormParams = new HashMap<>();
 
-		if (authorization != null)
-			localVarHeaderParams.put("Authorization", apiClient.parameterToString(authorization));
+		localVarHeaderParams.put(AUTHORIZATION, apiClient.parameterToString(authorization));
 
 		final String[] localVarAccepts = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
 		final String[] localVarContentTypes = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-		String[] localVarAuthNames = new String[] { "clientCredentialApi_auth" };
+		String[] localVarAuthNames = new String[] { CLIENT_CREDENTIALS };
 
 		GenericType<ModelApiResponse> localVarReturnType = new GenericType<ModelApiResponse>() {
 
@@ -248,34 +248,33 @@ public class PushApi {
 		Object localVarPostBody = body;
 		// verify the required parameter 'body' is set
 		if (body == null) {
-			throw new ApiException(400, "Missing the required parameter 'body' when calling updateIncident");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'body' when calling updateIncident");
 		}
 		// verify the required parameter 'authorization' is set
 		if (authorization == null) {
-			throw new ApiException(400, "Missing the required parameter 'authorization' when calling updateIncident");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'authorization' when calling updateIncident");
 		}
 		// create path and map variables
 		String localVarPath = "/push/incident";
 
 		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		List<Pair> localVarQueryParams = new ArrayList<>();
+		Map<String, String> localVarHeaderParams = new HashMap<>();
+		Map<String, Object> localVarFormParams = new HashMap<>();
 
-		if (authorization != null)
-			localVarHeaderParams.put("Authorization", apiClient.parameterToString(authorization));
+		localVarHeaderParams.put(AUTHORIZATION, apiClient.parameterToString(authorization));
 
 		final String[] localVarAccepts = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
 		final String[] localVarContentTypes = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-		String[] localVarAuthNames = new String[] { "clientCredentialApi_auth" };
+		String[] localVarAuthNames = new String[] { CLIENT_CREDENTIALS };
 
 		GenericType<ModelApiResponse> localVarReturnType = new GenericType<ModelApiResponse>() {
 

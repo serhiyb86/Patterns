@@ -109,7 +109,8 @@ public class UnitFeed implements Serializable {
      * Updates the value of property "agencyKey".
      */
     public void setAgencyKey(String agencyKey) {
-        this.agencyKey = OneRmsHashUtils.convertCodeToOneRmsFormat(agencyKey); }
+        this.agencyKey = OneRmsHashUtils.convertCodeToOneRmsFormat(agencyKey);
+    }
 
     /**
      * Returns the value of property "homeAreaKey".
@@ -121,7 +122,8 @@ public class UnitFeed implements Serializable {
      * Updates the value of property "homeAreaKey".
      */
     public void setHomeAreaKey(String homeAreaKey) {
-        this.homeAreaKey = OneRmsHashUtils.convertCodeToOneRmsFormat(homeAreaKey); }
+        this.homeAreaKey = OneRmsHashUtils.convertCodeToOneRmsFormat(homeAreaKey);
+    }
 
     /**
      * Returns the value of property "homeStationKey".
@@ -159,7 +161,8 @@ public class UnitFeed implements Serializable {
      * Updates the value of property "statusKey".
      */
     public void setStatusKey(String statusKey) {
-        this.statusKey = OneRmsHashUtils.convertCodeToOneRmsFormat(statusKey); }
+        this.statusKey = OneRmsHashUtils.convertCodeToOneRmsFormat(statusKey);
+    }
 
     /**
      * Returns the value of property "whenStatusDeclared".

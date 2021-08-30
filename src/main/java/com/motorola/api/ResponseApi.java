@@ -20,6 +20,11 @@ import java.util.Map;
 
 public class ResponseApi {
 
+	private static final int BAD_REQUEST = 400;
+	private static final String CLIENT_CREDENTIALS = "clientCredentialApi_auth";
+	private static final String APPLICATION_JSON = "application/json";
+	private static final String AUTHORIZATION = "Authorization";
+
 	private ApiClient apiClient;
 
 	public ResponseApi() {
@@ -51,39 +56,38 @@ public class ResponseApi {
 		Object localVarPostBody = body;
 		// verify the required parameter 'body' is set
 		if (body == null) {
-			throw new ApiException(400, "Missing the required parameter 'body' when calling bookOnResponse");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'body' when calling bookOnResponse");
 		}
 		// verify the required parameter 'authorization' is set
 		if (authorization == null) {
-			throw new ApiException(400, "Missing the required parameter 'authorization' when calling bookOnResponse");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'authorization' when calling bookOnResponse");
 		}
 		// verify the required parameter 'correlationId' is set
 		if (correlationId == null) {
-			throw new ApiException(400, "Missing the required parameter 'correlationId' when calling bookOnResponse");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'correlationId' when calling bookOnResponse");
 		}
 		// create path and map variables
 		String localVarPath = "/response/userSession/{correlationId}"
-			.replaceAll("\\{" + "correlationId" + "\\}", apiClient.escapeString(correlationId.toString()));
+			.replaceAll("\\{" + "correlationId" + "\\}", apiClient.escapeString(correlationId));
 
 		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		List<Pair> localVarQueryParams = new ArrayList<>();
+		Map<String, String> localVarHeaderParams = new HashMap<>();
+		Map<String, Object> localVarFormParams = new HashMap<>();
 
-		if (authorization != null)
-			localVarHeaderParams.put("Authorization", apiClient.parameterToString(authorization));
+		localVarHeaderParams.put(AUTHORIZATION, apiClient.parameterToString(authorization));
 
 		final String[] localVarAccepts = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
 		final String[] localVarContentTypes = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-		String[] localVarAuthNames = new String[] { "clientCredentialApi_auth" };
+		String[] localVarAuthNames = new String[] { CLIENT_CREDENTIALS };
 
 		GenericType<ModelApiResponse> localVarReturnType = new GenericType<ModelApiResponse>() {
 
@@ -103,36 +107,35 @@ public class ResponseApi {
 		Object localVarPostBody = body;
 		// verify the required parameter 'body' is set
 		if (body == null) {
-			throw new ApiException(400, "Missing the required parameter 'body' when calling responseData");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'body' when calling responseData");
 		}
 		// verify the required parameter 'authorization' is set
 		if (authorization == null) {
-			throw new ApiException(400, "Missing the required parameter 'authorization' when calling responseData");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'authorization' when calling responseData");
 		}
 		// create path and map variables
 		String localVarPath = "/response/data";
 
 		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		List<Pair> localVarQueryParams = new ArrayList<>();
+		Map<String, String> localVarHeaderParams = new HashMap<>();
+		Map<String, Object> localVarFormParams = new HashMap<>();
 
 
-		if (authorization != null)
-			localVarHeaderParams.put("Authorization", apiClient.parameterToString(authorization));
+		localVarHeaderParams.put(AUTHORIZATION, apiClient.parameterToString(authorization));
 
 
 		final String[] localVarAccepts = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
 		final String[] localVarContentTypes = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-		String[] localVarAuthNames = new String[] { "clientCredentialApi_auth" };
+		String[] localVarAuthNames = new String[] { CLIENT_CREDENTIALS };
 
 		GenericType<ModelApiResponse> localVarReturnType = new GenericType<ModelApiResponse>() {};
 		return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
@@ -150,34 +153,33 @@ public class ResponseApi {
 		Object localVarPostBody = body;
 		// verify the required parameter 'body' is set
 		if (body == null) {
-			throw new ApiException(400, "Missing the required parameter 'body' when calling responseNotification");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'body' when calling responseNotification");
 		}
 		// verify the required parameter 'authorization' is set
 		if (authorization == null) {
-			throw new ApiException(400, "Missing the required parameter 'authorization' when calling responseNotification");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'authorization' when calling responseNotification");
 		}
 		// create path and map variables
 		String localVarPath = "/response/notification";
 
 		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		List<Pair> localVarQueryParams = new ArrayList<>();
+		Map<String, String> localVarHeaderParams = new HashMap<>();
+		Map<String, Object> localVarFormParams = new HashMap<>();
 
-		if (authorization != null)
-			localVarHeaderParams.put("Authorization", apiClient.parameterToString(authorization));
+		localVarHeaderParams.put(AUTHORIZATION, apiClient.parameterToString(authorization));
 
 		final String[] localVarAccepts = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
 		final String[] localVarContentTypes = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-		String[] localVarAuthNames = new String[] { "clientCredentialApi_auth" };
+		String[] localVarAuthNames = new String[] { CLIENT_CREDENTIALS };
 
 		GenericType<ModelApiResponse> localVarReturnType = new GenericType<ModelApiResponse>() {
 
@@ -197,26 +199,25 @@ public class ResponseApi {
 		Object localVarPostBody = null;
 		// verify the required parameter 'authorization' is set
 		if (authorization == null) {
-			throw new ApiException(400, "Missing the required parameter 'authorization' when calling sessionInvalidate");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'authorization' when calling sessionInvalidate");
 		}
 		// verify the required parameter 'sessionId' is set
 		if (sessionId == null) {
-			throw new ApiException(400, "Missing the required parameter 'sessionId' when calling sessionInvalidate");
+			throw new ApiException(BAD_REQUEST, "Missing the required parameter 'sessionId' when calling sessionInvalidate");
 		}
 		// create path and map variables
 		String localVarPath = "/push/userSession/{sessionId}"
-			.replaceAll("\\{" + "sessionId" + "\\}", apiClient.escapeString(sessionId.toString()));
+			.replaceAll("\\{" + "sessionId" + "\\}", apiClient.escapeString(sessionId));
 
 		// query params
-		List<Pair> localVarQueryParams = new ArrayList<Pair>();
-		Map<String, String> localVarHeaderParams = new HashMap<String, String>();
-		Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+		List<Pair> localVarQueryParams = new ArrayList<>();
+		Map<String, String> localVarHeaderParams = new HashMap<>();
+		Map<String, Object> localVarFormParams = new HashMap<>();
 
-		if (authorization != null)
-			localVarHeaderParams.put("Authorization", apiClient.parameterToString(authorization));
+		localVarHeaderParams.put(AUTHORIZATION, apiClient.parameterToString(authorization));
 
 		final String[] localVarAccepts = {
-			"application/json"
+			APPLICATION_JSON
 		};
 		final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
 
@@ -225,7 +226,7 @@ public class ResponseApi {
 		};
 		final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
 
-		String[] localVarAuthNames = new String[] { "clientCredentialApi_auth" };
+		String[] localVarAuthNames = new String[] { CLIENT_CREDENTIALS };
 
 		GenericType<ModelApiResponse> localVarReturnType = new GenericType<ModelApiResponse>() {
 
