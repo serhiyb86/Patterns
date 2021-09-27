@@ -50,10 +50,6 @@ public class Pair {
 		if (arg == null) {
 			return false;
 		}
-		if (arg.trim().isEmpty()) {
-			return false;
-		}
-
-		return true;
+		return !arg.trim().isEmpty();
 	}
 }

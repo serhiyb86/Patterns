@@ -36,8 +36,8 @@ public class RefreshUnitsDataMapper {
 			}
 			model.setUnitList(units);
 		}));
-		setters.put(InterfaceConstants.RefreshUnitData.IS_FIRST_BATCH_UPDATE, new BooleanSetter<>(RefreshUnitData::setIsFirstBatchUpdate));
-		setters.put(InterfaceConstants.RefreshUnitData.IS_LAST_BATCH_UPDATE, new BooleanSetter<>(RefreshUnitData::setIsLastBatchUpdate));
+		setters.put(InterfaceConstants.BulkUpdateData.IS_FIRST_BATCH_UPDATE, new BooleanSetter<>(RefreshUnitData::setIsFirstBatchUpdate));
+		setters.put(InterfaceConstants.BulkUpdateData.IS_LAST_BATCH_UPDATE, new BooleanSetter<>(RefreshUnitData::setIsLastBatchUpdate));
 	}
 
 	public RefreshUnitData createAndMapToRefreshUnitData(JsonObject refreshUnitDataJson) {
