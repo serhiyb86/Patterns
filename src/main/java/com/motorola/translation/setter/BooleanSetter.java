@@ -25,7 +25,7 @@ public class BooleanSetter<T> implements Setter<T> {
 	public void accept(T model, Object value) {
 		Boolean booleanValue = CadCloudUtils.getBooleanFromJsonElement((JsonElement) value);
 		if (booleanValue != null) {
-			setFunction.accept(model, Boolean.valueOf(booleanValue));
+			setFunction.accept(model, booleanValue);
 		}
 	}
 }

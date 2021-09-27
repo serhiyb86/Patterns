@@ -13,13 +13,15 @@ import com.google.gson.JsonParser;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.translation.BaseTranslator;
 import com.motorola.translation.TranslatorsFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Unit test for verify translator.
  */
 public class TranslatorTest {
 
-//	private static final Logger LOGGER = LoggerFactory.getLogger(TranslatorTest.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(TranslatorTest.class);
 
 	private final BaseTranslator translator = new TranslatorsFactory().getTranslator(InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0);
 
@@ -33,7 +35,7 @@ public class TranslatorTest {
 			result = (JsonObject) parser.parse(new FileReader(file));
 		}
 		catch (FileNotFoundException ex) {
-//			LOGGER.error("Parsing input json file error.");
+			LOGGER.error("Parsing input json file error.");
 		}
 
 		return result;

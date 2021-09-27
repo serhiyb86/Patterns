@@ -39,8 +39,8 @@ public class RefreshIncidentDataMapper {
 				}
 				model.setEmergencyIncidentList(incidents);
 			});
-		setters.put(InterfaceConstants.RefreshIncidentData.IS_FIRST_BATCH_UPDATE, new BooleanSetter<>(RefreshIncidentData::setIsFirstBatchUpdate));
-		setters.put(InterfaceConstants.RefreshIncidentData.IS_LAST_BATCH_UPDATE, new BooleanSetter<>(RefreshIncidentData::setIsLastBatchUpdate));
+		setters.put(InterfaceConstants.BulkUpdateData.IS_FIRST_BATCH_UPDATE, new BooleanSetter<>(RefreshIncidentData::setIsFirstBatchUpdate));
+		setters.put(InterfaceConstants.BulkUpdateData.IS_LAST_BATCH_UPDATE, new BooleanSetter<>(RefreshIncidentData::setIsLastBatchUpdate));
 	}
 
 	public RefreshIncidentData createAndMapToRefreshIncidentData(JsonObject refreshUnitDataJson) {

@@ -6,6 +6,8 @@ package com.motorola.models.representation;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.io.Serializable;
+
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 /**
@@ -13,7 +15,7 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
-public class TransactionField {
+public class TransactionField implements Serializable {
 
     private String key;
 

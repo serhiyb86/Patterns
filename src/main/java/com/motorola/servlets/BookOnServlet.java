@@ -51,7 +51,12 @@ public class BookOnServlet extends BaseHttpServlet {
 				}
 				finally {
 					if (outputStream != null) {
-						outputStream.close();
+						try {
+							outputStream.close();
+						}
+						catch (IOException e) {
+							LOGGER.error("IOException: ", e);
+						}
 					}
 				}
 			}
