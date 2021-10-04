@@ -7,6 +7,7 @@ import com.motorola.api.utils.Pair;
 
 import javax.ws.rs.core.GenericType;
 
+import com.motorola.models.representation.HistoricalIncidentApiResponse;
 import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.models.representation.RefreshIncidentData;
 import com.motorola.models.representation.RefreshUnitData;
@@ -141,7 +142,7 @@ public class RefreshApi {
 	 * @return ModelApiResponse
 	 * @throws ApiException if fails to make API call
 	 */
-	public ModelApiResponse refreshHistoricalIncidents(RefreshIncidentData body, String authorization) throws ApiException {
+	public List<HistoricalIncidentApiResponse> refreshHistoricalIncidents(RefreshIncidentData body, String authorization) throws ApiException {
 		Object localVarPostBody = body;
 		// verify the required parameter 'body' is set
 		if (body == null) {
@@ -173,7 +174,7 @@ public class RefreshApi {
 
 		String[] localVarAuthNames = new String[] { CLIENT_CREDENTIALS };
 
-		GenericType<ModelApiResponse> localVarReturnType = new GenericType<ModelApiResponse>() {
+		GenericType<List<HistoricalIncidentApiResponse>> localVarReturnType = new GenericType<List<HistoricalIncidentApiResponse>>() {
 
 		};
 		return apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);

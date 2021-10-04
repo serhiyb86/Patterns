@@ -5,9 +5,12 @@ package com.motorola.manager;
 
 import com.motorola.api.RefreshApi;
 import com.motorola.api.utils.ApiException;
+import com.motorola.models.representation.HistoricalIncidentApiResponse;
 import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.models.representation.RefreshIncidentData;
 import com.motorola.models.representation.RefreshUnitData;
+
+import java.util.List;
 
 /**
  * Class for executing Bulk Updates related requests.
@@ -24,7 +27,7 @@ public class BulkUpdateManager extends BaseRequestManager {
 		return refreshApi.refreshIncidents(body, accessToken);
 	}
 
-	public ModelApiResponse bulkHistoricalIncidentUpdate(RefreshIncidentData body) throws ApiException {
+	public List<HistoricalIncidentApiResponse> bulkHistoricalIncidentUpdate(RefreshIncidentData body) throws ApiException {
 		return refreshApi.refreshHistoricalIncidents(body, accessToken);
 	}
 

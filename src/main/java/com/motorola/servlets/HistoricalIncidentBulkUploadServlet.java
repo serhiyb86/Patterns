@@ -5,7 +5,7 @@ import com.motorola.api.utils.ApiExceptionModel;
 import com.motorola.api.utils.ExceptionModel;
 import com.motorola.constants.InterfaceConstants;
 import com.motorola.manager.BulkUpdateManager;
-import com.motorola.models.representation.ModelApiResponse;
+import com.motorola.models.representation.HistoricalIncidentApiResponse;
 import com.motorola.models.representation.RefreshIncidentData;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
@@ -31,7 +31,7 @@ public class HistoricalIncidentBulkUploadServlet extends BaseHttpServlet{
 			RefreshIncidentData refreshIncidentData = requestManager.getTranslator().translateRefreshIncidentData(requestManager.getPayload());
 			if (!refreshIncidentData.getEmergencyIncidentList().isEmpty()) {
 				if (requestManager.getTranslator().getValidationResults().isEmpty()) {
-					ModelApiResponse modelApiResponse = null;
+					List<HistoricalIncidentApiResponse> modelApiResponse = null;
 					try {
 						modelApiResponse = requestManager.bulkHistoricalIncidentUpdate(refreshIncidentData);
 					}
