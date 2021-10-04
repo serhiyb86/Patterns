@@ -153,7 +153,7 @@ public class ApiClient {
 				return;
 			}
 		}
-		throw new RuntimeException("No HTTP basic authentication configured!");
+		throw new AuthenticationException("No HTTP basic authentication configured!");
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class ApiClient {
 				return;
 			}
 		}
-		throw new RuntimeException("No HTTP basic authentication configured!");
+		throw new AuthenticationException("No HTTP basic authentication configured!");
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class ApiClient {
 				return;
 			}
 		}
-		throw new RuntimeException("No API key authentication configured!");
+		throw new AuthenticationException("No API key authentication configured!");
 	}
 
 	/**
@@ -195,7 +195,7 @@ public class ApiClient {
 				return;
 			}
 		}
-		throw new RuntimeException("No API key authentication configured!");
+		throw new AuthenticationException("No API key authentication configured!");
 	}
 
 	/**
@@ -209,7 +209,7 @@ public class ApiClient {
 				return;
 			}
 		}
-		throw new RuntimeException("No OAuth2 authentication configured!");
+		throw new AuthenticationException("No OAuth2 authentication configured!");
 	}
 
 	/**
@@ -368,7 +368,7 @@ public class ApiClient {
 			return dateFormat.parse(str);
 		}
 		catch (java.text.ParseException e) {
-			throw new RuntimeException(e);
+			throw new AuthenticationException(e);
 		}
 	}
 
@@ -854,7 +854,7 @@ public class ApiClient {
 		for (String authName : authNames) {
 			Authentication auth = authentications.get(authName);
 			if (auth == null) {
-				throw new RuntimeException("Authentication undefined: " + authName);
+				throw new AuthenticationException("Authentication undefined: " + authName);
 			}
 			auth.applyToParams(queryParams, headerParams);
 		}
