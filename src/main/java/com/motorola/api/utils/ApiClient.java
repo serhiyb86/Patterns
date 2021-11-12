@@ -34,7 +34,11 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,6 +48,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -673,10 +678,11 @@ public class ApiClient {
 		}
 
 		if (tempFolderPath == null) {
-			return File.createTempFile(prefix, suffix);
+			FileAttribute<Set<PosixFilePermission>> attr = PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("w+"));
+			return Files.createTempFile(prefix, suffix, attr).toFile();
 		}
 		else {
-			return File.createTempFile(prefix, suffix, new File(tempFolderPath));
+			return Files.createTempFile(Paths.get(tempFolderPath), prefix, suffix).toFile();
 		}
 	}
 
