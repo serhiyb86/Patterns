@@ -5,8 +5,8 @@ package com.motorola.translation.setter;
 
 import com.google.gson.JsonElement;
 import com.motorola.utils.CadCloudUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +18,7 @@ import java.util.function.BiConsumer;
  * @param <T> Target object class
  */
 public class ZonedDateTimeSetter<T> implements Setter<T> {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ZonedDateTimeSetter.class);
+	private static final Logger LOGGER = LogManager.getLogger(ZonedDateTimeSetter.class);
 
 	private final BiConsumer<T, ZonedDateTime> setFunction;
 	private final DateTimeFormatter dateTimeFormatter;

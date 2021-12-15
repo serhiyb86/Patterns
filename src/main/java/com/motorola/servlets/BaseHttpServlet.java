@@ -6,8 +6,8 @@ package com.motorola.servlets;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 abstract class BaseHttpServlet extends HttpServlet {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(BaseHttpServlet.class);
+	private static final Logger LOGGER = LogManager.getLogger(BaseHttpServlet.class);
 	private static final String ERROR_MESSAGE = "Error occurred when trying to send the response. ";
 
 	/**

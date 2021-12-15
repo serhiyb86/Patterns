@@ -12,8 +12,8 @@ import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.models.representation.ResponseNotification;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +25,7 @@ import java.util.List;
 @WebServlet(urlPatterns = "/bookOff")
 public class BookOffServlet extends BaseHttpServlet {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(BookOffServlet.class);
+	private static final Logger LOGGER = LogManager.getLogger(BookOffServlet.class);
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -5,16 +5,16 @@ package com.motorola.utils;
 
 import com.motorola.models.representation.ApiError;
 import com.motorola.models.representation.ResponseNotification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Implementation for logger appender.
- *  The class specify in log4j.properties like appender
+ *  The class specify in log4j2.properties like appender
  */
 public class LoggerUtils {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(LoggerUtils.class);
+	private static final Logger LOGGER = LogManager.getLogger(LoggerUtils.class);
 	private static final String MESSAGE_DELIMITER = ".";
 
 	/**
