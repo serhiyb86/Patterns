@@ -21,8 +21,8 @@ import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.setter.custom.disposition.DispositionSetter;
 import com.motorola.utils.CadCloudUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -37,7 +37,7 @@ import java.util.Map;
  */
 public class DispatchableIncidentMapper {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DispatchableIncidentMapper.class);
+	private static final Logger LOGGER = LogManager.getLogger(DispatchableIncidentMapper.class);
 
 	private static final Map<String, Setter<DispatchableIncident>> setters = new HashMap<>();
 

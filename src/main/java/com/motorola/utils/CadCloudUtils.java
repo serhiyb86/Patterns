@@ -15,8 +15,8 @@ import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.RefreshIncidentData;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -29,7 +29,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public class CadCloudUtils {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(CadCloudUtils.class);
+	private static final Logger LOGGER = LogManager.getLogger(CadCloudUtils.class);
 	private static final JsonParser JSON_PARSER = new JsonParser();
 	private static final ObjectWriter OBJECT_WRITER = new ObjectMapper().writer();
 

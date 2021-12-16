@@ -4,8 +4,9 @@
 package com.motorola.utils;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -16,7 +17,7 @@ import java.util.Base64;
  */
 public class OneRmsHashUtils {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(OneRmsHashUtils.class);
+	private static final Logger LOGGER = LogManager.getLogger(OneRmsHashUtils.class);
 
 	private static final String ALGORITHM_SHA_256 = "SHA-256";
 

@@ -18,8 +18,8 @@ import com.motorola.translation.setter.Setter;
 import com.motorola.translation.setter.StringSetter;
 import com.motorola.translation.v2019_1_15_0.mappers.GenericMapper;
 import com.motorola.utils.CadCloudUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -42,7 +42,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
  */
 public class EmergencyIncidentMapper extends GenericMapper<EmergencyIncident> {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(EmergencyIncidentMapper.class);
+	private static final Logger LOGGER = LogManager.getLogger(EmergencyIncidentMapper.class);
 	private static final Map<String, Setter<EmergencyIncident>> setters = new LinkedHashMap<>();
 	private static final DispatchableIncidentMapper dispatchesMapper = new DispatchableIncidentMapper();
 	private static final Map<String, Address> emergencyAlertLocationAddress = new HashMap<>();

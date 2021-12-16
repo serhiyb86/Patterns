@@ -9,8 +9,8 @@ import com.motorola.models.representation.HistoricalIncidentApiResponse;
 import com.motorola.models.representation.RefreshIncidentData;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ import java.util.List;
 @WebServlet(urlPatterns = "/historicalIncidentBulkUpload")
 public class HistoricalIncidentBulkUploadServlet extends BaseHttpServlet{
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(HistoricalIncidentBulkUploadServlet.class);
+	private static final Logger LOGGER = LogManager.getLogger(HistoricalIncidentBulkUploadServlet.class);
 	private static final int BAD_REQUEST = 400;
 
 	@Override

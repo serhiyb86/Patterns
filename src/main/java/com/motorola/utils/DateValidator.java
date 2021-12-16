@@ -3,8 +3,8 @@
  */
 package com.motorola.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import java.time.ZonedDateTime;
  */
 public class DateValidator {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DateValidator.class);
+	private static final Logger LOGGER = LogManager.getLogger(DateValidator.class);
 	private static final String ERROR_MESSAGE = "Exception occurred during validating date ";
 
 	/**

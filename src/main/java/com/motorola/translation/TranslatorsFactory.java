@@ -7,8 +7,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 import com.motorola.constants.InterfaceConstants;
 
@@ -17,7 +18,7 @@ import com.motorola.constants.InterfaceConstants;
  */
 public class TranslatorsFactory {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(TranslatorsFactory.class);
+	private static final Logger LOGGER = LogManager.getLogger(TranslatorsFactory.class);
 
 	private static final List<TranslatorVersion> TRANSLATOR_VERSIONS = Collections.unmodifiableList(Arrays.asList(
 		//Place the newest versions on top

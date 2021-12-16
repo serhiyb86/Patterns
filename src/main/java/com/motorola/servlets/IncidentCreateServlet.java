@@ -12,8 +12,8 @@ import com.motorola.models.representation.EmergencyIncident;
 import com.motorola.models.representation.ModelApiResponse;
 import com.motorola.utils.CadCloudUtils;
 import com.motorola.validation.ValidationResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +25,7 @@ import java.util.List;
 @WebServlet(urlPatterns = "/incidentCreate")
 public class IncidentCreateServlet extends BaseHttpServlet {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(IncidentCreateServlet.class);
+	private static final Logger LOGGER = LogManager.getLogger(IncidentCreateServlet.class);
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
