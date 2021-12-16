@@ -56,8 +56,6 @@
     </build>
 
     <properties>
-        <version.lf4j>1.2.17</version.lf4j>
-        <version.org.slf4j>1.7.21</version.org.slf4j>
         <version.org.javax>3.1.0</version.org.javax>
         <version.org.fasterxml>2.9.7</version.org.fasterxml>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
