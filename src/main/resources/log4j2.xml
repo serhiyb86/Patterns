@@ -16,16 +16,9 @@
         </RollingFile>
     </Appenders>
     <Loggers>
-        <Logger name="com.motorola.utils.LoggerUtils" level="debug" additivity="false">
+        <Logger name="com.motorola" level="debug" additivity="false">
             <AppenderRef ref="LogToRollingFile"/>
             <AppenderRef ref="LogToConsole"/>
         </Logger>
-        <Logger name="com.motorola.utils.LoggerUtils" level="error" additivity="false">
-            <AppenderRef ref="LogToConsole"/>
-        </Logger>
-        <Root level="error">
-            <AppenderRef ref="LogToRollingFile"/>
-            <AppenderRef ref="LogToConsole"/>
-        </Root>
     </Loggers>
 </Configuration>
