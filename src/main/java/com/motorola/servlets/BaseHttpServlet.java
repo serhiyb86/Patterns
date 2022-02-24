@@ -74,12 +74,13 @@ abstract class BaseHttpServlet extends HttpServlet {
 	 * @param validationResults list with errors
 	 */
 	protected void respondFailure(HttpServletResponse response, List<ValidationResult> validationResults) {
-		StringBuilder responseMessage = new StringBuilder("Error happened during processing the request. See details below.");
+		StringBuilder responseMessage = new StringBuilder("{\"error\" : \"Error happened during processing the request. See details below.\",\"errorMessage\" ");
 		String responseString = CadCloudUtils.convertObjectToJsonString(validationResults);
 		try (ServletOutputStream outputStream = response.getOutputStream()) {
 			if (!StringUtils.isBlank(responseString)) {
 				responseMessage.append(responseString);
 			}
+			responseMessage.append("}");
 			String message = JsonSanitizer.sanitize(responseMessage.toString());
 			outputStream.write(message.getBytes());
 		}

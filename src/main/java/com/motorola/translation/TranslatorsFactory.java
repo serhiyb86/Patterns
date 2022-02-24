@@ -36,7 +36,7 @@ public class TranslatorsFactory {
 			case InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0:
 				return new com.motorola.translation.v2019_1_15_0.Translator();
 			default:
-				if(LOGGER.isErrorEnabled()){
+				if (LOGGER.isErrorEnabled()){
 				LOGGER.error("Spillman version: {} is missing or unknown.", Encode.forJava(spillmanVersion));
 				}
 		}
