@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import com.google.json.JsonSanitizer;
 
 /**
  * Base servlet class for all servlets
@@ -39,7 +40,8 @@ abstract class BaseHttpServlet extends HttpServlet {
 		responseMessage.append(ingestAPIResponse);
 		responseMessage.append("}");
 		try (ServletOutputStream outputStream = response.getOutputStream()) {
-			outputStream.write(responseMessage.toString().getBytes());
+			String message = JsonSanitizer.sanitize(responseMessage.toString());
+			outputStream.write(message.getBytes());
 		}
 		catch (IOException e) {
 			LOGGER.error(ERROR_MESSAGE, e);
@@ -58,7 +60,8 @@ abstract class BaseHttpServlet extends HttpServlet {
 		}
 		responseMessage.append("}");
 		try (ServletOutputStream outputStream = response.getOutputStream()) {
-			outputStream.write(responseMessage.toString().getBytes());
+			String message = JsonSanitizer.sanitize(responseMessage.toString());
+			outputStream.write(message.getBytes());
 		}
 		catch (IOException e) {
 			LOGGER.error(ERROR_MESSAGE, e);
@@ -77,7 +80,8 @@ abstract class BaseHttpServlet extends HttpServlet {
 			if (!StringUtils.isBlank(responseString)) {
 				responseMessage.append(responseString);
 			}
-			outputStream.write(responseMessage.toString().getBytes());
+			String message = JsonSanitizer.sanitize(responseMessage.toString());
+			outputStream.write(message.getBytes());
 		}
 		catch (IOException e) {
 			LOGGER.error(ERROR_MESSAGE, e);
