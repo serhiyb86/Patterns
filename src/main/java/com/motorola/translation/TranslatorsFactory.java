@@ -6,6 +6,7 @@ package com.motorola.translation;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.owasp.encoder.Encode;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +37,9 @@ public class TranslatorsFactory {
 			case InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0:
 				return new com.motorola.translation.v2019_1_15_0.Translator();
 			default:
-				LOGGER.error("Spillman version: {} is missing or unknown.", spillmanVersion);
+				if (LOGGER.isErrorEnabled()){
+				LOGGER.error("Spillman version: {} is missing or unknown.", Encode.forJava(spillmanVersion));
+				}
 		}
 		return null;
 	}

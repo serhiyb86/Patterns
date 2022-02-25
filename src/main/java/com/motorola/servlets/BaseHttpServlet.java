@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import com.google.json.JsonSanitizer;
 
 /**
  * Base servlet class for all servlets
@@ -39,7 +40,8 @@ abstract class BaseHttpServlet extends HttpServlet {
 		responseMessage.append(ingestAPIResponse);
 		responseMessage.append("}");
 		try (ServletOutputStream outputStream = response.getOutputStream()) {
-			outputStream.write(responseMessage.toString().getBytes());
+			String message = JsonSanitizer.sanitize(responseMessage.toString());
+			outputStream.write(message.getBytes());
 		}
 		catch (IOException e) {
 			LOGGER.error(ERROR_MESSAGE, e);
@@ -58,7 +60,8 @@ abstract class BaseHttpServlet extends HttpServlet {
 		}
 		responseMessage.append("}");
 		try (ServletOutputStream outputStream = response.getOutputStream()) {
-			outputStream.write(responseMessage.toString().getBytes());
+			String message = JsonSanitizer.sanitize(responseMessage.toString());
+			outputStream.write(message.getBytes());
 		}
 		catch (IOException e) {
 			LOGGER.error(ERROR_MESSAGE, e);
@@ -71,13 +74,15 @@ abstract class BaseHttpServlet extends HttpServlet {
 	 * @param validationResults list with errors
 	 */
 	protected void respondFailure(HttpServletResponse response, List<ValidationResult> validationResults) {
-		StringBuilder responseMessage = new StringBuilder("Error happened during processing the request. See details below.");
+		StringBuilder responseMessage = new StringBuilder("{\"error\" : \"Error happened during processing the request. See details below.\",\"errorMessage\" ");
 		String responseString = CadCloudUtils.convertObjectToJsonString(validationResults);
 		try (ServletOutputStream outputStream = response.getOutputStream()) {
 			if (!StringUtils.isBlank(responseString)) {
 				responseMessage.append(responseString);
 			}
-			outputStream.write(responseMessage.toString().getBytes());
+			responseMessage.append("}");
+			String message = JsonSanitizer.sanitize(responseMessage.toString());
+			outputStream.write(message.getBytes());
 		}
 		catch (IOException e) {
 			LOGGER.error(ERROR_MESSAGE, e);

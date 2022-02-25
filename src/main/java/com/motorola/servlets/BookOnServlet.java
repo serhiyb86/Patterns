@@ -3,6 +3,7 @@
  */
 package com.motorola.servlets;
 
+import com.google.json.JsonSanitizer;
 import com.motorola.api.utils.ApiException;
 import com.motorola.api.utils.ApiExceptionModel;
 import com.motorola.api.utils.ExceptionModel;
@@ -40,7 +41,8 @@ public class BookOnServlet extends BaseHttpServlet {
 				try {
 					ModelApiResponse modelApiResponse = requestManager.bookOn(wrapper.getModel(), wrapper.getCorrelationId());
 					outputStream = response.getOutputStream();
-					outputStream.write(CadCloudUtils.convertObjectToJsonString(modelApiResponse).getBytes());
+					String message = JsonSanitizer.sanitize(CadCloudUtils.convertObjectToJsonString(modelApiResponse));
+					outputStream.write(message.getBytes());
 				}
 				catch (ApiException e) {
 					respondWithTranslatedModel(response, outgoingModel, CadCloudUtils.convertObjectToJsonString(new ApiExceptionModel(e)));
