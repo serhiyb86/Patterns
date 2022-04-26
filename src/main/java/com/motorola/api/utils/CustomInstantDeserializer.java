@@ -3,17 +3,18 @@
  */
 package com.motorola.api.utils;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonTokenId;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.datatype.threetenbp.DateTimeUtils;
 import com.fasterxml.jackson.datatype.threetenbp.DecimalUtils;
+import com.fasterxml.jackson.datatype.threetenbp.deser.InstantDeserializer;
 import com.fasterxml.jackson.datatype.threetenbp.deser.ThreeTenDateTimeDeserializerBase;
 import com.fasterxml.jackson.datatype.threetenbp.function.BiFunction;
 import com.fasterxml.jackson.datatype.threetenbp.function.Function;
 import org.threeten.bp.DateTimeException;
+import org.threeten.bp.DateTimeUtils;
 import org.threeten.bp.Instant;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.ZoneId;
@@ -91,11 +92,21 @@ public class CustomInstantDeserializer<T extends Temporal>
 	}
 
 	@Override
-	protected JsonDeserializer<T> withDateFormat(DateTimeFormatter dtf) {
+	protected ThreeTenDateTimeDeserializerBase<T> withDateFormat(DateTimeFormatter dtf) {
 		if (dtf == _formatter) {
 			return this;
 		}
 		return new CustomInstantDeserializer<>(this, dtf);
+	}
+
+	@Override
+	protected CustomInstantDeserializer<T> withLeniency(Boolean aBoolean) {
+		return this;
+	}
+
+	@Override
+	protected ThreeTenDateTimeDeserializerBase<T> withShape(JsonFormat.Shape shape) {
+		return this;
 	}
 
 	@Override
@@ -152,7 +163,7 @@ public class CustomInstantDeserializer<T extends Temporal>
 
 	private ZoneId getZone(DeserializationContext context) {
 		// Instants are always in UTC, so don't waste compute cycles
-		return (_valueClass == Instant.class) ? null : DateTimeUtils.timeZoneToZoneId(context.getTimeZone());
+		return (_valueClass == Instant.class) ? null : DateTimeUtils.toZoneId(context.getTimeZone());
 	}
 
 	private static class FromIntegerArguments {
