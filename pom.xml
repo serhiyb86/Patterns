@@ -61,8 +61,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.com.google.code.gson>2.8.9</version.com.google.code.gson>
         <version.commons.io>2.7</version.commons.io>
-        <version.junit>4.12</version.junit>
-        <version.commons-lang3>3.7</version.commons-lang3>
+        <version.junit>4.13.2</version.junit>
+        <version.commons-lang3>3.12.0</version.commons-lang3>
         <jersey-version>2.35</jersey-version>
         <jackson-version>2.10.1</jackson-version>
         <sonar.coverage.jacoco.xmlReportPaths>../target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
