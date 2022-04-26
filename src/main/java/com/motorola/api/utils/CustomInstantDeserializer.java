@@ -91,6 +91,16 @@ public class CustomInstantDeserializer<T extends Temporal>
 		adjust = base.adjust;
 	}
 
+	@SuppressWarnings("unchecked")
+	protected CustomInstantDeserializer(CustomInstantDeserializer<T> base, DateTimeFormatter f, Boolean leniency)
+	{
+		super((Class<T>) base.handledType(), f, leniency);
+		parsedToValue = base.parsedToValue;
+		fromMilliseconds = base.fromMilliseconds;
+		fromNanoseconds = base.fromNanoseconds;
+		adjust = base.adjust;
+	}
+
 	@Override
 	protected ThreeTenDateTimeDeserializerBase<T> withDateFormat(DateTimeFormatter dtf) {
 		if (dtf == _formatter) {
@@ -100,8 +110,8 @@ public class CustomInstantDeserializer<T extends Temporal>
 	}
 
 	@Override
-	protected CustomInstantDeserializer<T> withLeniency(Boolean aBoolean) {
-		return this;
+	protected ThreeTenDateTimeDeserializerBase<T> withLeniency(Boolean leniency) {
+		return new CustomInstantDeserializer<>(this, _formatter, leniency);
 	}
 
 	@Override
