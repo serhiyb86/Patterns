@@ -15,7 +15,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.10.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -24,7 +24,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version>
+                <version>0.8.8</version>
                 <executions>
                     <execution>
                         <goals>
@@ -50,23 +50,26 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.9.0.2155</version>
+                <version>3.9.1.2184</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
             </plugin>
         </plugins>
     </build>
 
     <properties>
-        <version.log4j2>2.17.0</version.log4j2>
-        <version.org.javax>3.1.0</version.org.javax>
-        <version.org.fasterxml>2.9.7</version.org.fasterxml>
+        <version.log4j2>2.17.2</version.log4j2>
+        <version.org.javax>4.0.1</version.org.javax>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.restlet>2.3.5</version.restlet>
-        <version.com.google.code.gson>2.8.5</version.com.google.code.gson>
-        <version.commons.io>2.6</version.commons.io>
-        <version.junit>4.12</version.junit>
-        <version.commons-lang3>3.7</version.commons-lang3>
-        <jersey-version>2.25.1</jersey-version>
-        <jackson-version>2.6.4</jackson-version>
+        <version.com.google.code.gson>2.9.0</version.com.google.code.gson>
+        <version.commons.io>2.11.0</version.commons.io>
+        <version.junit>4.13.2</version.junit>
+        <version.commons-lang3>3.12.0</version.commons-lang3>
+        <jersey-version>2.35</jersey-version>
+        <jackson-version>2.12.5</jackson-version>
         <sonar.coverage.jacoco.xmlReportPaths>../target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
@@ -128,8 +131,11 @@
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>${jersey-version}</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
