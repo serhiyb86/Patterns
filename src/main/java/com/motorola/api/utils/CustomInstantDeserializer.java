@@ -9,7 +9,6 @@ import com.fasterxml.jackson.core.JsonTokenId;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.datatype.threetenbp.DecimalUtils;
-import com.fasterxml.jackson.datatype.threetenbp.deser.InstantDeserializer;
 import com.fasterxml.jackson.datatype.threetenbp.deser.ThreeTenDateTimeDeserializerBase;
 import com.fasterxml.jackson.datatype.threetenbp.function.BiFunction;
 import com.fasterxml.jackson.datatype.threetenbp.function.Function;
@@ -123,7 +122,7 @@ public class CustomInstantDeserializer<T extends Temporal>
 	public T deserialize(JsonParser parser, DeserializationContext context) throws IOException {
 		//NOTE: Timestamps contain no timezone info, and are always in configured TZ. Only
 		//string values have to be adjusted to the configured TZ.
-		switch (parser.getCurrentTokenId()) {
+		switch (parser.currentTokenId()) {
 			case JsonTokenId.ID_NUMBER_FLOAT: {
 				BigDecimal value = parser.getDecimalValue();
 				long seconds = value.longValue();
@@ -167,7 +166,8 @@ public class CustomInstantDeserializer<T extends Temporal>
 			}
 
 			default:
-				throw context.mappingException("Expected type float, integer, or string.");
+				throw new IOException("Expected type float, integer, or string.");
+
 		}
 	}
 
