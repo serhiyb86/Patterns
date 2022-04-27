@@ -11,20 +11,18 @@
  */
 package com.motorola.api.utils;
 
-import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
-import com.fasterxml.jackson.databind.util.ISO8601Utils;
-
+import java.text.DateFormat;
 import java.text.FieldPosition;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
-public class RFC3339DateFormat extends ISO8601DateFormat {
-
-	// Same as ISO8601DateFormat but serializing milliseconds.
-	@Override
+public class RFC3339DateFormat extends SimpleDateFormat {
+    @Override
 	public StringBuffer format(Date date, StringBuffer toAppendTo, FieldPosition fieldPosition) {
-		String value = ISO8601Utils.format(date, true);
+		DateFormat value = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+		value.setTimeZone(TimeZone.getTimeZone("GMT"));
 		toAppendTo.append(value);
 		return toAppendTo;
 	}
-
 }

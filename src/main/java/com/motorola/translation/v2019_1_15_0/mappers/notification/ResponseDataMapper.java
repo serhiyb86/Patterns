@@ -27,8 +27,7 @@ public class ResponseDataMapper extends AbstractNotificationMapper<ResponseData>
 
 	static {
 		setters.put(InterfaceConstants.NotificationProperties.PAYLOAD, ((model, value) -> {
-			JsonParser jsonParser = new JsonParser();
-			JsonObject jsonObject = jsonParser.parse(((JsonPrimitive) value).getAsString()).getAsJsonObject();
+			JsonObject jsonObject = JsonParser.parseString(((JsonPrimitive) value).getAsString()).getAsJsonObject();
 			JsonArray data = CadCloudUtils.getJsonArrayByKey(jsonObject, InterfaceConstants.GeneralProperties.DATA_JSON_KEY);
 			if (data != null && data.get(0) != null) {
 				JsonObject addressAlerts = data.get(0).getAsJsonObject();
