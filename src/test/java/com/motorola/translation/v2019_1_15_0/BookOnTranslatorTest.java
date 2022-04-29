@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Contains unit tests related to the BookOn translation.
  */
-public class BookOnTranslatorTest extends TranslatorTest {
+public class BookOnTranslatorTest extends TranslatorBase {
 
 	private final DateTimeFormatter format = DateTimeFormatter.ofPattern(Config.DATETIME_FORMAT);
 

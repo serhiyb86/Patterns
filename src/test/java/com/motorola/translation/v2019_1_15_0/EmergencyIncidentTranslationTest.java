@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Contains unit tests related to the EmergencyIncident translation.
  */
-public class EmergencyIncidentTranslationTest extends TranslatorTest {
+public class EmergencyIncidentTranslationTest extends TranslatorBase {
 
 	private final DateTimeFormatter zonedDateTimeFormat = DateTimeFormatter.ofPattern(InterfaceConstants.GeneralProperties.ZONED_DATE_TIME_FORMAT);
 
