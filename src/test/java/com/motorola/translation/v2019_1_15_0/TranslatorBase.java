@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Unit test for verify translator.
  */
-class TranslatorBase {
+public class TranslatorBase {
 
 	private static final Logger LOGGER = LogManager.getLogger(TranslatorBase.class);
 
