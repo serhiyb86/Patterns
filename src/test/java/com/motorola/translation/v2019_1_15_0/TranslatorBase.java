@@ -19,9 +19,9 @@ import org.apache.logging.log4j.Logger;
 /**
  * Unit test for verify translator.
  */
-public class TranslatorTest {
+public class TranslatorBase {
 
-	private static final Logger LOGGER = LogManager.getLogger(TranslatorTest.class);
+	private static final Logger LOGGER = LogManager.getLogger(TranslatorBase.class);
 
 	private final BaseTranslator translator = new TranslatorsFactory().getTranslator(InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0);
 
@@ -30,9 +30,9 @@ public class TranslatorTest {
 		//  read the file input for current translator version (2019.1)
 		String path = InterfaceConstants.GeneralProperties.VERSION_2019_1_15_0 + "/" + inputName;
 		File file = getResourceFile(path);
-		JsonParser parser = new JsonParser();
+
 		try {
-			result = (JsonObject) parser.parse(new FileReader(file));
+			result = (JsonObject) JsonParser.parseReader(new FileReader(file));
 		}
 		catch (FileNotFoundException ex) {
 			LOGGER.error("Parsing input json file error.");

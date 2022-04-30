@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Contains unit tests related to the BookOff translation.
  */
-public class BookOffTranslatorTest extends TranslatorTest {
+public class BookOffTranslatorTest extends TranslatorBase {
 
 	private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(Config.DATETIME_FORMAT);
 

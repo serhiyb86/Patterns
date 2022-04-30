@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Contains unit tests related to the Error translation.
  */
-public class ErrorTranslatorTest extends TranslatorTest {
+public class ErrorTranslatorTest extends TranslatorBase {
 
 	private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern(Config.DATETIME_FORMAT);
 
