@@ -61,15 +61,19 @@
     </build>
 
     <properties>
-        <version.log4j2>2.17.2</version.log4j2>
+        <version.log4j2>2.18.0</version.log4j2>
         <version.org.javax>4.0.1</version.org.javax>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.com.google.code.gson>2.9.0</version.com.google.code.gson>
+        <version.com.google.code.gson>2.9.1</version.com.google.code.gson>
         <version.commons.io>2.11.0</version.commons.io>
         <version.junit>4.13.2</version.junit>
         <version.commons-lang3>3.12.0</version.commons-lang3>
-        <jersey-version>2.35</jersey-version>
+        <jersey-version>2.36</jersey-version>
         <jackson-version>2.12.5</jackson-version>
+        <com.github.joschi.jackson>2.12.5</com.github.joschi.jackson>
+        <version.com.brsanthu>2.2</version.com.brsanthu>
+        <version.org.owasp.encoder>1.2.3</version.org.owasp.encoder>
+        <version.com.mikesamuel>1.2.3</version.com.mikesamuel>
         <sonar.coverage.jacoco.xmlReportPaths>../target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
@@ -149,23 +153,23 @@
         <dependency>
             <groupId>com.github.joschi.jackson</groupId>
             <artifactId>jackson-datatype-threetenbp</artifactId>
-            <version>${jackson-version}</version>
+            <version>${com.github.joschi.jackson}</version>
         </dependency>
         <!-- Base64 encoding that works in both JVM and Android -->
         <dependency>
             <groupId>com.brsanthu</groupId>
             <artifactId>migbase64</artifactId>
-            <version>2.2</version>
+            <version>${version.com.brsanthu}</version>
         </dependency>
          <dependency>
             <groupId>org.owasp.encoder</groupId>
             <artifactId>encoder</artifactId>
-            <version>1.2.3</version>
+            <version>${version.org.owasp.encoder}</version>
         </dependency>
         <dependency>
             <groupId>com.mikesamuel</groupId>
             <artifactId>json-sanitizer</artifactId>
-            <version>1.2.3</version>
+            <version>${version.com.mikesamuel}</version>
         </dependency>
     </dependencies>
 
