@@ -69,8 +69,8 @@
         <version.junit>4.13.2</version.junit>
         <version.commons-lang3>3.12.0</version.commons-lang3>
         <jersey-version>2.36</jersey-version>
-        <jackson-version>2.13.3</jackson-version>
-        <com.github.joschi.jackson>2.13.0-rc2</com.github.joschi.jackson>
+        <jackson-version>2.12.5</jackson-version>
+        <com.github.joschi.jackson>2.12.5</com.github.joschi.jackson>
         <version.com.brsanthu>2.2</version.com.brsanthu>
         <version.org.owasp.encoder>1.2.3</version.org.owasp.encoder>
         <version.com.mikesamuel>1.2.3</version.com.mikesamuel>
