@@ -1,2 +1,3 @@
 one more time to study:
 bridge
+proxy, rmi - more deeply

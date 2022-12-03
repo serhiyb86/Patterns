@@ -1,8 +1,10 @@
 package structural.proxy.remoteprotection.protectionproxy;
 
+import structural.proxy.remoteproxy.ReportGenerator;
+
 import java.rmi.Naming;
 
-import com.javacodegeeks.patterns.proxypattern.remoteproxy.ReportGenerator;
+
 
 public class ReportGeneratorProtectionProxy implements ReportGeneratorProxy{
 
